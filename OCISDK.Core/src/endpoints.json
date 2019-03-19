@@ -1,0 +1,51 @@
+﻿{
+  "regionShortNames": {
+    "phx": "us-phoenix-1",
+    "iad": "us-ashburn-1",
+    "fra": "eu-frankfurt-1",
+    "lhr": "uk-london-1",
+    "yyz": "ca-toronto-1"
+  },
+  "services": {
+    "core": {
+      "version": "20160918",
+      "endpoints": {
+        "ca-toronto-1": {
+          "hostname": "iaas.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "iaas.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "iaas.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "iaas.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "iaas.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "identity": {
+      "version": "20160918",
+      "endpoints": {
+        "ca-toronto-1": {
+          "hostname": "identity.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "identity.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "identity.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "identity.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "identity.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+[DEFAULT]
+tenancy=ocid1.tenancy.oc1..test
+user=ocid1.user.oc1..test
+fingerprint=1a:2b:3c:4d:5e:6f
+key_file=~/.oci/api_key.pem
+custom_compartment_id=ocid1.compartment.oc1..test
+
+[myProfile]
+tenancy=ocid1.tenancy.oc1..test
+user=ocid1.user.oc1..myProfile
+fingerprint=7g:8h:9i:0j:1k:2l
+key_file=~/.oci/my_key.pem
+custom_compartment_id=ocid1.compartment.oc1..Mytest

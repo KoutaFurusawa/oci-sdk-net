@@ -1,0 +1,25 @@
+################################################################################
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+################################################################################
+
+/.vs
+*.htm
+/OCISDK.Core/obj
+/Backup
+OCISDK.Core/bin/
+OCISDK.Test/bin/
+Test/obj/
+OCISDK.Test/obj/
+Example/bin/Debug/netcoreapp2.2/Example.deps.json
+Example/bin/Debug/netcoreapp2.2/Example.runtimeconfig.json
+Example/bin/Debug/netcoreapp2.2/Example.runtimeconfig.dev.json
+Example/bin/Debug/netcoreapp2.2/src/endpoints.json
+Example/obj/Debug/netcoreapp2.2/Example.csproj.CopyComplete
+Example/obj/Debug/netcoreapp2.2/Example.csproj.FileListAbsolute.txt
+Example/ExampleConfig.Development.json
+Example/bin/Debug/netcoreapp2.2/ExampleConfig.Development.json
+OCISDK.Test/Core/VirtualNetworkClientTest.cs
+Example/bin/
+/OCISDK.Example/OCISDK.Example/bin
+/OCISDK.Example/OCISDK.Example/obj
+Example/obj/

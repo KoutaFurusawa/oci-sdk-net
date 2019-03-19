@@ -1,0 +1,34 @@
+﻿/// <summary>
+/// AvailabilityDomain Reference
+/// One or more isolated, fault-tolerant Oracle data centers that host cloud resources such as instances, 
+/// volumes, and subnets. A region contains several Availability Domains. For more information, see Regions 
+/// and Availability Domains.
+/// 
+/// author: koutaro furusawa
+/// </summary>
+
+using Newtonsoft.Json;
+
+namespace OCISDK.Core.src.Identity.Model
+{
+    public class AvailabilityDomain
+    {
+        /// <summary>
+        /// The OCID of the Availability Domain.
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// The OCID of the tenancy.
+        /// </summary>
+        [JsonProperty("compartmentId")]
+        public string CompartmentId { get; set; }
+
+        /// <summary>
+        /// The name of the Availability Domain.
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+}

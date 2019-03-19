@@ -1,0 +1,21 @@
+﻿/// <summary>
+/// OCI Class
+/// 
+/// author: koutaro furusawa
+/// </summary>
+using System.Text.RegularExpressions;
+
+namespace OCISDK.Core.src.Common
+{
+    public class OCID
+    {
+        // pattern is relaxed other than the required
+        private static readonly Regex OCID_PATTERN = new Regex("^([0-9a-zA-Z-_]+[.:])([0-9a-zA-Z-_]*[.:]){3,}([0-9a-zA-Z-_]+)$", 
+            RegexOptions.Compiled);
+
+        public static bool IsValid(string ocid)
+        {
+            return OCID_PATTERN.IsMatch(ocid);
+        }
+    }
+}
