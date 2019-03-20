@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace OCISDK.Core.src
 {
@@ -55,27 +56,23 @@ namespace OCISDK.Core.src
             }
         }
 
-        private const string ConfigFileName = "src/endpoints.json";
-
         protected EndpointConfig EndPoint;
 
         public ClientConfig()
         {
+            var endpoints = Encoding.UTF8.GetString(Properties.Resources.endpoints);
+
             JsonSerializer serializer = new JsonSerializer();
-            string assemblyLocation = typeof(ClientConfig).Assembly.Location;
-            string endpointsPath = Path.Combine(Path.GetDirectoryName(assemblyLocation), ConfigFileName);
-            if (File.Exists(endpointsPath))
+
+            var stream = new MemoryStream(Properties.Resources.endpoints);
+            using (StreamReader sr = new StreamReader(stream))
+            using (JsonReader reader = new JsonTextReader(sr))
             {
-                using (FileStream s = File.Open(endpointsPath, FileMode.Open))
-                using (StreamReader sr = new StreamReader(s))
-                using (JsonReader reader = new JsonTextReader(sr))
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    if (reader.TokenType == JsonToken.StartObject)
                     {
-                        if (reader.TokenType == JsonToken.StartObject)
-                        {
-                            EndPoint = serializer.Deserialize<EndpointConfig>(reader);
-                        }
+                        EndPoint = serializer.Deserialize<EndpointConfig>(reader);
                     }
                 }
             }
