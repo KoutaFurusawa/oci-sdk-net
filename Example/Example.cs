@@ -102,6 +102,7 @@ namespace Example
                 Console.WriteLine("[3]: Display VirtualNetwork List Example");
                 Console.WriteLine("[4]: Display Instance List Example");
                 Console.WriteLine("[5]: Display BootVolume List Example");
+                Console.WriteLine("[6]: Display Audit List Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
 
@@ -118,7 +119,7 @@ namespace Example
                     Console.WriteLine("Incorrect input...");
                     continue;
                 }
-                if (mode <= 0 || mode > 5)
+                if (mode <= 0 || mode > 6)
                 {
                     Console.WriteLine("Incorrect input...");
                     continue;
@@ -149,6 +150,12 @@ namespace Example
                 if (mode == 1 || mode == 5)
                 {
                     BlockStorageExample.BootVolumeConsoleDisplay(config);
+                }
+
+                // Audit
+                if (mode == 1 || mode == 6)
+                {
+                    AuditExample.AuditDisplay(config);
                 }
             }
         }

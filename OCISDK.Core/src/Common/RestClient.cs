@@ -24,7 +24,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Get(Uri targetUri) 
+        public HttpWebResponse Get(Uri targetUri, string opcRequestId = "") 
         {
             var attempts = 0;
             HttpWebResponse response = new HttpWebResponse();
@@ -33,6 +33,11 @@ namespace OCISDK.Core.src.Common
                 var request = (HttpWebRequest)WebRequest.Create(targetUri);
                 request.Method = "GET";
                 request.Accept = "application/json";
+
+                if (!String.IsNullOrEmpty(opcRequestId))
+                {
+                    request.Headers["opc-request-id"] = opcRequestId;
+                }
 
                 if (Config.Timeout.HasValue)
                 {
