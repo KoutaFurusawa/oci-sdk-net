@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace OCISDK.Core.src
 {
@@ -42,10 +41,12 @@ namespace OCISDK.Core.src
         /// <summary>
         /// request retry max count. min:1, defoult:3
         /// </summary>
-        public int MaxErrorRetry {
+        public int MaxErrorRetry
+        {
             get { return _maxErrorRetry; }
-            set {
-                if(value >= 1)
+            set
+            {
+                if (value >= 1)
                 {
                     _maxErrorRetry = value;
                 }
@@ -56,29 +57,32 @@ namespace OCISDK.Core.src
             }
         }
 
+        private const string ConfigFileName = "src/endpoints.json";
+
         protected EndpointConfig EndPoint;
 
         public ClientConfig()
         {
-            var endpoints = Encoding.UTF8.GetString(Properties.Resources.endpoints);
-
             JsonSerializer serializer = new JsonSerializer();
-
-            var stream = new MemoryStream(Properties.Resources.endpoints);
-            using (StreamReader sr = new StreamReader(stream))
-            using (JsonReader reader = new JsonTextReader(sr))
+            string assemblyLocation = typeof(ClientConfig).Assembly.Location;
+            string endpointsPath = Path.Combine(Path.GetDirectoryName(assemblyLocation), ConfigFileName);
+            if (File.Exists(endpointsPath))
             {
-                while (reader.Read())
+                using (StreamReader sr = new StreamReader(endpointsPath))
+                using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    if (reader.TokenType == JsonToken.StartObject)
+                    while (reader.Read())
                     {
-                        EndPoint = serializer.Deserialize<EndpointConfig>(reader);
+                        if (reader.TokenType == JsonToken.StartObject)
+                        {
+                            EndPoint = serializer.Deserialize<EndpointConfig>(reader);
+                        }
                     }
                 }
             }
         }
 
-       public virtual bool ContainRegion(string regionName)
+        public virtual bool ContainRegion(string regionName)
         {
             return EndPoint.RegionShortNames.Values.Contains(regionName);
         }
@@ -87,12 +91,12 @@ namespace OCISDK.Core.src
         {
             return EndPoint.RegionShortNames[regionShortName.ToLower()];
         }
-        
+
         public virtual string GetServiceVersion(string serviceName)
         {
             return EndPoint.Services[serviceName].Version;
         }
-        
+
         public virtual string GetHostName(string serviceName, string region)
         {
             return EndPoint.Services[serviceName].Endpoints[region].Hostname;
@@ -112,7 +116,7 @@ namespace OCISDK.Core.src
     {
         [JsonProperty("version")]
         public string Version { get; set; }
-        
+
         [JsonProperty("endpoints")]
         public IDictionary<string, Endpoint> Endpoints;
     }

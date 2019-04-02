@@ -32,7 +32,7 @@ namespace Example
             }
             else
             {
-                configPath = $"~/{configPath}";
+                configPath = $"/home/user/{configPath}";
             }
 
             string profile;
