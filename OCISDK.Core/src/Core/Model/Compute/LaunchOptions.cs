@@ -46,12 +46,12 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// The default value is false.
         /// <para>Required: no</para>
         /// </summary>
-        public bool IsPvEncryptionInTransitEnabled { get; set; }
+        public bool? IsPvEncryptionInTransitEnabled { get; set; }
 
         /// <summary>
         /// Whether to enable consistent volume naming feature. Defaults to false.
         /// <para>Required: no</para>
         /// </summary>
-        public bool IsConsistentVolumeNamingEnabled { get; set; }
+        public bool? IsConsistentVolumeNamingEnabled { get; set; }
     }
 }
