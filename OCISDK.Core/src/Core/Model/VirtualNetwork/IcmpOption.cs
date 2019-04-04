@@ -3,7 +3,7 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
+
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
@@ -18,10 +18,8 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class IcmpOption
     {
-        [JsonProperty("code")]
         public virtual int Code { get; set; }
-
-        [JsonProperty("type")]
+        
         public virtual int Type { get; set; }
     }
 }

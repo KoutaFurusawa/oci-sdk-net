@@ -3,7 +3,7 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
+
 using System;
 
 namespace OCISDK.Core.src.Audit.Model
@@ -19,7 +19,6 @@ namespace OCISDK.Core.src.Audit.Model
         /// <para>Required: no</para>
         /// <para>Minimum: 90, Maximum: 365</para>
         /// </summary>
-        [JsonProperty("retentionPeriodDays")]
         public int RetentionPeriodDays { get; set; }
     }
 }

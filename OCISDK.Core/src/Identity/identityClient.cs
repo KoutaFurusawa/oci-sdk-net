@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;
@@ -24,7 +24,7 @@ namespace OCISDK.Core.src.Identity
             set
             {
                 // the region is not null and registered to endpoints.json
-                if (!String.IsNullOrEmpty(value) && Config.ContainRegion(value))
+                if (!string.IsNullOrEmpty(value) && Config.ContainRegion(value))
                 {
                     _region = value;
                 }
@@ -47,7 +47,8 @@ namespace OCISDK.Core.src.Identity
             this.RestClient = new RestClient()
             {
                 Signer = Signer,
-                Config = config
+                Config = config,
+                JsonSerializer = JsonSerializer
             };
         }
 
@@ -68,7 +69,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new GetTenancyResponse()
                 {
-                    Tenancy = JsonConvert.DeserializeObject<Tenancy>(response),
+                    Tenancy = JsonSerializer.Deserialize<Tenancy>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -96,7 +97,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new GetTagNamespaceResponse()
                 {
-                    TagNamespace = JsonConvert.DeserializeObject<TagNamespace>(response),
+                    TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -124,7 +125,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new ListCompartmentResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Compartment>>(response),
+                    Items = JsonSerializer.Deserialize<List<Compartment>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -157,7 +158,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new ListAvailabilityDomainsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<AvailabilityDomain>>(response),
+                    Items = JsonSerializer.Deserialize<List<AvailabilityDomain>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -185,7 +186,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new ListTagNamespacesResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<TagNamespaceSummary>>(response),
+                    Items = JsonSerializer.Deserialize<List<TagNamespaceSummary>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -216,7 +217,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new ListCostTrackingTagsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Tag>>(response),
+                    Items = JsonSerializer.Deserialize<List<Tag>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -245,7 +246,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new ListTagsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<TagSummary>>(response),
+                    Items = JsonSerializer.Deserialize<List<TagSummary>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -273,7 +274,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new ListTagDefaultsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<TagDefaultSummary>>(response),
+                    Items = JsonSerializer.Deserialize<List<TagDefaultSummary>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -301,7 +302,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new GetCompartmentResponse()
                 {
-                    Compartment = JsonConvert.DeserializeObject<Compartment>(response),
+                    Compartment = JsonSerializer.Deserialize<Compartment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -331,7 +332,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new GetTagResponse()
                 {
-                    Tag = JsonConvert.DeserializeObject<Tag>(response),
+                    Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -359,7 +360,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new GetTagDefaultResponse()
                 {
-                    TagDefault = JsonConvert.DeserializeObject<TagDefault>(response),
+                    TagDefault = JsonSerializer.Deserialize<TagDefault>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -387,7 +388,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new CreateCompartmentResponse()
                 {
-                    Compartment = JsonConvert.DeserializeObject<Compartment>(response),
+                    Compartment = JsonSerializer.Deserialize<Compartment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -404,7 +405,7 @@ namespace OCISDK.Core.src.Identity
         /// </summary>
         /// <param name="createRequest"></param>
         /// <returns></returns>
-        CreateTagNamespaceResponse CreateTagNamespace(CreateTagNamespaceRequest createRequest)
+        public CreateTagNamespaceResponse CreateTagNamespace(CreateTagNamespaceRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(IdentityServices.TagNamespaces, this.Region));
 
@@ -416,7 +417,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new CreateTagNamespaceResponse()
                 {
-                    TagNamespace = JsonConvert.DeserializeObject<TagNamespace>(response),
+                    TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -451,7 +452,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new CreateTagResponse()
                 {
-                    Tag = JsonConvert.DeserializeObject<Tag>(response),
+                    Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -509,7 +510,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new UpdateCompartmentResponse()
                 {
-                    Compartment = JsonConvert.DeserializeObject<Compartment>(response),
+                    Compartment = JsonSerializer.Deserialize<Compartment>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -545,7 +546,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new UpdateTagNamespaceResponse()
                 {
-                    TagNamespace = JsonConvert.DeserializeObject<TagNamespace>(response),
+                    TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -574,7 +575,7 @@ namespace OCISDK.Core.src.Identity
 
                 return new UpdateTagResponse()
                 {
-                    Tag = JsonConvert.DeserializeObject<Tag>(response),
+                    Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }

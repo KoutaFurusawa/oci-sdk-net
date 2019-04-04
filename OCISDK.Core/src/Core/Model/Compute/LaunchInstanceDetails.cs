@@ -3,7 +3,6 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
 using OCISDK.Core.src.Core.Model.VirtualNetwork;
 using System.Collections.Generic;
 
@@ -15,34 +14,29 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("availabilityDomain")]
         public string AvailabilityDomain { get; set; }
 
         /// <summary>
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("compartmentId")]
         public string CompartmentId { get; set; }
 
         /// <summary>
         /// Details for creating a new VNIC.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("createVnicDetails")]
         public CreateVnicDetails CreateVnicDetails { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("extendedMetadata")]
         public object ExtendedMetadata { get; set; }
 
         /// <summary>
@@ -54,7 +48,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("faultDomain")]
         public string FaultDomain { get; set; }
 
         /// <summary>
@@ -62,41 +55,35 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 63</para>
         /// </summary>
-        [JsonProperty("hostnameLabel")]
         public string HostnameLabel { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("imageId")]
         public string ImageId { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 10240</para>
         /// </summary>
-        [JsonProperty("ipxeScript")]
         public string IpxeScript { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("metadata")]
         public object Metadata { get; set; }
 
         /// <summary>
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("shape")]
         public string Shape { get; set; }
         
         /// <summary>
         /// Details for creating an instance
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("sourceDetails")]
         public InstanceSourceDetails SourceDetails { get; set; }
 
         /// <summary>
@@ -105,7 +92,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("subnetId")]
         public string SubnetId { get; set; }
 
         /// <summary>
@@ -113,19 +99,16 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// The default value is false.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("isPvEncryptionInTransitEnabled")]
         public bool IsPvEncryptionInTransitEnabled { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

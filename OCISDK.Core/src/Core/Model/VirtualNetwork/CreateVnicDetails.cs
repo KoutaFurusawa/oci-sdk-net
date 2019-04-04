@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
@@ -21,14 +21,12 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// If set to true and prohibitPublicIpOnVnic = true, an error is returned.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("assignPublicIp")]
         public bool AssignPublicIp { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -42,7 +40,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 63</para>
         /// </summary>
-        [JsonProperty("hostnameLabel")]
         public string HostnameLabel { get; set; }
 
         /// <summary>
@@ -56,7 +53,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 46</para>
         /// </summary>
-        [JsonProperty("privateIp")]
         public string PrivateIp { get; set; }
 
         /// <summary>
@@ -65,7 +61,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// the source/destination check, see Using a Private IP as a Route Target.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("skipSourceDestCheck")]
         public bool SkipSourceDestCheck { get; set; }
 
         /// <summary>
@@ -76,19 +71,16 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("subnetId")]
         public string SubnetId { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

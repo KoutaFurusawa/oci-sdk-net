@@ -4,7 +4,8 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
+using OCISDK.Core.src.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,7 @@ namespace OCISDK.Core.src
 
         /// <summary> private key password </summary>
         public string PrivateKeyPassphrase { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the time-out value in milliseconds for the 
         /// System.Net.HttpWebRequest.GetResponse and System.Net.HttpWebRequest.GetRequestStream methods.
@@ -63,21 +64,15 @@ namespace OCISDK.Core.src
 
         public ClientConfig()
         {
-            JsonSerializer serializer = new JsonSerializer();
+            var jsonSerializer = new JsonDefaultSerializer();
             string assemblyLocation = typeof(ClientConfig).Assembly.Location;
             string endpointsPath = Path.Combine(Path.GetDirectoryName(assemblyLocation), ConfigFileName);
             if (File.Exists(endpointsPath))
             {
                 using (StreamReader sr = new StreamReader(endpointsPath))
-                using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    while (reader.Read())
-                    {
-                        if (reader.TokenType == JsonToken.StartObject)
-                        {
-                            EndPoint = serializer.Deserialize<EndpointConfig>(reader);
-                        }
-                    }
+                    string endp = sr.ReadToEnd();
+                    EndPoint = jsonSerializer.Deserialize<EndpointConfig>(endp);
                 }
             }
         }
@@ -105,25 +100,20 @@ namespace OCISDK.Core.src
 
     public class EndpointConfig
     {
-        [JsonProperty("regionShortNames")]
         public IDictionary<string, string> RegionShortNames { get; set; }
-
-        [JsonProperty("services")]
+        
         public IDictionary<string, ServiceConfigs> Services { get; set; }
     }
 
     public class ServiceConfigs
     {
-        [JsonProperty("version")]
         public string Version { get; set; }
-
-        [JsonProperty("endpoints")]
+        
         public IDictionary<string, Endpoint> Endpoints;
     }
 
     public class Endpoint
     {
-        [JsonProperty("hostname")]
         public string Hostname { get; set; }
     }
 }

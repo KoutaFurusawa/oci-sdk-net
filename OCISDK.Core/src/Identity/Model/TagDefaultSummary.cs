@@ -5,7 +5,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 
 namespace OCISDK.Core.src.Identity.Model
 {
@@ -15,7 +15,6 @@ namespace OCISDK.Core.src.Identity.Model
         /// The OCID of the tag namespace.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
@@ -24,42 +23,36 @@ namespace OCISDK.Core.src.Identity.Model
         /// are not tagged.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("compartmentId")]
         public string CompartmentId { get; set; }
 
         /// <summary>
         /// The OCID of the tag namespace that contains the tag definition.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("tagNamespaceId")]
         public string TagNamespaceId { get; set; }
 
         /// <summary>
         /// The OCID of the tag definition. The tag default will always assign a default value for this tag definition.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("tagDefinitionId")]
         public string TagDefinitionId { get; set; }
 
         /// <summary>
         /// The name used in the tag definition. This field is informational in the context of the tag default.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("tagDefinitionName")]
         public string TagDefinitionName { get; set; }
 
         /// <summary>
         /// The default value for the tag definition. This will be applied to all resources created in the compartment.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("value")]
         public string Value { get; set; }
 
         /// <summary>
         /// Date and time the tag namespace was created, in the format defined by RFC3339. Example: 2016-08-25T21:10:29.600Z
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("timeCreated")]
         public string TimeCreated { get; set; }
 
         /// <summary>
@@ -69,7 +62,6 @@ namespace OCISDK.Core.src.Identity.Model
         /// ACTIVE
         /// </para>
         /// </summary>
-        [JsonProperty("lifecycleState")]
         public string LifecycleState { get; set; }
     }
 }

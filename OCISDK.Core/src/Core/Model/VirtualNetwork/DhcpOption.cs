@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using OCISDK.Core.src.Common;
 using System.Collections.Generic;
 
@@ -21,7 +21,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// Either DomainNameServer (for DhcpDnsOption) or SearchDomain (for DhcpSearchDomainOption).
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("type")]
         public string Type { get; set; }
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// VcnLocalPlusInternet,
         /// CustomDnsServer</para>
         /// </summary>
-        [JsonProperty("serverType")]
         public string ServerType { get; set; }
 
         /// <summary>
@@ -62,7 +60,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// server of your choice (three maximum).
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("customDnsServers")]
         public List<string> CustomDnsServers { get; set; }
 
         /// <summary>
@@ -70,7 +67,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// OS will append this search domain name to the value being queried.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("searchDomainNames")]
         public List<string> SearchDomainNames { get; set; }
     }
 }

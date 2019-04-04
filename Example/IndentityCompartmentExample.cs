@@ -1,6 +1,7 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;
 using System;
 

@@ -11,7 +11,7 @@
 /// </summary>
 
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
@@ -22,14 +22,12 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Maximum: 255</para>
         /// </summary>
-        [JsonProperty("availabilityDomain")]
         public string AvailabilityDomain { get; set; }
 
         /// <summary>
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("compartmentId")]
         public string CompartmentId { get; set; }
 
         /// <summary>
@@ -37,7 +35,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -49,7 +46,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Minimum: 1</para>
         /// <para>Maximum: 63</para>
         /// </summary>
-        [JsonProperty("hostnameLabel")]
         public string HostnameLabel { get; set; }
 
         /// <summary>
@@ -58,7 +54,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Minimum: 1</para>
         /// <para>Maximum: 255</para>
         /// </summary>
-        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
@@ -66,7 +61,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// instance launch).
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("isPrimary")]
         public bool IsPrimary { get; set; }
 
         /// <summary>
@@ -75,7 +69,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// PROVISIONING, AVAILABLE, TERMINATING, TERMINATED
         /// </para>
         /// </summary>
-        [JsonProperty("lifecycleState")]
         public string LifecycleState { get; set; }
 
         /// <summary>
@@ -84,7 +77,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Minimum: 1</para>
         /// <para>Maximum: 32</para>
         /// </summary>
-        [JsonProperty("macAddress")]
         public string MacAddress { get; set; }
 
         /// <summary>
@@ -92,14 +84,12 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// The address is within the CIDR of the VNIC's subnet.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("privateIp")]
         public string PrivateIp { get; set; }
 
         /// <summary>
         /// The public IP address of the VNIC, if one is assigned.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("publicIp")]
         public string PublicIp { get; set; }
 
         /// <summary>
@@ -108,7 +98,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// skip the source/destination check, see Using a Private IP as a Route Target.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("skipSourceDestCheck")]
         public bool SkipSourceDestCheck { get; set; }
 
         /// <summary>
@@ -117,26 +106,22 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Minimum: 1</para>
         /// <para>Maximum: 255</para>
         /// </summary>
-        [JsonProperty("subnetId")]
         public string SubnetId { get; set; }
 
         /// <summary>
         /// The date and time the VNIC was created, in the format defined by RFC3339.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("timeCreated")]
         public string TimeCreated { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

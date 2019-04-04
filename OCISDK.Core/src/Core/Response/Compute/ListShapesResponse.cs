@@ -28,6 +28,6 @@ namespace OCISDK.Core.src.Core.Response.Compute
         /// <summary>
         /// The response body will contain an array of Instance resources.
         /// </summary>
-        public List<Shape> Items { get; set; }
+        public List<ShapeModel> Items { get; set; }
     }
 }

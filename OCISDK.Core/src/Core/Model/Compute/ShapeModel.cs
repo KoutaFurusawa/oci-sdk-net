@@ -5,17 +5,14 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
-
 namespace OCISDK.Core.src.Core.Model.Compute
 {
-    public class Shape
+    public class ShapeModel
     {
         /// <summary>
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("availabilityDomain")]
         public string AvailabilityDomain { get; set; }
 
         /// <summary>
@@ -23,7 +20,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("shape")]
-        public string ShapeName { get; set; }
+        public string Shape { get; set; }
     }
 }

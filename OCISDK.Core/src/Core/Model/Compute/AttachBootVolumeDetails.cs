@@ -3,8 +3,6 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
-
 namespace OCISDK.Core.src.Core.Model.Compute
 {
     public class AttachBootVolumeDetails
@@ -13,14 +11,12 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("bootVolumeId")]
         public string BootVolumeId { get; set; }
 
         /// <summary>
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("instanceId")]
         public string InstanceId { get; set; }
 
         /// <summary>
@@ -29,7 +25,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
     }
 }

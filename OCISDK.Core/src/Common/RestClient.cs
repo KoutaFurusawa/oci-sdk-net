@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using System;
 using System.IO;
 using System.Net;
@@ -18,6 +18,8 @@ namespace OCISDK.Core.src.Common
         public Signer Signer { get; set; }
 
         public ClientConfig Config { get; set; }
+
+        public IJsonSerializer JsonSerializer { get; set; }
 
         /// <summary>
         /// Request a resource asynchronously.
@@ -100,9 +102,7 @@ namespace OCISDK.Core.src.Common
 
                 if (requestBody != null)
                 {
-                    var body = JsonConvert.SerializeObject(
-                        requestBody, 
-                        new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                    var body = JsonSerializer.Serialize(requestBody);
 
                     var bytes = Encoding.UTF8.GetBytes(body);
 
@@ -174,9 +174,7 @@ namespace OCISDK.Core.src.Common
 
                 if (requestBody != null)
                 {
-                    var body = JsonConvert.SerializeObject(
-                        requestBody,
-                        new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                    var body = JsonSerializer.Serialize(requestBody);
 
                     var bytes = Encoding.UTF8.GetBytes(body);
 
@@ -240,9 +238,7 @@ namespace OCISDK.Core.src.Common
 
                 if (requestBody != null)
                 {
-                    var body = JsonConvert.SerializeObject(
-                        requestBody,
-                        new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                    var body = JsonSerializer.Serialize(requestBody);
 
                     var bytes = Encoding.UTF8.GetBytes(body);
 

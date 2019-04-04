@@ -3,7 +3,7 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
+
 using System;
 
 namespace OCISDK.Core.src.Audit.Model
@@ -17,7 +17,6 @@ namespace OCISDK.Core.src.Audit.Model
         /// The retention period setting, specified in days. The minimum is 90, the maximum 365.
         /// </summary>
         /// <example>90</example>
-        [JsonProperty("retentionPeriodDays")]
         public int RetentionPeriodDays { get; set; }
     }
 }

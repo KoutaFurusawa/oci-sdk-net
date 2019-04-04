@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
@@ -15,10 +15,8 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class PortRange
     {
-        [JsonProperty("max")]
         public virtual int Max { get; set; }
-
-        [JsonProperty("min")]
+        
         public virtual int Min { get; set; }
     }
 }

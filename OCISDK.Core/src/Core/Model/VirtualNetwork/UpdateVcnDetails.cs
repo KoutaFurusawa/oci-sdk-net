@@ -3,7 +3,7 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
+
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
@@ -16,7 +16,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

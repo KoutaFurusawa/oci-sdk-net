@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using OCISDK.Core.src.Audit.Model;
 using OCISDK.Core.src.Audit.Request;
 using OCISDK.Core.src.Audit.Response;
@@ -46,7 +46,8 @@ namespace OCISDK.Core.src.Audit
             this.RestClient = new RestClient()
             {
                 Signer = Signer,
-                Config = config
+                Config = config,
+                JsonSerializer = JsonSerializer
             };
         }
 
@@ -57,7 +58,8 @@ namespace OCISDK.Core.src.Audit
             this.RestClient = new RestClient()
             {
                 Signer = Signer,
-                Config = config
+                Config = config,
+                JsonSerializer = JsonSerializer
             };
 
             RestClient = restClient;
@@ -82,7 +84,7 @@ namespace OCISDK.Core.src.Audit
 
                 return new ListEventsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<AuditEvent>>(response),
+                    Items = JsonSerializer.Deserialize<List<AuditEvent>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -110,7 +112,7 @@ namespace OCISDK.Core.src.Audit
 
                 return new GetConfigurationResponse()
                 {
-                    Configuration = JsonConvert.DeserializeObject<Configuration>(response)
+                    Configuration = JsonSerializer.Deserialize<Configuration>(response)
                 };
             }
             catch (Exception)

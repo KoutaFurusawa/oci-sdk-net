@@ -14,37 +14,28 @@
 /// </summary>
 
 using System.Collections.Generic;
-using Newtonsoft.Json;
+
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
     public class DhcpOptions
     {
-        [JsonProperty("id")]
         public string Id { get; set; }
-
-        [JsonProperty("compartmentId")]
+        
         public string CompartmentId { get; set; }
-
-        [JsonProperty("vcnId")]
+        
         public string VcnId { get; set; }
-
-        [JsonProperty("displayName")]
+        
         public string DisplayName { get; set; }
-
-        [JsonProperty("lifecycleState")]
+        
         public string LifecycleState { get; set; }
-
-        [JsonProperty("timeCreated")]
+        
         public string TimeCreated { get; set; }
-
-        [JsonProperty("options")]
+        
         public List<DhcpOption> Options { get; set; }
-
-        [JsonProperty("freeformTags")]
+        
         public IDictionary<string, string> FreeformTags { get; set; }
-
-        [JsonProperty("definedTags")]
+        
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

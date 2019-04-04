@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Model.Blockstorage;
 using OCISDK.Core.src.Core.Request.Blockstorage;
@@ -46,20 +46,15 @@ namespace OCISDK.Core.src.Core
             this.RestClient = new RestClient()
             {
                 Signer = Signer,
-                Config = config
+                Config = config,
+                JsonSerializer = JsonSerializer
             };
         }
 
         public BlockstorageClient(ClientConfig config, RestClient restClient) : base(config)
         {
             ServiceName = "core";
-
-            this.RestClient = new RestClient()
-            {
-                Signer = Signer,
-                Config = config
-            };
-
+            
             RestClient = restClient;
         }
 
@@ -80,7 +75,7 @@ namespace OCISDK.Core.src.Core
 
                 return new ListBootVolumesResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<BootVolume>>(response),
+                    Items = JsonSerializer.Deserialize<List<BootVolume>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -111,7 +106,7 @@ namespace OCISDK.Core.src.Core
 
                 return new CreateBootVolumeResponse()
                 {
-                    BootVolume = JsonConvert.DeserializeObject<BootVolume>(response),
+                    BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -139,7 +134,7 @@ namespace OCISDK.Core.src.Core
 
                 return new UpdateBootVolumeResponse()
                 {
-                    BootVolume = JsonConvert.DeserializeObject<BootVolume>(response),
+                    BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -167,7 +162,7 @@ namespace OCISDK.Core.src.Core
 
                 return new GetBootVolumeResponse()
                 {
-                    BootVolume = JsonConvert.DeserializeObject<BootVolume>(response),
+                    BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

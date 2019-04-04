@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+
 using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core;
@@ -46,20 +46,15 @@ namespace OCISDK.Core
 
             this.RestClient = new RestClient() {
                 Signer = Signer,
-                Config = config
+                Config = config,
+                JsonSerializer = JsonSerializer
             };
         }
 
         public VirtualNetworkClient(ClientConfig config, RestClient restClient) : base(config)
         {
             ServiceName = "core";
-
-            this.RestClient = new RestClient()
-            {
-                Signer = Signer,
-                Config = config
-            };
-
+            
             RestClient = restClient;
         }
 
@@ -82,7 +77,7 @@ namespace OCISDK.Core
 
                 return new ListDhcpResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<DhcpOptions>>(response),
+                    Items = JsonSerializer.Deserialize<List<DhcpOptions>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -112,7 +107,7 @@ namespace OCISDK.Core
 
                 return new ListRouteTableResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<RouteTable>>(response),
+                    Items = JsonSerializer.Deserialize<List<RouteTable>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -140,7 +135,7 @@ namespace OCISDK.Core
 
                 return new ListInternetGatewaysResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<InternetGateway>>(response),
+                    Items = JsonSerializer.Deserialize<List<InternetGateway>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -168,7 +163,7 @@ namespace OCISDK.Core
 
                 return new ListSecurityListsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<SecurityList>>(response),
+                    Items = JsonSerializer.Deserialize<List<SecurityList>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -196,7 +191,7 @@ namespace OCISDK.Core
 
                 return new ListVcnResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Vcn>>(response),
+                    Items = JsonSerializer.Deserialize<List<Vcn>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -224,7 +219,7 @@ namespace OCISDK.Core
 
                 return new ListSubnetsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Subnet>>(response),
+                    Items = JsonSerializer.Deserialize<List<Subnet>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -252,7 +247,7 @@ namespace OCISDK.Core
 
                 return new GetDhcpResponse()
                 {
-                    DhcpOptions = JsonConvert.DeserializeObject<DhcpOptions>(response),
+                    DhcpOptions = JsonSerializer.Deserialize<DhcpOptions>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -280,7 +275,7 @@ namespace OCISDK.Core
 
                 return new GetRouteTableResponse()
                 {
-                    RouteTable = JsonConvert.DeserializeObject<RouteTable>(response),
+                    RouteTable = JsonSerializer.Deserialize<RouteTable>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -308,7 +303,7 @@ namespace OCISDK.Core
 
                 return new GetInternetGatewayResponse()
                 {
-                    InternetGateway = JsonConvert.DeserializeObject<InternetGateway>(response),
+                    InternetGateway = JsonSerializer.Deserialize<InternetGateway>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -336,7 +331,7 @@ namespace OCISDK.Core
 
                 return new GetSecurityListRespons()
                 {
-                    SecurityList = JsonConvert.DeserializeObject<SecurityList>(response),
+                    SecurityList = JsonSerializer.Deserialize<SecurityList>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -364,7 +359,7 @@ namespace OCISDK.Core
 
                 return new GetVcnResponse()
                 {
-                    Vcn = JsonConvert.DeserializeObject<Vcn>(response),
+                    Vcn = JsonSerializer.Deserialize<Vcn>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -393,7 +388,7 @@ namespace OCISDK.Core
 
                 return new GetVnicResponse()
                 {
-                    Vnic = JsonConvert.DeserializeObject<Vnic>(response),
+                    Vnic = JsonSerializer.Deserialize<Vnic>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -421,7 +416,7 @@ namespace OCISDK.Core
 
                 return new GetSubnetResponse()
                 {
-                    Subnet = JsonConvert.DeserializeObject<Subnet>(response),
+                    Subnet = JsonSerializer.Deserialize<Subnet>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -449,7 +444,7 @@ namespace OCISDK.Core
 
                 return new CreateInternetGatewayResponse()
                 {
-                    InternetGateway = JsonConvert.DeserializeObject<InternetGateway>(response),
+                    InternetGateway = JsonSerializer.Deserialize<InternetGateway>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -477,7 +472,7 @@ namespace OCISDK.Core
 
                 return new CreateDhcpOptionsResponse()
                 {
-                    DhcpOptions = JsonConvert.DeserializeObject<DhcpOptions>(response),
+                    DhcpOptions = JsonSerializer.Deserialize<DhcpOptions>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -507,7 +502,7 @@ namespace OCISDK.Core
 
                 return new CreateSecurityListResponse()
                 {
-                    SecurityList = JsonConvert.DeserializeObject<SecurityList>(response),
+                    SecurityList = JsonSerializer.Deserialize<SecurityList>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -529,13 +524,13 @@ namespace OCISDK.Core
 
             try
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateVcnDetails, createRequest.OpcRetryToken);
+                var webResponse = this.RestClient.Post(uri, createRequest.CreateVcnDetails, createRequest.OpcRetryToken?? createRequest.OpcRetryToken);
 
                 var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
 
                 return new CreateVcnResponse()
                 {
-                    Vcn = JsonConvert.DeserializeObject<Vcn>(response),
+                    Vcn = JsonSerializer.Deserialize<Vcn>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -566,7 +561,7 @@ namespace OCISDK.Core
 
                 return new CreateSubnetResponse()
                 {
-                    Subnet = JsonConvert.DeserializeObject<Subnet>(response),
+                    Subnet = JsonSerializer.Deserialize<Subnet>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -594,7 +589,7 @@ namespace OCISDK.Core
 
                 return new UpdateVcnResponse()
                 {
-                    Vcn = JsonConvert.DeserializeObject<Vcn>(response),
+                    Vcn = JsonSerializer.Deserialize<Vcn>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -622,7 +617,7 @@ namespace OCISDK.Core
 
                 return new UpdateVnicResponse()
                 {
-                    Vnic = JsonConvert.DeserializeObject<Vnic>(response),
+                    Vnic = JsonSerializer.Deserialize<Vnic>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -652,7 +647,7 @@ namespace OCISDK.Core
 
                 return new UpdateInternetGatewayResponse()
                 {
-                    InternetGateway = JsonConvert.DeserializeObject<InternetGateway>(response),
+                    InternetGateway = JsonSerializer.Deserialize<InternetGateway>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -681,7 +676,7 @@ namespace OCISDK.Core
 
                 return new UpdateDhcpOptionsResponse()
                 {
-                    DhcpOptions = JsonConvert.DeserializeObject<DhcpOptions>(response),
+                    DhcpOptions = JsonSerializer.Deserialize<DhcpOptions>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -709,7 +704,7 @@ namespace OCISDK.Core
 
                 return new UpdateSecurityListResponse()
                 {
-                    SecurityList = JsonConvert.DeserializeObject<SecurityList>(response),
+                    SecurityList = JsonSerializer.Deserialize<SecurityList>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
@@ -737,7 +732,7 @@ namespace OCISDK.Core
 
                 return new UpdateSubnetResponse()
                 {
-                    Subnet = JsonConvert.DeserializeObject<Subnet>(response),
+                    Subnet = JsonSerializer.Deserialize<Subnet>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };

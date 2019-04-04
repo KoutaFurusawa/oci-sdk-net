@@ -9,7 +9,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
@@ -22,7 +22,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("availabilityDomain")]
         public string AvailabilityDomain { get; set; }
 
         /// <summary>
@@ -30,14 +29,12 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("cidrBlock")]
         public string CidrBlock { get; set; }
 
         /// <summary>
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("compartmentId")]
         public string CompartmentId { get; set; }
 
         /// <summary>
@@ -45,7 +42,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("dhcpOptionsId")]
         public string DhcpOptionsId { get; set; }
 
         /// <summary>
@@ -54,7 +50,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -65,7 +60,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 15</para>
         /// </summary>
-        [JsonProperty("dnsLabel")]
         public string DnsLabel { get; set; }
 
         /// <summary>
@@ -73,7 +67,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
@@ -87,7 +80,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// TERMINATED
         /// </para>
         /// </summary>
-        [JsonProperty("lifecycleState")]
         public string LifecycleState { get; set; }
 
         /// <summary>
@@ -99,7 +91,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// (that is, it's a private subnet).
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("prohibitPublicIpOnVnic")]
         public bool ProhibitPublicIpOnVnic { get; set; }
 
         /// <summary>
@@ -107,7 +98,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("routeTableId")]
         public string RouteTableId { get; set; }
 
         /// <summary>
@@ -116,7 +106,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// the individual VNICs in the subnet.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("securityListIds")]
         public List<string> SecurityListIds { get; set; }
 
         /// <summary>
@@ -125,14 +114,12 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 253</para>
         /// </summary>
-        [JsonProperty("subnetDomainName")]
         public string SubnetDomainName { get; set; }
 
         /// <summary>
         /// The date and time the instance was created, in the format defined by RFC3339.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("timeCreated")]
         public string TimeCreated { get; set; }
 
         /// <summary>
@@ -140,7 +127,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("vcnId")]
         public string VcnId { get; set; }
 
         /// <summary>
@@ -148,7 +134,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 32</para>
         /// </summary>
-        [JsonProperty("virtualRouterIp")]
         public string VirtualRouterIp { get; set; }
 
         /// <summary>
@@ -156,19 +141,16 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 32</para>
         /// </summary>
-        [JsonProperty("virtualRouterMac")]
         public string VirtualRouterMac { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

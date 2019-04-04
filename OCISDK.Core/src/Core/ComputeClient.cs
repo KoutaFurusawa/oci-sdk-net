@@ -4,7 +4,6 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Model.Compute;
 using OCISDK.Core.src.Core.Request.Compute;
@@ -82,7 +81,7 @@ namespace OCISDK.Core.src.Core
 
                 return new ListInstancesResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Instance>>(response),
+                    Items = this.JsonSerializer.Deserialize<List<Instance>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -113,12 +112,14 @@ namespace OCISDK.Core.src.Core
 
                 var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
 
-                return new ListImagesResponse()
+                var res = new ListImagesResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Image>>(response),
+                    Items = this.JsonSerializer.Deserialize<List<Image>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
+                
+                return res;
             }
             catch (Exception)
             {
@@ -145,7 +146,7 @@ namespace OCISDK.Core.src.Core
 
                 return new ListBootVolumeAttachmentsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<BootVolumeAttachment>>(response),
+                    Items = this.JsonSerializer.Deserialize<List<BootVolumeAttachment>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -174,7 +175,7 @@ namespace OCISDK.Core.src.Core
 
                 return new ListShapesResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<Shape>>(response),
+                    Items = this.JsonSerializer.Deserialize<List<ShapeModel>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -204,7 +205,7 @@ namespace OCISDK.Core.src.Core
 
                 return new ListVnicAttachmentsResponse()
                 {
-                    Items = JsonConvert.DeserializeObject<List<VnicAttachment>>(response),
+                    Items = this.JsonSerializer.Deserialize<List<VnicAttachment>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -232,7 +233,7 @@ namespace OCISDK.Core.src.Core
 
                 return new GetInstanceResponse()
                 {
-                    Instance = JsonConvert.DeserializeObject<Instance>(response),
+                    Instance = this.JsonSerializer.Deserialize<Instance>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -260,7 +261,7 @@ namespace OCISDK.Core.src.Core
 
                 return new GetImageResponse()
                 {
-                    Image = JsonConvert.DeserializeObject<Image>(response),
+                    Image = this.JsonSerializer.Deserialize<Image>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -288,7 +289,7 @@ namespace OCISDK.Core.src.Core
 
                 return new GetBootVolumeAttachmentResponse()
                 {
-                    Attachment = JsonConvert.DeserializeObject<BootVolumeAttachment>(response),
+                    Attachment = this.JsonSerializer.Deserialize<BootVolumeAttachment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -316,7 +317,7 @@ namespace OCISDK.Core.src.Core
 
                 return new GetVnicAttachmentResponse()
                 {
-                    Attachment = JsonConvert.DeserializeObject<VnicAttachment>(response),
+                    Attachment = this.JsonSerializer.Deserialize<VnicAttachment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -344,7 +345,7 @@ namespace OCISDK.Core.src.Core
 
                 return new AttachBootVolumeResponse()
                 {
-                    BootVolumeAttachment = JsonConvert.DeserializeObject<BootVolumeAttachment>(response),
+                    BootVolumeAttachment = this.JsonSerializer.Deserialize<BootVolumeAttachment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -373,7 +374,7 @@ namespace OCISDK.Core.src.Core
 
                 return new AttachVnicResponse()
                 {
-                    VnicAttachment = JsonConvert.DeserializeObject<VnicAttachment>(response),
+                    VnicAttachment = this.JsonSerializer.Deserialize<VnicAttachment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -412,7 +413,7 @@ namespace OCISDK.Core.src.Core
 
                 return new LaunchInstanceResponse()
                 {
-                    Instance = JsonConvert.DeserializeObject<Instance>(response),
+                    Instance = this.JsonSerializer.Deserialize<Instance>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -445,7 +446,7 @@ namespace OCISDK.Core.src.Core
 
                 return new UpdateInstanceResponse()
                 {
-                    Instance = JsonConvert.DeserializeObject<Instance>(response),
+                    Instance = this.JsonSerializer.Deserialize<Instance>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };

@@ -3,7 +3,7 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
+
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
@@ -16,7 +16,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 63</para>
         /// </summary>
-        [JsonProperty("hostnameLabel")]
         public string HostnameLabel { get; set; }
 
         /// <summary>
@@ -38,7 +36,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// Defaults to false, which means the check is performed. For information about why you 
         /// would skip the source/destination check, see Using a Private IP as a Route Target.
         /// </summary>
-        [JsonProperty("skipSourceDestCheck")]
         public bool SkipSourceDestCheck { get; set; }
 
         /// <summary>
@@ -47,7 +44,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
@@ -56,7 +52,6 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

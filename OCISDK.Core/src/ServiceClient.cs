@@ -1,9 +1,10 @@
-﻿/// <summary>
+﻿
+using OCISDK.Core.src.Common;
+/// <summary>
 /// Service Client
 /// 
 /// author: koutaro furusawa
 /// </summary>
-
 namespace OCISDK.Core.src
 {
     /// <summary>
@@ -17,6 +18,8 @@ namespace OCISDK.Core.src
         protected Signer Signer { get; set; }
 
         public ClientConfig Config { get; set; }
+        
+        public IJsonSerializer JsonSerializer;
 
         public ServiceClient(ClientConfig config)
         {
@@ -28,6 +31,8 @@ namespace OCISDK.Core.src
                 config.Fingerprint,
                 config.PrivateKeyPath,
                 config.PrivateKeyPassphrase);
+
+            JsonSerializer = new JsonDefaultSerializer();
         }
 
         protected Signer Sign()

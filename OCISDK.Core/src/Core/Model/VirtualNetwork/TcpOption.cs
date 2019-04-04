@@ -4,7 +4,7 @@
 /// author: koutaro furusawa
 /// </summary>
 
-using Newtonsoft.Json;
+
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
@@ -14,10 +14,8 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class TcpOption
     {
-        [JsonProperty("destinationPortRange")]
         public virtual PortRange DestinationPortRange { get; set; }
-
-        [JsonProperty("sourcePortRange")]
+        
         public virtual PortRange SourcePortRange { get; set; }
     }
 }

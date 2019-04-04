@@ -6,8 +6,6 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.Compute
@@ -19,7 +17,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 255</para>
         /// </summary>
-        [JsonProperty("baseImageId")]
         public string BaseImageId { get; set; }
 
         /// <summary>
@@ -27,7 +24,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 255</para>
         /// </summary>
-        [JsonProperty("compartmentId")]
         public string CompartmentId { get; set; }
 
         /// <summary>
@@ -35,21 +31,18 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// For example, you cannot create an image of an Oracle Database instance. 
         /// <para></para>
         /// </summary>
-        [JsonProperty("createImageAllowed")]
         public bool CreateImageAllowed { get; set; }
 
         /// <summary>
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 255</para>
         /// </summary>
-        [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
@@ -59,13 +52,13 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// EMULATED, 
         /// CUSTOM</para>
         /// </summary>
-        [JsonProperty("launchMode")]
         public string LaunchMode { get; set; }
-
-        [JsonProperty("launchOptions")]
-        public LaunchOptions LaunchOptions { get; set; }
         
-        [JsonProperty("lifecycleState")]
+        /// <summary>
+        /// LaunchOptions
+        /// </summary>
+        public LaunchOptions LaunchOptions { get; set; }
+
         public string LifecycleState { get; set; }
 
         /// <summary>
@@ -73,7 +66,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 255</para>
         /// </summary>
-        [JsonProperty("operatingSystem")]
         public string OperatingSystem { get; set; }
 
         /// <summary>
@@ -81,31 +73,26 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Min Length: 1</para>
         /// <para>Max Length: 255</para>
         /// </summary>
-        [JsonProperty("operatingSystemVersion")]
         public string OperatingSystemVersion { get; set; }
         
         /// <summary>
         /// Image size (1 MB = 1048576 bytes)
         /// </summary>
-        [JsonProperty("sizeInMBs")]
         public int SizeInMBs { get; set; }
 
         /// <summary>
         /// The date and time the image was created, in the format defined by RFC3339.
         /// </summary>
-        [JsonProperty("TimeCreated")]
         public string timeCreated { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("freeformTags")]
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        [JsonProperty("definedTags")]
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

@@ -3,7 +3,6 @@
 /// 
 /// author: koutaro furusawa
 /// </summary>
-using Newtonsoft.Json;
 using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Model.Compute
@@ -14,7 +13,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// Details for creating a new VNIC.
         /// <para>Required: yes</para>
         /// </summary>
-        [JsonProperty("createVnicDetails")]
         public CreateVnicDetails CreateVnicDetails { get; set; }
 
         /// <summary>
@@ -23,14 +21,12 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Required: no</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// <para>Required: yes</para>
         /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        [JsonProperty("instanceId")]
         public string InstanceId { get; set; }
 
         /// <summary>
@@ -41,7 +37,6 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <para>Minimum: 0</para>
         /// <para>Maximum: 31</para>
         /// </summary>
-        [JsonProperty("nicIndex")]
         public int NicIndex { get; set; }
     }
 }
