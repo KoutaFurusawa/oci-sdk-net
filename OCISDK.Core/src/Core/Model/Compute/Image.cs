@@ -83,7 +83,7 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// <summary>
         /// The date and time the image was created, in the format defined by RFC3339.
         /// </summary>
-        public string timeCreated { get; set; }
+        public string TimeCreated { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
