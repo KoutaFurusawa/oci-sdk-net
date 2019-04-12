@@ -3,7 +3,7 @@ using OCISDK.Core.src.Core.Response.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core
 {
-    public interface IVirtualNetwork
+    public interface IVirtualNetworkClient
     {
         /// <summary>
         /// Lists the sets of DHCP options in the specified VCN and specified compartment.

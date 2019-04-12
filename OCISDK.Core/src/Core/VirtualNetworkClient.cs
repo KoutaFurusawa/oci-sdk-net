@@ -17,7 +17,7 @@ using OCISDK.Core.src.Core.Response.VirtualNetwork;
 
 namespace OCISDK.Core
 {
-    public class VirtualNetworkClient : ServiceClient, IVirtualNetwork
+    public class VirtualNetworkClient : ServiceClient, IVirtualNetworkClient
     {
         private string _region;
         public string Region

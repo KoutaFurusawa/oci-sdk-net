@@ -29,35 +29,6 @@ namespace OCISDK.Core.src
         /// <summary> private key password </summary>
         public string PrivateKeyPassphrase { get; set; }
         
-        /// <summary>
-        /// Gets or sets the time-out value in milliseconds for the 
-        /// System.Net.HttpWebRequest.GetResponse and System.Net.HttpWebRequest.GetRequestStream methods.
-        /// Default value is 100 seconds
-        /// </summary>
-        public int? Timeout { get; set; }
-
-        public int? ReadWriteTimeout { get; set; }
-
-        private int _maxErrorRetry = 3;
-        /// <summary>
-        /// request retry max count. min:1, defoult:3
-        /// </summary>
-        public int MaxErrorRetry
-        {
-            get { return _maxErrorRetry; }
-            set
-            {
-                if (value >= 1)
-                {
-                    _maxErrorRetry = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
         private const string ConfigFileName = "src/endpoints.json";
 
         protected EndpointConfig EndPoint;
