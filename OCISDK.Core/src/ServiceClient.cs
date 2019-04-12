@@ -1,5 +1,6 @@
 ﻿
 using OCISDK.Core.src.Common;
+using System;
 /// <summary>
 /// Service Client
 /// 
@@ -12,6 +13,24 @@ namespace OCISDK.Core.src
     /// </summary>
     public class ServiceClient
     {
+        private string _region;
+        public string Region
+        {
+            get { return _region; }
+            set
+            {
+                // the region is not null and registered to endpoints.json
+                if (!string.IsNullOrEmpty(value) && Config.ContainRegion(value))
+                {
+                    _region = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
         /// <summary> Core Services Name </summary>
         public string ServiceName { get; set; }
 

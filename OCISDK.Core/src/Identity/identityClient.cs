@@ -17,24 +17,6 @@ namespace OCISDK.Core.src.Identity
 {
     public class IdentityClient : ServiceClient, IIdentityClient
     {
-        private string _region;
-        public string Region
-        {
-            get { return _region; }
-            set
-            {
-                // the region is not null and registered to endpoints.json
-                if (!string.IsNullOrEmpty(value) && Config.ContainRegion(value))
-                {
-                    _region = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-        
         private RestClient RestClient { get; set; }
 
         /// <summary>
@@ -61,6 +43,9 @@ namespace OCISDK.Core.src.Identity
                 Config = config,
                 JsonSerializer = JsonSerializer
             };
+
+            // default region ashburn
+            Region = Regions.US_ASHBURN_1;
         }
 
         public IdentityClient(ClientConfig config, RestClient restClient) : base(config)
@@ -70,8 +55,29 @@ namespace OCISDK.Core.src.Identity
             Config = config;
 
             RestClient = restClient;
+
+            // default region ashburn
+            Region = Regions.US_ASHBURN_1;
         }
 
+        /// <summary>
+        /// setter Region
+        /// </summary>
+        /// <param name="region"></param>
+        public void SetRegion(string region)
+        {
+            Region = region;
+        }
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        public string GetRegion()
+        {
+            return Region;
+        }
+        
         /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>

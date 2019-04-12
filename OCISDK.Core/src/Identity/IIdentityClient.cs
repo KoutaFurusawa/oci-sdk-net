@@ -9,6 +9,18 @@ namespace OCISDK.Core.src.Identity
     public interface IIdentityClient
     {
         /// <summary>
+        /// setter region
+        /// </summary>
+        /// <param name="region"></param>
+        void SetRegion(string region);
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        string GetRegion();
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>

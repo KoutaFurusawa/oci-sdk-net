@@ -17,23 +17,6 @@ namespace OCISDK.Core.src.Audit
 {
     public class AuditClient : ServiceClient, IAuditClient
     {
-        private string _region;
-        public string Region
-        {
-            get { return _region; }
-            set
-            {
-                if (!String.IsNullOrEmpty(value))
-                {
-                    _region = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
         private RestClient RestClient { get; set; }
 
         /// <summary>
@@ -60,6 +43,9 @@ namespace OCISDK.Core.src.Audit
                 Config = config,
                 JsonSerializer = JsonSerializer
             };
+
+            // default region ashburn
+            Region = Regions.US_ASHBURN_1;
         }
 
         public AuditClient(ClientConfig config, RestClient restClient) : base(config)
@@ -69,6 +55,27 @@ namespace OCISDK.Core.src.Audit
             Config = config;
 
             RestClient = restClient;
+
+            // default region ashburn
+            Region = Regions.US_ASHBURN_1;
+        }
+
+        /// <summary>
+        /// setter Region
+        /// </summary>
+        /// <param name="region"></param>
+        public void SetRegion(string region)
+        {
+            Region = region;
+        }
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        public string GetRegion()
+        {
+            return Region;
         }
 
         /// <summary>

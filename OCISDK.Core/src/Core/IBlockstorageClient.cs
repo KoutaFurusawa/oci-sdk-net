@@ -8,6 +8,17 @@ namespace OCISDK.Core.src.Core
 {
     public interface IBlockstorageClient
     {
+        /// <summary>
+        /// setter region
+        /// </summary>
+        /// <param name="region"></param>
+        void SetRegion(string region);
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        string GetRegion();
 
         /// <summary>
         /// Lists the boot volumes in the specified compartment and availability domain.
