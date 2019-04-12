@@ -66,5 +66,12 @@ namespace OCISDK.Core.src
                 $"{Config.GetServiceVersion(ServiceName)}/" +
                 $"{serviceName}";
         }
+
+        public string GetEndPointNoneVersion(string serviceName, string region)
+        {
+            return $"https://" +
+                $"{Config.GetHostName(ServiceName, region)}/" +
+                $"{serviceName}";
+        }
     }
 }

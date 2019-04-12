@@ -14,6 +14,7 @@ using System.Threading;
 using Polly;    // Microsoft.Extensions.Http.Polly
 using Polly.Wrap;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Common
 {
@@ -113,6 +114,56 @@ namespace OCISDK.Core.src.Common
             if (!string.IsNullOrEmpty(opcRequestId))
             {
                 request.Headers["opc-request-id"] = opcRequestId;
+            }
+
+            Signer.SignRequest(request);
+
+            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+        }
+
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="ifMatch"></param>
+        /// <param name="ifNoneMatch"></param>
+        /// <param name="opcClientRequestId"></param>
+        /// <returns></returns>
+        public HttpWebResponse GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(targetUri);
+            request.Method = HttpMethod.Get.Method;
+            request.Accept = "application/json";
+            request.ReadWriteTimeout = Option.TimeoutSeconds;
+
+            if (!string.IsNullOrEmpty(ifMatch))
+            {
+                request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!string.IsNullOrEmpty(ifNoneMatch))
+            {
+                request.Headers["if-none-match"] = ifNoneMatch;
+            }
+
+            if (!string.IsNullOrEmpty(opcClientRequestId))
+            {
+                request.Headers["opc-client-request-id"] = opcClientRequestId;
+            }
+
+            if (fields != null && fields.Count != 0)
+            {
+                var body = JsonSerializer.Serialize(fields);
+
+                var bytes = Encoding.UTF8.GetBytes(body);
+
+                request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
+                request.ContentLength = bytes.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
             }
 
             Signer.SignRequest(request);
