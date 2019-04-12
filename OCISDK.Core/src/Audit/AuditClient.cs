@@ -15,7 +15,7 @@ using System.IO;
 
 namespace OCISDK.Core.src.Audit
 {
-    public class AuditClient : ServiceClient
+    public class AuditClient : ServiceClient, IAuditClient
     {
         private string _region;
         public string Region
@@ -43,9 +43,20 @@ namespace OCISDK.Core.src.Audit
         {
             ServiceName = "audit";
 
+            Config = config;
+
+            var signer = new Signer(
+                config.TenancyId,
+                config.UserId,
+                config.Fingerprint,
+                config.PrivateKeyPath,
+                config.PrivateKeyPassphrase);
+
+            JsonSerializer = new JsonDefaultSerializer();
+
             this.RestClient = new RestClient()
             {
-                Signer = Signer,
+                Signer = signer,
                 Config = config,
                 JsonSerializer = JsonSerializer
             };
@@ -54,13 +65,8 @@ namespace OCISDK.Core.src.Audit
         public AuditClient(ClientConfig config, RestClient restClient) : base(config)
         {
             ServiceName = "audit";
-
-            this.RestClient = new RestClient()
-            {
-                Signer = Signer,
-                Config = config,
-                JsonSerializer = JsonSerializer
-            };
+            
+            Config = config;
 
             RestClient = restClient;
         }
@@ -72,26 +78,20 @@ namespace OCISDK.Core.src.Audit
         /// <returns></returns>
         public ListEventsResponse ListEvents(ListEventsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(AuditServices.EVENT, this.Region)}?" +
-                $"{listRequest.GetOptionQuery()}");
+            var uri = new Uri($"{GetEndPoint(AuditServices.EVENT, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri, listRequest.OpcRequestId);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri, listRequest.OpcRequestId);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
-
+                var response = reader.ReadToEnd();
                 return new ListEventsResponse()
                 {
                     Items = JsonSerializer.Deserialize<List<AuditEvent>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -103,21 +103,18 @@ namespace OCISDK.Core.src.Audit
         public GetConfigurationResponse GetConfiguration(GetConfigurationRequest request)
         {
             var uri = new Uri($"{GetEndPoint(AuditServices.CONFIGURATION, this.Region)}?compartmentId={request.CompartmentId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetConfigurationResponse()
                 {
                     Configuration = JsonSerializer.Deserialize<Configuration>(response)
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -129,22 +126,19 @@ namespace OCISDK.Core.src.Audit
         public UpdateConfigurationResponse UpdateConfiguration(UpdateConfigurationRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(AuditServices.CONFIGURATION, this.Region)}?compartmentId={updateRequest.CompartmentId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.updateConfigurationDetails);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.updateConfigurationDetails);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateConfigurationResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

@@ -15,7 +15,7 @@ using System.IO;
 
 namespace OCISDK.Core.src.Identity
 {
-    public class IdentityClient : ServiceClient
+    public class IdentityClient : ServiceClient, IIdentityClient
     {
         private string _region;
         public string Region
@@ -34,7 +34,7 @@ namespace OCISDK.Core.src.Identity
                 }
             }
         }
-
+        
         private RestClient RestClient { get; set; }
 
         /// <summary>
@@ -44,12 +44,32 @@ namespace OCISDK.Core.src.Identity
         {
             ServiceName = "identity";
 
-            this.RestClient = new RestClient()
+            Config = config;
+
+            var signer = new Signer(
+                config.TenancyId,
+                config.UserId,
+                config.Fingerprint,
+                config.PrivateKeyPath,
+                config.PrivateKeyPassphrase);
+
+            JsonSerializer = new JsonDefaultSerializer();
+
+            RestClient = new RestClient()
             {
-                Signer = Signer,
+                Signer = signer,
                 Config = config,
                 JsonSerializer = JsonSerializer
             };
+        }
+
+        public IdentityClient(ClientConfig config, RestClient restClient) : base(config)
+        {
+            ServiceName = "identity";
+
+            Config = config;
+
+            RestClient = restClient;
         }
 
         /// <summary>
@@ -60,12 +80,13 @@ namespace OCISDK.Core.src.Identity
         public GetTenancyResponse GetTenancy(GetTenancyRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Tenancy, this.Region)}/{getRequest.TenancyId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetTenancyResponse()
                 {
@@ -73,10 +94,6 @@ namespace OCISDK.Core.src.Identity
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -88,22 +105,19 @@ namespace OCISDK.Core.src.Identity
         public GetTagNamespaceResponse GetTagNamespace(GetTagNamespaceRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{getRequest.TagNamespaceId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetTagNamespaceResponse()
                 {
                     TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -116,12 +130,13 @@ namespace OCISDK.Core.src.Identity
         public ListCompartmentResponse ListCompartment(ListCompartmentRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListCompartmentResponse()
                 {
@@ -129,10 +144,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -149,12 +160,13 @@ namespace OCISDK.Core.src.Identity
         public ListAvailabilityDomainsResponse ListAvailabilityDomains(ListAvailabilityDomainsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListAvailabilityDomainsResponse()
                 {
@@ -162,10 +174,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -177,12 +185,13 @@ namespace OCISDK.Core.src.Identity
         public ListTagNamespacesResponse ListTagNamespaces(ListTagNamespacesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListTagNamespacesResponse()
                 {
@@ -190,10 +199,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -208,22 +213,19 @@ namespace OCISDK.Core.src.Identity
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags?" +
                 $"{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListCostTrackingTagsResponse()
                 {
                     Items = JsonSerializer.Deserialize<List<Tag>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -237,12 +239,13 @@ namespace OCISDK.Core.src.Identity
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags?" +
                 $"{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListTagsResponse()
                 {
@@ -250,10 +253,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -265,12 +264,13 @@ namespace OCISDK.Core.src.Identity
         public ListTagDefaultsResponse ListTagDefaults(ListTagDefaultsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListTagDefaultsResponse()
                 {
@@ -278,10 +278,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -293,12 +289,13 @@ namespace OCISDK.Core.src.Identity
         public GetCompartmentResponse GetCompartment(GetCompartmentRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{getRequest.CompartmentId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetCompartmentResponse()
                 {
@@ -306,10 +303,6 @@ namespace OCISDK.Core.src.Identity
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -323,22 +316,19 @@ namespace OCISDK.Core.src.Identity
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/" +
                 $"{getRequest.TagNamespaceId}/tags/{getRequest.TagName}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetTagResponse()
                 {
                     Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -351,12 +341,13 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/{getRequest.TagDefaultId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetTagDefaultResponse()
                 {
@@ -364,10 +355,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -379,12 +366,13 @@ namespace OCISDK.Core.src.Identity
         public CreateCompartmentResponse CreateCompartment(CreateCompartmentRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(IdentityServices.Compartment, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateCompartmentDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateCompartmentDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateCompartmentResponse()
                 {
@@ -392,10 +380,6 @@ namespace OCISDK.Core.src.Identity
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -408,22 +392,19 @@ namespace OCISDK.Core.src.Identity
         public CreateTagNamespaceResponse CreateTagNamespace(CreateTagNamespaceRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(IdentityServices.TagNamespaces, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateTagNamespaceDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateTagNamespaceDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateTagNamespaceResponse()
                 {
                     TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -443,22 +424,19 @@ namespace OCISDK.Core.src.Identity
         public CreateTagResponse CreateTag(CreateTagRequest createRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{createRequest.TagNamespaceId}/tags");
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateTagDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateTagDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateTagResponse()
                 {
                     Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -475,21 +453,18 @@ namespace OCISDK.Core.src.Identity
         public ChangeTagNamespaceCompartmentResponse ChangeTagNamespaceCompartment(ChangeTagNamespaceCompartmentRequest request)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/actions/changeCompartment");
+            
+            var webResponse = this.RestClient.Post(uri, request.ChangeTagNamespaceCompartmentDetail, request.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, request.ChangeTagNamespaceCompartmentDetail, request.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ChangeTagNamespaceCompartmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -501,12 +476,13 @@ namespace OCISDK.Core.src.Identity
         public UpdateCompartmentResponse UpdateCompartment(UpdateCompartmentRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{updateRequest.CompartmentId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateCompartmentDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateCompartmentDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateCompartmentResponse()
                 {
@@ -514,10 +490,6 @@ namespace OCISDK.Core.src.Identity
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -537,22 +509,19 @@ namespace OCISDK.Core.src.Identity
         public UpdateTagNamespaceResponse UpdateTagNamespace(UpdateTagNamespaceRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{updateRequest.TagNamespaceId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagNamespaceDetails);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagNamespaceDetails);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateTagNamespaceResponse()
                 {
                     TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -566,22 +535,19 @@ namespace OCISDK.Core.src.Identity
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{updateRequest.TagNamespaceId}/tags/" +
                 $"{updateRequest.TagName}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagDetails);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagDetails);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateTagResponse()
                 {
                     Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -593,22 +559,19 @@ namespace OCISDK.Core.src.Identity
         public DeleteCompartmentResponse DeleteCompartment(DeleteCompartmentRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{deleteRequest.CompartmentId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteCompartmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     opcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

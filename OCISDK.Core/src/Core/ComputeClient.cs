@@ -14,7 +14,7 @@ using System.IO;
 
 namespace OCISDK.Core.src.Core
 {
-    public class ComputeClient : ServiceClient
+    public class ComputeClient : ServiceClient, IComputeClient
     {
         private string _region;
         public string Region
@@ -32,7 +32,7 @@ namespace OCISDK.Core.src.Core
                 }
             }
         }
-
+        
         private RestClient RestClient { get; set; }
 
         /// <summary>
@@ -42,10 +42,22 @@ namespace OCISDK.Core.src.Core
         {
             ServiceName = "core";
 
+            Config = config;
+
+            var signer = new Signer(
+                config.TenancyId,
+                config.UserId,
+                config.Fingerprint,
+                config.PrivateKeyPath,
+                config.PrivateKeyPassphrase);
+
+            JsonSerializer = new JsonDefaultSerializer();
+
             this.RestClient = new RestClient()
             {
-                Signer = Signer,
-                Config = config
+                Signer = signer,
+                Config = config,
+                JsonSerializer = JsonSerializer
             };
         }
 
@@ -53,11 +65,7 @@ namespace OCISDK.Core.src.Core
         {
             ServiceName = "core";
 
-            this.RestClient = new RestClient()
-            {
-                Signer = Signer,
-                Config = config
-            };
+            Config = config;
 
             RestClient = restClient;
         }
@@ -72,12 +80,13 @@ namespace OCISDK.Core.src.Core
         public ListInstancesResponse ListInstances(ListInstancesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListInstancesResponse()
                 {
@@ -85,10 +94,6 @@ namespace OCISDK.Core.src.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -105,25 +110,20 @@ namespace OCISDK.Core.src.Core
         public ListImagesResponse ListImages(ListImagesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
+                var response = reader.ReadToEnd();
 
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
-
-                var res = new ListImagesResponse()
+                return  new ListImagesResponse()
                 {
                     Items = this.JsonSerializer.Deserialize<List<Image>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-                
-                return res;
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -137,12 +137,13 @@ namespace OCISDK.Core.src.Core
         public ListBootVolumeAttachmentsResponse ListBootVolumeAttachments(ListBootVolumeAttachmentsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListBootVolumeAttachmentsResponse()
                 {
@@ -150,10 +151,6 @@ namespace OCISDK.Core.src.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -166,12 +163,13 @@ namespace OCISDK.Core.src.Core
         public ListShapesResponse ListShapes(ListShapesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Shape, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListShapesResponse()
                 {
@@ -179,10 +177,6 @@ namespace OCISDK.Core.src.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -196,12 +190,13 @@ namespace OCISDK.Core.src.Core
         public ListVnicAttachmentsResponse ListVnicAttachments(ListVnicAttachmentsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNICAttachment, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListVnicAttachmentsResponse()
                 {
@@ -209,10 +204,6 @@ namespace OCISDK.Core.src.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -224,12 +215,13 @@ namespace OCISDK.Core.src.Core
         public GetInstanceResponse GetInstance(GetInstanceRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{getRequest.InstanceId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetInstanceResponse()
                 {
@@ -237,10 +229,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -252,12 +240,13 @@ namespace OCISDK.Core.src.Core
         public GetImageResponse GetImage(GetImageRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}/{getRequest.ImageId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetImageResponse()
                 {
@@ -265,10 +254,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -280,12 +265,13 @@ namespace OCISDK.Core.src.Core
         public GetBootVolumeAttachmentResponse GetBootVolumeAttachment(GetBootVolumeAttachmentRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{getRequest.BootVolumeAttachmentId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetBootVolumeAttachmentResponse()
                 {
@@ -293,10 +279,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -308,12 +290,13 @@ namespace OCISDK.Core.src.Core
         public GetVnicAttachmentResponse GetVnicAttachment(GetVnicAttachmentRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNICAttachment, this.Region)}/{getRequest.VnicAttachmentId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetVnicAttachmentResponse()
                 {
@@ -321,10 +304,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -336,12 +315,13 @@ namespace OCISDK.Core.src.Core
         public AttachBootVolumeResponse AttachBootVolume(AttachBootVolumeRequest request)
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolumeAttachment, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, request.AttachBootVolumeDetails, request.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, request.AttachBootVolumeDetails, request.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new AttachBootVolumeResponse()
                 {
@@ -349,10 +329,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -365,12 +341,13 @@ namespace OCISDK.Core.src.Core
         public AttachVnicResponse AttachVnic(AttachVnicRequest request)
         {
             var uri = new Uri(GetEndPoint(CoreServices.VNICAttachment, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, request.AttachVnicDetails, request.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, request.AttachVnicDetails, request.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new AttachVnicResponse()
                 {
@@ -378,10 +355,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -404,12 +377,13 @@ namespace OCISDK.Core.src.Core
         public LaunchInstanceResponse LaunchInstance(LaunchInstanceRequest request)
         {
             var uri = new Uri(GetEndPoint(CoreServices.Instance, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, request.LaunchInstanceDetails, request.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, request.LaunchInstanceDetails, request.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new LaunchInstanceResponse()
                 {
@@ -417,10 +391,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -434,15 +404,16 @@ namespace OCISDK.Core.src.Core
         public UpdateInstanceResponse UpdateInstance(UpdateInstanceRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{updateRequest.InstanceId}");
+            
+            var webResponse = this.RestClient.Put(uri, 
+                updateRequest.UpdateInstanceDetails, 
+                updateRequest.IfMatch, 
+                updateRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, 
-                    updateRequest.UpdateInstanceDetails, 
-                    updateRequest.IfMatch, 
-                    updateRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateInstanceResponse()
                 {
@@ -451,10 +422,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("etag")
                 };
             }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         /// <summary>
@@ -462,29 +429,26 @@ namespace OCISDK.Core.src.Core
         /// Any attached VNICs and volumes are automatically detached when the instance terminates.
         /// To preserve the boot volume associated with the instance, specify true for PreserveBootVolumeQueryParam.To delete 
         /// the boot volume when the instance is deleted, specify false or do not specify a value for PreserveBootVolumeQueryParam.
-       /// This is an asynchronous operation.The instance's lifecycleState will change to TERMINATING temporarily until the instance 
-       /// is completely removed.
+        /// This is an asynchronous operation.The instance's lifecycleState will change to TERMINATING temporarily until the instance 
+        /// is completely removed.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         public TerminateInstanceResponse TerminateInstance(TerminateInstanceRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{deleteRequest.InstanceId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch, deleteRequest.PreserveBootVolume);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch, deleteRequest.PreserveBootVolume);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new TerminateInstanceResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -497,23 +461,19 @@ namespace OCISDK.Core.src.Core
         /// <returns></returns>
         public DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachBootVolumeRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{detachBootVolumeRequest.BootVolumeAttachmentId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{detachBootVolumeRequest.BootVolumeAttachmentId}");
+            
+            var webResponse = this.RestClient.Delete(uri, detachBootVolumeRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, detachBootVolumeRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DetachBootVolumeResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

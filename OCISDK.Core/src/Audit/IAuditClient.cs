@@ -1,0 +1,34 @@
+﻿using OCISDK.Core.src.Audit.Request;
+using OCISDK.Core.src.Audit.Response;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace OCISDK.Core.src.Audit
+{
+    public interface IAuditClient
+    {
+        /// <summary>
+        /// Returns all the audit events processed for the specified compartment within the specified time range.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        ListEventsResponse ListEvents(ListEventsRequest listRequest);
+
+        /// <summary>
+        /// Get the configuration
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetConfigurationResponse GetConfiguration(GetConfigurationRequest request);
+
+        /// <summary>
+        /// Update the configuration
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        UpdateConfigurationResponse UpdateConfiguration(UpdateConfigurationRequest updateRequest);
+
+
+    }
+}

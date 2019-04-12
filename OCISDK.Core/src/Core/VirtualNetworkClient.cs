@@ -17,7 +17,7 @@ using OCISDK.Core.src.Core.Response.VirtualNetwork;
 
 namespace OCISDK.Core
 {
-    public class VirtualNetworkClient : ServiceClient
+    public class VirtualNetworkClient : ServiceClient, IVirtualNetwork
     {
         private string _region;
         public string Region
@@ -34,7 +34,7 @@ namespace OCISDK.Core
                 }
             }
         }
-
+        
         private RestClient RestClient { get; set; }
 
         /// <summary>
@@ -44,8 +44,19 @@ namespace OCISDK.Core
         {
             ServiceName = "core";
 
+            Config = config;
+
+            var signer = new Signer(
+                config.TenancyId,
+                config.UserId,
+                config.Fingerprint,
+                config.PrivateKeyPath,
+                config.PrivateKeyPassphrase);
+
+            JsonSerializer = new JsonDefaultSerializer();
+
             this.RestClient = new RestClient() {
-                Signer = Signer,
+                Signer = signer,
                 Config = config,
                 JsonSerializer = JsonSerializer
             };
@@ -54,7 +65,9 @@ namespace OCISDK.Core
         public VirtualNetworkClient(ClientConfig config, RestClient restClient) : base(config)
         {
             ServiceName = "core";
-            
+
+            Config = config;
+
             RestClient = restClient;
         }
 
@@ -68,12 +81,13 @@ namespace OCISDK.Core
         public ListDhcpResponse ListDhcpOptions(ListDhcpOptionsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListDhcpResponse()
                 {
@@ -81,10 +95,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -98,12 +108,13 @@ namespace OCISDK.Core
         public ListRouteTableResponse ListRouteTableOptions(ListRouteTableRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListRouteTableResponse()
                 {
@@ -111,10 +122,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -126,12 +133,13 @@ namespace OCISDK.Core
         public ListInternetGatewaysResponse ListInternetGateways(ListInternetGatewaysRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListInternetGatewaysResponse()
                 {
@@ -139,10 +147,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -154,12 +158,13 @@ namespace OCISDK.Core
         public ListSecurityListsResponse ListSecurityLists(ListSecurityListsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListSecurityListsResponse()
                 {
@@ -167,10 +172,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -183,11 +184,12 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            try
-            {
-                var webResponse = this.RestClient.Get(uri);
+            var webResponse = this.RestClient.Get(uri);
 
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
 
                 return new ListVcnResponse()
                 {
@@ -195,10 +197,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch(Exception)
-            {
-                throw;
             }
         }
 
@@ -210,12 +208,13 @@ namespace OCISDK.Core
         public ListSubnetsResponse ListSubnets(ListSubnetsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListSubnetsResponse()
                 {
@@ -223,10 +222,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -238,12 +233,13 @@ namespace OCISDK.Core
         public GetDhcpResponse GetDhcp(GetDhcpRequest getDhcpRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{getDhcpRequest.DhcpId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetDhcpResponse()
                 {
@@ -251,10 +247,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -266,12 +258,13 @@ namespace OCISDK.Core
         public GetRouteTableResponse GetRouteTable(GetRouteTableRequest getRtRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{getRtRequest.RtId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetRouteTableResponse()
                 {
@@ -279,10 +272,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -294,12 +283,13 @@ namespace OCISDK.Core
         public GetInternetGatewayResponse GetInternetGateway(GetInternetGatewayRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{getRequest.IgId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetInternetGatewayResponse()
                 {
@@ -307,10 +297,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -322,12 +308,13 @@ namespace OCISDK.Core
         public GetSecurityListRespons GetSecurityList(GetSecurityListRequest getSecurityListRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{getSecurityListRequest.SecurityListId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetSecurityListRespons()
                 {
@@ -335,10 +322,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -350,12 +333,13 @@ namespace OCISDK.Core
         public GetVcnResponse GetVcn(GetVcnRequest getVcnRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{getVcnRequest.VcnId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetVcnResponse()
                 {
@@ -363,10 +347,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -379,12 +359,13 @@ namespace OCISDK.Core
         public GetVnicResponse GetVnic(GetVnicRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{getRequest.VnicId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetVnicResponse()
                 {
@@ -392,10 +373,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -407,12 +384,13 @@ namespace OCISDK.Core
         public GetSubnetResponse GetSubnet(GetSubnetRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{getRequest.SubnetId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetSubnetResponse()
                 {
@@ -420,10 +398,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -435,12 +409,13 @@ namespace OCISDK.Core
         public CreateInternetGatewayResponse CreateInternetGateway(CreateInternetGatewayRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.InternetGateway, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateInternetGatewayDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateInternetGatewayDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateInternetGatewayResponse()
                 {
@@ -448,10 +423,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -463,12 +434,13 @@ namespace OCISDK.Core
         public CreateDhcpOptionsResponse CreateDhcpOptions(CreateDhcpOptionsRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.DHCP, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateDhcpDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateDhcpDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateDhcpOptionsResponse()
                 {
@@ -476,10 +448,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -493,12 +461,13 @@ namespace OCISDK.Core
         public CreateSecurityListResponse CreateSecurityList(CreateSecurityListRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.SecurityList, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateSecurityListDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateSecurityListDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateSecurityListResponse()
                 {
@@ -506,10 +475,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -521,12 +486,13 @@ namespace OCISDK.Core
         public CreateVcnResponse CreateVcn(CreateVcnRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.VCN, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateVcnDetails, createRequest.OpcRetryToken?? createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateVcnDetails, createRequest.OpcRetryToken?? createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateVcnResponse()
                 {
@@ -534,10 +500,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -552,12 +514,13 @@ namespace OCISDK.Core
         public CreateSubnetResponse CreateSubnet(CreateSubnetRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.Subnet, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateSubnetDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateSubnetDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateSubnetResponse()
                 {
@@ -565,10 +528,6 @@ namespace OCISDK.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -580,12 +539,13 @@ namespace OCISDK.Core
         public UpdateVcnResponse UpdateVcn(UpdateVcnRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{updateRequest.VcnId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateVcnDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateVcnDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateVcnResponse()
                 {
@@ -593,10 +553,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -608,12 +564,13 @@ namespace OCISDK.Core
         public UpdateVnicResponse UpdateVnic(UpdateVnicRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{updateRequest.VnicId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateVnicDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateVnicDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateVnicResponse()
                 {
@@ -621,10 +578,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -638,12 +591,13 @@ namespace OCISDK.Core
         public UpdateInternetGatewayResponse UpdateInternetGateway(UpdateInternetGatewayRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{updateRequest.IgId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateInternetGatewayDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateInternetGatewayDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateInternetGatewayResponse()
                 {
@@ -651,10 +605,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -667,12 +617,13 @@ namespace OCISDK.Core
         public UpdateDhcpOptionsResponse UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{updateRequest.DhcpId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateDhcpDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateDhcpDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateDhcpOptionsResponse()
                 {
@@ -680,10 +631,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -695,12 +642,13 @@ namespace OCISDK.Core
         public UpdateSecurityListResponse UpdateSecurityList(UpdateSecurityListRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{updateRequest.SecurityListId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateSecurityListDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateSecurityListDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateSecurityListResponse()
                 {
@@ -708,10 +656,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -723,12 +667,13 @@ namespace OCISDK.Core
         public UpdateSubnetResponse UpdateSubnet(UpdateSubnetRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{updateRequest.SubnetId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateSubnetDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateSubnetDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateSubnetResponse()
                 {
@@ -736,10 +681,6 @@ namespace OCISDK.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -753,21 +694,18 @@ namespace OCISDK.Core
         public DeleteVcnResponse DeleteVcn(DeleteVcnRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{deleteRequest.VcnId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteVcnResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -780,21 +718,18 @@ namespace OCISDK.Core
         public DeleteInternetGatewayResponse DeleteInternetGateway(DeleteInternetGatewayRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{deleteRequest.IgId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteInternetGatewayResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -807,21 +742,18 @@ namespace OCISDK.Core
         public DeleteDhcpOptionsResponse DeleteDhcpOptions(DeleteDhcpOptionsRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{deleteRequest.DhcpId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteDhcpOptionsResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -834,21 +766,18 @@ namespace OCISDK.Core
         public DeleteSecurityListResponse DeleteSecurityList(DeleteSecurityListRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{deleteRequest.SecurityListId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteSecurityListResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -863,21 +792,18 @@ namespace OCISDK.Core
         public DeleteSubnetResponse DeleteSubnet(DeleteSubnetRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{deleteRequest.SubnetId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteSubnetResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

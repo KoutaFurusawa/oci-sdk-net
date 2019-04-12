@@ -86,6 +86,7 @@ namespace Example
             var listCompartmenRequest = new ListCompartmentRequest()
             {
                 CompartmentId = getTenacy.Tenancy.Id,
+                CompartmentIdInSubtree = true,
                 Limit = 10
             };
             var listCompartment = identityClient.ListCompartment(listCompartmenRequest);
@@ -96,8 +97,7 @@ namespace Example
                     CompartmentId = comp.Id
                 };
                 var getCompartment = identityClient.GetCompartment(getCompartmentRequest);
-                Console.WriteLine("\t|- * compartmentDetail");
-                Console.WriteLine("\t|\t name: " + getCompartment.Compartment.Name);
+                Console.WriteLine("\t|- name: " + getCompartment.Compartment.Name);
                 Console.WriteLine("\t|\t id: " + getCompartment.Compartment.Id);
                 Console.WriteLine("\t|\t lifecycleState: " + getCompartment.Compartment.LifecycleState);
                 Console.WriteLine("\t|\t timeCreated: " + getCompartment.Compartment.TimeCreated);

@@ -15,7 +15,7 @@ using System.IO;
 
 namespace OCISDK.Core.src.Core
 {
-    public class BlockstorageClient : ServiceClient
+    public class BlockstorageClient : ServiceClient, IBlockstorageClient
     {
         private string _region;
         public string Region
@@ -33,7 +33,7 @@ namespace OCISDK.Core.src.Core
                 }
             }
         }
-
+        
         private RestClient RestClient { get; set; }
 
         /// <summary>
@@ -43,9 +43,20 @@ namespace OCISDK.Core.src.Core
         {
             ServiceName = "core";
 
+            Config = config;
+
+            var signer = new Signer(
+                config.TenancyId,
+                config.UserId,
+                config.Fingerprint,
+                config.PrivateKeyPath,
+                config.PrivateKeyPassphrase);
+
+            JsonSerializer = new JsonDefaultSerializer();
+
             this.RestClient = new RestClient()
             {
-                Signer = Signer,
+                Signer = signer,
                 Config = config,
                 JsonSerializer = JsonSerializer
             };
@@ -54,7 +65,9 @@ namespace OCISDK.Core.src.Core
         public BlockstorageClient(ClientConfig config, RestClient restClient) : base(config)
         {
             ServiceName = "core";
-            
+
+            Config = config;
+
             RestClient = restClient;
         }
 
@@ -66,12 +79,13 @@ namespace OCISDK.Core.src.Core
         public ListBootVolumesResponse ListBootVolumes(ListBootVolumesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}?{listRequest.GetOptionQuery()}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new ListBootVolumesResponse()
                 {
@@ -79,10 +93,6 @@ namespace OCISDK.Core.src.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -97,12 +107,13 @@ namespace OCISDK.Core.src.Core
         public CreateBootVolumeResponse CreateBootVolume(CreateBootVolumeRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolume, this.Region));
+            
+            var webResponse = this.RestClient.Post(uri, createRequest.CreateBootVolumeDetails, createRequest.OpcRetryToken);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Post(uri, createRequest.CreateBootVolumeDetails, createRequest.OpcRetryToken);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new CreateBootVolumeResponse()
                 {
@@ -110,10 +121,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -125,12 +132,13 @@ namespace OCISDK.Core.src.Core
         public UpdateBootVolumeResponse UpdateBootVolume(UpdateBootVolumeRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{updateRequest.BootVolumeId}");
+            
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateBootVolumeDetails, updateRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Put(uri, updateRequest.UpdateBootVolumeDetails, updateRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new UpdateBootVolumeResponse()
                 {
@@ -138,10 +146,6 @@ namespace OCISDK.Core.src.Core
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -153,12 +157,13 @@ namespace OCISDK.Core.src.Core
         public GetBootVolumeResponse GetBootVolume(GetBootVolumeRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{getRequest.BootVolumeId}");
+            
+            var webResponse = this.RestClient.Get(uri);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Get(uri);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new GetBootVolumeResponse()
                 {
@@ -166,10 +171,6 @@ namespace OCISDK.Core.src.Core
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -183,21 +184,18 @@ namespace OCISDK.Core.src.Core
         public DeleteBootVolumeResponse DeleteBootVolume(DeleteBootVolumeRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{deleteRequest.BootVolumeId}");
+            
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
 
-            try
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
             {
-                var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
-
-                var response = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                var response = reader.ReadToEnd();
 
                 return new DeleteBootVolumeResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

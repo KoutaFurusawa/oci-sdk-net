@@ -38,6 +38,14 @@ namespace OCISDK.Core.src.Core
         ListVcnResponse ListVcn(ListVcnRequest listRequest);
 
         /// <summary>
+        /// Lists the subnets in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        ListSubnetsResponse ListSubnets(ListSubnetsRequest listRequest);
+
+
+        /// <summary>
         /// Lists the security lists in the specified VCN and compartment.
         /// </summary>
         /// <param name="listRequest"></param>
@@ -80,6 +88,21 @@ namespace OCISDK.Core.src.Core
         GetVcnResponse GetVcn(GetVcnRequest getVcnRequest);
 
         /// <summary>
+        /// Gets the information for the specified virtual network interface card (VNIC).
+        /// You can get the VNIC OCID from the ListVnicAttachments operation.
+        /// </summary>
+        /// <param name="getVcnRequest"></param>
+        /// <returns></returns>
+        GetVnicResponse GetVnic(GetVnicRequest getRequest);
+
+        /// <summary>
+        /// Gets the specified subnet's information.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        GetSubnetResponse GetSubnet(GetSubnetRequest getRequest);
+
+        /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
         /// </summary>
         /// <param name="createRequest"></param>
@@ -110,11 +133,28 @@ namespace OCISDK.Core.src.Core
         CreateVcnResponse CreateVcn(CreateVcnRequest createRequest);
 
         /// <summary>
+        /// Creates a new subnet in the specified VCN. You can't change the size of the subnet after creation,
+        /// so it's important to think about the size of subnets you need before creating them. For more 
+        /// information, see VCNs and Subnets. For information on the number of subnets you can have in a 
+        /// VCN, see Service Limits.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        CreateSubnetResponse CreateSubnet(CreateSubnetRequest createRequest);
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
         /// <returns></returns>
         UpdateVcnResponse UpdateVcn(UpdateVcnRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified VNIC.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        UpdateVnicResponse UpdateVnic(UpdateVnicRequest updateRequest);
 
         /// <summary>
         /// Updates the specified internet gateway.
@@ -139,6 +179,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="updateRequest"></param>
         /// <returns></returns>
         UpdateSecurityListResponse UpdateSecurityList(UpdateSecurityListRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified subnet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateSubnetResponse UpdateSubnet(UpdateSubnetRequest updateRequest);
 
         /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
@@ -172,5 +219,16 @@ namespace OCISDK.Core.src.Core
         /// <param name="deleteRequest"></param>
         /// <returns></returns>
         DeleteSecurityListResponse DeleteSecurityList(DeleteSecurityListRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified subnet, but only if there are no instances in the subnet. 
+        /// This is an asynchronous operation. The subnet's lifecycleState will change to TERMINATING 
+        /// temporarily. If there are any instances in the subnet, the state will instead change back 
+        /// to AVAILABLE.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        DeleteSubnetResponse DeleteSubnet(DeleteSubnetRequest deleteRequest);
+
     }
 }
