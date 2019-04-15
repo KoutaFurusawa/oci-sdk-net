@@ -7,7 +7,15 @@ namespace OCISDK.Core.src.ObjectStorage
     public class ObjectStorageServices
     {
         public readonly static string Namespace = "n";
-        public readonly static string Bucket = "b";
-        public readonly static string Object = "o";
+
+        public static string Bucket(string namespaceName)
+        {
+            return $"n/{namespaceName}/b";
+        }
+
+        public static string Object(string namespaceName, string bucketName)
+        {
+            return $"n/{namespaceName}/b/{bucketName}/o";
+        }
     }
 }

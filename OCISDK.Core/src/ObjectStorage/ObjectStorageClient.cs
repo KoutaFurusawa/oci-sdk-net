@@ -73,13 +73,64 @@ namespace OCISDK.Core.src.ObjectStorage
         }
 
         /// <summary>
+        /// Each Oracle Cloud Infrastructure tenant is assigned one unique and uneditable Object Storage namespace.
+        /// The namespace is a system-generated string assigned during account creation. For some older tenancies, 
+        /// the namespace string may be the tenancy name in all lower-case letters. You cannot edit a namespace.
+        ///GetNamespace returns the name of the Object Storage namespace for the user making the request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string GetNamespace(GetNamespaceRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/");
+
+            var webResponse = this.RestClient.GetIfMatch(uri, request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return JsonSerializer.Deserialize<string>(response);
+            }
+        }
+
+        /// <summary>
+        /// Gets the metadata for the Object Storage namespace, which contains defaultS3CompartmentId and defaultSwiftCompartmentId.
+        /// Any user with the NAMESPACE_READ permission will be able to see the current metadata. 
+        /// If you are not authorized, talk to an administrator. If you are an administrator who needs to write policies to give users access, 
+        /// see Getting Started with Policies.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetNamespaceMetadataResponse GetNamespaceMetadata(GetNamespaceMetadataRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/{request.NamespaceName}");
+
+            var webResponse = this.RestClient.GetIfMatch(uri, request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetNamespaceMetadataResponse()
+                {
+                    NamespaceMetadata = JsonSerializer.Deserialize<NamespaceMetadata>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the current representation of the given bucket in the given Object Storage namespace.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         public GetBucketResponse GetBucket(GetBucketRequest request)
         {
-            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/{request.NamespaceName}/b/{request.BucketName}/");
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}/{request.BucketName}/");
 
             var webResponse = this.RestClient.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, request.Fields);
 
@@ -92,6 +143,99 @@ namespace OCISDK.Core.src.ObjectStorage
                 {
                     Bucket = JsonSerializer.Deserialize<Bucket>(response),
                     ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the metadata and body of an object.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetObjectResponse GetObject(GetObjectRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
+
+            var webResponse = this.RestClient.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader;
+
+                var contentRange = webResponse.Headers.Get("content-range");
+                var opcMeta = webResponse.Headers.Get("opc-meta-*");
+
+                return new GetObjectResponse()
+                {
+                    Data = response,
+                    FileURL = uri.ToString(),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    ArchivalState = webResponse.Headers.Get("archival-state"),
+                    ContentType = webResponse.Headers.Get("content-type"),
+                    ContentLanguage = webResponse.Headers.Get("content-language"),
+                    ContentEncoding = webResponse.Headers.Get("content-encoding"),
+                    ContentLength = long.Parse(webResponse.Headers.Get("content-length")),
+                    ContentMd5 = webResponse.Headers.Get("content-md5"),
+                    LastModified = webResponse.Headers.Get("last-modified"),
+                    OpcMultipartMd5 = webResponse.Headers.Get("opc-multipart-md5"),
+                    TimeOfArchival = webResponse.Headers.Get("time-of-archival")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket and does not 
+        /// contain fields like the user-defined metadata.
+        /// To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized, talk to an administrator. 
+        /// If you are an administrator who needs to write policies to give users access, see Getting Started with Policies.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListBucketsResponse ListBuckets(ListBucketsRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.GetIfMatch(uri, request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListBucketsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<BucketSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized, talk to an administrator. 
+        /// If you are an administrator who needs to write policies to give users access, see Getting Started with Policies.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListObjectsResponse ListObjects(ListObjectsRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.GetIfMatch(uri, request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListObjectsResponse()
+                {
+                    ListObjects = JsonSerializer.Deserialize<ListObjectDetails>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
                 };

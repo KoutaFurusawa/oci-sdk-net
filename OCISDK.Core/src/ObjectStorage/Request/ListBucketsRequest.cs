@@ -1,15 +1,14 @@
 ﻿/// <summary>
-/// GetBucket Request
+/// ListBuckets Request
 /// 
 /// author: koutaro furusawa
 /// </summary>
-
-
 using System.Collections.Generic;
+using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
-    public class GetBucketRequest
+    public class ListBucketsRequest
     {
         /// <summary>
         /// The Object Storage namespace used for the request.
@@ -19,30 +18,24 @@ namespace OCISDK.Core.src.ObjectStorage.Request
         public string NamespaceName { get; set; }
 
         /// <summary>
-        /// The name of the bucket. Avoid entering confidential information. 
+        /// The ID of the compartment in which to list buckets.
         /// <para>Required: yes</para>
-        /// <para>Min Length: 1</para>
         /// </summary>
-        /// <example>my-new-bucket1</example>
-        public string BucketName { get; set; }
+        public string CompartmentId { get; set; }
 
         /// <summary>
-        /// The entity tag (ETag) to match. For creating and committing a multipart upload to an object, 
-        /// this is the entity tag of the target object. For uploading a part, 
-        /// this is the entity tag of the target part.
+        /// The maximum number of items to return.
         /// <para>Required: no</para>
+        /// <para>Min Length: 1, Max Length: 1000</para>
         /// </summary>
-        public string IfMatch { get; set; }
+        public int? Limit { get; set; }
 
         /// <summary>
-        /// The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that 
-        /// the request should fail if the object already exists. 
-        /// For creating and committing a multipart upload, this is the entity tag of the target object. 
-        /// For uploading a part, this is the entity tag of the target part.
+        /// The page at which to start retrieving results.
         /// <para>Required: no</para>
-        /// <para>Min Length: 0, Max Length: 1</para>
+        /// <para>Min Length: 1, Max Length: 1024</para>
         /// </summary>
-        public string IfNoneMatch { get; set; }
+        public string Page { get; set; }
 
         /// <summary>
         /// The client request ID for tracing.
@@ -57,5 +50,29 @@ namespace OCISDK.Core.src.ObjectStorage.Request
         /// <para>Required: no</para>
         /// </summary>
         public List<string> Fields { get; set; }
-}
+
+        public string GetOptionQuery()
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            sb.Append($"&compartmentId={this.CompartmentId}");
+
+            if (this.Limit.HasValue)
+            {
+                sb.Append($"&limit={this.Limit.Value}");
+            }
+            if (!string.IsNullOrEmpty(this.Page))
+            {
+                sb.Append($"&page={this.Page}");
+            }
+            if (Fields != null)
+            {
+                Fields.ForEach(f => {
+                    sb.Append($"&fields[]={f}");
+                });
+            }
+
+            return sb.ToString();
+        }
+    }
 }

@@ -121,6 +121,12 @@ namespace OCISDK.Core.src.Common
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
 
+
+        public HttpWebResponse GetIfMatch(Uri targetUri, string opcClientRequestId = "")
+        {
+            return this.GetIfMatch(targetUri, "", "", opcClientRequestId, null);
+        }
+
         /// <summary>
         /// Request a resource asynchronously.
         /// </summary>
@@ -129,7 +135,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="opcClientRequestId"></param>
         /// <returns></returns>
-        public HttpWebResponse GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null)
+        public HttpWebResponse GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null, string range="")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
@@ -149,6 +155,11 @@ namespace OCISDK.Core.src.Common
             if (!string.IsNullOrEmpty(opcClientRequestId))
             {
                 request.Headers["opc-client-request-id"] = opcClientRequestId;
+            }
+
+            if (!string.IsNullOrEmpty(range))
+            {
+                request.Headers["range"] = range;
             }
 
             if (fields != null && fields.Count != 0)

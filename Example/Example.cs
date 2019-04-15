@@ -103,6 +103,7 @@ namespace Example
                 Console.WriteLine("[4]: Display Instance List Example");
                 Console.WriteLine("[5]: Display BootVolume List Example");
                 Console.WriteLine("[6]: Display Audit List Example");
+                Console.WriteLine("[7]: Display ObjectStorage List Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
 
@@ -119,7 +120,7 @@ namespace Example
                     Console.WriteLine("Incorrect input...");
                     continue;
                 }
-                if (mode <= 0 || mode > 6)
+                if (mode <= 0 || mode > 7)
                 {
                     Console.WriteLine("Incorrect input...");
                     continue;
@@ -156,6 +157,12 @@ namespace Example
                 if (mode == 1 || mode == 6)
                 {
                     AuditExample.AuditDisplay(config);
+                }
+
+                // ObjectStorage
+                if (mode == 1 || mode == 7)
+                {
+                    ObjectStorageExample.DisplayObjectStorage(config);
                 }
             }
         }
