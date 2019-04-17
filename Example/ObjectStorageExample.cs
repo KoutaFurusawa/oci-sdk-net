@@ -82,7 +82,7 @@ namespace Example
                     }
                     if (!File.Exists($"./ExampleDownload/{obj.Name.Replace('/', '_')}"))
                     {
-                        client.DownloadObject(getObjectRequest, $"./ExampleDownload/{obj.Name.Replace('/', '_')}");
+                        client.DownloadObject(getObjectRequest, "./ExampleDownload/", obj.Name.Replace('/', '_'));
                     }
                 });
             });
@@ -117,7 +117,7 @@ namespace Example
                             BucketName = config.TenancyId,
                             ObjectName = r.Name,
                         };
-                        client.DownloadObject(getObjectRequest, $"./ExampleDownload/report/{r.Name.Replace('/', '_')}");
+                        client.DownloadObject(getObjectRequest, "./ExampleDownload/report/", r.Name.Replace('/', '_'));
                     }
                 });
             } catch (Exception e)

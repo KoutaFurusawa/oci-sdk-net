@@ -59,7 +59,7 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
-        void DownloadObject(GetObjectRequest request, string savePath);
+        void DownloadObject(GetObjectRequest request, string savePath, string filename);
 
         /// <summary>
         /// Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket and does not 

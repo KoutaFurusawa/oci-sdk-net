@@ -192,7 +192,7 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
-        public void DownloadObject(GetObjectRequest request, string savePath)
+        public void DownloadObject(GetObjectRequest request, string savePath, string filename)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
@@ -200,7 +200,7 @@ namespace OCISDK.Core.src.ObjectStorage
 
             using (var stream = webResponse.GetResponseStream())
             {
-                FileStream fs = new FileStream(savePath, FileMode.Create, FileAccess.Write);
+                FileStream fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write);
                 byte[] readData = new byte[1024];
                 while(true)
                 {
