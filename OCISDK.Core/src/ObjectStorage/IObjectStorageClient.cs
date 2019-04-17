@@ -55,6 +55,13 @@ namespace OCISDK.Core.src.ObjectStorage
         GetObjectResponse GetObject(GetObjectRequest request);
 
         /// <summary>
+        /// Download Object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="savePath"></param>
+        void DownloadObject(GetObjectRequest request, string savePath);
+
+        /// <summary>
         /// Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket and does not 
         /// contain fields like the user-defined metadata.
         /// To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized, talk to an administrator. 

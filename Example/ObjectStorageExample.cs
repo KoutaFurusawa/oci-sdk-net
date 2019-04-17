@@ -75,14 +75,15 @@ namespace Example
                     var ObjDetails = client.GetObject(getObjectRequest);
                     Console.WriteLine($"\t|\t|- contentLength : {ObjDetails.ContentLength}");
 
-                    // download files
+                    // download
                     if (!Directory.Exists("./ExampleDownload"))
                     {
                         Directory.CreateDirectory("./ExampleDownload");
                     }
-                    WebClient wc = new WebClient();
-                    wc.DownloadFile(ObjDetails.FileURL, $"./ExampleDownload/{obj.Name}");
-                    wc.Dispose();
+                    if (!File.Exists($"./ExampleDownload/{obj.Name.Replace('/', '_')}"))
+                    {
+                        client.DownloadObject(getObjectRequest, $"./ExampleDownload/{obj.Name.Replace('/', '_')}");
+                    }
                 });
             });
 
@@ -102,10 +103,26 @@ namespace Example
                 reports.ListObjects.Objects.ForEach(r =>
                 {
                     Console.WriteLine($"  {r.Name}");
+                    if (!Directory.Exists("./ExampleDownload/report"))
+                    {
+                        Directory.CreateDirectory("./ExampleDownload/report");
+                    }
+
+                    // download object
+                    if (!File.Exists($"./ExampleDownload/report/{r.Name.Replace('/', '_')}"))
+                    {
+                        var getObjectRequest = new GetObjectRequest()
+                        {
+                            NamespaceName = "bling",
+                            BucketName = config.TenancyId,
+                            ObjectName = r.Name,
+                        };
+                        client.DownloadObject(getObjectRequest, $"./ExampleDownload/report/{r.Name.Replace('/', '_')}");
+                    }
                 });
-            } catch (Exception)
+            } catch (Exception e)
             {
-                Console.WriteLine("Does not meet UsageReport usage requirements");
+                Console.WriteLine($"Does not meet UsageReport usage requirements. message:{e.Message}");
             }
         }
     }

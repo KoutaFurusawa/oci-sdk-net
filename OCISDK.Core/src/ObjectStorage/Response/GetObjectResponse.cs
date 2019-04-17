@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Response
 {
     public class GetObjectResponse
     {
-        public StreamReader Data { get; set; }
-
         public string FileURL { get; set; }
 
         /// <summary>

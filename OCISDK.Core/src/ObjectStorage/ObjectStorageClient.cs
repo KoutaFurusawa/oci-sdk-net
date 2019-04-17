@@ -167,10 +167,9 @@ namespace OCISDK.Core.src.ObjectStorage
 
                 var contentRange = webResponse.Headers.Get("content-range");
                 var opcMeta = webResponse.Headers.Get("opc-meta-*");
-
+                
                 return new GetObjectResponse()
                 {
-                    Data = response,
                     FileURL = uri.ToString(),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
@@ -185,6 +184,34 @@ namespace OCISDK.Core.src.ObjectStorage
                     OpcMultipartMd5 = webResponse.Headers.Get("opc-multipart-md5"),
                     TimeOfArchival = webResponse.Headers.Get("time-of-archival")
                 };
+            }
+        }
+
+        /// <summary>
+        /// Download Object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="savePath"></param>
+        public void DownloadObject(GetObjectRequest request, string savePath)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
+
+            var webResponse = this.RestClient.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range);
+
+            using (var stream = webResponse.GetResponseStream())
+            {
+                FileStream fs = new FileStream(savePath, FileMode.Create, FileAccess.Write);
+                byte[] readData = new byte[1024];
+                while(true)
+                {
+                    int readSize = stream.Read(readData, 0, readData.Length);
+                    if (readSize == 0)
+                    {
+                        break;
+                    }
+                    fs.Write(readData, 0, readSize);
+                }
+                fs.Close();
             }
         }
 
