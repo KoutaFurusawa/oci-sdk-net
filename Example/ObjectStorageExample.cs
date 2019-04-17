@@ -18,7 +18,7 @@ namespace Example
             {
                 Region = Regions.US_ASHBURN_1
             };
-
+            
             // get namespace
             GetNamespaceRequest getNamespaceRequest = new GetNamespaceRequest();
             var namespaceName = client.GetNamespace(getNamespaceRequest);
@@ -85,6 +85,28 @@ namespace Example
                     wc.Dispose();
                 });
             });
+
+            // UsageReport
+            // Example policy:
+            // define tenancy usage-report as ocid1.tenancy.oc1..aaaaaaaaned4fkpkisbwjlr56u7cj63lf3wffbilvqknstgtvzub7vhqkggq
+            // endorse group group_name to read objects in tenancy usage-report
+            try
+            {
+                var listORequest = new ListObjectsRequest()
+                {
+                    NamespaceName = "bling",
+                    BucketName = config.TenancyId
+                };
+                var reports = client.ListObjects(listORequest);
+                Console.WriteLine($"* UsageReport------------------------");
+                reports.ListObjects.Objects.ForEach(r =>
+                {
+                    Console.WriteLine($"  {r.Name}");
+                });
+            } catch (Exception)
+            {
+                Console.WriteLine("Does not meet UsageReport usage requirements");
+            }
         }
     }
 }

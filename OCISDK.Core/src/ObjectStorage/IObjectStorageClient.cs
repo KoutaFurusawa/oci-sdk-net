@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage
 {
-    interface IObjectStorageClient
+    public interface IObjectStorageClient
     {
         /// <summary>
         /// setter region

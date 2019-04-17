@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using Jil;
+﻿using Jil;
 
 namespace OCISDK.Core.src.Common
 {
+    /// <summary>
+    /// Default JsonSerializer(Jil)
+    /// </summary>
     public class JsonDefaultSerializer : IJsonSerializer
     {
-        static readonly Options Options = Options = new Options(
+        static readonly Options Options = new Options(
             serializationNameFormat: SerializationNameFormat.CamelCase,
             excludeNulls: true
         );
