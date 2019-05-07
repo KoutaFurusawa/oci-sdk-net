@@ -1,5 +1,6 @@
 ﻿{
   "regionShortNames": {
+    "nrt": "ap-tokyo-1",
     "phx": "us-phoenix-1",
     "iad": "us-ashburn-1",
     "fra": "eu-frankfurt-1",
@@ -10,6 +11,9 @@
     "core": {
       "version": "20160918",
       "endpoints": {
+        "ap-tokyo-1": {
+          "hostname": "iaas.ap-tokyo-1.oraclecloud.com"
+        },
         "ca-toronto-1": {
           "hostname": "iaas.ca-toronto-1.oraclecloud.com"
         },
@@ -30,6 +34,9 @@
     "identity": {
       "version": "20160918",
       "endpoints": {
+        "ap-tokyo-1": {
+          "hostname": "identity.ap-tokyo-1.oraclecloud.com"
+        },
         "ca-toronto-1": {
           "hostname": "identity.ca-toronto-1.oraclecloud.com"
         },
@@ -50,6 +57,9 @@
     "audit": {
       "version": "20160918",
       "endpoints": {
+        "ap-tokyo-1": {
+          "hostname": "audit.ap-tokyo-1.oraclecloud.com"
+        },
         "ca-toronto-1": {
           "hostname": "audit.ca-toronto-1.oraclecloud.com"
         },
@@ -70,6 +80,9 @@
     "object_storage": {
       "version": "20160918",
       "endpoints": {
+        "ap-tokyo-1": {
+          "hostname": "objectstorage.ap-tokyo-1.oraclecloud.com"
+        },
         "ca-toronto-1": {
           "hostname": "objectstorage.ca-toronto-1.oraclecloud.com"
         },
@@ -84,6 +97,14 @@
         },
         "us-phoenix-1": {
           "hostname": "objectstorage.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "my_service": {
+      "version": "v1",
+      "endpoints": {
+        "no-region": {
+          "hostname": "myservices"
         }
       }
     }

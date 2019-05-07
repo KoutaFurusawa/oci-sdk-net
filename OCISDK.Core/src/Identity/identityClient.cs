@@ -4,7 +4,6 @@
 /// author: koutaro furusawa
 /// </summary>
 
-
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;

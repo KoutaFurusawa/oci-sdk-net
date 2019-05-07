@@ -199,10 +199,10 @@ namespace OCISDK.Core.src.ObjectStorage
             var webResponse = this.RestClient.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range);
 
             using (var stream = webResponse.GetResponseStream())
+            using (var fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write))
             {
-                FileStream fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write);
                 byte[] readData = new byte[1024];
-                while(true)
+                while (true)
                 {
                     int readSize = stream.Read(readData, 0, readData.Length);
                     if (readSize == 0)
@@ -211,7 +211,6 @@ namespace OCISDK.Core.src.ObjectStorage
                     }
                     fs.Write(readData, 0, readSize);
                 }
-                fs.Close();
             }
         }
 

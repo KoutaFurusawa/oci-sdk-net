@@ -85,7 +85,7 @@ namespace OCISDK.Core.src.Audit.Model
         /// <summary>
         /// The HTTP header fields and values in the request.
         /// </summary>
-        public Object RequestHeaders { get; set; }
+        public object RequestHeaders { get; set; }
 
         /// <summary>
         /// The IP address of the source of the request.
@@ -95,7 +95,7 @@ namespace OCISDK.Core.src.Audit.Model
         /// <summary>
         /// The query parameter fields and values for the request.
         /// </summary>
-        public Object RequestParameters { get; set; }
+        public object RequestParameters { get; set; }
 
         /// <summary>
         /// The resource targeted by the request.
@@ -105,7 +105,7 @@ namespace OCISDK.Core.src.Audit.Model
         /// <summary>
         /// The headers of the response.
         /// </summary>
-        public Object ResponseHeaders { get; set; }
+        public object ResponseHeaders { get; set; }
 
         /// <summary>
         /// The status code of the response.
