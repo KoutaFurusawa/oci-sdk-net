@@ -101,6 +101,30 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Lists the region subscriptions for the specified tenancy.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListRegionSubscriptionsResponse ListRegionSubscriptions(ListRegionSubscriptionsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Tenancy, this.Region)}/{param.TenancyId}/regionSubscriptions");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListRegionSubscriptionsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<RegionSubscription>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>

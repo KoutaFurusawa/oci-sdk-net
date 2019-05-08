@@ -85,16 +85,25 @@ namespace Example
 
             Console.WriteLine();
             Console.WriteLine("* ListRegions------------------------");
-            var list = new ListAvailabilityDomainsRequest()
-            {
-                CompartmentId = getTenacy.Tenancy.Id
-            };
             var listRegion = identityClient.ListRegions();
             listRegion.Items.ForEach(r => {
                 Console.WriteLine("\tname: " + r.Name);
                 Console.WriteLine("\tkey: " + r.Key);
             });
 
+            Console.WriteLine("* ListRegionsSubscriptions------------------------");
+            var listRegionSubscriptionsRequest = new ListRegionSubscriptionsRequest()
+            {
+                TenancyId = getTenacy.Tenancy.Id,
+            };
+            var listRegionSubscriptions = identityClient.ListRegionSubscriptions(listRegionSubscriptionsRequest);
+            listRegionSubscriptions.Items.ForEach(r => {
+                Console.WriteLine("\tname: " + r.RegionKey);
+                Console.WriteLine("\tkey: " + r.RegionName);
+                Console.WriteLine("\tstatus: " + r.Status);
+                Console.WriteLine("\thome: " + r.IsHomeRegion);
+            });
+            
             Console.WriteLine();
             Console.WriteLine("* ListAvailabilityDomain------------------------");
             var listAvailabilityDomainRequest = new ListAvailabilityDomainsRequest()

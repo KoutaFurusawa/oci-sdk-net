@@ -27,6 +27,13 @@ namespace OCISDK.Core.src.Identity
         ListRegionsResponse ListRegions();
 
         /// <summary>
+        /// Lists the region subscriptions for the specified tenancy.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListRegionSubscriptionsResponse ListRegionSubscriptions(ListRegionSubscriptionsRequest param);
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>

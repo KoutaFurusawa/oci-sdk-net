@@ -1,7 +1,11 @@
-﻿using OCISDK.Core.src.Identity.Model;
-using System;
+﻿/// <summary>
+/// ListRegions Response
+/// 
+/// author: koutaro furusawa
+/// </summary>
+
+using OCISDK.Core.src.Identity.Model;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OCISDK.Core.src.Identity.Response
 {
