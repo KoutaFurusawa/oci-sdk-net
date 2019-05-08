@@ -1,7 +1,6 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;
 using System;
 
@@ -67,6 +66,33 @@ namespace Example
                 Console.WriteLine("\t|  tagNamespaceId: " + tag.TagNamespaceId);
                 Console.WriteLine("\t|  tagDefinitionId: " + tag.TagDefinitionId);
                 Console.WriteLine("\t|  lifecycleState: " + tag.LifecycleState);
+            });
+
+            var listCostTrackingTagsRequest = new ListCostTrackingTagsRequest()
+            {
+                CompartmentId = getTenacy.Tenancy.Id,
+                Limit = 100
+            };
+            var listCostTrackingTags = identityClient.ListCostTrackingTags(listCostTrackingTagsRequest);
+            listCostTrackingTags.Items.ForEach(tag => {
+                Console.WriteLine("\t|- CostTackingTags");
+                Console.WriteLine("\t|  id: " + tag.Id);
+                Console.WriteLine("\t|  isCostTracking: " + tag.IsCostTracking);
+                Console.WriteLine("\t|  tagNamespaceId: " + tag.TagNamespaceId);
+                Console.WriteLine("\t|  tagNamespaceName: " + tag.TagNamespaceName);
+                Console.WriteLine("\t|  name: " + tag.Name);
+            });
+
+            Console.WriteLine();
+            Console.WriteLine("* ListRegions------------------------");
+            var list = new ListAvailabilityDomainsRequest()
+            {
+                CompartmentId = getTenacy.Tenancy.Id
+            };
+            var listRegion = identityClient.ListRegions();
+            listRegion.Items.ForEach(r => {
+                Console.WriteLine("\tname: " + r.Name);
+                Console.WriteLine("\tkey: " + r.Key);
             });
 
             Console.WriteLine();

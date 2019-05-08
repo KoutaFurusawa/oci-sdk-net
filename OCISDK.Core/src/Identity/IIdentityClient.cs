@@ -21,6 +21,12 @@ namespace OCISDK.Core.src.Identity
         string GetRegion();
 
         /// <summary>
+        /// Lists all the regions offered by Oracle Cloud Infrastructure.
+        /// </summary>
+        /// <returns></returns>
+        ListRegionsResponse ListRegions();
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>

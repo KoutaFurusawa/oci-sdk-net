@@ -76,7 +76,30 @@ namespace OCISDK.Core.src.Identity
         {
             return Region;
         }
-        
+
+        /// <summary>
+        /// Lists all the regions offered by Oracle Cloud Infrastructure.
+        /// </summary>
+        /// <returns></returns>
+        public ListRegionsResponse ListRegions()
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Region, this.Region)}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListRegionsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<Region>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
         /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>

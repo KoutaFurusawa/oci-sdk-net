@@ -11,8 +11,6 @@
 /// author: koutaro furusawa
 /// </summary>
 
-
-
 namespace OCISDK.Core.src.Identity.Model
 {
     public class TagDefault

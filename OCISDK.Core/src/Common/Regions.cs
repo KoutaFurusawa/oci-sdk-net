@@ -22,5 +22,8 @@ namespace OCISDK.Core.src.Common
         public static readonly string US_GOV_ASHBURN_1 = "us-gov-ashburn-1";
         public static readonly string US_GOV_CHICAGO_1 = "us-gov-chicago-1";
         public static readonly string US_GOV_PHOENIX_1 = "us-gov-phoenix-1";
+
+        public static readonly string AP_TOKYO_1 = "ap-tokyo-1";
+        
     }
 }
