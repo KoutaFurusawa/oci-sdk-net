@@ -1,11 +1,11 @@
 ﻿{
   "regionShortNames": {
-    "NRT": "ap-tokyo-1",
-    "PHX": "us-phoenix-1",
-    "IAD": "us-ashburn-1",
-    "FRA": "eu-frankfurt-1",
-    "LHR": "uk-london-1",
-    "YYZ": "ca-toronto-1"
+    "nrt": "ap-tokyo-1",
+    "phx": "us-phoenix-1",
+    "iad": "us-ashburn-1",
+    "fra": "eu-frankfurt-1",
+    "lhr": "uk-london-1",
+    "yyz": "ca-toronto-1"
   },
   "services": {
     "core": {
