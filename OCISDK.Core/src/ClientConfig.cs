@@ -29,6 +29,10 @@ namespace OCISDK.Core.src
         /// <summary> private key password </summary>
         public string PrivateKeyPassphrase { get; set; }
         
+
+        /// <summary> oracle cloud home region </summary>
+        public string HomeRegion { get; set; }
+
         private const string ConfigFileName = "src/endpoints.json";
 
         protected EndpointConfig EndPoint;
