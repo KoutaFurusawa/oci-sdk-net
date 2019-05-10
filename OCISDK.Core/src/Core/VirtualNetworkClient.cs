@@ -45,8 +45,17 @@ namespace OCISDK.Core
                 JsonSerializer = JsonSerializer
             };
 
-            // default region ashburn
-            Region = Regions.US_ASHBURN_1;
+            // default region setting
+            if (string.IsNullOrEmpty(config.HomeRegion))
+            {
+                // set ashburn if no default region found
+                Region = Regions.US_ASHBURN_1;
+            }
+            else
+            {
+                // home region
+                Region = config.HomeRegion;
+            }
         }
 
         public VirtualNetworkClient(ClientConfig config, RestClient restClient) : base(config)

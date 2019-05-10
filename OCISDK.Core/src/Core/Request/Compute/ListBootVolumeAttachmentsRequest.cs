@@ -52,8 +52,11 @@ namespace OCISDK.Core.src.Core.Request.Compute
             StringBuilder sb = new StringBuilder();
 
             sb.Append($"compartmentId={this.CompartmentId}");
-            
-            sb.Append($"&availabilityDomain={this.AvailabilityDomain}");
+
+            if (!String.IsNullOrEmpty(this.AvailabilityDomain))
+            {
+                sb.Append($"&availabilityDomain={this.AvailabilityDomain}");
+            }
             
             if (!String.IsNullOrEmpty(this.InstanceId))
             {
