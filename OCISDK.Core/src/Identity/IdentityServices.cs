@@ -14,5 +14,6 @@ namespace OCISDK.Core.src.Identity
         public readonly static string Tenancy = "tenancies";
         public readonly static string TagNamespaces = "tagNamespaces";
         public readonly static string TagDefault = "tagDefaults";
+        public readonly static string Policiy = "policies";
     }
 }

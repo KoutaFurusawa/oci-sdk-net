@@ -133,6 +133,31 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Lists the policies in the specified compartment (either the tenancy or another of your compartments). See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListPoliciesResponse ListPolicies(ListPoliciesRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListPoliciesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<Policy>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -176,6 +201,31 @@ namespace OCISDK.Core.src.Identity
                 return new GetTagNamespaceResponse()
                 {
                     TagNamespace = JsonSerializer.Deserialize<TagNamespace>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified policy's information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetPolicyResponse GetPolicy(GetPolicyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{param.PolicyId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetPolicyResponse()
+                {
+                    Policy = JsonSerializer.Deserialize<Policy>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }

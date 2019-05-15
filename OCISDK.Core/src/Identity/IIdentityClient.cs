@@ -34,6 +34,14 @@ namespace OCISDK.Core.src.Identity
         ListRegionSubscriptionsResponse ListRegionSubscriptions(ListRegionSubscriptionsRequest param);
 
         /// <summary>
+        /// Lists the policies in the specified compartment (either the tenancy or another of your compartments). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListPoliciesResponse ListPolicies(ListPoliciesRequest param);
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -46,6 +54,13 @@ namespace OCISDK.Core.src.Identity
         /// <param name="getRequest"></param>
         /// <returns></returns>
         GetTagNamespaceResponse GetTagNamespace(GetTagNamespaceRequest getRequest);
+
+        /// <summary>
+        /// Gets the specified policy's information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetPolicyResponse GetPolicy(GetPolicyRequest param);
 
         /// <summary>
         /// Lists the compartments in a specified compartment.
