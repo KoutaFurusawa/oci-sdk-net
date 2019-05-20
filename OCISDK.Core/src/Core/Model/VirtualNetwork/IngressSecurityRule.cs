@@ -12,18 +12,18 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class IngressSecurityRule
     {
-        public virtual IcmpOption IcmpOptions { get; set; }
+        public IcmpOption IcmpOptions { get; set; }
         
-        public virtual bool IsStateless { get; set; }
+        public bool IsStateless { get; set; }
         
-        public virtual string Protocol { get; set; }
+        public string Protocol { get; set; }
         
-        public virtual string Source { get; set; }
+        public string Source { get; set; }
         
-        public virtual string SourceType { get; set; }
+        public string SourceType { get; set; }
         
-        public virtual TcpOption TcpOptions { get; set; }
+        public TcpOption TcpOptions { get; set; }
         
-        public virtual UdpOption UdpOptions { get; set; }
+        public UdpOption UdpOptions { get; set; }
     }
 }

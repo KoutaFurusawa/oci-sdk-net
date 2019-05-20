@@ -15,8 +15,8 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class PortRange
     {
-        public virtual int Max { get; set; }
+        public int Max { get; set; }
         
-        public virtual int Min { get; set; }
+        public int Min { get; set; }
     }
 }

@@ -14,49 +14,49 @@ namespace OCISDK.Core.src.Identity.Model
         /// <summary>
         /// The OCID of the policy.
         /// </summary>
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// The OCID of the compartment containing the policy (either the tenancy or another compartment).
         /// </summary>
-        public virtual string CompartmentId { get; set; }
+        public string CompartmentId { get; set; }
 
         /// <summary>
         /// The name you assign to the policy during creation. The name must be unique across all policies in the tenancy and cannot be changed.
         /// </summary>
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// An array of one or more policy statements written in the policy language.
         /// </summary>
-        public virtual List<string> Statements { get; set; }
+        public List<string> Statements { get; set; }
 
         /// <summary>
         /// The description you assign to the policy. Does not have to be unique, and it's changeable.
         /// </summary>
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Date and time the policy was created, in the format defined by RFC3339.
         /// </summary>
-        public virtual string TimeCreated { get; set; }
+        public string TimeCreated { get; set; }
 
         /// <summary>
         /// The policy's current state. After creating a policy, make sure its lifecycleState changes from CREATING to ACTIVE before using it.
         /// </summary>
-        public virtual string LifecycleState { get; set; }
+        public string LifecycleState { get; set; }
 
         /// <summary>
         /// The detailed status of INACTIVE lifecycleState.
         /// </summary>
-        public virtual int? InactiveStatus { get; set; }
+        public int? InactiveStatus { get; set; }
 
         /// <summary>
         /// The version of the policy. 
         /// If null or set to an empty string, when a request comes in for authorization, the policy will be evaluated according to the current behavior of 
         /// the services at that moment. If set to a particular date (YYYY-MM-DD), the policy will be evaluated according to the behavior of the services on that date.
         /// </summary>
-        public virtual string VersionDate { get; set; }
+        public string VersionDate { get; set; }
 
         /// <summary>
         /// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. 

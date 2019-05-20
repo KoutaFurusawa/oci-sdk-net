@@ -14,8 +14,8 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class TcpOption
     {
-        public virtual PortRange DestinationPortRange { get; set; }
+        public PortRange DestinationPortRange { get; set; }
         
-        public virtual PortRange SourcePortRange { get; set; }
+        public PortRange SourcePortRange { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System;
 
 namespace Example
 {
-    class IndentityCompartmentExample
+    class IdentityCompartmentExample
     {
         public static void CompartmentConsoleDisplay(ClientConfig config)
         {
@@ -122,6 +122,7 @@ namespace Example
             {
                 CompartmentId = getTenacy.Tenancy.Id,
                 CompartmentIdInSubtree = true,
+                AccessLevel = "ACCESSIBLE",
                 Limit = 10
             };
             var listCompartment = identityClient.ListCompartment(listCompartmenRequest);

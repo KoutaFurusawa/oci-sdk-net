@@ -36,11 +36,11 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        public virtual IDictionary<string, string> FreeformTags { get; set; }
+        public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        public virtual IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
+        public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

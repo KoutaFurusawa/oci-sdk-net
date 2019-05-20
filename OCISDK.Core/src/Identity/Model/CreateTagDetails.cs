@@ -18,7 +18,7 @@ namespace OCISDK.Core.src.Identity.Model
         /// <para>Minimum: 1</para>
         /// <para>Maximum: 100</para>
         /// </summary>
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The description you assign to the tag during creation.
@@ -26,7 +26,7 @@ namespace OCISDK.Core.src.Identity.Model
         /// <para>Minimum: 1</para>
         /// <para>Maximum: 400</para>
         /// </summary>
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Indicates whether the tag is enabled for cost tracking.
@@ -38,11 +38,11 @@ namespace OCISDK.Core.src.Identity.Model
         /// Free-form tags for this resource. 
         /// Each tag is a simple key-value pair with no predefined name, type, or namespace. 
         /// </summary>
-        public virtual IDictionary<string, string> FreeformTags { get; set; }
+        public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// Defined tags for this resource. Each key is predefined and scoped to a namespace. 
         /// </summary>
-        public virtual IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
+        public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }
