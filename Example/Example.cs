@@ -1,5 +1,7 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
+using OCISDK.Core.src.Search;
+using OCISDK.Core.src.Search.Request;
 using System;
 using System.IO;
 using System.Text;
@@ -104,6 +106,7 @@ namespace Example
                 Console.WriteLine("[5]: Display BootVolume List Example");
                 Console.WriteLine("[6]: Display Audit List Example");
                 Console.WriteLine("[7]: Display ObjectStorage List Example");
+                Console.WriteLine("[8]: SearchResouces Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
 
@@ -120,17 +123,12 @@ namespace Example
                     Console.WriteLine("Incorrect input...");
                     continue;
                 }
-                if (mode <= 0 || mode > 7)
-                {
-                    Console.WriteLine("Incorrect input...");
-                    continue;
-                }
 
                 // Indentity
                 // Compartment
                 if (mode == 1 || mode == 2)
                 {
-                    IndentityCompartmentExample.CompartmentConsoleDisplay(config);
+                    IdentityCompartmentExample.CompartmentConsoleDisplay(config);
                 }
 
                 // Core
@@ -163,6 +161,12 @@ namespace Example
                 if (mode == 1 || mode == 7)
                 {
                     ObjectStorageExample.DisplayObjectStorage(config);
+                }
+
+                // search
+                if (mode == 1 || mode == 8)
+                {
+                    SearchExample.SearchResourcesExample(config);
                 }
             }
         }

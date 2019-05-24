@@ -1,5 +1,6 @@
 ﻿{
   "regionShortNames": {
+    "icn": "ap-seoul-1",
     "nrt": "ap-tokyo-1",
     "phx": "us-phoenix-1",
     "iad": "us-ashburn-1",
@@ -11,6 +12,9 @@
     "core": {
       "version": "20160918",
       "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "iaas.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "iaas.ap-tokyo-1.oraclecloud.com"
         },
@@ -34,6 +38,9 @@
     "identity": {
       "version": "20160918",
       "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "identity.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "identity.ap-tokyo-1.oraclecloud.com"
         },
@@ -57,6 +64,9 @@
     "audit": {
       "version": "20160918",
       "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "audit.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "audit.ap-tokyo-1.oraclecloud.com"
         },
@@ -80,6 +90,9 @@
     "object_storage": {
       "version": "20160918",
       "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "objectstorage.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "objectstorage.ap-tokyo-1.oraclecloud.com"
         },
@@ -105,6 +118,29 @@
       "endpoints": {
         "no-region": {
           "hostname": "myservices"
+        }
+      }
+    },
+    "search": {
+      "version": "20180409",
+      "endpoints": {
+        "ap-tokyo-1": {
+          "hostname": "query.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "query.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "query.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "query.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "query.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "query.us-phoenix-1.oraclecloud.com"
         }
       }
     }

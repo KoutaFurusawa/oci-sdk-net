@@ -81,7 +81,8 @@ namespace Example
                     };
                     var bootvol = blockstorageClient.GetBootVolume(getBootVolumeRequest);
                     Console.WriteLine(" |\t|\t name: " + bootvol.BootVolume.DisplayName);
-                    Console.WriteLine(" |\t|\t sizeInMBs: " + bootvol.BootVolume.SizeInGBs);
+                    Console.WriteLine(" |\t|\t sizeInMBs: " + bootvol.BootVolume.SizeInMBs);
+                    Console.WriteLine(" |\t|\t sizeInGBs: " + bootvol.BootVolume.SizeInGBs.Value);
                 }
 
                 // get instance atattch bootvolumes
@@ -105,6 +106,7 @@ namespace Example
                     Console.WriteLine(" |\t|\t id:" + bv.BootVolume.Id);
                     Console.WriteLine(" |\t|\t state:" + bv.BootVolume.LifecycleState);
                     Console.WriteLine(" |\t|\t sizeInMBs:" + bv.BootVolume.SizeInMBs);
+                    Console.WriteLine(" |\t|\t sizeInGBs:" + bv.BootVolume.SizeInGBs.Value);
                 });
                 
                 // get instance atattch vnics

@@ -3,6 +3,7 @@ using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Audit;
 using OCISDK.Core.src.Audit.Request;
 using System;
+using System.Linq;
 
 namespace Example
 {
@@ -49,6 +50,7 @@ namespace Example
                     Console.WriteLine($"\t time:{e.EventTime}");
                     Console.WriteLine($"\t user:{e.UserName}");
                     Console.WriteLine($"\t principal:{e.PrincipalId}");
+                    Console.WriteLine($"\t payload:{e.ResponsePayload}");
                 });
 
             }
