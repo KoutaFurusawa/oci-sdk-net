@@ -122,7 +122,7 @@ namespace OCISDK.Core.src.Audit.Model
         /// the name of the resource (resourceName). Some API operations can generate an audit event, 
         /// but don't involve a resource, so then responsePayload is empty.
         /// </summary>
-        public Object ResponsePayload { get; set; }
+        public object ResponsePayload { get; set; }
 
         /// <summary>
         /// The name of the user or service. This value is the friendly name associated with principalId.

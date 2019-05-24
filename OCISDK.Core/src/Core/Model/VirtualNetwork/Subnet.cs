@@ -91,7 +91,7 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// (that is, it's a private subnet).
         /// <para>Required: no</para>
         /// </summary>
-        public bool ProhibitPublicIpOnVnic { get; set; }
+        public bool? ProhibitPublicIpOnVnic { get; set; }
 
         /// <summary>
         /// The OCID of the route table that the subnet uses.

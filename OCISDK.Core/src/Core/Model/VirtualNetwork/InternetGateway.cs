@@ -26,7 +26,7 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         
         public string TimeCreated { get; set; }
         
-        public bool IsEnabled { get; set; }
+        public bool? IsEnabled { get; set; }
         
         public IDictionary<string, string> FreeformTags { get; set; }
         

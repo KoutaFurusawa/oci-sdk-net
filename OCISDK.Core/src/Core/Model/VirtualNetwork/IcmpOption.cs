@@ -18,7 +18,7 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class IcmpOption
     {
-        public int Code { get; set; }
+        public int? Code { get; set; }
         
         public int Type { get; set; }
     }

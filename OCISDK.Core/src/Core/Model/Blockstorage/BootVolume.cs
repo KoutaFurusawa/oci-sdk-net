@@ -47,7 +47,7 @@ namespace OCISDK.Core.src.Core.Model.Blockstorage
         /// <summary>
         /// Specifies whether the boot volume's data has finished copying from the source boot volume or boot volume backup.
         /// </summary>
-        public bool IsHydrated { get; set; }
+        public bool? IsHydrated { get; set; }
 
         /// <summary>
         /// The current state of a boot volume.
@@ -64,7 +64,7 @@ namespace OCISDK.Core.src.Core.Model.Blockstorage
         /// <summary>
         /// The size of the boot volume in GBs.
         /// </summary>
-        public int SizeInGBs { get; set; }
+        public int? SizeInGBs { get; set; }
 
         /// <summary>
         /// The size of the volume in MBs. The value must be a multiple of 1024.

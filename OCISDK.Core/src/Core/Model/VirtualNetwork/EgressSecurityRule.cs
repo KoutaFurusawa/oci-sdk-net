@@ -18,7 +18,7 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         
         public IcmpOption IcmpOptions { get; set; }
         
-        public bool IsStateless { get; set; }
+        public bool? IsStateless { get; set; }
         
         public string Protocol { get; set; }
         
