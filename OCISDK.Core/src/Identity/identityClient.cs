@@ -551,6 +551,33 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Creates a new policy in the specified compartment (either the tenancy or another of your compartments). 
+        /// If you're new to policies, see Getting Started with Policies.
+        /// You must specify a name for the policy, which must be unique across all policies in your tenancy and cannot be changed.
+        /// </summary>
+        /// <param name="createPolicyRequest"></param>
+        /// <returns></returns>
+        public CreatePolicyResponse CreatePolicy(CreatePolicyRequest createPolicyRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/");
+
+            var webResponse = this.RestClient.Post(uri, createPolicyRequest.CreatePolicyDetails, createPolicyRequest.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreatePolicyResponse()
+                {
+                    Policy = JsonSerializer.Deserialize<Policy>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves the specified tag namespace to the specified compartment within the same tenancy.
         /// 
         /// To move the tag namespace, you must have the manage tag-namespaces permission on both compartments. 
@@ -662,6 +689,33 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Updates the specified policy. You can update the description or the policy statements themselves.
+        /// Policy changes take effect typically within 10 seconds.
+        /// </summary>
+        /// <param name="updatePolicyRequest"></param>
+        /// <returns></returns>
+        public UpdatePolicyResponse UpdatePolicy(UpdatePolicyRequest updatePolicyRequest)
+        {
+            var uri = new Uri(
+                $"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{updatePolicyRequest.PolicyId}");
+
+            var webResponse = this.RestClient.Put(uri, updatePolicyRequest.UpdatePolicyDetails);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdatePolicyResponse()
+                {
+                    Policy = JsonSerializer.Deserialize<Policy>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
         /// </summary>
         /// <param name="request"></param>
@@ -681,6 +735,30 @@ namespace OCISDK.Core.src.Identity
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     opcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified policy.
+        /// The deletion takes effect typically within 10 seconds.
+        /// </summary>
+        /// <param name="deletePolicyRequest"></param>
+        /// <returns></returns>
+        public DeletePolicyResponse DeletePolicy(DeletePolicyRequest deletePolicyRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{deletePolicyRequest.PolicyId}");
+
+            var webResponse = this.RestClient.Delete(uri, deletePolicyRequest.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeletePolicyResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
         }

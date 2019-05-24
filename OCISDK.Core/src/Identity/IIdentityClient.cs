@@ -163,6 +163,15 @@ namespace OCISDK.Core.src.Identity
         CreateTagResponse CreateTag(CreateTagRequest createRequest);
 
         /// <summary>
+        /// Creates a new policy in the specified compartment (either the tenancy or another of your compartments). 
+        /// If you're new to policies, see Getting Started with Policies.
+        /// You must specify a name for the policy, which must be unique across all policies in your tenancy and cannot be changed.
+        /// </summary>
+        /// <param name="createPolicyRequest"></param>
+        /// <returns></returns>
+        CreatePolicyResponse CreatePolicy(CreatePolicyRequest createPolicyRequest);
+
+        /// <summary>
         /// Moves the specified tag namespace to the specified compartment within the same tenancy.
         /// 
         /// To move the tag namespace, you must have the manage tag-namespaces permission on both compartments. 
@@ -204,12 +213,26 @@ namespace OCISDK.Core.src.Identity
         UpdateTagResponse UpdateTag(UpdateTagRequest updateRequest);
 
         /// <summary>
+        /// Updates the specified policy. You can update the description or the policy statements themselves.
+        /// Policy changes take effect typically within 10 seconds.
+        /// </summary>
+        /// <param name="updatePolicyRequest"></param>
+        /// <returns></returns>
+        UpdatePolicyResponse UpdatePolicy(UpdatePolicyRequest updatePolicyRequest);
+
+        /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteCompartmentResponse DeleteCompartment(DeleteCompartmentRequest deleteRequest);
 
-
+        /// <summary>
+        /// Deletes the specified policy.
+        /// The deletion takes effect typically within 10 seconds.
+        /// </summary>
+        /// <param name="deletePolicyRequest"></param>
+        /// <returns></returns>
+        DeletePolicyResponse DeletePolicy(DeletePolicyRequest deletePolicyRequest);
     }
 }
