@@ -17,56 +17,17 @@ namespace OCISDK.Core.src.Audit
 {
     public class AuditClient : ServiceClient, IAuditClient
     {
-        private RestClient RestClient { get; set; }
-
         /// <summary>
         /// Constructer
         /// </summary>
         public AuditClient(ClientConfig config) : base(config)
         {
             ServiceName = "audit";
-
-            Config = config;
-
-            var signer = new Signer(
-                config.TenancyId,
-                config.UserId,
-                config.Fingerprint,
-                config.PrivateKeyPath,
-                config.PrivateKeyPassphrase);
-
-            JsonSerializer = new JsonDefaultSerializer();
-
-            this.RestClient = new RestClient()
-            {
-                Signer = signer,
-                Config = config,
-                JsonSerializer = JsonSerializer
-            };
-
-            // default region setting
-            if (string.IsNullOrEmpty(config.HomeRegion))
-            {
-                // set ashburn if no default region found
-                Region = Regions.US_ASHBURN_1;
-            }
-            else
-            {
-                // home region
-                Region = config.HomeRegion;
-            }
         }
 
-        public AuditClient(ClientConfig config, RestClient restClient) : base(config)
+        public AuditClient(ClientConfigStream config) : base(config)
         {
             ServiceName = "audit";
-            
-            Config = config;
-
-            RestClient = restClient;
-
-            // default region ashburn
-            Region = Regions.US_ASHBURN_1;
         }
 
         /// <summary>

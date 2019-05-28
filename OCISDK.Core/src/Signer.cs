@@ -28,8 +28,8 @@ namespace OCISDK.Core.src
             { "PUT-LESS", new List<string>{"date", "(request-target)", "host" }}
         };
 
-        private readonly string keyId;
-        private readonly ISigner signer;
+        private readonly string KeyId;
+        private readonly ISigner SignerService;
 
         /// <summary>
         /// Adds the necessary authorization header for signed requests to Oracle Cloud Infrastructure services.
@@ -38,29 +38,26 @@ namespace OCISDK.Core.src
         /// <param name="tenancyId">The tenancy OCID</param>
         /// <param name="userId">The user OCID</param>
         /// <param name="fingerprint">The fingerprint corresponding to the provided key</param>
-        /// <param name="privateKeyPath">Path to a PEM file containing a private key</param>
+        /// <param name="fileStream">Stream to a PEM file containing a private key</param>
         /// <param name="privateKeyPassphrase">An optional passphrase for the private key</param>
-        public Signer(string tenancyId, string userId, string fingerprint, string privateKeyPath, string privateKeyPassphrase = "")
+        public Signer(string tenancyId, string userId, string fingerprint, StreamReader fileStream, string privateKeyPassphrase = "")
         {
             // This is the keyId for a key uploaded through the console
-            this.keyId = $"{tenancyId}/{userId}/{fingerprint}";
+            KeyId = $"{tenancyId}/{userId}/{fingerprint}";
 
             AsymmetricCipherKeyPair keyPair;
-            using (var fileStream = File.OpenText(privateKeyPath))
+            try
             {
-                try
-                {
-                    keyPair = (AsymmetricCipherKeyPair)new PemReader(fileStream, new Password(privateKeyPassphrase.ToCharArray())).ReadObject();
-                }
-                catch (InvalidCipherTextException)
-                {
-                    throw new ArgumentException("Incorrect passphrase for private key");
-                }
+                keyPair = (AsymmetricCipherKeyPair)new PemReader(fileStream, new Password(privateKeyPassphrase.ToCharArray())).ReadObject();
             }
+            catch (InvalidCipherTextException)
+            {
+                throw new ArgumentException("Incorrect passphrase for private key");
+                }
 
             RsaKeyParameters privateKeyParams = (RsaKeyParameters)keyPair.Private;
-            this.signer = SignerUtilities.GetSigner("SHA-256withRSA");
-            this.signer.Init(true, privateKeyParams);
+            SignerService = SignerUtilities.GetSigner("SHA-256withRSA");
+            SignerService.Init(true, privateKeyParams);
         }
 
         public void SignRequest(HttpWebRequest request, bool useLessHeadersForPut = false)
@@ -115,9 +112,9 @@ namespace OCISDK.Core.src
 
             // generate signature using the private key
             var bytes = Encoding.UTF8.GetBytes(signingStringBuilder.ToString());
-            this.signer.BlockUpdate(bytes, 0, bytes.Length);
-            var signature = Convert.ToBase64String(this.signer.GenerateSignature());
-            var authorization = $@"Signature version=""1"",headers=""{string.Join(" ", headers)}"",keyId=""{keyId}"",algorithm=""rsa-sha256"",signature=""{signature}""";
+            SignerService.BlockUpdate(bytes, 0, bytes.Length);
+            var signature = Convert.ToBase64String(SignerService.GenerateSignature());
+            var authorization = $@"Signature version=""1"",headers=""{string.Join(" ", headers)}"",keyId=""{KeyId}"",algorithm=""rsa-sha256"",signature=""{signature}""";
             request.Headers["authorization"] = authorization;
         }
 
