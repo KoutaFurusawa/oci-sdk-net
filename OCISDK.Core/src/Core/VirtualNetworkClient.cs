@@ -19,55 +19,17 @@ namespace OCISDK.Core
 {
     public class VirtualNetworkClient : ServiceClient, IVirtualNetworkClient
     {
-        private RestClient RestClient { get; set; }
-
         /// <summary>
         /// Constructer
         /// </summary>
         public VirtualNetworkClient(ClientConfig config) : base(config)
         {
             ServiceName = "core";
-
-            Config = config;
-
-            var signer = new Signer(
-                config.TenancyId,
-                config.UserId,
-                config.Fingerprint,
-                config.PrivateKeyPath,
-                config.PrivateKeyPassphrase);
-
-            JsonSerializer = new JsonDefaultSerializer();
-
-            this.RestClient = new RestClient() {
-                Signer = signer,
-                Config = config,
-                JsonSerializer = JsonSerializer
-            };
-
-            // default region setting
-            if (string.IsNullOrEmpty(config.HomeRegion))
-            {
-                // set ashburn if no default region found
-                Region = Regions.US_ASHBURN_1;
-            }
-            else
-            {
-                // home region
-                Region = config.HomeRegion;
-            }
         }
 
-        public VirtualNetworkClient(ClientConfig config, RestClient restClient) : base(config)
+        public VirtualNetworkClient(ClientConfigStream config) : base(config)
         {
             ServiceName = "core";
-
-            Config = config;
-
-            RestClient = restClient;
-
-            // default region ashburn
-            Region = Regions.US_ASHBURN_1;
         }
 
         /// <summary>

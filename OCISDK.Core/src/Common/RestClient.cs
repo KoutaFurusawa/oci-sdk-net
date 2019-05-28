@@ -57,9 +57,7 @@ namespace OCISDK.Core.src.Common
     public class RestClient : IRestClient
     {
         public Signer Signer { get; set; }
-
-        public ClientConfig Config { get; set; }
-
+        
         public IJsonSerializer JsonSerializer { get; set; }
         
         public RestOption Option { get; }
@@ -99,6 +97,11 @@ namespace OCISDK.Core.src.Common
                 .Fallback(new HttpWebResponse());
         }
 
+        public HttpWebResponse Get(HttpWebRequest request)
+        {
+            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+        }
+
         /// <summary>
         /// Request a resource asynchronously.
         /// </summary>
@@ -116,7 +119,10 @@ namespace OCISDK.Core.src.Common
                 request.Headers["opc-request-id"] = opcRequestId;
             }
 
-            Signer.SignRequest(request);
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
@@ -177,7 +183,10 @@ namespace OCISDK.Core.src.Common
                 }
             }
 
-            Signer.SignRequest(request);
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
@@ -215,7 +224,10 @@ namespace OCISDK.Core.src.Common
                 }
             }
 
-            Signer.SignRequest(request);
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
@@ -259,8 +271,11 @@ namespace OCISDK.Core.src.Common
                     stream.Write(bytes, 0, bytes.Length);
                 }
             }
-            
-            Signer.SignRequest(request);
+
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
@@ -297,7 +312,10 @@ namespace OCISDK.Core.src.Common
                 }
             }
 
-            Signer.SignRequest(request);
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
