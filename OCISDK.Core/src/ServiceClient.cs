@@ -35,7 +35,7 @@ namespace OCISDK.Core.src
         /// <summary> Core Services Name </summary>
         public string ServiceName { get; set; }
 
-        protected Signer Signer { get; set; }
+        protected IOciSigner Signer { get; set; }
 
         public ClientConfigStream Config { get; set; }
         
@@ -66,8 +66,8 @@ namespace OCISDK.Core.src
                 Initialize(streamConfig);
             }
         }
-        
-        public ServiceClient(ClientConfigStream config)
+
+        public ServiceClient(ClientConfig config, IOciSigner ociSigner)
         {
             var streamConfig = new ClientConfigStream
             {
@@ -77,26 +77,51 @@ namespace OCISDK.Core.src
                 HomeRegion = config.HomeRegion,
                 IdentityDomain = config.IdentityDomain,
                 Password = config.Password,
-                PrivateKey = config.PrivateKey,
                 PrivateKeyPassphrase = config.PrivateKeyPassphrase,
                 TenancyId = config.TenancyId,
                 UserId = config.UserId,
                 UserName = config.UserName
             };
 
-            Initialize(streamConfig);
+            using (var key = File.OpenText(config.PrivateKey))
+            {
+                streamConfig.PrivateKey = key;
+
+                Initialize(streamConfig, ociSigner);
+            }
         }
 
+        public ServiceClient(ClientConfigStream config)
+        {
+            Initialize(config);
+        }
+
+        public ServiceClient(ClientConfigStream config, IOciSigner ociSigner)
+        {
+            Initialize(config, ociSigner);
+        }
+
+        /// <summary>
+        /// Initialize Client
+        /// </summary>
+        /// <param name="config"></param>
         public void Initialize(ClientConfigStream config)
         {
-            Config = config;
-
-            Signer = new Signer(
+            var signer = new OciSigner(
                 config.TenancyId,
                 config.UserId,
                 config.Fingerprint,
                 config.PrivateKey,
                 config.PrivateKeyPassphrase);
+
+            Initialize(config, signer);
+        }
+
+        public void Initialize(ClientConfigStream config, IOciSigner ociSigner)
+        {
+            Config = config;
+
+            Signer = ociSigner;
 
             JsonSerializer = new JsonDefaultSerializer();
 
@@ -111,7 +136,7 @@ namespace OCISDK.Core.src
                 // home region
                 Region = config.HomeRegion;
             }
-            
+
             this.RestClient = new RestClient()
             {
                 Signer = this.Signer,
@@ -119,7 +144,7 @@ namespace OCISDK.Core.src
             };
         }
 
-        protected Signer Sign()
+        protected IOciSigner GetSigner()
         {
             return Signer;
         }

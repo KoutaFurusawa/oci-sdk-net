@@ -16,7 +16,7 @@ using Org.BouncyCastle.Security;
 
 namespace OCISDK.Core.src
 {
-    public class Signer
+    public class OciSigner : IOciSigner
     {
         private static readonly IDictionary<string, List<string>> RequiredHeaders = new Dictionary<string, List<string>>
         {
@@ -30,7 +30,7 @@ namespace OCISDK.Core.src
 
         private readonly string KeyId;
         private readonly ISigner SignerService;
-
+        
         /// <summary>
         /// Adds the necessary authorization header for signed requests to Oracle Cloud Infrastructure services.
         /// Documentation for request signatures can be found here: https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/signingrequests.htm
@@ -40,7 +40,7 @@ namespace OCISDK.Core.src
         /// <param name="fingerprint">The fingerprint corresponding to the provided key</param>
         /// <param name="fileStream">Stream to a PEM file containing a private key</param>
         /// <param name="privateKeyPassphrase">An optional passphrase for the private key</param>
-        public Signer(string tenancyId, string userId, string fingerprint, StreamReader fileStream, string privateKeyPassphrase = "")
+        public OciSigner(string tenancyId, string userId, string fingerprint, StreamReader fileStream, string privateKeyPassphrase = "")
         {
             // This is the keyId for a key uploaded through the console
             KeyId = $"{tenancyId}/{userId}/{fingerprint}";
@@ -53,7 +53,7 @@ namespace OCISDK.Core.src
             catch (InvalidCipherTextException)
             {
                 throw new ArgumentException("Incorrect passphrase for private key");
-                }
+            }
 
             RsaKeyParameters privateKeyParams = (RsaKeyParameters)keyPair.Private;
             SignerService = SignerUtilities.GetSigner("SHA-256withRSA");
@@ -92,7 +92,7 @@ namespace OCISDK.Core.src
                 switch (headerName)
                 {
                     case "(request-target)":
-                        value = buildRequestTarget(request);
+                        value = BuildRequestTarget(request);
                         break;
                     case "host":
                         value = request.Host;
@@ -118,7 +118,7 @@ namespace OCISDK.Core.src
             request.Headers["authorization"] = authorization;
         }
 
-        private static string buildRequestTarget(HttpWebRequest request)
+        private static string BuildRequestTarget(HttpWebRequest request)
         {
             // ex. get /20160918/instances
             return $"{request.Method.ToLowerInvariant()} {request.RequestUri.PathAndQuery}";

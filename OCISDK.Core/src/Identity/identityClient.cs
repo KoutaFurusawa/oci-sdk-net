@@ -24,7 +24,17 @@ namespace OCISDK.Core.src.Identity
             ServiceName = "identity";
         }
 
+        public IdentityClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "identity";
+        }
+
         public IdentityClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "identity";
+        }
+
+        public IdentityClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "identity";
         }

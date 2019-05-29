@@ -24,7 +24,17 @@ namespace OCISDK.Core.src.Core
             ServiceName = "core";
         }
 
+        public ComputeClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "core";
+        }
+
         public ComputeClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "core";
+        }
+
+        public ComputeClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }
