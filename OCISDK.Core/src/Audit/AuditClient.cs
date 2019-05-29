@@ -25,7 +25,17 @@ namespace OCISDK.Core.src.Audit
             ServiceName = "audit";
         }
 
+        public AuditClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "audit";
+        }
+
         public AuditClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "audit";
+        }
+
+        public AuditClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "audit";
         }

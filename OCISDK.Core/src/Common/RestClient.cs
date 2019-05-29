@@ -56,7 +56,7 @@ namespace OCISDK.Core.src.Common
 
     public class RestClient : IRestClient
     {
-        public Signer Signer { get; set; }
+        public IOciSigner Signer { get; set; }
         
         public IJsonSerializer JsonSerializer { get; set; }
         

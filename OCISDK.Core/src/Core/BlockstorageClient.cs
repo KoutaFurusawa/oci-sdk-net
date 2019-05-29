@@ -25,7 +25,17 @@ namespace OCISDK.Core.src.Core
             ServiceName = "core";
         }
 
+        public BlockstorageClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "core";
+        }
+
         public BlockstorageClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "core";
+        }
+
+        public BlockstorageClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }

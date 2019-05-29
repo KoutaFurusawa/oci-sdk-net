@@ -19,7 +19,17 @@ namespace OCISDK.Core.src.ObjectStorage
             ServiceName = "object_storage";
         }
 
+        public ObjectStorageClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "object_storage";
+        }
+
         public ObjectStorageClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "object_storage";
+        }
+
+        public ObjectStorageClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "object_storage";
         }

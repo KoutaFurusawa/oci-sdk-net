@@ -19,7 +19,17 @@ namespace OCISDK.Core.src.Search
             ServiceName = "search";
         }
 
+        public SearchClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "search";
+        }
+
         public SearchClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "search";
+        }
+
+        public SearchClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "search";
         }

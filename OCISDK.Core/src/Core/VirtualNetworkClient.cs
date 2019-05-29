@@ -27,7 +27,17 @@ namespace OCISDK.Core
             ServiceName = "core";
         }
 
+        public VirtualNetworkClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "core";
+        }
+
         public VirtualNetworkClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "core";
+        }
+
+        public VirtualNetworkClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }
