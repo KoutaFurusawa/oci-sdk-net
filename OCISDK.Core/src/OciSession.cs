@@ -35,8 +35,6 @@ namespace OCISDK.Core.src
                 UserName = config.UserName
             };
 
-            ClientConfigStream = streamConfig;
-
             using (var key = File.OpenText(config.PrivateKey))
             {
                 streamConfig.PrivateKey = key;
@@ -49,6 +47,9 @@ namespace OCISDK.Core.src
                 streamConfig.PrivateKey,
                 streamConfig.PrivateKeyPassphrase
             );
+
+            ClientConfigStream = streamConfig;
+
         }
 
         public OciSession(ClientConfigStream config)
