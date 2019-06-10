@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Authors>k.furusawa</Authors>
     <Company>atomitech</Company>

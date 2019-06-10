@@ -99,5 +99,10 @@ namespace OCISDK.Core.src
         {
             return new SearchClient(ClientConfigStream, OciSigner);
         }
+
+        public IWorkRequestClient GetWorkRequestClient()
+        {
+            return new WorkRequestClient(ClientConfigStream, OciSigner);
+        }
     }
 }
