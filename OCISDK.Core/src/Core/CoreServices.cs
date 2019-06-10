@@ -51,5 +51,7 @@ namespace OCISDK.Core.src.Core
         public readonly static string VolumeBackupPolicyAssignment = "volumeBackupPolicyAssignments";
         public readonly static string VolumeGroup = "volumeGroups";
         public readonly static string VolumeGroupBackup = "volumeGroupBackups";
+
+        public readonly static string WorkRequests = "workRequests";
     }
 }

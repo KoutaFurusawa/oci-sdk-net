@@ -24,5 +24,7 @@ namespace OCISDK.Core.src
         IObjectStorageClient GetObjectStorageClient();
 
         ISearchClient GetSearchClient();
+
+        IWorkRequestClient GetWorkRequestClient();
     }
 }

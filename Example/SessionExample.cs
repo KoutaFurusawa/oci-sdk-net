@@ -1,6 +1,7 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Request.Compute;
+using OCISDK.Core.src.Core.Request.WorkRequest;
 using OCISDK.Core.src.Identity;
 using OCISDK.Core.src.Identity.Request;
 using System;
@@ -146,6 +147,19 @@ namespace Example
             foreach (var ins in instances.Items)
             {
                 Console.WriteLine($"rootCompartmentInstanceName: {ins.DisplayName}");
+            }
+
+            var workReqestClirnt = session.GetWorkRequestClient();
+            var listWorkRequestsRequest = new ListWorkRequestsRequest()
+            {
+                CompartmentId = getTenacy.Tenancy.Id,
+                ResourceId = "ocid1.vcn.oc1.iad.aaaaaaaa32453q2gv2svmjavzjxqvni7brbxempftfwtchlnltrmazbh32kq"
+                
+            };
+            var workreqs = workReqestClirnt.ListWorkRequests(listWorkRequestsRequest);
+            foreach (var wq in workreqs.Items)
+            {
+                Console.WriteLine($"WorkRequest: {wq.Id}");
             }
 
             Console.WriteLine("Exit with key press...");
