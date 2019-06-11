@@ -7,6 +7,7 @@ using OCISDK.Core.src.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace OCISDK.Core.src
 {
@@ -44,7 +45,7 @@ namespace OCISDK.Core.src
         /// <summary> oracle cloud home region </summary>
         public string HomeRegion { get; set; }
 
-        public const string ConfigFileName = "src/endpoints.json";
+        public const string ConfigFileName = "Resources/endpoints.json";
 
         protected EndpointConfig EndPoint;
 
@@ -71,14 +72,18 @@ namespace OCISDK.Core.src
         public ClientConfigBase()
         {
             var jsonSerializer = new JsonDefaultSerializer();
-            string assemblyLocation = typeof(ClientConfig).Assembly.Location;
-            string endpointsPath = Path.Combine(Path.GetDirectoryName(assemblyLocation), ConfigFileName);
-            if (File.Exists(endpointsPath))
+
+            var resourceName = "OCISDK.Core.Resources.endpoints.json";
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
-                using (var sr = new StreamReader(endpointsPath))
+                if (stream != null)
                 {
-                    string endp = sr.ReadToEnd();
-                    EndPoint = jsonSerializer.Deserialize<EndpointConfig>(endp);
+                    using (var sr = new StreamReader(stream))
+                    {
+                        string endp = sr.ReadToEnd();
+                        EndPoint = jsonSerializer.Deserialize<EndpointConfig>(endp);
+                    }
                 }
             }
         }

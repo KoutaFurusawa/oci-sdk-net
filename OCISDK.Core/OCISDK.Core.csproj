@@ -14,18 +14,31 @@ Unofficial Oracle Cloud SDK for .NET.
 Supports several APIs.
 This SDK is unofficial and does not support all OCI services. It is also intended for personal research and limited project use only.
 Please send comments and requests for this SDK to GitHub.</Description>
-    <Version>0.5.1</Version>
+    <Version>0.5.2</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net/tree/master/OCISDK.Core</PackageProjectUrl>
-    <PackageReleaseNotes>2019/06/11 version 0.5.0 release</PackageReleaseNotes>
+    <PackageReleaseNotes>2019/06/11 version 0.5.0 release
+2019/06/11 version 0.5.1 release
+2019/06/11 version 0.5.2 release
+</PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net/tree/master/OCISDK.Core</RepositoryUrl>
     <PackageTags>OracleCloud</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.1.0</AssemblyVersion>
-    <FileVersion>0.5.1.0</FileVersion>
+    <AssemblyVersion>0.5.2.0</AssemblyVersion>
+    <FileVersion>0.5.2.0</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\endpoints.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\endpoints.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.3" />
@@ -38,12 +51,6 @@ Please send comments and requests for this SDK to GitHub.</Description>
     <Reference Include="System">
       <HintPath>System</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="src\endpoints.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -60,7 +67,7 @@ Please send comments and requests for this SDK to GitHub.</Description>
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
