@@ -11,20 +11,20 @@ namespace OCISDK.Core.src
 {
     public interface IOciSession
     {
-        IIdentityClient GetIdentityClient();
+        IdentityClient GetIdentityClient();
 
-        IComputeClient GetComputeClient();
+        ComputeClient GetComputeClient();
 
-        IBlockstorageClient GetBlockstorageClient();
+        BlockstorageClient GetBlockstorageClient();
 
-        IVirtualNetworkClient GetVirtualNetworkClient();
+        VirtualNetworkClient GetVirtualNetworkClient();
 
-        IAuditClient GetAuditClient();
+        AuditClient GetAuditClient();
 
-        IObjectStorageClient GetObjectStorageClient();
+        ObjectStorageClient GetObjectStorageClient();
 
-        ISearchClient GetSearchClient();
+        SearchClient GetSearchClient();
 
-        IWorkRequestClient GetWorkRequestClient();
+        WorkRequestClient GetWorkRequestClient();
     }
 }

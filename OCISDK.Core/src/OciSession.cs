@@ -65,42 +65,42 @@ namespace OCISDK.Core.src
             ClientConfigStream = config;
         }
         
-        public IIdentityClient GetIdentityClient()
+        public IdentityClient GetIdentityClient()
         {
             return new IdentityClient(ClientConfigStream, OciSigner);
         }
 
-        public IComputeClient GetComputeClient()
+        public ComputeClient GetComputeClient()
         {
             return new ComputeClient(ClientConfigStream, OciSigner);
         }
 
-        public IBlockstorageClient GetBlockstorageClient()
+        public BlockstorageClient GetBlockstorageClient()
         {
             return new BlockstorageClient(ClientConfigStream, OciSigner);
         }
 
-        public IVirtualNetworkClient GetVirtualNetworkClient()
+        public VirtualNetworkClient GetVirtualNetworkClient()
         {
             return new VirtualNetworkClient(ClientConfigStream, OciSigner);
         }
 
-        public IAuditClient GetAuditClient()
+        public AuditClient GetAuditClient()
         {
             return new AuditClient(ClientConfigStream, OciSigner);
         }
 
-        public IObjectStorageClient GetObjectStorageClient()
+        public ObjectStorageClient GetObjectStorageClient()
         {
             return new ObjectStorageClient(ClientConfigStream, OciSigner);
         }
         
-        public ISearchClient GetSearchClient()
+        public SearchClient GetSearchClient()
         {
             return new SearchClient(ClientConfigStream, OciSigner);
         }
 
-        public IWorkRequestClient GetWorkRequestClient()
+        public WorkRequestClient GetWorkRequestClient()
         {
             return new WorkRequestClient(ClientConfigStream, OciSigner);
         }
