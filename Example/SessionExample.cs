@@ -122,44 +122,52 @@ namespace Example
 
             Console.WriteLine($"tenantName: {getTenacy.Tenancy.Name}");
 
+            // get compute
+            var computeClient = session.GetComputeClient();
+
             var listCompartmentRequest = new ListCompartmentRequest()
             {
-                CompartmentId = getTenacy.Tenancy.Id
+                CompartmentId = getTenacy.Tenancy.Id,
+                CompartmentIdInSubtree = true
             };
             var cmparts = identityClient.ListCompartment(listCompartmentRequest);
             foreach(var com in cmparts.Items)
             {
                 Console.WriteLine($"compartmentName: {com.Name}");
-            }
 
-            // get compute
-            var computeClient = session.GetComputeClient();
+                var listInstanceRequest = new ListInstancesRequest()
+                {
+                    CompartmentId = com.Id,
+                    Limit = 10,
+                    SortOrder = SortOrder.ASC
+                };
+                var instances = computeClient.ListInstances(listInstanceRequest);
+                foreach (var ins in instances.Items)
+                {
+                    Console.WriteLine($"rootCompartmentInstanceName: {ins.DisplayName}");
 
-            var listInstanceRequest = new ListInstancesRequest()
-            {
-                // target compartment is root compartment(tenancy)
-                CompartmentId = getTenacy.Tenancy.Id,
-                Limit = 10,
-                LifecycleState = ListInstancesRequest.LifecycleStates.RUNNING,
-                SortOrder = SortOrder.ASC
-            };
-            var instances = computeClient.ListInstances(listInstanceRequest);
-            foreach (var ins in instances.Items)
-            {
-                Console.WriteLine($"rootCompartmentInstanceName: {ins.DisplayName}");
-            }
 
-            var workReqestClirnt = session.GetWorkRequestClient();
-            var listWorkRequestsRequest = new ListWorkRequestsRequest()
-            {
-                CompartmentId = getTenacy.Tenancy.Id,
-                ResourceId = "ocid1.vcn.oc1.iad.aaaaaaaa32453q2gv2svmjavzjxqvni7brbxempftfwtchlnltrmazbh32kq"
-                
-            };
-            var workreqs = workReqestClirnt.ListWorkRequests(listWorkRequestsRequest);
-            foreach (var wq in workreqs.Items)
-            {
-                Console.WriteLine($"WorkRequest: {wq.Id}");
+                    var workReqestClient = session.GetWorkRequestClient();
+                    var listWorkRequestsRequest = new ListWorkRequestsRequest()
+                    {
+                        CompartmentId = ins.CompartmentId,
+                        ResourceId = ins.Id
+
+                    };
+                    var workreqs = workReqestClient.ListWorkRequests(listWorkRequestsRequest);
+                    foreach (var wq in workreqs.Items)
+                    {
+                        Console.WriteLine($"\tWorkRequest: {wq.OperationType}, state:{wq.Status}");
+
+                        var getWorkRequestRequest = new GetWorkRequestRequest()
+                        {
+                            WorkRequestId = wq.Id
+                        };
+                        var gw = workReqestClient.GetWorkRequest(getWorkRequestRequest);
+                        Console.WriteLine($"\taccepted:{gw.WorkRequest.TimeAccepted}, finished:{gw.WorkRequest.TimeFinished}");
+                    }
+                }
+
             }
 
             Console.WriteLine("Exit with key press...");

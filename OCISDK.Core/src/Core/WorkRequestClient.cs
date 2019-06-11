@@ -75,5 +75,30 @@ namespace OCISDK.Core.src.Core
                 };
             }
         }
+
+        /// <summary>
+        /// Gets the details of a work request.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        public GetWorkRequestResponse GetWorkRequest(GetWorkRequestRequest getRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{getRequest.WorkRequestId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetWorkRequestResponse()
+                {
+                    WorkRequest = JsonSerializer.Deserialize<WorkRequestModel>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
     }
 }

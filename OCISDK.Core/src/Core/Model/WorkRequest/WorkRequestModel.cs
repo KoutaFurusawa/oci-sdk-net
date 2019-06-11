@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.WorkRequest
 {
-    public class WorkRequestSummary
+    public class WorkRequestModel
     {
         /// <summary>
         /// The asynchronous operation tracked by this work request.
@@ -25,10 +25,16 @@ namespace OCISDK.Core.src.Core.Model.WorkRequest
         public string Id { get; set; }
 
         /// <summary>
-        /// The OCID of the compartment containing this work request.
+        /// The OCID of the compartment that contains the work request.
         /// <para>Required: yes</para>
         /// </summary>
         public string CompartmentId { get; set; }
+
+        /// <summary>
+        /// The resources that are affected by this work request.
+        /// <para>Required: yes</para>
+        /// </summary>
+        public List<WorkRequestResource> Resources { get; set; }
 
         /// <summary>
         /// The percentage complete of the operation tracked by this work request.

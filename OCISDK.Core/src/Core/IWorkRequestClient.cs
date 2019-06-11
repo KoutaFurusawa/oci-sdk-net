@@ -26,5 +26,12 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         ListWorkRequestsResponse ListWorkRequests(ListWorkRequestsRequest param);
+
+        /// <summary>
+        /// Gets the details of a work request.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        GetWorkRequestResponse GetWorkRequest(GetWorkRequestRequest getRequest);
     }
 }
