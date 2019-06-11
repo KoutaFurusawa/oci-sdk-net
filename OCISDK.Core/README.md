@@ -19,6 +19,9 @@ Examples can be found [here](/Example/).
 
 ## License
 
-https://opensource.org/licenses/MIT
-Copyright (c) 2019, k.furusawa and/or its affiliates. All rights reserved.
+Copyright (c) 2019, k.furusawa
+
+Released under the MIT license
+
+https://github.com/KoutaFurusawa/oci-sdk-net/blob/master/OCISDK.Core/MIT-LICENSE.txt
 
