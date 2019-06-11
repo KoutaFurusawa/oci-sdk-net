@@ -1,0 +1,148 @@
+﻿{
+  "regionShortNames": {
+    "icn": "ap-seoul-1",
+    "nrt": "ap-tokyo-1",
+    "phx": "us-phoenix-1",
+    "iad": "us-ashburn-1",
+    "fra": "eu-frankfurt-1",
+    "lhr": "uk-london-1",
+    "yyz": "ca-toronto-1"
+  },
+  "services": {
+    "core": {
+      "version": "20160918",
+      "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "iaas.ap-seoul-1.oraclecloud.com"
+        },
+        "ap-tokyo-1": {
+          "hostname": "iaas.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "iaas.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "iaas.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "iaas.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "iaas.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "iaas.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "identity": {
+      "version": "20160918",
+      "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "identity.ap-seoul-1.oraclecloud.com"
+        },
+        "ap-tokyo-1": {
+          "hostname": "identity.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "identity.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "identity.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "identity.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "identity.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "identity.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "audit": {
+      "version": "20160918",
+      "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "audit.ap-seoul-1.oraclecloud.com"
+        },
+        "ap-tokyo-1": {
+          "hostname": "audit.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "audit.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "audit.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "audit.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "audit.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "audit.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "object_storage": {
+      "version": "20160918",
+      "endpoints": {
+        "ap-seoul-1": {
+          "hostname": "objectstorage.ap-seoul-1.oraclecloud.com"
+        },
+        "ap-tokyo-1": {
+          "hostname": "objectstorage.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "objectstorage.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "objectstorage.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "objectstorage.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "objectstorage.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "objectstorage.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "my_service": {
+      "version": "v1",
+      "endpoints": {
+        "no-region": {
+          "hostname": "myservices"
+        }
+      }
+    },
+    "search": {
+      "version": "20180409",
+      "endpoints": {
+        "ap-tokyo-1": {
+          "hostname": "query.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "query.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "query.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "query.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "query.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "query.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    }
+  }
+}
