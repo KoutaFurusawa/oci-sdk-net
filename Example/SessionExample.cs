@@ -165,6 +165,30 @@ namespace Example
                         };
                         var gw = workReqestClient.GetWorkRequest(getWorkRequestRequest);
                         Console.WriteLine($"\taccepted:{gw.WorkRequest.TimeAccepted}, finished:{gw.WorkRequest.TimeFinished}");
+
+                        var listWorkRequestErrorsRequest = new ListWorkRequestErrorsRequest()
+                        {
+                            WorkRequestId = wq.Id,
+                            Limit = 100,
+                            SortOrder = SortOrder.ASC
+                        };
+                        var wqErrors = workReqestClient.ListWorkRequestErrors(listWorkRequestErrorsRequest);
+                        foreach(var error in wqErrors.Items)
+                        {
+                            Console.WriteLine($"\tErrorCode: {error.Code}, ErrorMessage:{error.Message}, ErrorTimeStamp:{error.Timestamp}");
+                        }
+
+                        var listWorkRequestLogsRequest = new ListWorkRequestLogsRequest()
+                        {
+                            WorkRequestId = wq.Id,
+                            Limit = 100,
+                            SortOrder = SortOrder.ASC
+                        };
+                        var wqLogs = workReqestClient.ListWorkRequestLogs(listWorkRequestLogsRequest);
+                        foreach (var log in wqLogs.Items)
+                        {
+                            Console.WriteLine($"\tLogMessage:{log.Message}, LogTimeStamp:{log.Timestamp}");
+                        }
                     }
                 }
 

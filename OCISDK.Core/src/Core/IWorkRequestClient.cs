@@ -28,6 +28,20 @@ namespace OCISDK.Core.src.Core
         ListWorkRequestsResponse ListWorkRequests(ListWorkRequestsRequest param);
 
         /// <summary>
+        /// Gets the errors for a work request.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListWorkRequestErrorsResponse ListWorkRequestErrors(ListWorkRequestErrorsRequest param);
+
+        /// <summary>
+        /// Gets the logs for a work request.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListWorkRequestLogsResponse ListWorkRequestLogs(ListWorkRequestLogsRequest param);
+
+        /// <summary>
         /// Gets the details of a work request.
         /// </summary>
         /// <param name="getRequest"></param>

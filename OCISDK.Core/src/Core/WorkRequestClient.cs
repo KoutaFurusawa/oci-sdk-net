@@ -77,6 +77,56 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets the errors for a work request.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListWorkRequestErrorsResponse ListWorkRequestErrors(ListWorkRequestErrorsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{param.WorkRequestId}/errors?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWorkRequestErrorsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<WorkRequestError>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the logs for a work request.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListWorkRequestLogsResponse ListWorkRequestLogs(ListWorkRequestLogsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{param.WorkRequestId}/logs?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWorkRequestLogsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<WorkRequestLogEntry>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the details of a work request.
         /// </summary>
         /// <param name="getRequest"></param>
