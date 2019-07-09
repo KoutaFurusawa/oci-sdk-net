@@ -1,7 +1,6 @@
 ﻿# Oracle Cloud Infrastructure .Net SDK
 
 ## About
-oci-java-net provides a ASP.NET SDK for managing your Oracle Cloud Infrastructure resources.
 
 .Net向け非公式Oracle Cloud SDK。
 一部のAPIにのみ対応。
@@ -17,7 +16,7 @@ Please send comments and requests for this SDK to GitHub.
 
 Examples can be found [here](/Example/).
 
-### Get NuGet
+## Get NuGet
 
 https://www.nuget.org/packages/OCISDK.Core/
 
