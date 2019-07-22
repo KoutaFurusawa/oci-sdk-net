@@ -11,20 +11,58 @@ namespace OCISDK.Core.src
 {
     public interface IOciSession
     {
-        IdentityClient GetIdentityClient();
+        /// <summary>
+        /// Get IdentityClinet
+        /// </summary>
+        /// <returns></returns>
+        IIdentityClient GetIdentityClient();
 
-        ComputeClient GetComputeClient();
+        /// <summary>
+        /// Get ComputeClient
+        /// </summary>
+        /// <returns></returns>
+        IComputeClient GetComputeClient();
 
-        BlockstorageClient GetBlockstorageClient();
+        /// <summary>
+        /// Get BlockstorageClient
+        /// </summary>
+        /// <returns></returns>
+        IBlockstorageClient GetBlockstorageClient();
 
-        VirtualNetworkClient GetVirtualNetworkClient();
+        /// <summary>
+        /// Get VirtualNetworkClient
+        /// </summary>
+        /// <returns></returns>
+        IVirtualNetworkClient GetVirtualNetworkClient();
 
-        AuditClient GetAuditClient();
+        /// <summary>
+        /// Get AuditClient
+        /// </summary>
+        /// <returns></returns>
+        IAuditClient GetAuditClient();
 
-        ObjectStorageClient GetObjectStorageClient();
+        /// <summary>
+        /// Get ObjectStorageClient
+        /// </summary>
+        /// <returns></returns>
+        IObjectStorageClient GetObjectStorageClient();
 
-        SearchClient GetSearchClient();
+        /// <summary>
+        /// Get SearchClient
+        /// </summary>
+        /// <returns></returns>
+        ISearchClient GetSearchClient();
 
-        WorkRequestClient GetWorkRequestClient();
+        /// <summary>
+        /// Get WorkRequestClient
+        /// </summary>
+        /// <returns></returns>
+        IWorkRequestClient GetWorkRequestClient();
+
+        /// <summary>
+        /// Get IdentityClinet Async
+        /// </summary>
+        /// <returns></returns>
+        IIdentityClientAsync GetIdentityClientAsync();
     }
 }

@@ -64,45 +64,87 @@ namespace OCISDK.Core.src
 
             ClientConfigStream = config;
         }
-        
-        public IdentityClient GetIdentityClient()
+
+        /// <summary>
+        /// Get IdentityClinet
+        /// </summary>
+        /// <returns></returns>
+        public IIdentityClient GetIdentityClient()
         {
             return new IdentityClient(ClientConfigStream, OciSigner);
         }
 
-        public ComputeClient GetComputeClient()
+        /// <summary>
+        /// Get ComputeClient
+        /// </summary>
+        /// <returns></returns>
+        public IComputeClient GetComputeClient()
         {
             return new ComputeClient(ClientConfigStream, OciSigner);
         }
 
-        public BlockstorageClient GetBlockstorageClient()
+        /// <summary>
+        /// Get BlockstorageClient
+        /// </summary>
+        /// <returns></returns>
+        public IBlockstorageClient GetBlockstorageClient()
         {
             return new BlockstorageClient(ClientConfigStream, OciSigner);
         }
 
-        public VirtualNetworkClient GetVirtualNetworkClient()
+        /// <summary>
+        /// Get VirtualNetworkClient
+        /// </summary>
+        /// <returns></returns>
+        public IVirtualNetworkClient GetVirtualNetworkClient()
         {
             return new VirtualNetworkClient(ClientConfigStream, OciSigner);
         }
 
-        public AuditClient GetAuditClient()
+        /// <summary>
+        /// Get AuditClient
+        /// </summary>
+        /// <returns></returns>
+        public IAuditClient GetAuditClient()
         {
             return new AuditClient(ClientConfigStream, OciSigner);
         }
 
-        public ObjectStorageClient GetObjectStorageClient()
+        /// <summary>
+        /// Get ObjectStorageClient
+        /// </summary>
+        /// <returns></returns>
+        public IObjectStorageClient GetObjectStorageClient()
         {
             return new ObjectStorageClient(ClientConfigStream, OciSigner);
         }
-        
-        public SearchClient GetSearchClient()
+
+        /// <summary>
+        /// Get SearchClient
+        /// </summary>
+        /// <returns></returns>
+        public ISearchClient GetSearchClient()
         {
             return new SearchClient(ClientConfigStream, OciSigner);
         }
 
-        public WorkRequestClient GetWorkRequestClient()
+        /// <summary>
+        /// Get WorkRequestClient
+        /// </summary>
+        /// <returns></returns>
+        public IWorkRequestClient GetWorkRequestClient()
         {
             return new WorkRequestClient(ClientConfigStream, OciSigner);
         }
+
+        /// <summary>
+        /// Get IdentityClinet Async
+        /// </summary>
+        /// <returns></returns>
+        public IIdentityClientAsync GetIdentityClientAsync()
+        {
+            return new IdentityClientAsync(ClientConfigStream, OciSigner);
+        }
+
     }
 }

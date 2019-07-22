@@ -15,10 +15,11 @@ using Polly;    // Microsoft.Extensions.Http.Polly
 using Polly.Wrap;
 using System.Net.Http;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Common
 {
-    public class RestClient : IRestClient
+    public class RestClientAsync : IRestClientAsync
     {
         public IOciSigner Signer { get; set; }
         
@@ -26,44 +27,44 @@ namespace OCISDK.Core.src.Common
         
         public RestOption Option { get; }
 
-        public RestClient()
+        public RestClientAsync()
         {
             // default
             Option = new RestOption();
         }
 
-        private PolicyWrap<HttpWebResponse> GetPolicies()
+        private PolicyWrap<WebResponse> GetPolicies()
         {
-            return Policy.Wrap(GetRetryPolicy(), GetCircuitBreakerPolicy(), GetFallbackPolicy());
+            return Policy.WrapAsync(GetRetryPolicy(), GetCircuitBreakerPolicy(), GetFallbackPolicy());
         }
 
-        private Policy<HttpWebResponse> GetRetryPolicy()
+        private Policy<WebResponse> GetRetryPolicy()
         {
             // wait retry 100mSec interval
             var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
-            return Policy<HttpWebResponse>
-                .HandleResult(r => (int)r.StatusCode >= 500)
-                .WaitAndRetry(Option.RetryCount, retryAttempt =>
+            return Policy<WebResponse>
+                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
+                .WaitAndRetryAsync(Option.RetryCount, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(Option.SleepDurationSeconds, retryAttempt)) + jitter);
         }
 
-        private Policy<HttpWebResponse> GetCircuitBreakerPolicy()
+        private Policy<WebResponse> GetCircuitBreakerPolicy()
         {
-            return Policy<HttpWebResponse>
-                .HandleResult(r => (int)r.StatusCode >= 500)
-                .CircuitBreaker(Option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(Option.DurationOfBreakSeconds));
+            return Policy<WebResponse>
+                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
+                .CircuitBreakerAsync(Option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(Option.DurationOfBreakSeconds));
         }
 
-        private Policy<HttpWebResponse> GetFallbackPolicy()
+        private Policy<WebResponse> GetFallbackPolicy()
         {
-            return Policy<HttpWebResponse>
-                .HandleResult(r => (int)r.StatusCode >= 500)
-                .Fallback(new HttpWebResponse());
+            return Policy<WebResponse>
+                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
+                .FallbackAsync(new HttpWebResponse());
         }
-
-        public HttpWebResponse Get(HttpWebRequest request)
+        
+        public async Task<WebResponse> Get(HttpWebRequest request)
         {
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Get(Uri targetUri, string opcRequestId = "")
+        public async Task<WebResponse> Get(Uri targetUri, string opcRequestId = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
@@ -88,13 +89,13 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
 
 
-        public HttpWebResponse GetIfMatch(Uri targetUri, string opcClientRequestId = "")
+        public Task<WebResponse> GetIfMatch(Uri targetUri, string opcClientRequestId = "")
         {
-            return this.GetIfMatch(targetUri, "", "", opcClientRequestId, null);
+            return GetIfMatch(targetUri, "", "", opcClientRequestId, null);
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="opcClientRequestId"></param>
         /// <returns></returns>
-        public HttpWebResponse GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null, string range="")
+        public async Task<WebResponse> GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null, string range="")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
@@ -152,7 +153,7 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
 
         /// <summary>
@@ -160,7 +161,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "")
+        public async Task<WebResponse> Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Post.Method;
@@ -193,7 +194,7 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
 
         /// <summary>
@@ -203,7 +204,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="requestBody"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "")
+        public async Task<WebResponse> Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Put.Method;
@@ -241,7 +242,7 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
 
         /// <summary>
@@ -250,7 +251,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null)
+        public async Task<WebResponse> Delete(Uri targetUri, string ifMatch = "", Object requestBody = null)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;
@@ -281,7 +282,7 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
     }
 }
