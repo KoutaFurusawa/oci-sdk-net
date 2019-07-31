@@ -93,6 +93,9 @@ namespace Example
             // ClientConfig settings
             var configSt = new ClientConfigStream();
             IOciSession session;
+            var stt = File.ReadAllText(configReader.Get("key_file"));
+
+
             using (var st = File.OpenText(configReader.Get("key_file")))
             {
                 configSt = new ClientConfigStream
@@ -129,7 +132,8 @@ namespace Example
             var listCompartmentRequest = new ListCompartmentRequest()
             {
                 CompartmentId = configSt.TenancyId,
-                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE,
+                CompartmentIdInSubtree = false
             };
             var compartments = await identityClientAsync.ListCompartment(listCompartmentRequest);
 
@@ -137,6 +141,9 @@ namespace Example
             var tasks = new List<Task<GetCompartmentResponse>>();
             foreach (var com in compartments.Items)
             {
+                if (com.LifecycleState != "ACTIVE") {
+                    continue;
+                }
                 var getCompartmentRequest = new GetCompartmentRequest()
                 {
                     CompartmentId = com.Id
@@ -148,10 +155,21 @@ namespace Example
 
             await Task.WhenAll(tasks);
 
+            var computeClientAsync = session.GetComputeClientAsync();
+
             // display compartment
-            foreach(var task in tasks)
+            foreach (var task in tasks)
             {
                 Console.WriteLine($"compartmentName: {task.Result.Compartment.Name}");
+
+                ListInstancesRequest listInstancesRequest = new ListInstancesRequest() {
+                    CompartmentId = task.Result.Compartment.Id
+                };
+                var instances = await computeClientAsync.ListInstances(listInstancesRequest);
+                foreach (var ins in instances.Items)
+                {
+                    Console.WriteLine($"/tInstance: {ins.DisplayName}");
+                }
             }
 
             

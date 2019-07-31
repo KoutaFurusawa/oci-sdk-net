@@ -18,10 +18,22 @@ namespace OCISDK.Core.src
         IIdentityClient GetIdentityClient();
 
         /// <summary>
+        /// Get IdentityClinet Async
+        /// </summary>
+        /// <returns></returns>
+        IIdentityClientAsync GetIdentityClientAsync();
+
+        /// <summary>
         /// Get ComputeClient
         /// </summary>
         /// <returns></returns>
         IComputeClient GetComputeClient();
+
+        /// <summary>
+        /// Get ComputeClient Async
+        /// </summary>
+        /// <returns></returns>
+        IComputeClientAsync GetComputeClientAsync();
 
         /// <summary>
         /// Get BlockstorageClient
@@ -30,10 +42,22 @@ namespace OCISDK.Core.src
         IBlockstorageClient GetBlockstorageClient();
 
         /// <summary>
+        /// Get BlockstorageClient Async
+        /// </summary>
+        /// <returns></returns>
+        IBlockstorageClientAsync GetBlockstorageClientAsync();
+
+        /// <summary>
         /// Get VirtualNetworkClient
         /// </summary>
         /// <returns></returns>
         IVirtualNetworkClient GetVirtualNetworkClient();
+
+        /// <summary>
+        /// Get VirtualNetworkClient Async
+        /// </summary>
+        /// <returns></returns>
+        IVirtualNetworkClientAsync GetVirtualNetworkClientAsync();
 
         /// <summary>
         /// Get AuditClient
@@ -42,16 +66,28 @@ namespace OCISDK.Core.src
         IAuditClient GetAuditClient();
 
         /// <summary>
+        /// Get AuditClient Async
+        /// </summary>
+        /// <returns></returns>
+        IAuditClientAsync GetAuditClientAsync();
+
+        /// <summary>
         /// Get ObjectStorageClient
         /// </summary>
         /// <returns></returns>
         IObjectStorageClient GetObjectStorageClient();
-
+        
         /// <summary>
         /// Get SearchClient
         /// </summary>
         /// <returns></returns>
         ISearchClient GetSearchClient();
+
+        /// <summary>
+        /// Get SearchClient Async
+        /// </summary>
+        /// <returns></returns>
+        ISearchClientAsync GetSearchClientAsync();
 
         /// <summary>
         /// Get WorkRequestClient
@@ -60,9 +96,10 @@ namespace OCISDK.Core.src
         IWorkRequestClient GetWorkRequestClient();
 
         /// <summary>
-        /// Get IdentityClinet Async
+        /// Get WorkRequestClient Async
         /// </summary>
         /// <returns></returns>
-        IIdentityClientAsync GetIdentityClientAsync();
+        IWorkRequestClientAsync GetWorkRequestClientAsync();
+
     }
 }

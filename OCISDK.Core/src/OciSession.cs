@@ -75,12 +75,30 @@ namespace OCISDK.Core.src
         }
 
         /// <summary>
+        /// Get IdentityClinet Async
+        /// </summary>
+        /// <returns></returns>
+        public IIdentityClientAsync GetIdentityClientAsync()
+        {
+            return new IdentityClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get ComputeClient
         /// </summary>
         /// <returns></returns>
         public IComputeClient GetComputeClient()
         {
             return new ComputeClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get ComputeClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IComputeClientAsync GetComputeClientAsync()
+        {
+            return new ComputeClientAsync(ClientConfigStream, OciSigner);
         }
 
         /// <summary>
@@ -93,6 +111,15 @@ namespace OCISDK.Core.src
         }
 
         /// <summary>
+        /// Get BlockstorageClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IBlockstorageClientAsync GetBlockstorageClientAsync()
+        {
+            return new BlockstorageClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get VirtualNetworkClient
         /// </summary>
         /// <returns></returns>
@@ -102,12 +129,30 @@ namespace OCISDK.Core.src
         }
 
         /// <summary>
+        /// Get VirtualNetworkClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IVirtualNetworkClientAsync GetVirtualNetworkClientAsync()
+        {
+            return new VirtualNetworkClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get AuditClient
         /// </summary>
         /// <returns></returns>
         public IAuditClient GetAuditClient()
         {
             return new AuditClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get AuditClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IAuditClientAsync GetAuditClientAsync()
+        {
+            return new AuditClientAsync(ClientConfigStream, OciSigner);
         }
 
         /// <summary>
@@ -129,6 +174,15 @@ namespace OCISDK.Core.src
         }
 
         /// <summary>
+        /// Get SearchClient Async
+        /// </summary>
+        /// <returns></returns>
+        public ISearchClientAsync GetSearchClientAsync()
+        {
+            return new SearchClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get WorkRequestClient
         /// </summary>
         /// <returns></returns>
@@ -138,12 +192,12 @@ namespace OCISDK.Core.src
         }
 
         /// <summary>
-        /// Get IdentityClinet Async
+        /// Get WorkRequestClient Async
         /// </summary>
         /// <returns></returns>
-        public IIdentityClientAsync GetIdentityClientAsync()
+        public IWorkRequestClientAsync GetWorkRequestClientAsync()
         {
-            return new IdentityClientAsync(ClientConfigStream, OciSigner);
+            return new WorkRequestClientAsync(ClientConfigStream, OciSigner);
         }
 
     }
