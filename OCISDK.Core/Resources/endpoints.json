@@ -1,5 +1,6 @@
 ﻿{
   "regionShortNames": {
+    "bom": "ap-mumbai-1",
     "icn": "ap-seoul-1",
     "nrt": "ap-tokyo-1",
     "phx": "us-phoenix-1",
@@ -12,6 +13,9 @@
     "core": {
       "version": "20160918",
       "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "iaas.ap-mumbai-1.oraclecloud.com"
+        },
         "ap-seoul-1": {
           "hostname": "iaas.ap-seoul-1.oraclecloud.com"
         },
@@ -38,6 +42,9 @@
     "identity": {
       "version": "20160918",
       "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "identity.ap-mumbai-1.oraclecloud.com"
+        },
         "ap-seoul-1": {
           "hostname": "identity.ap-seoul-1.oraclecloud.com"
         },
@@ -64,6 +71,9 @@
     "audit": {
       "version": "20160918",
       "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "audit.ap-mumbai-1.oraclecloud.com"
+        },
         "ap-seoul-1": {
           "hostname": "audit.ap-seoul-1.oraclecloud.com"
         },
@@ -90,6 +100,9 @@
     "object_storage": {
       "version": "20160918",
       "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "objectstorage.ap-mumbai-1.oraclecloud.com"
+        },
         "ap-seoul-1": {
           "hostname": "objectstorage.ap-seoul-1.oraclecloud.com"
         },
@@ -124,6 +137,9 @@
     "search": {
       "version": "20180409",
       "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "query.ap-mumbai-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "query.ap-tokyo-1.oraclecloud.com"
         },
