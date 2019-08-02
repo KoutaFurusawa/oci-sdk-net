@@ -1,0 +1,153 @@
+﻿using OCISDK.Core.src.Monitoring.Model;
+using OCISDK.Core.src.Monitoring.Request;
+using OCISDK.Core.src.Monitoring.Response;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
+namespace OCISDK.Core.src.Monitoring
+{
+    public class MonitoringClient : ServiceClient, IMonitoringClient
+    {
+        private readonly string IngestionServiceName = "monitoring-ingestion";
+
+        /// <summary>
+        /// Constructer
+        /// </summary>
+        public MonitoringClient(ClientConfig config) : base(config)
+        {
+            ServiceName = "monitoring";
+        }
+
+        public MonitoringClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "monitoring";
+        }
+
+        public MonitoringClient(ClientConfigStream config) : base(config)
+        {
+            ServiceName = "monitoring";
+        }
+
+        public MonitoringClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        {
+            ServiceName = "monitoring";
+        }
+        
+        /// <summary>
+        /// setter Region
+        /// </summary>
+        /// <param name="region"></param>
+        public void SetRegion(string region)
+        {
+            Region = region;
+        }
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        public string GetRegion()
+        {
+            return Region;
+        }
+
+        /// <summary>
+        /// Returns metric definitions that match the criteria specified in the request. 
+        /// Compartment OCID required. For information about metrics, see Metrics Overview. 
+        /// For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListMetricsResponse ListMetrics(ListMetricsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Metrics, this.Region)}/actions/listMetrics?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Post(uri, param.Body, null, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListMetricsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<MetricModel>>(response),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Returns aggregated data that match the criteria specified in the request. 
+        /// Compartment OCID required. For information on metric queries, see Building Metric Queries. 
+        /// For important limits information, see Limits on Monitoring.
+        /// 
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 10.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public SummarizeMetricsDataResponse SummarizeMetricsData(SummarizeMetricsDataRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Metrics, this.Region)}/actions/summarizeMetricsData?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Post(uri, param.Body, null, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new SummarizeMetricsDataResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<MetricData>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Publishes raw metric data points to the Monitoring service. 
+        /// For more information about publishing metrics, see Publishing Custom Metrics. For important limits information, see Limits on Monitoring.
+        /// 
+        /// Per-call limits information follows.
+        /// * Dimensions per metric group*. Maximum: 20. Minimum: 1.
+        /// * Unique metric streams*. Maximum: 50.
+        /// * Transactions Per Second (TPS) per-tenancy limit for this operation: 50.
+        /// 
+        /// A metric group is the combination of a given metric, metric namespace, and tenancy for the purpose of determining limits. 
+        /// A dimension is a qualifier provided in a metric definition. A metric stream is an individual set of aggregated data for a metric, 
+        /// typically specific to a resource. For more information about metric-related concepts, see Monitoring Concepts.
+        /// 
+        /// The endpoints for this operation differ from other Monitoring operations. 
+        /// Replace the string telemetry with telemetry-ingestion in the endpoint, as in the following example:
+        /// https://telemetry-ingestion.eu-frankfurt-1.oraclecloud.com
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public PostMetricDataResponse PostMetricData(PostMetricDataRequest param)
+        {
+            var uri = new Uri($"https://" +
+                $"{Config.GetHostName(IngestionServiceName, this.Region)}/" +
+                $"{Config.GetServiceVersion(ServiceName)}/" +
+                $"{MonitoringServices.Metrics}");
+
+            var webResponse = this.RestClient.Post(uri, param.Body, null, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new PostMetricDataResponse()
+                {
+                    Item = JsonSerializer.Deserialize<PostMetricDataResponseDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+    }
+}

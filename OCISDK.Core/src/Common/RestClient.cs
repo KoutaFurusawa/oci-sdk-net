@@ -154,13 +154,13 @@ namespace OCISDK.Core.src.Common
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
-
+        
         /// <summary>
         /// Post a request object to the endpoint represented by the web target and get the response.
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "")
+        public HttpWebResponse Post(Uri targetUri, Object requestBody=null, string opcRetryToken="", string opcRequestId="")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Post.Method;
@@ -171,6 +171,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(opcRetryToken))
             {
                 request.Headers["opc-retry-token"] = opcRetryToken;
+            }
+
+            if (!String.IsNullOrEmpty(opcRequestId))
+            {
+                request.Headers["opc-request-id"] = opcRequestId;
             }
 
             if (requestBody != null)

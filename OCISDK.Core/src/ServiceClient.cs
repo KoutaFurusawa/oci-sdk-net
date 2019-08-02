@@ -33,7 +33,7 @@ namespace OCISDK.Core.src
         }
 
         /// <summary> Core Services Name </summary>
-        public string ServiceName { get; set; }
+        protected string ServiceName { get; set; }
 
         protected IOciSigner Signer { get; set; }
 

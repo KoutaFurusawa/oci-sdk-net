@@ -109,64 +109,64 @@ namespace Example
                 Console.WriteLine("[8]: SearchResouces Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
-
-                int mode = 0;
+                
                 var presskey = Console.ReadKey(true);
                 if (presskey.Key == ConsoleKey.Escape || presskey.KeyChar == 'E' || presskey.KeyChar == 'e')
                 {
                     Console.WriteLine("Exit....");
                     return;
                 }
-                var select = presskey.KeyChar;
-                if (!int.TryParse(select.ToString(), out mode))
-                {
-                    Console.WriteLine("Incorrect input...");
-                    continue;
-                }
+                var mode = presskey.KeyChar;
 
                 // Indentity
                 // Compartment
-                if (mode == 1 || mode == 2)
+                if (mode == '1' || mode == '2')
                 {
                     IdentityCompartmentExample.CompartmentConsoleDisplay(config);
                 }
 
                 // Core
                 // VirtualNetworks
-                if (mode == 1 || mode == 3)
+                if (mode == '1' || mode == '3')
                 {
                     CoreVirtualNetworkExample.VirtualNetworkExample(config);
                 }
 
                 // Instances
-                if (mode == 1 || mode == 4)
+                if (mode == '1' || mode == '4')
                 {
                     CoreInstanceExample.InstanceConsoleDisplay(config);
                 }
 
                 // BlockStorage
                 // BootVolumes
-                if (mode == 1 || mode == 5)
+                if (mode == '1' || mode == '5')
                 {
                     BlockStorageExample.BootVolumeConsoleDisplay(config);
                 }
 
                 // Audit
-                if (mode == 1 || mode == 6)
+                if (mode == '1' || mode == '6')
                 {
                     AuditExample.AuditDisplay(config);
                 }
 
                 // ObjectStorage
-                if (mode == 1 || mode == 7)
+                if (mode == '1' || mode == '7')
                 {
                     ObjectStorageExample.DisplayObjectStorage(config);
                 }
 
                 // search
-                if (mode == 1 || mode == 8)
+                if (mode == '1' || mode == '8')
                 {
                     SearchExample.SearchResourcesExample(config);
+                }
+
+                // monitoring
+                if (mode == '1' || mode == '9')
+                {
+                    MonitoringExample.MonitoringResourceExample(config);
                 }
             }
         }

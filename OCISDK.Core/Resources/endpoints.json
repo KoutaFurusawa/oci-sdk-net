@@ -159,6 +159,58 @@
           "hostname": "query.us-phoenix-1.oraclecloud.com"
         }
       }
+    },
+    "monitoring": {
+      "version": "20180401",
+      "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "telemetry.ap-mumbai-1.oraclecloud.com"
+        },
+        "ap-tokyo-1": {
+          "hostname": "telemetry.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "telemetry.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "telemetry.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "telemetry.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "telemetry.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "telemetry.us-phoenix-1.oraclecloud.com"
+        }
+      }
+    },
+    "monitoring-ingestion": {
+      "version": "20180401",
+      "endpoints": {
+        "ap-mumbai-1": {
+          "hostname": "telemetry-ingestion.ap-mumbai-1.oraclecloud.com"
+        },
+        "ap-tokyo-1": {
+          "hostname": "telemetry-ingestion.ap-tokyo-1.oraclecloud.com"
+        },
+        "ca-toronto-1": {
+          "hostname": "telemetry-ingestion.ca-toronto-1.oraclecloud.com"
+        },
+        "eu-frankfurt-1": {
+          "hostname": "telemetry-ingestion.eu-frankfurt-1.oraclecloud.com"
+        },
+        "uk-london-1": {
+          "hostname": "telemetry-ingestion.uk-london-1.oraclecloud.com"
+        },
+        "us-ashburn-1": {
+          "hostname": "telemetry-ingestion.us-ashburn-1.oraclecloud.com"
+        },
+        "us-phoenix-1": {
+          "hostname": "telemetry-ingestion.us-phoenix-1.oraclecloud.com"
+        }
+      }
     }
   }
 }

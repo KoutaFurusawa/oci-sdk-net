@@ -8,6 +8,8 @@ namespace OCISDK.Core.src.Common
     public class Regions
     {
         // OC1
+        public static readonly string AP_MUMBAI_1 = "ap-mumbai-1";
+        public static readonly string AP_SEOUL_1 = "ap-seoul-1";
         public static readonly string US_ASHBURN_1 = "us-ashburn-1";
         public static readonly string US_PHOENIX_1 = "us-phoenix-1";
         public static readonly string EU_FRANKFURT_1 = "eu-frankfurt-1";
