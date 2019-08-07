@@ -45,8 +45,8 @@ namespace Example
                     SortOrder = SortOrder.ASC
                 };
 
-                var now = DateTime.UtcNow.AddHours(-4);
-                var endTime = now.AddHours(3);
+                var now = DateTime.UtcNow.AddHours(-2);
+                var endTime = DateTime.UtcNow;
                 // get instance
                 var listInstance = computeClient.ListInstances(listInstanceRequest).Items;
                 foreach (var instance in listInstance)
@@ -84,8 +84,8 @@ namespace Example
                             {
                                 Namespace = "oci_computeagent",
                                 Query = metrics.Name + "[1h]{resourceId = \"" + instance.Id + "\"}.mean()",
-                                StartTime = now.ToString("yyy-MM-ddThh:MM:ddZ"),
-                                EndTime = endTime.ToString("yyy-MM-ddThh:MM:ddZ")
+                                StartTime = now.ToString("yyyy-MM-ddThh:MM:ssZ"),
+                                EndTime = endTime.ToString("yyyy-MM-ddThh:MM:ssZ")
                             }
                         };
 
@@ -102,6 +102,31 @@ namespace Example
                         }
                     }
                 }
+            }
+            Console.WriteLine("* List compartment Alarms------------------------");
+            foreach (var compartment in listCompartment)
+            {
+                var listAlarmsRequest = new ListAlarmsRequest() {
+                    CompartmentId = compartment.Id,
+                    Limit = 10
+                };
+
+                var listAlarms = monitoringClient.ListAlarms(listAlarmsRequest);
+                if (listAlarms.Items.Count > 0)
+                {
+                    Console.WriteLine($" |-{compartment.Name}------------");
+
+                    foreach (var alarm in listAlarms.Items)
+                    {
+                        Console.WriteLine($"\tname:{alarm.DisplayName}");
+                        Console.WriteLine($"\tdestinations:{alarm.Destinations}");
+                        Console.WriteLine($"\tenable:{alarm.IsEnabled}");
+                        Console.WriteLine($"\tstate:{alarm.LifecycleState}");
+                    }
+                }
+
+                // Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+                System.Threading.Thread.Sleep(1000); ;
             }
         }
 
