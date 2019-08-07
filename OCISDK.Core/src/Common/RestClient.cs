@@ -71,32 +71,21 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Get(Uri targetUri, string opcRequestId = "")
+        public HttpWebResponse Get(Uri targetUri)
         {
-            var request = (HttpWebRequest)WebRequest.Create(targetUri);
-            request.Method = HttpMethod.Get.Method;
-            request.Accept = "application/json";
-            request.ReadWriteTimeout = Option.TimeoutSeconds;
-
-            if (!string.IsNullOrEmpty(opcRequestId))
-            {
-                request.Headers["opc-request-id"] = opcRequestId;
-            }
-
-            if (Signer != null)
-            {
-                Signer.SignRequest(request);
-            }
-
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            return this.Get(targetUri, "", "", "", null, "", "");
         }
 
-
-        public HttpWebResponse GetIfMatch(Uri targetUri, string opcClientRequestId = "")
+        public HttpWebResponse Get(Uri targetUri, string opcRequestId)
         {
-            return this.GetIfMatch(targetUri, "", "", opcClientRequestId, null);
+            return this.Get(targetUri, "", "", "", null, "", opcRequestId);
         }
 
+        public HttpWebResponse Get(Uri targetUri, string opcClientRequestId, string opcRequestId)
+        {
+            return this.Get(targetUri, "", "", opcClientRequestId, null, "", opcRequestId);
+        }
+        
         /// <summary>
         /// Request a resource asynchronously.
         /// </summary>
@@ -105,7 +94,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="opcClientRequestId"></param>
         /// <returns></returns>
-        public HttpWebResponse GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null, string range="")
+        public HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string opcClientRequestId, List<string> fields, string range, string opcRequestId)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
@@ -130,6 +119,11 @@ namespace OCISDK.Core.src.Common
             if (!string.IsNullOrEmpty(range))
             {
                 request.Headers["range"] = range;
+            }
+
+            if (!string.IsNullOrEmpty(opcRequestId))
+            {
+                request.Headers["opc-request-id"] = opcRequestId;
             }
 
             if (fields != null && fields.Count != 0)

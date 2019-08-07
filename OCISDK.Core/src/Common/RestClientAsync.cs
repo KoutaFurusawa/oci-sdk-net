@@ -67,35 +67,19 @@ namespace OCISDK.Core.src.Common
             return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
         }
 
-        /// <summary>
-        /// Request a resource asynchronously.
-        /// </summary>
-        /// <param name="TargetUri"></param>
-        /// <returns></returns>
-        public async Task<WebResponse> Get(Uri targetUri, string opcRequestId = "")
+        public async Task<WebResponse> Get(Uri targetUri)
         {
-            var request = (HttpWebRequest)WebRequest.Create(targetUri);
-            request.Method = HttpMethod.Get.Method;
-            request.Accept = "application/json";
-            request.ReadWriteTimeout = Option.TimeoutSeconds;
-
-            if (!string.IsNullOrEmpty(opcRequestId))
-            {
-                request.Headers["opc-request-id"] = opcRequestId;
-            }
-
-            if (Signer != null)
-            {
-                Signer.SignRequest(request);
-            }
-
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            return await Get(targetUri, "", "", "", null, "", "");
         }
 
-
-        public Task<WebResponse> GetIfMatch(Uri targetUri, string opcClientRequestId = "")
+        public async Task<WebResponse> Get(Uri targetUri, string opcRequestId)
         {
-            return GetIfMatch(targetUri, "", "", opcClientRequestId, null);
+            return await Get(targetUri, "", "", "", null, "", opcRequestId);
+        }
+
+        public async Task<WebResponse> Get(Uri targetUri, string opcClientRequestId, string opcRequestId)
+        {
+            return await Get(targetUri, "", "", opcClientRequestId, null, "", opcRequestId);
         }
 
         /// <summary>
@@ -106,7 +90,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="opcClientRequestId"></param>
         /// <returns></returns>
-        public async Task<WebResponse> GetIfMatch(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string opcClientRequestId = "", List<string> fields=null, string range="")
+        public async Task<WebResponse> Get(Uri targetUri, string ifMatch, string ifNoneMatch, string opcClientRequestId, List<string> fields, string range, string opcRequestId)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
@@ -131,6 +115,11 @@ namespace OCISDK.Core.src.Common
             if (!string.IsNullOrEmpty(range))
             {
                 request.Headers["range"] = range;
+            }
+
+            if (!string.IsNullOrEmpty(opcRequestId))
+            {
+                request.Headers["opc-request-id"] = opcRequestId;
             }
 
             if (fields != null && fields.Count != 0)

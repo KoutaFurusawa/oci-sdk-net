@@ -50,7 +50,7 @@ namespace Example
                 profile = Console.ReadLine();
                 if (string.IsNullOrEmpty(profile))
                 {
-                    profile = "Cloudii";
+                    profile = "DEFAULT";
                 }
 
                 // load connection file

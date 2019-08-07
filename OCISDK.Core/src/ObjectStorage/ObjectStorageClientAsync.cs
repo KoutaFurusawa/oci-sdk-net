@@ -65,7 +65,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.OpcClientRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -88,7 +88,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/{request.NamespaceName}");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.OpcClientRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -113,7 +113,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}/{request.BucketName}/");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, request.Fields);
+            var webResponse = await this.RestClientAsync.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, request.Fields, "", "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -139,7 +139,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range);
+            var webResponse = await this.RestClientAsync.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -177,7 +177,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range);
+            var webResponse = await this.RestClientAsync.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write))
@@ -207,7 +207,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.OpcClientRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -233,7 +233,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.GetIfMatch(uri, request.OpcClientRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
