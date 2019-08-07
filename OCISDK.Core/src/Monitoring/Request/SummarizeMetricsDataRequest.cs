@@ -35,18 +35,18 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// <summary>
         /// The request body must contain a single SummarizeMetricsDataDetails resource.
         /// </summary>
-        public SummarizeMetricsDataDetails Body { get; set; }
+        public SummarizeMetricsDataDetails SummarizeMetricsDataDetails { get; set; }
 
         public string GetOptionQuery()
         {
-            var options = $"compartmentId={this.CompartmentId}";
+            var sb = new StringBuilder($"compartmentId={this.CompartmentId}");
             
             if (CompartmentIdInSubtree.HasValue)
             {
-                options += $"&compartmentIdInSubtree={this.CompartmentIdInSubtree.Value}";
+                sb.Append($"&compartmentIdInSubtree={this.CompartmentIdInSubtree.Value}");
             }
 
-            return options;
+            return sb.ToString();
         }
     }
 }

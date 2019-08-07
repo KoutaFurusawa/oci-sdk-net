@@ -58,7 +58,7 @@ namespace Example
                     {
                         CompartmentId = compartment.Id,
                         CompartmentIdInSubtree = false,
-                        Body = new ListMetricsDetails()
+                        ListMetricsDetails = new ListMetricsDetails()
                         {
                             Namespace = "oci_computeagent",
                             DimensionFilters = new DimensionFilter()
@@ -80,7 +80,7 @@ namespace Example
                         {
                             CompartmentId = compartment.Id,
                             CompartmentIdInSubtree = false,
-                            Body = new SummarizeMetricsDataDetails()
+                            SummarizeMetricsDataDetails = new SummarizeMetricsDataDetails()
                             {
                                 Namespace = "oci_computeagent",
                                 Query = metrics.Name + "[1h]{resourceId = \"" + instance.Id + "\"}.mean()",

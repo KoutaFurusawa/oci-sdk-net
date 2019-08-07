@@ -50,26 +50,28 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// <summary>
         /// The request body must contain a single ListMetricsDetails resource.
         /// </summary>
-        public ListMetricsDetails Body { get; set; }
+        public ListMetricsDetails ListMetricsDetails { get; set; }
 
         public string GetOptionQuery()
         {
-            var options = $"compartmentId={this.CompartmentId}";
-
+            var sb = new StringBuilder($"compartmentId={this.CompartmentId}");
+            
             if (!string.IsNullOrEmpty(this.Page))
             {
-                options += $"&page={this.Page}";
-            }
-            if (this.Limit.HasValue)
-            {
-                options += $"&limit={this.Limit.Value}";
-            }
-            if (CompartmentIdInSubtree.HasValue)
-            {
-                options += $"&compartmentIdInSubtree={this.CompartmentIdInSubtree.Value}";
+                sb.Append($"&page={this.Page}");
             }
 
-            return options;
+            if (this.Limit.HasValue)
+            {
+                sb.Append($"&limit={this.Limit.Value}");
+            }
+
+            if (CompartmentIdInSubtree.HasValue)
+            {
+                sb.Append($"&compartmentIdInSubtree={this.CompartmentIdInSubtree.Value}");
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -58,5 +58,71 @@ namespace OCISDK.Core.src.Monitoring
         /// <param name="param"></param>
         /// <returns></returns>
         PostMetricDataResponse PostMetricData(PostMetricDataRequest param);
+
+        /// <summary>
+        /// Lists the alarms for the specified compartment. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListAlarmsResponse ListAlarms(ListAlarmsRequest param);
+
+        /// <summary>
+        /// List the status of each alarm in the specified compartment. For important limits information, see Limits on Monitoring.
+        /// 
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListAlarmsStatusResponse ListAlarmsStatus(ListAlarmsStatusRequest param);
+
+        /// <summary>
+        /// Get the history of the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetAlarmHistoryResponse GetAlarmHistory(GetAlarmHistoryRequest param);
+
+        /// <summary>
+        /// Gets the specified alarm. For important limits information, see Limits on Monitoring.
+        /// 
+        /// Transactions Per Second(TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetAlarmResponse GetAlarm(GetAlarmRequest param);
+
+        /// <summary>
+        /// Creates a new alarm in the specified compartment. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        CreateAlarmResponse CreateAlarm(CreateAlarmRequest param);
+
+        /// <summary>
+        /// Updates the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        UpdateAlarmResponse UpdateAlarm(UpdateAlarmRequest param);
+
+        /// <summary>
+        /// Moves an alarm into a different compartment within the same tenancy.
+        /// For information about moving resources between compartments, see Moving Resources Between Compartments.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeAlarmCompartmentResponse ChangeAlarmCompartment(ChangeAlarmCompartmentRequest param);
+
+        /// <summary>
+        /// Deletes the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteAlarmResponse DeleteAlarm(DeleteAlarmRequest param);
     }
 }

@@ -65,7 +65,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Metrics, this.Region)}/actions/listMetrics?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Post(uri, param.Body, null, param.OpcRequestId);
+            var webResponse = this.RestClient.Post(uri, param.ListMetricsDetails, null, param.OpcRequestId);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -94,7 +94,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Metrics, this.Region)}/actions/summarizeMetricsData?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Post(uri, param.Body, null, param.OpcRequestId);
+            var webResponse = this.RestClient.Post(uri, param.SummarizeMetricsDataDetails, null, param.OpcRequestId);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -135,7 +135,7 @@ namespace OCISDK.Core.src.Monitoring
                 $"{Config.GetServiceVersion(ServiceName)}/" +
                 $"{MonitoringServices.Metrics}");
 
-            var webResponse = this.RestClient.Post(uri, param.Body, null, param.OpcRequestId);
+            var webResponse = this.RestClient.Post(uri, param.PostMetricDataDetails, null, param.OpcRequestId);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -144,7 +144,212 @@ namespace OCISDK.Core.src.Monitoring
 
                 return new PostMetricDataResponse()
                 {
-                    Item = JsonSerializer.Deserialize<PostMetricDataResponseDetails>(response),
+                    PostMetricDataResponseDetails = JsonSerializer.Deserialize<PostMetricDataResponseDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the alarms for the specified compartment. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListAlarmsResponse ListAlarms(ListAlarmsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListAlarmsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<AlarmSummary>>(response),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// List the status of each alarm in the specified compartment. For important limits information, see Limits on Monitoring.
+        /// 
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListAlarmsStatusResponse ListAlarmsStatus(ListAlarmsStatusRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/status?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListAlarmsStatusResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<AlarmStatusSummary>>(response),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get the history of the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetAlarmHistoryResponse GetAlarmHistory(GetAlarmHistoryRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}/history?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetAlarmHistoryResponse()
+                {
+                    AlarmHistoryCollection = JsonSerializer.Deserialize<AlarmHistoryCollection>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified alarm. For important limits information, see Limits on Monitoring.
+        /// 
+        /// Transactions Per Second(TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetAlarmResponse GetAlarm(GetAlarmRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}");
+
+            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetAlarmResponse()
+                {
+                    AlarmModel = JsonSerializer.Deserialize<AlarmModel>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new alarm in the specified compartment. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CreateAlarmResponse CreateAlarm(CreateAlarmRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}");
+
+            var webResponse = this.RestClient.Post(uri, param.CreateAlarmDetails, param.OpcRetryToken, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateAlarmResponse()
+                {
+                    AlarmModel = JsonSerializer.Deserialize<AlarmModel>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    Etag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public UpdateAlarmResponse UpdateAlarm(UpdateAlarmRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}");
+
+            var webResponse = this.RestClient.Put(uri, param.UpdateAlarmDetails, param.IfMatch, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateAlarmResponse()
+                {
+                    AlarmModel = JsonSerializer.Deserialize<AlarmModel>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    Etag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves an alarm into a different compartment within the same tenancy.
+        /// For information about moving resources between compartments, see Moving Resources Between Compartments.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ChangeAlarmCompartmentResponse ChangeAlarmCompartment(ChangeAlarmCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeAlarmCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeAlarmCompartmentResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteAlarmResponse DeleteAlarm(DeleteAlarmRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch, param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteAlarmResponse()
+                {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }

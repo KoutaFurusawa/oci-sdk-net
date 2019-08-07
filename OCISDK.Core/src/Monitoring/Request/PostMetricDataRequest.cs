@@ -17,6 +17,6 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// <summary>
         /// The request body must contain a single PostMetricDataDetails resource.
         /// </summary>
-        public PostMetricDataDetails Body { get; set; }
+        public PostMetricDataDetails PostMetricDataDetails { get; set; }
     }
 }

@@ -91,7 +91,7 @@ namespace Example
                 TenancyId = configReader.Get("tenancy"),
                 UserId = configReader.Get("user"),
                 Fingerprint = configReader.Get("fingerprint"),
-                PrivateKeyPath = configReader.Get("key_file"),
+                PrivateKey = configReader.Get("key_file"),
                 PrivateKeyPassphrase = configReader.Get("pass_phrase")
             };
 
@@ -107,6 +107,7 @@ namespace Example
                 Console.WriteLine("[6]: Display Audit List Example");
                 Console.WriteLine("[7]: Display ObjectStorage List Example");
                 Console.WriteLine("[8]: SearchResouces Example");
+                Console.WriteLine("[9]: Monitoring Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
                 
