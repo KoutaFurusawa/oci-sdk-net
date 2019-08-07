@@ -1,24 +1,29 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Search;
-using OCISDK.Core.src.Search.Request;
+using OCISDK.Core.src.Core.Request.Compute;
+using OCISDK.Core.src.Core.Request.WorkRequest;
+using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Request;
+using OCISDK.Core.src.Identity.Response;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using static OCISDK.Core.src.Common.ConfigFileReader;
 
 namespace Example
 {
-    class Example
+    class SessionAsyncExample
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("+----------------------------------------+");
             Console.WriteLine("|                                        |");
-            Console.WriteLine("|             OCISDK Example             |");
+            Console.WriteLine("|       OCISDK SessionAsyncExample       |");
             Console.WriteLine("|                                        |");
             Console.WriteLine("+----------------------------------------+");
-            
+
             string configPath = ".oci/config";
 
             System.OperatingSystem os = System.Environment.OSVersion;
@@ -57,10 +62,10 @@ namespace Example
 
                 // create connection file
                 Console.WriteLine("Create connection settings to Oracle Cloud Infrastructure");
-                
+
                 Console.Write("TenancyId (Required): ");
                 string tenancyId = OCIDInput();
-            
+
                 Console.Write("UserId (Required): ");
                 string userId = OCIDInput();
 
@@ -84,92 +89,92 @@ namespace Example
 
                 configReader = ConfigFileReader.Parse(configPath, profile);
             }
-            
+
             // ClientConfig settings
-            var config = new ClientConfig
+            var configSt = new ClientConfigStream();
+            IOciSession session;
+            var stt = File.ReadAllText(configReader.Get("key_file"));
+
+
+            using (var st = File.OpenText(configReader.Get("key_file")))
             {
-                TenancyId = configReader.Get("tenancy"),
-                UserId = configReader.Get("user"),
-                Fingerprint = configReader.Get("fingerprint"),
-                PrivateKey = configReader.Get("key_file"),
-                PrivateKeyPassphrase = configReader.Get("pass_phrase")
+                configSt = new ClientConfigStream
+                {
+                    TenancyId = configReader.Get("tenancy"),
+                    UserId = configReader.Get("user"),
+                    Fingerprint = configReader.Get("fingerprint"),
+                    PrivateKey = st,
+                    PrivateKeyPassphrase = configReader.Get("pass_phrase"),
+                    AccountId = configReader.Get("accountId"),
+                    DomainName = configReader.Get("domain_name"),
+                    IdentityDomain = configReader.Get("identity_domain"),
+                    UserName = configReader.Get("user_name"),
+                    Password = configReader.Get("password"),
+                    HomeRegion = configReader.Get("home_region")
+                };
+
+                session = new OciSession(configSt);
+            }
+
+            // get Client
+            var identityClientAsync = session.GetIdentityClientAsync();
+
+            // get tenant
+            var getTenancyRequest = new GetTenancyRequest()
+            {
+                TenancyId = configSt.TenancyId
             };
+            var getTenacy = await identityClientAsync.GetTenancy(getTenancyRequest);
 
-            while (true)
+            Console.WriteLine($"tenantName: {getTenacy.Tenancy.Name}");
+
+            // get compartments
+            var listCompartmentRequest = new ListCompartmentRequest()
             {
-                Console.WriteLine("");
-                Console.WriteLine("Mode Selection....");
-                Console.WriteLine("[1]: All Example run");
-                Console.WriteLine("[2]: Display TenatcyInfomation and Compartment Example");
-                Console.WriteLine("[3]: Display VirtualNetwork List Example");
-                Console.WriteLine("[4]: Display Instance List Example");
-                Console.WriteLine("[5]: Display BootVolume List Example");
-                Console.WriteLine("[6]: Display Audit List Example");
-                Console.WriteLine("[7]: Display ObjectStorage List Example");
-                Console.WriteLine("[8]: SearchResouces Example");
-                Console.WriteLine("[9]: Monitoring Example");
-                Console.WriteLine("[ESC] or [E(e)] : Exit Example");
-                Console.WriteLine("");
-                
-                var presskey = Console.ReadKey(true);
-                if (presskey.Key == ConsoleKey.Escape || presskey.KeyChar == 'E' || presskey.KeyChar == 'e')
-                {
-                    Console.WriteLine("Exit....");
-                    return;
-                }
-                var mode = presskey.KeyChar;
+                CompartmentId = configSt.TenancyId,
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE,
+                CompartmentIdInSubtree = false
+            };
+            var compartments = await identityClientAsync.ListCompartment(listCompartmentRequest);
 
-                // Indentity
-                // Compartment
-                if (mode == '1' || mode == '2')
-                {
-                    IdentityCompartmentExample.CompartmentConsoleDisplay(config);
+            // loop get compartments async
+            var tasks = new List<Task<GetCompartmentResponse>>();
+            foreach (var com in compartments.Items)
+            {
+                if (com.LifecycleState != "ACTIVE") {
+                    continue;
                 }
-
-                // Core
-                // VirtualNetworks
-                if (mode == '1' || mode == '3')
+                var getCompartmentRequest = new GetCompartmentRequest()
                 {
-                    CoreVirtualNetworkExample.VirtualNetworkExample(config);
-                }
+                    CompartmentId = com.Id
+                };
 
-                // Instances
-                if (mode == '1' || mode == '4')
-                {
-                    CoreInstanceExample.InstanceConsoleDisplay(config);
-                }
+                var task = identityClientAsync.GetCompartment(getCompartmentRequest);
+                tasks.Add(task);
+            }
 
-                // BlockStorage
-                // BootVolumes
-                if (mode == '1' || mode == '5')
-                {
-                    BlockStorageExample.BootVolumeConsoleDisplay(config);
-                }
+            await Task.WhenAll(tasks);
 
-                // Audit
-                if (mode == '1' || mode == '6')
-                {
-                    AuditExample.AuditDisplay(config);
-                }
+            var computeClientAsync = session.GetComputeClientAsync();
 
-                // ObjectStorage
-                if (mode == '1' || mode == '7')
-                {
-                    ObjectStorageExample.DisplayObjectStorage(config);
-                }
+            // display compartment
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"compartmentName: {task.Result.Compartment.Name}");
 
-                // search
-                if (mode == '1' || mode == '8')
+                ListInstancesRequest listInstancesRequest = new ListInstancesRequest() {
+                    CompartmentId = task.Result.Compartment.Id
+                };
+                var instances = await computeClientAsync.ListInstances(listInstancesRequest);
+                foreach (var ins in instances.Items)
                 {
-                    SearchExample.SearchResourcesExample(config);
-                }
-
-                // monitoring
-                if (mode == '1' || mode == '9')
-                {
-                    MonitoringExample.MonitoringResourceExample(config);
+                    Console.WriteLine($"/tInstance: {ins.DisplayName}");
                 }
             }
+
+            
+            Console.WriteLine("Exit with key press...");
+            Console.ReadLine();
         }
 
         // OCID input check
@@ -217,7 +222,8 @@ namespace Example
                 if (!string.IsNullOrEmpty(readStr))
                 {
                     break;
-                } else
+                }
+                else
                 {
                     Console.WriteLine("this parameter is Required!");
                 }
@@ -231,7 +237,7 @@ namespace Example
 
             return readStr;
         }
-        
+
         public static string InputPassword()
         {
             var pass = new StringBuilder();
@@ -255,7 +261,7 @@ namespace Example
                         {
                             Console.Beep();
                         }
-                    break;
+                        break;
 
                     default:
                         if (Char.IsLetter(keyinfo.KeyChar))
@@ -279,10 +285,9 @@ namespace Example
                             // ather key to beep
                             Console.Beep();
                         }
-                    break;
+                        break;
                 }
             }
         }
     }
-
 }

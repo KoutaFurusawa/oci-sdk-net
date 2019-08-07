@@ -11,20 +11,95 @@ namespace OCISDK.Core.src
 {
     public interface IOciSession
     {
-        IdentityClient GetIdentityClient();
+        /// <summary>
+        /// Get IdentityClinet
+        /// </summary>
+        /// <returns></returns>
+        IIdentityClient GetIdentityClient();
 
-        ComputeClient GetComputeClient();
+        /// <summary>
+        /// Get IdentityClinet Async
+        /// </summary>
+        /// <returns></returns>
+        IIdentityClientAsync GetIdentityClientAsync();
 
-        BlockstorageClient GetBlockstorageClient();
+        /// <summary>
+        /// Get ComputeClient
+        /// </summary>
+        /// <returns></returns>
+        IComputeClient GetComputeClient();
 
-        VirtualNetworkClient GetVirtualNetworkClient();
+        /// <summary>
+        /// Get ComputeClient Async
+        /// </summary>
+        /// <returns></returns>
+        IComputeClientAsync GetComputeClientAsync();
 
-        AuditClient GetAuditClient();
+        /// <summary>
+        /// Get BlockstorageClient
+        /// </summary>
+        /// <returns></returns>
+        IBlockstorageClient GetBlockstorageClient();
 
-        ObjectStorageClient GetObjectStorageClient();
+        /// <summary>
+        /// Get BlockstorageClient Async
+        /// </summary>
+        /// <returns></returns>
+        IBlockstorageClientAsync GetBlockstorageClientAsync();
 
-        SearchClient GetSearchClient();
+        /// <summary>
+        /// Get VirtualNetworkClient
+        /// </summary>
+        /// <returns></returns>
+        IVirtualNetworkClient GetVirtualNetworkClient();
 
-        WorkRequestClient GetWorkRequestClient();
+        /// <summary>
+        /// Get VirtualNetworkClient Async
+        /// </summary>
+        /// <returns></returns>
+        IVirtualNetworkClientAsync GetVirtualNetworkClientAsync();
+
+        /// <summary>
+        /// Get AuditClient
+        /// </summary>
+        /// <returns></returns>
+        IAuditClient GetAuditClient();
+
+        /// <summary>
+        /// Get AuditClient Async
+        /// </summary>
+        /// <returns></returns>
+        IAuditClientAsync GetAuditClientAsync();
+
+        /// <summary>
+        /// Get ObjectStorageClient
+        /// </summary>
+        /// <returns></returns>
+        IObjectStorageClient GetObjectStorageClient();
+        
+        /// <summary>
+        /// Get SearchClient
+        /// </summary>
+        /// <returns></returns>
+        ISearchClient GetSearchClient();
+
+        /// <summary>
+        /// Get SearchClient Async
+        /// </summary>
+        /// <returns></returns>
+        ISearchClientAsync GetSearchClientAsync();
+
+        /// <summary>
+        /// Get WorkRequestClient
+        /// </summary>
+        /// <returns></returns>
+        IWorkRequestClient GetWorkRequestClient();
+
+        /// <summary>
+        /// Get WorkRequestClient Async
+        /// </summary>
+        /// <returns></returns>
+        IWorkRequestClientAsync GetWorkRequestClientAsync();
+
     }
 }

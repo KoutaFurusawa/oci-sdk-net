@@ -4,7 +4,10 @@
 /// author: koutaro furusawa
 /// </summary>
 
+using OCISDK.Core.src.Common;
 using System;
+using System.ComponentModel;
+
 namespace OCISDK.Core.src.Identity.Request
 {
     public class ListCompartmentRequest
@@ -32,7 +35,16 @@ namespace OCISDK.Core.src.Identity.Request
         /// ANY
         /// , ACCESSIBLE</para>
         /// </summary>
-        public string AccessLevel { get; set; }
+        public AccessLevels? AccessLevel { get; set; }
+
+
+        public enum AccessLevels
+        {
+            [DisplayName("ANY")]
+            ANY,
+            [DisplayName("ACCESSIBLE")]
+            ACCESSIBLE
+        }
 
         /// <summary>
         /// <para>Required: no</para>
@@ -52,9 +64,9 @@ namespace OCISDK.Core.src.Identity.Request
             {
                 options += $"&limit={this.Limit.Value}";
             }
-            if (!String.IsNullOrEmpty(this.AccessLevel))
+            if (this.AccessLevel.HasValue)
             {
-                options += $"&accessLevel={this.AccessLevel}";
+                options += $"&accessLevel={EnumAttribute.GetDisplayName(this.AccessLevel.Value)}";
             }
             if (this.CompartmentIdInSubtree.HasValue)
             {

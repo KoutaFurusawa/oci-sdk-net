@@ -122,7 +122,7 @@ namespace Example
             {
                 CompartmentId = getTenacy.Tenancy.Id,
                 CompartmentIdInSubtree = true,
-                AccessLevel = "ACCESSIBLE",
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE,
                 Limit = 10
             };
             var listCompartment = identityClient.ListCompartment(listCompartmenRequest);

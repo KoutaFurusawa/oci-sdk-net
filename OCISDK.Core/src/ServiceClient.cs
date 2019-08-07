@@ -33,7 +33,7 @@ namespace OCISDK.Core.src
         }
 
         /// <summary> Core Services Name </summary>
-        public string ServiceName { get; set; }
+        protected string ServiceName { get; set; }
 
         protected IOciSigner Signer { get; set; }
 
@@ -41,7 +41,9 @@ namespace OCISDK.Core.src
         
         public IJsonSerializer JsonSerializer;
 
-        protected RestClient RestClient { get; set; }
+        protected IRestClient RestClient { get; set; }
+
+        protected IRestClientAsync RestClientAsync { get; set; }
 
         public ServiceClient(ClientConfig config)
         {
@@ -138,6 +140,12 @@ namespace OCISDK.Core.src
             }
 
             this.RestClient = new RestClient()
+            {
+                Signer = this.Signer,
+                JsonSerializer = JsonSerializer
+            };
+
+            this.RestClientAsync = new RestClientAsync()
             {
                 Signer = this.Signer,
                 JsonSerializer = JsonSerializer

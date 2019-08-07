@@ -6,30 +6,31 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.ObjectStorage
 {
-    public class ObjectStorageClient : ServiceClient, IObjectStorageClient
+    public class ObjectStorageClientAsync : ServiceClient, IObjectStorageClientAsync
     {
         /// <summary>
         /// Constructer
         /// </summary>
-        public ObjectStorageClient(ClientConfig config) : base(config)
+        public ObjectStorageClientAsync(ClientConfig config) : base(config)
         {
             ServiceName = "object_storage";
         }
 
-        public ObjectStorageClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public ObjectStorageClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "object_storage";
         }
 
-        public ObjectStorageClient(ClientConfigStream config) : base(config)
+        public ObjectStorageClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = "object_storage";
         }
 
-        public ObjectStorageClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public ObjectStorageClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "object_storage";
         }
@@ -60,11 +61,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public string GetNamespace(GetNamespaceRequest request)
+        public async Task<string> GetNamespace(GetNamespaceRequest request)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/");
 
-            var webResponse = this.RestClient.Get(uri, request.OpcClientRequestId, "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -83,11 +84,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public GetNamespaceMetadataResponse GetNamespaceMetadata(GetNamespaceMetadataRequest request)
+        public async Task<GetNamespaceMetadataResponse> GetNamespaceMetadata(GetNamespaceMetadataRequest request)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/{request.NamespaceName}");
 
-            var webResponse = this.RestClient.Get(uri, request.OpcClientRequestId, "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -108,11 +109,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public GetBucketResponse GetBucket(GetBucketRequest request)
+        public async Task<GetBucketResponse> GetBucket(GetBucketRequest request)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}/{request.BucketName}/");
 
-            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, request.Fields, "", "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, request.Fields, "", "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -134,11 +135,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public GetObjectResponse GetObject(GetObjectRequest request)
+        public async Task<GetObjectResponse> GetObject(GetObjectRequest request)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
-            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -172,11 +173,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
-        public void DownloadObject(GetObjectRequest request, string savePath, string filename)
+        public async Task DownloadObject(GetObjectRequest request, string savePath, string filename)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
-            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write))
@@ -202,11 +203,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ListBucketsResponse ListBuckets(ListBucketsRequest request)
+        public async Task<ListBucketsResponse> ListBuckets(ListBucketsRequest request)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, request.OpcClientRequestId, "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -228,11 +229,11 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ListObjectsResponse ListObjects(ListObjectsRequest request)
+        public async Task<ListObjectsResponse> ListObjects(ListObjectsRequest request)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, request.OpcClientRequestId, "");
+            var webResponse = await this.RestClientAsync.Get(uri, request.OpcClientRequestId, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

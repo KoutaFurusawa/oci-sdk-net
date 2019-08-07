@@ -1,0 +1,247 @@
+﻿using OCISDK.Core.src.Core.Request.VirtualNetwork;
+using OCISDK.Core.src.Core.Response.VirtualNetwork;
+using System.Threading.Tasks;
+
+namespace OCISDK.Core.src.Core
+{
+    public interface IVirtualNetworkClientAsync
+    {
+        /// <summary>
+        /// setter region
+        /// </summary>
+        /// <param name="region"></param>
+        void SetRegion(string region);
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        string GetRegion();
+
+        /// <summary>
+        /// Lists the sets of DHCP options in the specified VCN and specified compartment.
+        /// The response includes the default set of options that automatically comes with each VCN,
+        /// plus any other sets you've created.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        Task<ListDhcpResponse> ListDhcpOptions(ListDhcpOptionsRequest listRequest);
+
+        /// <summary>
+        /// Lists the route tables in the specified VCN and specified compartment.
+        /// The response includes the default route table that automatically comes with each VCN, 
+        /// plus any route tables you've created.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        Task<ListRouteTableResponse> ListRouteTableOptions(ListRouteTableRequest listRequest);
+
+        /// <summary>
+        /// Lists the internet gateways in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        Task<ListInternetGatewaysResponse> ListInternetGateways(ListInternetGatewaysRequest listRequest);
+
+        /// <summary>
+        /// Lists the virtual cloud networks (VCNs) in the specified compartment.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        Task<ListVcnResponse> ListVcn(ListVcnRequest listRequest);
+
+        /// <summary>
+        /// Lists the subnets in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        Task<ListSubnetsResponse> ListSubnets(ListSubnetsRequest listRequest);
+
+
+        /// <summary>
+        /// Lists the security lists in the specified VCN and compartment.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        Task<ListSecurityListsResponse> ListSecurityLists(ListSecurityListsRequest listRequest);
+
+        /// <summary>
+        /// Gets the specified set of DHCP options.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        Task<GetDhcpResponse> GetDhcp(GetDhcpRequest getDhcpRequest);
+
+        /// <summary>
+        /// Gets the specified route table's information.
+        /// </summary>
+        /// <param name="getRtRequest"></param>
+        /// <returns></returns>
+        Task<GetRouteTableResponse> GetRouteTable(GetRouteTableRequest getRtRequest);
+
+        /// <summary>
+        /// Gets the specified internet gateway's information.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        Task<GetInternetGatewayResponse> GetInternetGateway(GetInternetGatewayRequest getRequest);
+
+        /// <summary>
+        /// Gets the specified security list's information.
+        /// </summary>
+        /// <param name="getSecurityListRequest"></param>
+        /// <returns></returns>
+        Task<GetSecurityListRespons> GetSecurityList(GetSecurityListRequest getSecurityListRequest);
+
+        /// <summary>
+        /// Gets the specified VCN's information.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        Task<GetVcnResponse> GetVcn(GetVcnRequest getVcnRequest);
+
+        /// <summary>
+        /// Gets the information for the specified virtual network interface card (VNIC).
+        /// You can get the VNIC OCID from the ListVnicAttachments operation.
+        /// </summary>
+        /// <param name="getVcnRequest"></param>
+        /// <returns></returns>
+        Task<GetVnicResponse> GetVnic(GetVnicRequest getRequest);
+
+        /// <summary>
+        /// Gets the specified subnet's information.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        Task<GetSubnetResponse> GetSubnet(GetSubnetRequest getRequest);
+
+        /// <summary>
+        /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        Task<CreateInternetGatewayResponse> CreateInternetGateway(CreateInternetGatewayRequest createRequest);
+
+        /// <summary>
+        /// Creates a new set of DHCP options for the specified VCN. For more information, see DhcpOptions.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        Task<CreateDhcpOptionsResponse> CreateDhcpOptions(CreateDhcpOptionsRequest createRequest);
+
+        /// <summary>
+        /// Creates a new security list for the specified VCN. 
+        /// For more information about security lists, see Security Lists. 
+        /// For information on the number of rules you can have in a security list, see Service Limits.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        Task<CreateSecurityListResponse> CreateSecurityList(CreateSecurityListRequest createRequest);
+
+        /// <summary>
+        /// Creates a new virtual cloud network (VCN). For more information, see VCNs and Subnets.
+        /// </summary>
+        /// <param name="createRequest">create VCN Request parameter</param>
+        /// <returns></returns>
+        Task<CreateVcnResponse> CreateVcn(CreateVcnRequest createRequest);
+
+        /// <summary>
+        /// Creates a new subnet in the specified VCN. You can't change the size of the subnet after creation,
+        /// so it's important to think about the size of subnets you need before creating them. For more 
+        /// information, see VCNs and Subnets. For information on the number of subnets you can have in a 
+        /// VCN, see Service Limits.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        Task<CreateSubnetResponse> CreateSubnet(CreateSubnetRequest createRequest);
+
+        /// <summary>
+        /// Updates the specified VCN.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        Task<UpdateVcnResponse> UpdateVcn(UpdateVcnRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified VNIC.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        Task<UpdateVnicResponse> UpdateVnic(UpdateVnicRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified internet gateway.
+        /// You can disable/enable it, or change its display name or tags.
+        /// Avoid entering confidential information.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        Task<UpdateInternetGatewayResponse> UpdateInternetGateway(UpdateInternetGatewayRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified set of DHCP options. 
+        /// You can update the display name or the options themselves. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateDhcpOptionsResponse> UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified security list's display name or rules. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        Task<UpdateSecurityListResponse> UpdateSecurityList(UpdateSecurityListRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified subnet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateSubnetResponse> UpdateSubnet(UpdateSubnetRequest updateRequest);
+
+        /// <summary>
+        /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
+        /// This is an asynchronous operation.
+        /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        Task<DeleteVcnResponse> DeleteVcn(DeleteVcnRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified internet gateway.
+        /// The internet gateway does not have to be disabled, but there must not be a route table that lists it as a target.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        Task<DeleteInternetGatewayResponse> DeleteInternetGateway(DeleteInternetGatewayRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified set of DHCP options, but only if it's not associated with a subnet.
+        /// You can't delete a VCN's default set of DHCP options.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        Task<DeleteDhcpOptionsResponse> DeleteDhcpOptions(DeleteDhcpOptionsRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified security list, but only if it's not associated with a subnet.
+        /// You can't delete a VCN's default security list.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        Task<DeleteSecurityListResponse> DeleteSecurityList(DeleteSecurityListRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified subnet, but only if there are no instances in the subnet. 
+        /// This is an asynchronous operation. The subnet's lifecycleState will change to TERMINATING 
+        /// temporarily. If there are any instances in the subnet, the state will instead change back 
+        /// to AVAILABLE.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest deleteRequest);
+
+    }
+}
