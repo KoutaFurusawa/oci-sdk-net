@@ -354,5 +354,29 @@ namespace OCISDK.Core.src.Monitoring
                 };
             }
         }
+
+        /// <summary>
+        /// Removes any existing suppression for the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public RemoveAlarmSuppressionResponse RemoveAlarmSuppression(RemoveAlarmSuppressionRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}/actions/removeSuppression");
+
+            var webResponse = this.RestClient.Post(uri,null, null, param.OpcRequestId, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new RemoveAlarmSuppressionResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
     }
 }

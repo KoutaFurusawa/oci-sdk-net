@@ -124,5 +124,13 @@ namespace OCISDK.Core.src.Monitoring
         /// <param name="param"></param>
         /// <returns></returns>
         DeleteAlarmResponse DeleteAlarm(DeleteAlarmRequest param);
+
+        /// <summary>
+        /// Removes any existing suppression for the specified alarm. For important limits information, see Limits on Monitoring.
+        /// Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        RemoveAlarmSuppressionResponse RemoveAlarmSuppression(RemoveAlarmSuppressionRequest param);
     }
 }
