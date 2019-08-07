@@ -150,7 +150,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public async Task<WebResponse> Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "")
+        public async Task<WebResponse> Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "", string opcRequestId = "", string ifMatch = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Post.Method;
@@ -161,6 +161,16 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(opcRetryToken))
             {
                 request.Headers["opc-retry-token"] = opcRetryToken;
+            }
+
+            if (!String.IsNullOrEmpty(opcRequestId))
+            {
+                request.Headers["opc-request-id"] = opcRequestId;
+            }
+
+            if (!String.IsNullOrEmpty(ifMatch))
+            {
+                request.Headers["if-match"] = ifMatch;
             }
 
             if (requestBody != null)
