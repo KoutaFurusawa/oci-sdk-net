@@ -28,6 +28,14 @@ namespace OCISDK.Core.src.Core
         ListBootVolumesResponse ListBootVolumes(ListBootVolumesRequest listRequest);
 
         /// <summary>
+        /// Moves a boot volume into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeBootVolumeCompartmentResponse ChangeBootVolumeCompartment(ChangeBootVolumeCompartmentRequest param);
+
+        /// <summary>
         /// Creates a new boot volume in the specified compartment from an existing boot volume or a 
         /// boot volume backup. For general information about boot volumes, see Boot Volumes. You may 
         /// optionally specify a display name for the volume, which is simply a friendly name or description. 

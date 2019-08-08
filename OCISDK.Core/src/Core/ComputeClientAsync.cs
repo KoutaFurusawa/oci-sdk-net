@@ -347,6 +347,58 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Moves an instance into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// 
+        /// When you move an instance to a different compartment, associated resources such as boot volumes and VNICs are not moved.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeInstanceCompartmentResponse> ChangeInstanceCompartment(ChangeInstanceCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{param.InstanceId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeInstanceCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeInstanceCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves an image into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeImageCompartmentResponse> ChangeImageCompartment(ChangeImageCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}/{param.ImageId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeImageCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeImageCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new instance in the specified compartment and the specified availability domain. 
         /// For general information about instances, see Overview of the Compute Service.
         /// For information about access control and compartments, see Overview of the IAM Service.

@@ -213,7 +213,7 @@ namespace OCISDK.Core.src.Core
                 return new GetInstanceResponse()
                 {
                     Instance = this.JsonSerializer.Deserialize<Instance>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
+                    ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -238,7 +238,7 @@ namespace OCISDK.Core.src.Core
                 return new GetImageResponse()
                 {
                     Image = this.JsonSerializer.Deserialize<Image>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
+                    ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -263,7 +263,7 @@ namespace OCISDK.Core.src.Core
                 return new GetBootVolumeAttachmentResponse()
                 {
                     Attachment = this.JsonSerializer.Deserialize<BootVolumeAttachment>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
+                    ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -288,7 +288,7 @@ namespace OCISDK.Core.src.Core
                 return new GetVnicAttachmentResponse()
                 {
                     Attachment = this.JsonSerializer.Deserialize<VnicAttachment>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
+                    ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -313,7 +313,7 @@ namespace OCISDK.Core.src.Core
                 return new AttachBootVolumeResponse()
                 {
                     BootVolumeAttachment = this.JsonSerializer.Deserialize<BootVolumeAttachment>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
+                    ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -339,7 +339,59 @@ namespace OCISDK.Core.src.Core
                 return new AttachVnicResponse()
                 {
                     VnicAttachment = this.JsonSerializer.Deserialize<VnicAttachment>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves an instance into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// 
+        /// When you move an instance to a different compartment, associated resources such as boot volumes and VNICs are not moved.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ChangeInstanceCompartmentResponse ChangeInstanceCompartment(ChangeInstanceCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{param.InstanceId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeInstanceCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeInstanceCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves an image into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ChangeImageCompartmentResponse ChangeImageCompartment(ChangeImageCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}/{param.ImageId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeImageCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeImageCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -375,8 +427,9 @@ namespace OCISDK.Core.src.Core
                 return new LaunchInstanceResponse()
                 {
                     Instance = this.JsonSerializer.Deserialize<Instance>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
-                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
                 };
             }
         }
@@ -405,8 +458,8 @@ namespace OCISDK.Core.src.Core
                 return new UpdateInstanceResponse()
                 {
                     Instance = this.JsonSerializer.Deserialize<Instance>(response),
-                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
-                    ETag = webResponse.Headers.Get("etag")
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
         }

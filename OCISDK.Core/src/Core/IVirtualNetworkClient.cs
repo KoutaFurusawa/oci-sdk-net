@@ -115,6 +115,38 @@ namespace OCISDK.Core.src.Core
         GetSubnetResponse GetSubnet(GetSubnetRequest getRequest);
 
         /// <summary>
+        /// Moves a VCN into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeVcnCompartmentResponse ChangeVcnCompartment(ChangeVcnCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a subnet into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeSubnetCompartmentResponse ChangeSubnetCompartment(ChangeSubnetCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a security list into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeSecurityListCompartmentResponse ChangeSecurityListCompartment(ChangeSecurityListCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a route table into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeRouteTableCompartmentResponse ChangeRouteTableCompartment(ChangeRouteTableCompartmentRequest param);
+
+        /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
         /// </summary>
         /// <param name="createRequest"></param>

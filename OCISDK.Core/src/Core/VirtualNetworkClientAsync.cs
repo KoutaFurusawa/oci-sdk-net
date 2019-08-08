@@ -391,6 +391,108 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Moves a VCN into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeVcnCompartmentResponse> ChangeVcnCompartment(ChangeVcnCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{param.VcnId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVcnCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVcnCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a subnet into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeSubnetCompartmentResponse> ChangeSubnetCompartment(ChangeSubnetCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{param.SubnetId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSubnetCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeSubnetCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a security list into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeSecurityListCompartmentResponse> ChangeSecurityListCompartment(ChangeSecurityListCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{param.SecurityListId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSecurityListCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeSecurityListCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a route table into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeRouteTableCompartmentResponse> ChangeRouteTableCompartment(ChangeRouteTableCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{param.RtId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeRouteTableCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeRouteTableCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
         /// </summary>
         /// <param name="createRequest"></param>

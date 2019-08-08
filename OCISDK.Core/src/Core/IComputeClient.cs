@@ -111,6 +111,24 @@ namespace OCISDK.Core.src.Core
         AttachVnicResponse AttachVnic(AttachVnicRequest request);
 
         /// <summary>
+        /// Moves an instance into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// 
+        /// When you move an instance to a different compartment, associated resources such as boot volumes and VNICs are not moved.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeInstanceCompartmentResponse ChangeInstanceCompartment(ChangeInstanceCompartmentRequest param);
+
+        /// <summary>
+        /// Moves an image into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ChangeImageCompartmentResponse ChangeImageCompartment(ChangeImageCompartmentRequest param);
+
+        /// <summary>
         /// Creates a new instance in the specified compartment and the specified availability domain. 
         /// For general information about instances, see Overview of the Compute Service.
         /// For information about access control and compartments, see Overview of the IAM Service.
