@@ -85,6 +85,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Moves a boot volume into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeBootVolumeCompartmentResponse> ChangeBootVolumeCompartment(ChangeBootVolumeCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeBootVolumeCompartmentDetails, "", param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeBootVolumeCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new boot volume in the specified compartment from an existing boot volume or a 
         /// boot volume backup. For general information about boot volumes, see Boot Volumes. You may 
         /// optionally specify a display name for the volume, which is simply a friendly name or description. 

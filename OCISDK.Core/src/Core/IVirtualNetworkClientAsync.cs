@@ -116,6 +116,38 @@ namespace OCISDK.Core.src.Core
         Task<GetSubnetResponse> GetSubnet(GetSubnetRequest getRequest);
 
         /// <summary>
+        /// Moves a VCN into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ChangeVcnCompartmentResponse> ChangeVcnCompartment(ChangeVcnCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a subnet into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ChangeSubnetCompartmentResponse> ChangeSubnetCompartment(ChangeSubnetCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a security list into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ChangeSecurityListCompartmentResponse> ChangeSecurityListCompartment(ChangeSecurityListCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a route table into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ChangeRouteTableCompartmentResponse> ChangeRouteTableCompartment(ChangeRouteTableCompartmentRequest param);
+
+        /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
         /// </summary>
         /// <param name="createRequest"></param>
@@ -154,6 +186,15 @@ namespace OCISDK.Core.src.Core
         /// <param name="createRequest"></param>
         /// <returns></returns>
         Task<CreateSubnetResponse> CreateSubnet(CreateSubnetRequest createRequest);
+
+        /// <summary>
+        /// Creates a new route table for the specified VCN. In the request you must also include at least one route rule for the new route table. 
+        /// For information on the number of rules you can have in a route table, see Service Limits. 
+        /// For general information about route tables in your VCN and the types of targets you can use in route rules, see Route Tables.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        Task<CreateRouteTableResponse> CreateRouteTable(CreateRouteTableRequest createRequest);
 
         /// <summary>
         /// Updates the specified VCN.
@@ -201,6 +242,14 @@ namespace OCISDK.Core.src.Core
         Task<UpdateSubnetResponse> UpdateSubnet(UpdateSubnetRequest updateRequest);
 
         /// <summary>
+        /// Updates the specified route table's display name or route rules. Avoid entering confidential information.
+        /// Note that the routeRules object you provide replaces the entire existing set of rules.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        Task<UpdateRouteTableResponse> UpdateRouteTable(UpdateRouteTableRequest updateRequest);
+
+        /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
@@ -242,6 +291,14 @@ namespace OCISDK.Core.src.Core
         /// <param name="deleteRequest"></param>
         /// <returns></returns>
         Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified route table, but only if it's not associated with a subnet. You can't delete a VCN's default route table.
+        /// This is an asynchronous operation. The route table's lifecycleState will change to TERMINATING temporarily until the route table is completely removed.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest deleteRequest);
 
     }
 }

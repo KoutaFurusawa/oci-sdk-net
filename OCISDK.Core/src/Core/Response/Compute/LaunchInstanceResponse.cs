@@ -22,6 +22,11 @@ namespace OCISDK.Core.src.Core.Response.Compute
         public string OpcRequestId { get; set; }
 
         /// <summary>
+        /// The OCID of the work request. Use GetWorkRequest with this ID to track the status of the request.
+        /// </summary>
+        public string OpcWorkRequestId { get; set; }
+
+        /// <summary>
         /// The response body will contain a single Instance resource.
         /// </summary>
         public Instance Instance { get; set; }

@@ -391,6 +391,108 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Moves a VCN into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeVcnCompartmentResponse> ChangeVcnCompartment(ChangeVcnCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{param.VcnId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVcnCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVcnCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a subnet into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeSubnetCompartmentResponse> ChangeSubnetCompartment(ChangeSubnetCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{param.SubnetId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSubnetCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeSubnetCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a security list into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeSecurityListCompartmentResponse> ChangeSecurityListCompartment(ChangeSecurityListCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{param.SecurityListId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSecurityListCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeSecurityListCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a route table into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeRouteTableCompartmentResponse> ChangeRouteTableCompartment(ChangeRouteTableCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{param.RtId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeRouteTableCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeRouteTableCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
         /// </summary>
         /// <param name="createRequest"></param>
@@ -514,6 +616,33 @@ namespace OCISDK.Core
                 return new CreateSubnetResponse()
                 {
                     Subnet = JsonSerializer.Deserialize<Subnet>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new route table for the specified VCN. In the request you must also include at least one route rule for the new route table. 
+        /// For information on the number of rules you can have in a route table, see Service Limits. 
+        /// For general information about route tables in your VCN and the types of targets you can use in route rules, see Route Tables.
+        /// </summary>
+        /// <param name="createRequest"></param>
+        /// <returns></returns>
+        public async Task<CreateRouteTableResponse> CreateRouteTable(CreateRouteTableRequest createRequest)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.RouteTable, this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateRouteTableDetails, createRequest.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateRouteTableResponse()
+                {
+                    RouteTable = JsonSerializer.Deserialize<RouteTable>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -674,6 +803,32 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Updates the specified route table's display name or route rules. Avoid entering confidential information.
+        /// Note that the routeRules object you provide replaces the entire existing set of rules.
+        /// </summary>
+        /// <param name="updateRequest"></param>
+        /// <returns></returns>
+        public async Task<UpdateRouteTableResponse> UpdateRouteTable(UpdateRouteTableRequest updateRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{updateRequest.RtId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateRouteTableDetails, updateRequest.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateRouteTableResponse()
+                {
+                    RouteTable = JsonSerializer.Deserialize<RouteTable>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
@@ -790,6 +945,30 @@ namespace OCISDK.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteSubnetResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified route table, but only if it's not associated with a subnet. You can't delete a VCN's default route table.
+        /// This is an asynchronous operation. The route table's lifecycleState will change to TERMINATING temporarily until the route table is completely removed.
+        /// </summary>
+        /// <param name="deleteRequest"></param>
+        /// <returns></returns>
+        public async Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest deleteRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{deleteRequest.RtId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteRouteTableResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
