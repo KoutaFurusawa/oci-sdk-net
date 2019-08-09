@@ -1,8 +1,12 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
+using OCISDK.Core.src.Core;
 using OCISDK.Core.src.Core.Request.Compute;
+using OCISDK.Core.src.Core.Request.VirtualNetwork;
 using OCISDK.Core.src.Core.Request.WorkRequest;
+using OCISDK.Core.src.Core.Response.Compute;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;
 using OCISDK.Core.src.Identity.Response;
 using System;
@@ -50,7 +54,7 @@ namespace Example
                 profile = Console.ReadLine();
                 if (string.IsNullOrEmpty(profile))
                 {
-                    profile = "DEFAULT";
+                    profile = "Cloudii";
                 }
 
                 // load connection file
@@ -118,6 +122,8 @@ namespace Example
 
             // get Client
             var identityClientAsync = session.GetIdentityClientAsync();
+            var computeClientAsync = session.GetComputeClientAsync();
+            var virtualNetworkClientAsync = session.GetVirtualNetworkClientAsync();
 
             // get tenant
             var getTenancyRequest = new GetTenancyRequest()
@@ -133,48 +139,66 @@ namespace Example
             {
                 CompartmentId = configSt.TenancyId,
                 AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE,
-                CompartmentIdInSubtree = false
+                CompartmentIdInSubtree = true
             };
             var compartments = await identityClientAsync.ListCompartment(listCompartmentRequest);
 
             // loop get compartments async
-            var tasks = new List<Task<GetCompartmentResponse>>();
+            var infoTasks = new List<Task>();
             foreach (var com in compartments.Items)
             {
-                if (com.LifecycleState != "ACTIVE") {
+                if (com.LifecycleState != "ACTIVE")
+                {
                     continue;
                 }
-                var getCompartmentRequest = new GetCompartmentRequest()
-                {
-                    CompartmentId = com.Id
-                };
-
-                var task = identityClientAsync.GetCompartment(getCompartmentRequest);
-                tasks.Add(task);
+                
+                infoTasks.Add(LoadCompartmentDetail(com, identityClientAsync));
+                infoTasks.Add(LoadInstances(com, computeClientAsync));
+                infoTasks.Add(LoadVcn(com, virtualNetworkClientAsync));
             }
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(infoTasks);
 
-            var computeClientAsync = session.GetComputeClientAsync();
-
-            // display compartment
-            foreach (var task in tasks)
-            {
-                Console.WriteLine($"compartmentName: {task.Result.Compartment.Name}");
-
-                ListInstancesRequest listInstancesRequest = new ListInstancesRequest() {
-                    CompartmentId = task.Result.Compartment.Id
-                };
-                var instances = await computeClientAsync.ListInstances(listInstancesRequest);
-                foreach (var ins in instances.Items)
-                {
-                    Console.WriteLine($"/tInstance: {ins.DisplayName}");
-                }
-            }
-
-            
+            Console.WriteLine();
             Console.WriteLine("Exit with key press...");
             Console.ReadLine();
+        }
+
+        private static async Task LoadCompartmentDetail(Compartment compartment, IIdentityClientAsync identityClientAsync)
+        {
+            var getCompartmentRequest = new GetCompartmentRequest()
+            {
+                CompartmentId = compartment.Id
+            };
+
+            var compartmentTask = await identityClientAsync.GetCompartment(getCompartmentRequest);
+            Console.WriteLine($"loaded compartmentDetail: {compartmentTask.Compartment.Name}");
+        }
+
+        private static async Task LoadInstances(Compartment compartment, IComputeClientAsync computeClientAsync)
+        {
+            var listInstancesRequest = new ListInstancesRequest()
+            {
+                CompartmentId = compartment.Id
+            };
+            var getInstansTask = await computeClientAsync.ListInstances(listInstancesRequest);
+            foreach (var instance in getInstansTask.Items)
+            {
+                Console.WriteLine($"loaded Instance: {instance.DisplayName} - compartment:{compartment.Name}");
+            }
+        }
+
+        private static async Task LoadVcn(Compartment compartment, IVirtualNetworkClientAsync virtualNetworkClientAsync)
+        {
+            var listVcnRequest = new ListVcnRequest()
+            {
+                CompartmentId = compartment.Id
+            };
+            var getVcnTask = await virtualNetworkClientAsync.ListVcn(listVcnRequest);
+            foreach (var vcn in getVcnTask.Items)
+            {
+                Console.WriteLine($"loaded Vcn: {vcn.DisplayName} - compartment:{compartment.Name}");
+            }
         }
 
         // OCID input check
