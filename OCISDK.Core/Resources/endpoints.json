@@ -6,6 +6,7 @@
     "phx": "us-phoenix-1",
     "iad": "us-ashburn-1",
     "fra": "eu-frankfurt-1",
+    "zrh": "eu-zurich-1",
     "lhr": "uk-london-1",
     "yyz": "ca-toronto-1"
   },
@@ -27,6 +28,9 @@
         },
         "eu-frankfurt-1": {
           "hostname": "iaas.eu-frankfurt-1.oraclecloud.com"
+        },
+        "eu-zurich-1": {
+          "hostname": "iaas.eu-zurich-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "iaas.uk-london-1.oraclecloud.com"
@@ -57,6 +61,9 @@
         "eu-frankfurt-1": {
           "hostname": "identity.eu-frankfurt-1.oraclecloud.com"
         },
+        "eu-zurich-1": {
+          "hostname": "identity.eu-zurich-1.oraclecloud.com"
+        },
         "uk-london-1": {
           "hostname": "identity.uk-london-1.oraclecloud.com"
         },
@@ -85,6 +92,9 @@
         },
         "eu-frankfurt-1": {
           "hostname": "audit.eu-frankfurt-1.oraclecloud.com"
+        },
+        "eu-zurich-1": {
+          "hostname": "audit.eu-zurich-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "audit.uk-london-1.oraclecloud.com"
@@ -115,6 +125,9 @@
         "eu-frankfurt-1": {
           "hostname": "objectstorage.eu-frankfurt-1.oraclecloud.com"
         },
+        "eu-zurich-1": {
+          "hostname": "objectstorage.eu-zurich-1.oraclecloud.com"
+        },
         "uk-london-1": {
           "hostname": "objectstorage.uk-london-1.oraclecloud.com"
         },
@@ -140,6 +153,9 @@
         "ap-mumbai-1": {
           "hostname": "query.ap-mumbai-1.oraclecloud.com"
         },
+        "ap-seoul-1": {
+          "hostname": "query.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "query.ap-tokyo-1.oraclecloud.com"
         },
@@ -148,6 +164,9 @@
         },
         "eu-frankfurt-1": {
           "hostname": "query.eu-frankfurt-1.oraclecloud.com"
+        },
+        "eu-zurich-1": {
+          "hostname": "query.eu-zurich-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "query.uk-london-1.oraclecloud.com"
@@ -166,6 +185,9 @@
         "ap-mumbai-1": {
           "hostname": "telemetry.ap-mumbai-1.oraclecloud.com"
         },
+        "ap-seoul-1": {
+          "hostname": "telemetry.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "telemetry.ap-tokyo-1.oraclecloud.com"
         },
@@ -174,6 +196,9 @@
         },
         "eu-frankfurt-1": {
           "hostname": "telemetry.eu-frankfurt-1.oraclecloud.com"
+        },
+        "eu-zurich-1": {
+          "hostname": "telemetry.eu-zurich-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "telemetry.uk-london-1.oraclecloud.com"
@@ -192,6 +217,9 @@
         "ap-mumbai-1": {
           "hostname": "telemetry-ingestion.ap-mumbai-1.oraclecloud.com"
         },
+        "ap-seoul-1": {
+          "hostname": "telemetry-ingestion.ap-seoul-1.oraclecloud.com"
+        },
         "ap-tokyo-1": {
           "hostname": "telemetry-ingestion.ap-tokyo-1.oraclecloud.com"
         },
@@ -200,6 +228,9 @@
         },
         "eu-frankfurt-1": {
           "hostname": "telemetry-ingestion.eu-frankfurt-1.oraclecloud.com"
+        },
+        "eu-zurich-1": {
+          "hostname": "telemetry-ingestion.eu-zurich-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "telemetry-ingestion.uk-london-1.oraclecloud.com"
