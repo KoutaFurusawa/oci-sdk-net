@@ -5,6 +5,7 @@ using OCISDK.Core.src.Core.Request.Blockstorage;
 using OCISDK.Core.src.Identity;
 using OCISDK.Core.src.Identity.Request;
 using System;
+using System.Collections.Generic;
 
 namespace Example
 {
@@ -44,8 +45,49 @@ namespace Example
                     Console.WriteLine(" |-" + bv.DisplayName);
                     Console.WriteLine(" | id: " + bv.Id);
                     Console.WriteLine(" | lifecycle: " + bv.LifecycleState);
-                    Console.WriteLine(" | sizeInMBs: " + bv.SizeInMBs);
+                    Console.WriteLine(" | sizeInGBs: " + bv.SizeInGBs);
                     Console.WriteLine(" | VolumeGroupId: " + bv.VolumeGroupId);
+                });
+            });
+
+            ListCompartmentRequest listCompartmentRequest = new ListCompartmentRequest() {
+                CompartmentId = config.TenancyId,
+                CompartmentIdInSubtree = true,
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
+            };
+            var listCom = identityClient.ListCompartment(listCompartmentRequest);
+
+            Console.WriteLine("* List VolumeBackup-------------------");
+            listCom.Items.ForEach(com =>{
+
+                ListVolumeBackupsRequest listVolumeBackupsRequest = new ListVolumeBackupsRequest()
+                {
+                    CompartmentId = com.Id
+                };
+                var listVolumeBackup = blockstorageClient.ListVolumeBackups(listVolumeBackupsRequest);
+                listVolumeBackup.Items.ForEach(vB =>
+                {
+                    Console.WriteLine(" |-" + vB.DisplayName);
+                    Console.WriteLine(" | id: " + vB.Id);
+                    Console.WriteLine(" | lifecycle: " + vB.LifecycleState);
+                    Console.WriteLine(" | type: " + vB.Type);
+                });
+            });
+
+            Console.WriteLine("* List Volume-------------------");
+            listCom.Items.ForEach(com => {
+
+                ListVolumesRequest listVolumesRequest = new ListVolumesRequest()
+                {
+                    CompartmentId = com.Id
+                };
+                var listVolume = blockstorageClient.ListVolumes(listVolumesRequest);
+                listVolume.Items.ForEach(vol =>
+                {
+                    Console.WriteLine(" |-" + vol.DisplayName);
+                    Console.WriteLine(" | id: " + vol.Id);
+                    Console.WriteLine(" | lifecycle: " + vol.LifecycleState);
+                    Console.WriteLine(" | sizeInGBs: " + vol.SizeInGBs);
                 });
             });
         }

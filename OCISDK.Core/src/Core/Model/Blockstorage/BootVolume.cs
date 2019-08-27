@@ -6,6 +6,7 @@
 /// author: koutaro furusawa
 /// </summary>
 using OCISDK.Core.src.Core.Model.Compute;
+using System;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.Blockstorage
@@ -70,6 +71,7 @@ namespace OCISDK.Core.src.Core.Model.Blockstorage
         /// The size of the volume in MBs. The value must be a multiple of 1024.
         /// This field is deprecated. Please use sizeInGBs.
         /// </summary>
+        [Obsolete("This field is deprecated. Please use sizeInGBs.")]
         public int SizeInMBs { get; set; }
 
         /// <summary>
@@ -98,11 +100,15 @@ namespace OCISDK.Core.src.Core.Model.Blockstorage
         public string KmsKeyId { get; set; }
 
         /// <summary>
+        /// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. 
+        /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
         public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
+        /// Defined tags for this resource. Each key is predefined and scoped to a namespace. 
+        /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }

@@ -84,6 +84,131 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists the volume backups in the specified compartment. You can filter the results by volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListVolumeBackupsResponse ListVolumeBackups(ListVolumeBackupsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumeBackupsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VolumeBackup>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the volumes in the specified compartment and availability domain.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListVolumesResponse ListVolumes(ListVolumesRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VolumeDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets information for the specified boot volume.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        public GetBootVolumeResponse GetBootVolume(GetBootVolumeRequest getRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{getRequest.BootVolumeId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetBootVolumeResponse()
+                {
+                    BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets information for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeResponse GetVolume(GetVolumeRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeResponse()
+                {
+                    Volume = JsonSerializer.Deserialize<VolumeDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets information for the specified volume backup.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeBackupResponse GetVolumeBackup(GetVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeBackupResponse()
+                {
+                    VolumeBackup = JsonSerializer.Deserialize<VolumeBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -101,6 +226,56 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new ChangeBootVolumeCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a volume into a different compartment within the same tenancy. 
+        /// \For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ChangeVolumeCompartmentResponse ChangeVolumeCompartment(ChangeVolumeCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeVolumeCompartmentDetails, "", param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVolumeCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a volume backup into a different compartment within the same tenancy.
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ChangeVolumeBackupCompartmentResponse ChangeVolumeBackupCompartment(ChangeVolumeBackupCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeVolumeBackupCompartmentDetails, "", param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVolumeBackupCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
@@ -137,6 +312,69 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Creates a new volume in the specified compartment. Volumes can be created in sizes ranging from 50 GB 
+        /// (51200 MB) to 32 TB (33554432 MB), in 1 GB (1024 MB) increments. By default, volumes are 1 TB (1048576 MB). 
+        /// For general information about block volumes, see Overview of Block Volume Service.
+        /// 
+        /// A volume and instance can be in separate compartments but must be in the same availability domain. 
+        /// For information about access control and compartments, see Overview of the IAM Service. 
+        /// For information about availability domains, see Regions and Availability Domains. 
+        /// To get a list of availability domains, use the ListAvailabilityDomains operation in the Identity and Access Management Service API.
+        /// 
+        /// You may optionally specify a display name for the volume, which is simply a friendly name or description. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CreateVolumeResponse CreateVolume(CreateVolumeRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.Volume, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.CreateVolumeDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateVolumeResponse()
+                {
+                    Volume = JsonSerializer.Deserialize<VolumeDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new backup of the specified volume. For general information about volume backups, see Overview of Block Volume Service Backups
+        /// 
+        /// When the request is received, the backup object is in a REQUEST_RECEIVED state. 
+        /// When the data is imaged, it goes into a CREATING state. After the backup is fully uploaded to the cloud, it goes into an AVAILABLE state.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CreateVolumeBackupResponse CreateVolumeBackup(CreateVolumeBackupRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VolumeBackup, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.CreateVolumeBackupDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateVolumeBackupResponse()
+                {
+                    VolumeBackup = JsonSerializer.Deserialize<VolumeBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified boot volume's display name, defined tags, and free-form tags.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -162,26 +400,51 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
-        /// Gets information for the specified boot volume.
+        /// Updates the specified volume's display name. Avoid entering confidential information.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="param"></param>
         /// <returns></returns>
-        public GetBootVolumeResponse GetBootVolume(GetBootVolumeRequest getRequest)
+        public UpdateVolumeResponse UpdateVolume(UpdateVolumeRequest param)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{getRequest.BootVolumeId}");
-            
-            var webResponse = this.RestClient.Get(uri);
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}");
+
+            var webResponse = this.RestClient.Put(uri, param.UpdateVolumeDetails, param.IfMatch);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
                 var response = reader.ReadToEnd();
 
-                return new GetBootVolumeResponse()
+                return new UpdateVolumeResponse()
                 {
-                    BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
-                    ETag = webResponse.Headers.Get("ETag"),
-                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                    Volume = JsonSerializer.Deserialize<VolumeDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the display name for the specified volume backup. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public UpdateVolumeBackupResponse UpdateVolumeBackup(UpdateVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}");
+
+            var webResponse = this.RestClient.Put(uri, param.UpdateVolumeBackupDetails, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateVolumeBackupResponse()
+                {
+                    VolumeBackup = JsonSerializer.Deserialize<VolumeBackup>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
                 };
             }
         }
@@ -206,6 +469,79 @@ namespace OCISDK.Core.src.Core
 
                 return new DeleteBootVolumeResponse()
                 {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified volume. The volume cannot have an active connection to an instance. 
+        /// To disconnect the volume from a connected instance, see Disconnecting From a Volume. 
+        /// Warning: All data on the volume will be permanently lost when the volume is deleted.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteVolumeResponse DeleteVolume(DeleteVolumeRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeId}");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteVolumeResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes a volume backup.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteVolumeBackupResponse DeleteVolumeBackup(DeleteVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteVolumeBackupResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a volume backup copy in specified region. For general information about volume backups, see Overview of Block Volume Service Backups
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CopyVolumeBackupResponse CopyVolumeBackup(CopyVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}/actions/copy");
+
+            var webResponse = this.RestClient.Post(uri, param.CopyVolumeBackupDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CopyVolumeBackupResponse()
+                {
+                    VolumeBackup = JsonSerializer.Deserialize<VolumeBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
