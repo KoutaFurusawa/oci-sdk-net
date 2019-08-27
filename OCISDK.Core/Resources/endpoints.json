@@ -7,6 +7,7 @@
     "iad": "us-ashburn-1",
     "fra": "eu-frankfurt-1",
     "zrh": "eu-zurich-1",
+    "gru": "sa-saopaulo-1",
     "lhr": "uk-london-1",
     "yyz": "ca-toronto-1"
   },
@@ -31,6 +32,9 @@
         },
         "eu-zurich-1": {
           "hostname": "iaas.eu-zurich-1.oraclecloud.com"
+        },
+        "sa-saopaulo-1": {
+          "hostname": "iaas.sa-saopaulo-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "iaas.uk-london-1.oraclecloud.com"
@@ -64,6 +68,9 @@
         "eu-zurich-1": {
           "hostname": "identity.eu-zurich-1.oraclecloud.com"
         },
+        "sa-saopaulo-1": {
+          "hostname": "identity.sa-saopaulo-1.oraclecloud.com"
+        },
         "uk-london-1": {
           "hostname": "identity.uk-london-1.oraclecloud.com"
         },
@@ -96,6 +103,9 @@
         "eu-zurich-1": {
           "hostname": "audit.eu-zurich-1.oraclecloud.com"
         },
+        "sa-saopaulo-1": {
+          "hostname": "audit.sa-saopaulo-1.oraclecloud.com"
+        },
         "uk-london-1": {
           "hostname": "audit.uk-london-1.oraclecloud.com"
         },
@@ -127,6 +137,9 @@
         },
         "eu-zurich-1": {
           "hostname": "objectstorage.eu-zurich-1.oraclecloud.com"
+        },
+        "sa-saopaulo-1": {
+          "hostname": "objectstorage.sa-saopaulo-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "objectstorage.uk-london-1.oraclecloud.com"
@@ -168,6 +181,9 @@
         "eu-zurich-1": {
           "hostname": "query.eu-zurich-1.oraclecloud.com"
         },
+        "sa-saopaulo-1": {
+          "hostname": "query.sa-saopaulo-1.oraclecloud.com"
+        },
         "uk-london-1": {
           "hostname": "query.uk-london-1.oraclecloud.com"
         },
@@ -200,6 +216,9 @@
         "eu-zurich-1": {
           "hostname": "telemetry.eu-zurich-1.oraclecloud.com"
         },
+        "sa-saopaulo-1": {
+          "hostname": "telemetry.sa-saopaulo-1.oraclecloud.com"
+        },
         "uk-london-1": {
           "hostname": "telemetry.uk-london-1.oraclecloud.com"
         },
@@ -231,6 +250,9 @@
         },
         "eu-zurich-1": {
           "hostname": "telemetry-ingestion.eu-zurich-1.oraclecloud.com"
+        },
+        "sa-saopaulo-1": {
+          "hostname": "telemetry-ingestion.sa-saopaulo-1.oraclecloud.com"
         },
         "uk-london-1": {
           "hostname": "telemetry-ingestion.uk-london-1.oraclecloud.com"
