@@ -128,6 +128,30 @@ namespace Example
                     Console.WriteLine(" |\t|\t privateIp:" + vnic.Vnic.PrivateIp);
                     Console.WriteLine(" |\t|\t publicIp:" + vnic.Vnic.PublicIp);
                 });
+
+                // get instance atattch volumes
+                var volumeAtattch = new ListVolumeAttachmentsRequest()
+                {
+                    InstanceId = instance.Id,
+                    CompartmentId = instance.CompartmentId,
+                    AvailabilityDomain = instance.AvailabilityDomain,
+                    Limit = 50
+                };
+                var listVolAtattch = computeClient.ListVolumeAttachments(volumeAtattch);
+                listVolAtattch.Items.ForEach(volAtt => {
+                    Console.WriteLine(" |\t|- * Volume");
+
+                    // get bootvolume
+                    var getVolumeRequest = new GetVolumeRequest()
+                    {
+                        VolumeId = volAtt.VolumeId
+                    };
+                    var vol = blockstorageClient.GetVolume(getVolumeRequest);
+                    Console.WriteLine(" |\t|\t name:" + vol.Volume.DisplayName);
+                    Console.WriteLine(" |\t|\t id:" + vol.Volume.Id);
+                    Console.WriteLine(" |\t|\t state:" + vol.Volume.LifecycleState);
+                    Console.WriteLine(" |\t|\t sizeInGBs:" + vol.Volume.SizeInGBs.Value);
+                });
             });
 
             // get list Machine Images
