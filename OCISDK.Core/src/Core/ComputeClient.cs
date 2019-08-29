@@ -195,6 +195,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists the volume attachments in the specified compartment. You can filter the list by specifying an instance OCID, volume OCID, or both.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        public ListVolumeAttachmentsResponse ListVolumeAttachments(ListVolumeAttachmentsRequest listRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}?{listRequest.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumeAttachmentsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<VolumeAttachment>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -295,6 +320,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets information about the specified volume attachment.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        public GetVolumeAttachmentResponse GetVolumeAttachment(GetVolumeAttachmentRequest getRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}/{getRequest.VolumeAttachmentId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeAttachmentResponse()
+                {
+                    VolumeAttachment = this.JsonSerializer.Deserialize<VolumeAttachment>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Attaches the specified boot volume to the specified instance.
         /// </summary>
         /// <param name="request"></param>
@@ -339,6 +389,31 @@ namespace OCISDK.Core.src.Core
                 return new AttachVnicResponse()
                 {
                     VnicAttachment = this.JsonSerializer.Deserialize<VnicAttachment>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Attaches the specified storage volume to the specified instance.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public AttachVolumeResponse AttachVolume(AttachVolumeRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VolumeAttachment, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.AttachVolumeDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new AttachVolumeResponse()
+                {
+                    VolumeAttachment = this.JsonSerializer.Deserialize<VolumeAttachment>(response),
                     ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -511,6 +586,31 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DetachBootVolumeResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Detaches a storage volume from an instance. You must specify the OCID of the volume attachment.
+        /// 
+        /// This is an asynchronous operation. The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="detachRequest"></param>
+        /// <returns></returns>
+        public DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}/{detachRequest.VolumeAttachmentId}");
+
+            var webResponse = this.RestClient.Delete(uri, detachRequest.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DetachVolumeResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

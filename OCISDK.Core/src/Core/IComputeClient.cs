@@ -68,6 +68,13 @@ namespace OCISDK.Core.src.Core
         ListVnicAttachmentsResponse ListVnicAttachments(ListVnicAttachmentsRequest listRequest);
 
         /// <summary>
+        /// Lists the volume attachments in the specified compartment. You can filter the list by specifying an instance OCID, volume OCID, or both.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        ListVolumeAttachmentsResponse ListVolumeAttachments(ListVolumeAttachmentsRequest listRequest);
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -96,6 +103,13 @@ namespace OCISDK.Core.src.Core
         GetVnicAttachmentResponse GetVnicAttachment(GetVnicAttachmentRequest getRequest);
 
         /// <summary>
+        /// Gets information about the specified volume attachment.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        GetVolumeAttachmentResponse GetVolumeAttachment(GetVolumeAttachmentRequest getRequest);
+
+        /// <summary>
         /// Attaches the specified boot volume to the specified instance.
         /// </summary>
         /// <param name="request"></param>
@@ -109,6 +123,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="request"></param>
         /// <returns></returns>
         AttachVnicResponse AttachVnic(AttachVnicRequest request);
+
+        /// <summary>
+        /// Attaches the specified storage volume to the specified instance.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        AttachVolumeResponse AttachVolume(AttachVolumeRequest request);
 
         /// <summary>
         /// Moves an instance into a different compartment within the same tenancy. 
@@ -174,8 +195,15 @@ namespace OCISDK.Core.src.Core
         /// </summary>
         /// <param name="detachBootVolumeRequest"></param>
         /// <returns></returns>
-        DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachBootVolumeRequest);
+        DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachRequest);
 
-
+        /// <summary>
+        /// Detaches a storage volume from an instance. You must specify the OCID of the volume attachment.
+        /// 
+        /// This is an asynchronous operation. The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="detachRequest"></param>
+        /// <returns></returns>
+        DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest);
     }
 }

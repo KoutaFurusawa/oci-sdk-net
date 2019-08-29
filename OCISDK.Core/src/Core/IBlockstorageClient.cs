@@ -154,6 +154,15 @@ namespace OCISDK.Core.src.Core
         DeleteBootVolumeResponse DeleteBootVolume(DeleteBootVolumeRequest deleteRequest);
 
         /// <summary>
+        /// Deletes the specified volume. The volume cannot have an active connection to an instance. 
+        /// To disconnect the volume from a connected instance, see Disconnecting From a Volume. 
+        /// Warning: All data on the volume will be permanently lost when the volume is deleted.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteVolumeResponse DeleteVolume(DeleteVolumeRequest param);
+
+        /// <summary>
         /// Deletes a volume backup.
         /// </summary>
         /// <param name="param"></param>
