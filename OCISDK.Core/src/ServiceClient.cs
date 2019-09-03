@@ -14,7 +14,6 @@ namespace OCISDK.Core.src
     /// </summary>
     public class ServiceClient
     {
-        private string _region;
         public string Region { get; set; }
 
         /// <summary> Core Services Name </summary>
