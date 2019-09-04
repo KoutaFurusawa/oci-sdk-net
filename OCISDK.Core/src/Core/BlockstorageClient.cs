@@ -134,6 +134,58 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists all volume backup policies available to the caller.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListVolumeBackupPoliciesResponse ListVolumeBackupPolicies(ListVolumeBackupPoliciesRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackupPolicy, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumeBackupPoliciesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VolumeBackupPolicy>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the volume backup policy assignment for the specified asset.
+        /// Note that the assetId query parameter is required, and that the returned list will contain at most one item 
+        /// (since any given asset can only have one policy assigned to it).
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeBackupPolicyAssetAssignmentResponse GetVolumeBackupPolicyAssetAssignment(GetVolumeBackupPolicyAssetAssignmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackupPolicyAssignment, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeBackupPolicyAssetAssignmentResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VolumeBackupPolicyAssignment>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information for the specified boot volume.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -202,6 +254,57 @@ namespace OCISDK.Core.src.Core
                 return new GetVolumeBackupResponse()
                 {
                     VolumeBackup = JsonSerializer.Deserialize<VolumeBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+
+        /// <summary>
+        /// Gets information for the specified volume backup policy.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeBackupPolicyResponse GetVolumeBackupPolicy(GetVolumeBackupPolicyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackupPolicy, this.Region)}/{param.PolicyId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeBackupPolicyResponse()
+                {
+                    VolumeBackupPolicy = JsonSerializer.Deserialize<VolumeBackupPolicy>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets information for the specified volume backup policy assignment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeBackupPolicyAssignmentResponse GetVolumeBackupPolicyAssignment(GetVolumeBackupPolicyAssignmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackupPolicyAssignment, this.Region)}/{param.PolicyAssignmentId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeBackupPolicyAssignmentResponse()
+                {
+                    VolumeBackupPolicyAssignment = JsonSerializer.Deserialize<VolumeBackupPolicyAssignment>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -375,6 +478,33 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Assigns a policy to the specified asset, such as a volume. 
+        /// Note that a given asset can only have one policy assigned to it; if this method is called for an asset that previously has a different policy assigned, 
+        /// the prior assignment will be silently deleted.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CreateVolumeBackupPolicyAssignmentResponse CreateVolumeBackupPolicyAssignment(CreateVolumeBackupPolicyAssignmentRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VolumeBackupPolicyAssignment, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.CreateVolumeBackupPolicyAssignmentDetails);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateVolumeBackupPolicyAssignmentResponse()
+                {
+                    VolumeBackupPolicyAssignment = JsonSerializer.Deserialize<VolumeBackupPolicyAssignment>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified boot volume's display name, defined tags, and free-form tags.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -516,6 +646,29 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteVolumeBackupResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes a volume backup policy assignment (i.e. unassigns the policy from an asset).
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteVolumeBackupPolicyAssignmentResponse DeleteVolumeBackupPolicyAssignment(DeleteVolumeBackupPolicyAssignmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackupPolicyAssignment, this.Region)}/{param.PolicyAssignmentId}");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteVolumeBackupPolicyAssignmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

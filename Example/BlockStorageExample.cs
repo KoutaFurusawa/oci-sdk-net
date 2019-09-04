@@ -90,6 +90,19 @@ namespace Example
                     Console.WriteLine(" | sizeInGBs: " + vol.SizeInGBs);
                 });
             });
+
+            Console.WriteLine("* List VolumeBackUpPolicy-------------------");
+            var listVolumeBackupPoliciesRequest = new ListVolumeBackupPoliciesRequest() {
+                Limit = 10
+            };
+            var backupPolicies = blockstorageClient.ListVolumeBackupPolicies(listVolumeBackupPoliciesRequest);
+            backupPolicies.Items.ForEach(policy =>
+            {
+                Console.WriteLine(" |-" + policy.DisplayName);
+                Console.WriteLine(" | id: " + policy.Id);
+                Console.WriteLine(" | timeCreated: " + policy.TimeCreated);
+            });
+            
         }
     }
 }

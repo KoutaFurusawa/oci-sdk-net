@@ -42,6 +42,22 @@ namespace OCISDK.Core.src.Core
         ListVolumeBackupsResponse ListVolumeBackups(ListVolumeBackupsRequest param);
 
         /// <summary>
+        /// Lists all volume backup policies available to the caller.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListVolumeBackupPoliciesResponse ListVolumeBackupPolicies(ListVolumeBackupPoliciesRequest param);
+
+        /// <summary>
+        /// Gets the volume backup policy assignment for the specified asset.
+        /// Note that the assetId query parameter is required, and that the returned list will contain at most one item 
+        /// (since any given asset can only have one policy assigned to it).
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetVolumeBackupPolicyAssetAssignmentResponse GetVolumeBackupPolicyAssetAssignment(GetVolumeBackupPolicyAssetAssignmentRequest param);
+
+        /// <summary>
         /// Gets information for the specified boot volume.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -61,6 +77,20 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         GetVolumeBackupResponse GetVolumeBackup(GetVolumeBackupRequest param);
+
+        /// <summary>
+        /// Gets information for the specified volume backup policy.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetVolumeBackupPolicyResponse GetVolumeBackupPolicy(GetVolumeBackupPolicyRequest param);
+
+        /// <summary>
+        /// Gets information for the specified volume backup policy assignment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetVolumeBackupPolicyAssignmentResponse GetVolumeBackupPolicyAssignment(GetVolumeBackupPolicyAssignmentRequest param);
 
         /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
@@ -124,6 +154,15 @@ namespace OCISDK.Core.src.Core
         CreateVolumeBackupResponse CreateVolumeBackup(CreateVolumeBackupRequest param);
 
         /// <summary>
+        /// Assigns a policy to the specified asset, such as a volume. 
+        /// Note that a given asset can only have one policy assigned to it; if this method is called for an asset that previously has a different policy assigned, 
+        /// the prior assignment will be silently deleted.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        CreateVolumeBackupPolicyAssignmentResponse CreateVolumeBackupPolicyAssignment(CreateVolumeBackupPolicyAssignmentRequest param);
+
+        /// <summary>
         /// Updates the specified boot volume's display name, defined tags, and free-form tags.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -168,6 +207,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         DeleteVolumeBackupResponse DeleteVolumeBackup(DeleteVolumeBackupRequest param);
+
+        /// <summary>
+        /// Deletes a volume backup policy assignment (i.e. unassigns the policy from an asset).
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteVolumeBackupPolicyAssignmentResponse DeleteVolumeBackupPolicyAssignment(DeleteVolumeBackupPolicyAssignmentRequest param);
 
         /// <summary>
         /// Creates a volume backup copy in specified region. For general information about volume backups, see Overview of Block Volume Service Backups
