@@ -309,8 +309,7 @@ namespace OCISDK.Core.src.Core
                 };
             }
         }
-
-
+        
         /// <summary>
         /// Gets information for the specified volume backup policy.
         /// </summary>
@@ -706,6 +705,7 @@ namespace OCISDK.Core.src.Core
                 };
             }
         }
+
         /// <summary>
         /// Creates a new backup volume group of the specified volume group. For more information, see Volume Groups.
         /// </summary>
