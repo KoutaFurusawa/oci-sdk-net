@@ -412,6 +412,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets the KMS key ID for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeKmsKeyResponse GetVolumeKmsKey(GetVolumeKmsKeyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
+
+            var webResponse = this.RestClient.Get(uri, param.IfMatch,"", "", null, "", "");
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeKmsKeyResponse()
+                {
+                    VolumeKmsKey = JsonSerializer.Deserialize<VolumeKmsKey>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -833,6 +858,30 @@ namespace OCISDK.Core.src.Core
                 };
             }
         }
+        
+        /// <summary>
+        /// Updates the KMS key ID for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public UpdateVolumeKmsKeyResponse UpdateVolumeKmsKey(UpdateVolumeKmsKeyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
+
+            var webResponse = this.RestClient.Put(uri, param.UpdateVolumeKmsKeyDetails, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateVolumeKmsKeyResponse()
+                {
+                    VolumeKmsKey = JsonSerializer.Deserialize<VolumeKmsKey>(response),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
 
         /// <summary>
         /// Deletes the specified boot volume. The volume cannot have an active connection to an instance. 
@@ -947,6 +996,29 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteVolumeGroupBackupResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes the KMS key for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteVolumeKmsKeyResponse DeleteVolumeKmsKey(DeleteVolumeKmsKeyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteVolumeKmsKeyResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

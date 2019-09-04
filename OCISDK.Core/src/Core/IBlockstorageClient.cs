@@ -121,6 +121,13 @@ namespace OCISDK.Core.src.Core
         GetVolumeGroupBackupResponse GetVolumeGroupBackup(GetVolumeGroupBackupRequest param);
 
         /// <summary>
+        /// Gets the KMS key ID for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetVolumeKmsKeyResponse GetVolumeKmsKey(GetVolumeKmsKeyRequest param);
+
+        /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -263,6 +270,13 @@ namespace OCISDK.Core.src.Core
         UpdateVolumeGroupBackupResponse UpdateVolumeGroupBackup(UpdateVolumeGroupBackupRequest param);
 
         /// <summary>
+        /// Updates the KMS key ID for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        UpdateVolumeKmsKeyResponse UpdateVolumeKmsKey(UpdateVolumeKmsKeyRequest param);
+
+        /// <summary>
         /// Deletes the specified boot volume. The volume cannot have an active connection to an instance. 
         /// To disconnect the boot volume from a connected instance, see Disconnecting From a Boot Volume. 
         /// Warning: All data on the boot volume will be permanently lost when the boot volume is deleted.
@@ -300,6 +314,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         DeleteVolumeGroupBackupResponse DeleteVolumeGroupBackup(DeleteVolumeGroupBackupRequest param);
+
+        /// <summary>
+        /// Removes the KMS key for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteVolumeKmsKeyResponse DeleteVolumeKmsKey(DeleteVolumeKmsKeyRequest param);
 
         /// <summary>
         /// Creates a volume backup copy in specified region. For general information about volume backups, see Overview of Block Volume Service Backups

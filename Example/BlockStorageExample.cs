@@ -6,6 +6,7 @@ using OCISDK.Core.src.Identity;
 using OCISDK.Core.src.Identity.Request;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Example
 {
@@ -105,6 +106,25 @@ namespace Example
                     Console.WriteLine(" | id: " + vol.Id);
                     Console.WriteLine(" | lifecycle: " + vol.LifecycleState);
                     Console.WriteLine(" | sizeInGBs: " + vol.SizeInGBs);
+
+                    var getVolumeKmsKeyRequest = new GetVolumeKmsKeyRequest() {
+                        VolumeId = vol.Id
+                    };
+                    try
+                    {
+                        var kms = blockstorageClient.GetVolumeKmsKey(getVolumeKmsKeyRequest);
+                        Console.WriteLine(" | kms: " + kms.VolumeKmsKey.KmsKeyId);
+                    }
+                    catch (WebException we)
+                    {
+                        if (we.Status.Equals(WebExceptionStatus.ProtocolError))
+                        {
+                            var code = ((HttpWebResponse)we.Response).StatusCode;
+                            if (code != HttpStatusCode.NotFound) {
+                                throw we;
+                            }
+                        }
+                    }
                 });
             });
 
