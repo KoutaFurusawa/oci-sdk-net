@@ -11,7 +11,7 @@ namespace Example
 {
     class BlockStorageExample
     {
-        public static void BootVolumeConsoleDisplay(ClientConfig config)
+        public static void BlockStoragesConsoleDisplay(ClientConfig config)
         {
             // create client
             BlockstorageClient blockstorageClient = new BlockstorageClient(config)
@@ -47,6 +47,23 @@ namespace Example
                     Console.WriteLine(" | lifecycle: " + bv.LifecycleState);
                     Console.WriteLine(" | sizeInGBs: " + bv.SizeInGBs);
                     Console.WriteLine(" | VolumeGroupId: " + bv.VolumeGroupId);
+                });
+
+                Console.WriteLine("* List BootGroups-------------------" + ad.Name);
+                var listVolumeGroupsRequest = new ListVolumeGroupsRequest()
+                {
+                    // target compartment is root compartment(tenancy)
+                    CompartmentId = config.TenancyId,
+                    AvailabilityDomain = ad.Name,
+                    Limit = 10,
+                };
+                var listVolGroups = blockstorageClient.ListVolumeGroups(listVolumeGroupsRequest);
+                listVolGroups.Items.ForEach(vg =>
+                {
+                    Console.WriteLine(" |-" + vg.DisplayName);
+                    Console.WriteLine(" | id: " + vg.Id);
+                    Console.WriteLine(" | lifecycle: " + vg.LifecycleState);
+                    Console.WriteLine(" | sizeInGBs: " + vg.SizeInGBs);
                 });
             });
 

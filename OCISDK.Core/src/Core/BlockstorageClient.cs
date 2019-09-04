@@ -159,6 +159,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists the volume groups in the specified compartment and availability domain. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListVolumeGroupsResponse ListVolumeGroups(ListVolumeGroupsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroup, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumeGroupsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VolumeGroup>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the volume backup policy assignment for the specified asset.
         /// Note that the assetId query parameter is required, and that the returned list will contain at most one item 
         /// (since any given asset can only have one policy assigned to it).
@@ -312,6 +337,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets information for the specified volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeGroupResponse GetVolumeGroup(GetVolumeGroupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroup, this.Region)}/{param.VolumeGroupId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeGroupResponse()
+                {
+                    VolumeGroup = JsonSerializer.Deserialize<VolumeGroup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -379,6 +429,31 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new ChangeVolumeBackupCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a volume group into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ChangeVolumeGroupCompartmentResponse ChangeVolumeGroupCompartment(ChangeVolumeGroupCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroup, this.Region)}/{param.VolumeGroupId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeVolumeGroupCompartmentDetails, "", param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVolumeGroupCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
@@ -505,6 +580,34 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Creates a new volume group in the specified compartment. 
+        /// A volume group is a collection of volumes and may be created from a list of volumes, cloning an existing volume group, or by restoring a volume group backup. 
+        /// A volume group can contain up to 64 volumes. You may optionally specify a display name for the volume group, which is simply a friendly name or description. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CreateVolumeGroupResponse CreateVolumeGroup(CreateVolumeGroupRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VolumeGroup, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.CreateVolumeGroupDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateVolumeGroupResponse()
+                {
+                    VolumeGroup = JsonSerializer.Deserialize<VolumeGroup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified boot volume's display name, defined tags, and free-form tags.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -524,7 +627,7 @@ namespace OCISDK.Core.src.Core
                 {
                     BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
-                    ETag = webResponse.Headers.Get("etag")
+                    ETag = webResponse.Headers.Get("ETag")
                 };
             }
         }
@@ -549,7 +652,7 @@ namespace OCISDK.Core.src.Core
                 {
                     Volume = JsonSerializer.Deserialize<VolumeDetails>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
-                    ETag = webResponse.Headers.Get("etag")
+                    ETag = webResponse.Headers.Get("ETag")
                 };
             }
         }
@@ -574,7 +677,36 @@ namespace OCISDK.Core.src.Core
                 {
                     VolumeBackup = JsonSerializer.Deserialize<VolumeBackup>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
-                    ETag = webResponse.Headers.Get("etag")
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the set of volumes in a volume group along with the display name. 
+        /// Use this operation to add or remove volumes in a volume group. Specify the full list of volume IDs to include in the volume group. 
+        /// If the volume ID is not specified in the call, it will be removed from the volume group. Avoid entering confidential information.
+        /// 
+        /// For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public UpdateVolumeGroupResponse UpdateVolumeGroup(UpdateVolumeGroupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroup, this.Region)}/{param.VolumeGroupId}");
+
+            var webResponse = this.RestClient.Put(uri, param.UpdateVolumeGroupDetails, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateVolumeGroupResponse()
+                {
+                    VolumeGroup = JsonSerializer.Deserialize<VolumeGroup>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
                 };
             }
         }

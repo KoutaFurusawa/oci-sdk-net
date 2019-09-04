@@ -57,10 +57,10 @@ namespace Example
 
                 // create connection file
                 Console.WriteLine("Create connection settings to Oracle Cloud Infrastructure");
-                
+
                 Console.Write("TenancyId (Required): ");
                 string tenancyId = OCIDInput();
-            
+
                 Console.Write("UserId (Required): ");
                 string userId = OCIDInput();
 
@@ -84,7 +84,7 @@ namespace Example
 
                 configReader = ConfigFileReader.Parse(configPath, profile);
             }
-            
+
             // ClientConfig settings
             var config = new ClientConfig
             {
@@ -103,14 +103,14 @@ namespace Example
                 Console.WriteLine("[2]: Display TenatcyInfomation and Compartment Example");
                 Console.WriteLine("[3]: Display VirtualNetwork List Example");
                 Console.WriteLine("[4]: Display Instance List Example");
-                Console.WriteLine("[5]: Display BootVolume List Example");
+                Console.WriteLine("[5]: Display BlockStorage List Example");
                 Console.WriteLine("[6]: Display Audit List Example");
                 Console.WriteLine("[7]: Display ObjectStorage List Example");
                 Console.WriteLine("[8]: SearchResouces Example");
                 Console.WriteLine("[9]: Monitoring Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
-                
+
                 var presskey = Console.ReadKey(true);
                 if (presskey.Key == ConsoleKey.Escape || presskey.KeyChar == 'E' || presskey.KeyChar == 'e')
                 {
@@ -143,7 +143,7 @@ namespace Example
                 // BootVolumes
                 if (mode == '1' || mode == '5')
                 {
-                    BlockStorageExample.BootVolumeConsoleDisplay(config);
+                    BlockStorageExample.BlockStoragesConsoleDisplay(config);
                 }
 
                 // Audit
@@ -231,7 +231,7 @@ namespace Example
 
             return readStr;
         }
-        
+
         public static string InputPassword()
         {
             var pass = new StringBuilder();
@@ -255,7 +255,7 @@ namespace Example
                         {
                             Console.Beep();
                         }
-                    break;
+                        break;
 
                     default:
                         if (Char.IsLetter(keyinfo.KeyChar))
@@ -279,7 +279,7 @@ namespace Example
                             // ather key to beep
                             Console.Beep();
                         }
-                    break;
+                        break;
                 }
             }
         }
