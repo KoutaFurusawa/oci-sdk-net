@@ -184,6 +184,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists the volume group backups in the specified compartment. You can filter the results by volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListVolumeGroupBackupsResponse ListVolumeGroupBackups(ListVolumeGroupBackupsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumeGroupBackupsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VolumeGroupBackup>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the volume backup policy assignment for the specified asset.
         /// Note that the assetId query parameter is required, and that the returned list will contain at most one item 
         /// (since any given asset can only have one policy assigned to it).
@@ -362,6 +387,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets information for the specified volume group backup. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetVolumeGroupBackupResponse GetVolumeGroupBackup(GetVolumeGroupBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeGroupBackupResponse()
+                {
+                    VolumeGroupBackup = JsonSerializer.Deserialize<VolumeGroupBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -454,6 +504,31 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new ChangeVolumeGroupCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a volume group backup into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public ChangeVolumeGroupBackupCompartmentResponse ChangeVolumeGroupBackupCompartment(ChangeVolumeGroupBackupCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, param.ChangeVolumeGroupBackupCompartmentDetails, "", param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVolumeGroupBackupCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
@@ -606,6 +681,30 @@ namespace OCISDK.Core.src.Core
                 };
             }
         }
+        /// <summary>
+        /// Creates a new backup volume group of the specified volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CreateVolumeGroupBackupResponse CreateVolumeGroupBackup(CreateVolumeGroupBackupRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VolumeGroupBackup, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.CreateVolumeGroupBackupDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateVolumeGroupBackupResponse()
+                {
+                    VolumeGroupBackup = JsonSerializer.Deserialize<VolumeGroupBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
 
         /// <summary>
         /// Updates the specified boot volume's display name, defined tags, and free-form tags.
@@ -712,6 +811,30 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Updates the display name for the specified volume group backup. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public UpdateVolumeGroupBackupResponse UpdateVolumeGroupBackup(UpdateVolumeGroupBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}");
+
+            var webResponse = this.RestClient.Put(uri, param.UpdateVolumeGroupBackupDetails, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateVolumeGroupBackupResponse()
+                {
+                    VolumeGroupBackup = JsonSerializer.Deserialize<VolumeGroupBackup>(response),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified boot volume. The volume cannot have an active connection to an instance. 
         /// To disconnect the boot volume from a connected instance, see Disconnecting From a Boot Volume. 
         /// Warning: All data on the boot volume will be permanently lost when the boot volume is deleted.
@@ -801,6 +924,29 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteVolumeBackupPolicyAssignmentResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes a volume group backup. This operation deletes all the backups in the volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteVolumeGroupBackupResponse DeleteVolumeGroupBackup(DeleteVolumeGroupBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteVolumeGroupBackupResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

@@ -49,7 +49,7 @@ namespace Example
                     Console.WriteLine(" | VolumeGroupId: " + bv.VolumeGroupId);
                 });
 
-                Console.WriteLine("* List BootGroups-------------------" + ad.Name);
+                Console.WriteLine("* List VolumeGroups-------------------" + ad.Name);
                 var listVolumeGroupsRequest = new ListVolumeGroupsRequest()
                 {
                     // target compartment is root compartment(tenancy)
@@ -100,6 +100,23 @@ namespace Example
                 };
                 var listVolume = blockstorageClient.ListVolumes(listVolumesRequest);
                 listVolume.Items.ForEach(vol =>
+                {
+                    Console.WriteLine(" |-" + vol.DisplayName);
+                    Console.WriteLine(" | id: " + vol.Id);
+                    Console.WriteLine(" | lifecycle: " + vol.LifecycleState);
+                    Console.WriteLine(" | sizeInGBs: " + vol.SizeInGBs);
+                });
+            });
+
+            Console.WriteLine("* List VolumeGroupBackUp-------------------");
+            listCom.Items.ForEach(com => {
+
+                var listVolumeGroupBackupsRequest = new ListVolumeGroupBackupsRequest()
+                {
+                    CompartmentId = com.Id
+                };
+                var listVolumeGroupB = blockstorageClient.ListVolumeGroupBackups(listVolumeGroupBackupsRequest);
+                listVolumeGroupB.Items.ForEach(vol =>
                 {
                     Console.WriteLine(" |-" + vol.DisplayName);
                     Console.WriteLine(" | id: " + vol.Id);

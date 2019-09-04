@@ -56,6 +56,13 @@ namespace OCISDK.Core.src.Core
         ListVolumeGroupsResponse ListVolumeGroups(ListVolumeGroupsRequest param);
 
         /// <summary>
+        /// Lists the volume group backups in the specified compartment. You can filter the results by volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListVolumeGroupBackupsResponse ListVolumeGroupBackups(ListVolumeGroupBackupsRequest param);
+
+        /// <summary>
         /// Gets the volume backup policy assignment for the specified asset.
         /// Note that the assetId query parameter is required, and that the returned list will contain at most one item 
         /// (since any given asset can only have one policy assigned to it).
@@ -107,6 +114,13 @@ namespace OCISDK.Core.src.Core
         GetVolumeGroupResponse GetVolumeGroup(GetVolumeGroupRequest param);
 
         /// <summary>
+        /// Gets information for the specified volume group backup. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetVolumeGroupBackupResponse GetVolumeGroupBackup(GetVolumeGroupBackupRequest param);
+
+        /// <summary>
         /// Moves a boot volume into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -137,6 +151,14 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         ChangeVolumeGroupCompartmentResponse ChangeVolumeGroupCompartment(ChangeVolumeGroupCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a volume group backup into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        ChangeVolumeGroupBackupCompartmentResponse ChangeVolumeGroupBackupCompartment(ChangeVolumeGroupBackupCompartmentRequest param);
 
         /// <summary>
         /// Creates a new boot volume in the specified compartment from an existing boot volume or a 
@@ -195,6 +217,13 @@ namespace OCISDK.Core.src.Core
         CreateVolumeGroupResponse CreateVolumeGroup(CreateVolumeGroupRequest param);
 
         /// <summary>
+        /// Creates a new backup volume group of the specified volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        CreateVolumeGroupBackupResponse CreateVolumeGroupBackup(CreateVolumeGroupBackupRequest param);
+
+        /// <summary>
         /// Updates the specified boot volume's display name, defined tags, and free-form tags.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -227,6 +256,13 @@ namespace OCISDK.Core.src.Core
         UpdateVolumeGroupResponse UpdateVolumeGroup(UpdateVolumeGroupRequest param);
 
         /// <summary>
+        /// Updates the display name for the specified volume group backup. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        UpdateVolumeGroupBackupResponse UpdateVolumeGroupBackup(UpdateVolumeGroupBackupRequest param);
+
+        /// <summary>
         /// Deletes the specified boot volume. The volume cannot have an active connection to an instance. 
         /// To disconnect the boot volume from a connected instance, see Disconnecting From a Boot Volume. 
         /// Warning: All data on the boot volume will be permanently lost when the boot volume is deleted.
@@ -257,6 +293,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         DeleteVolumeBackupPolicyAssignmentResponse DeleteVolumeBackupPolicyAssignment(DeleteVolumeBackupPolicyAssignmentRequest param);
+
+        /// <summary>
+        /// Deletes a volume group backup. This operation deletes all the backups in the volume group. For more information, see Volume Groups.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteVolumeGroupBackupResponse DeleteVolumeGroupBackup(DeleteVolumeGroupBackupRequest param);
 
         /// <summary>
         /// Creates a volume backup copy in specified region. For general information about volume backups, see Overview of Block Volume Service Backups
