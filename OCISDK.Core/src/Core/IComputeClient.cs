@@ -189,6 +189,20 @@ namespace OCISDK.Core.src.Core
         LaunchInstanceResponse LaunchInstance(LaunchInstanceRequest request);
 
         /// <summary>
+        /// Captures the most recent serial console data (up to a megabyte) for the specified instance.
+        /// The CaptureConsoleHistory operation works with the other console history operations as described below.
+        /// 1. Use CaptureConsoleHistory to request the capture of up to a megabyte of the most recent console history. 
+        ///    This call returns a ConsoleHistory object. The object will have a state of REQUESTED.
+        /// 2. Wait for the capture operation to succeed by polling GetConsoleHistory with the identifier of the console history metadata. 
+        ///    The state of the ConsoleHistory object will go from REQUESTED to GETTING-HISTORY and then SUCCEEDED (or FAILED).
+        /// 3. Use GetConsoleHistoryContent to get the actual console history data (not the metadata).
+        /// 4. Optionally, use DeleteConsoleHistory to delete the console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        CaptureConsoleHistoryResponse CaptureConsoleHistory(CaptureConsoleHistoryRequest param);
+
+        /// <summary>
         /// Updates certain fields on the specified instance.
         /// Fields that are not provided in the request will not be updated.
         /// Avoid entering confidential information.
@@ -240,19 +254,5 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         DeleteConsoleHistoryResponse DeleteConsoleHistory(DeleteConsoleHistoryRequest param);
-
-        /// <summary>
-        /// Captures the most recent serial console data (up to a megabyte) for the specified instance.
-        /// The CaptureConsoleHistory operation works with the other console history operations as described below.
-        /// 1. Use CaptureConsoleHistory to request the capture of up to a megabyte of the most recent console history. 
-        ///    This call returns a ConsoleHistory object. The object will have a state of REQUESTED.
-        /// 2. Wait for the capture operation to succeed by polling GetConsoleHistory with the identifier of the console history metadata. 
-        ///    The state of the ConsoleHistory object will go from REQUESTED to GETTING-HISTORY and then SUCCEEDED (or FAILED).
-        /// 3. Use GetConsoleHistoryContent to get the actual console history data (not the metadata).
-        /// 4. Optionally, use DeleteConsoleHistory to delete the console history metadata and the console history data.
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        CaptureConsoleHistoryResponse CaptureConsoleHistory(CaptureConsoleHistoryRequest param);
     }
 }
