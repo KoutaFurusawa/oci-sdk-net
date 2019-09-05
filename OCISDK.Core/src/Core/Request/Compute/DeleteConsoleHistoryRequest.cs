@@ -1,18 +1,16 @@
-﻿/// <summary>
-/// DetachBootVolumeRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace OCISDK.Core.src.Core.Request.Compute
 {
-    public class DetachBootVolumeRequest
+    public class DeleteConsoleHistoryRequest
     {
         /// <summary>
-        /// The OCID of the boot volume attachment.
+        /// The OCID of the console history.
         /// <para>Required: yes</para>
-        /// <para>Minimum: 1, Maximum: 255</para>
         /// </summary>
-        public string BootVolumeAttachmentId { get; set; }
+        public string InstanceConsoleHistoryId { get; set; }
 
         /// <summary>
         /// For optimistic concurrency control. In the PUT or DELETE call for a resource, 

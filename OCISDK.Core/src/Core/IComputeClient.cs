@@ -75,6 +75,13 @@ namespace OCISDK.Core.src.Core
         ListVolumeAttachmentsResponse ListVolumeAttachments(ListVolumeAttachmentsRequest listRequest);
 
         /// <summary>
+        /// Lists the console history metadata for the specified compartment or instance.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListConsoleHistoriesResponse ListConsoleHistories(ListConsoleHistoriesRequest param);
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -108,6 +115,20 @@ namespace OCISDK.Core.src.Core
         /// <param name="getRequest"></param>
         /// <returns></returns>
         GetVolumeAttachmentResponse GetVolumeAttachment(GetVolumeAttachmentRequest getRequest);
+
+        /// <summary>
+        /// Shows the metadata for the specified console history. See CaptureConsoleHistory for details about using the console history operations.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetConsoleHistoryResponse GetConsoleHistory(GetConsoleHistoryRequest param);
+
+        /// <summary>
+        /// Gets the actual console history data (not the metadata). See CaptureConsoleHistory for details about using the console history operations.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetConsoleHistoryContentResponse GetConsoleHistoryContent(GetConsoleHistoryContentRequest param);
 
         /// <summary>
         /// Attaches the specified boot volume to the specified instance.
@@ -177,6 +198,13 @@ namespace OCISDK.Core.src.Core
         UpdateInstanceResponse UpdateInstance(UpdateInstanceRequest updateRequest);
 
         /// <summary>
+        /// Updates the specified console history metadata.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        UpdateConsoleHistoryResponse UpdateConsoleHistory(UpdateConsoleHistoryRequest param);
+
+        /// <summary>
         /// Terminates the specified instance. 
         /// Any attached VNICs and volumes are automatically detached when the instance terminates.
         /// To preserve the boot volume associated with the instance, specify true for PreserveBootVolumeQueryParam.To delete 
@@ -205,5 +233,26 @@ namespace OCISDK.Core.src.Core
         /// <param name="detachRequest"></param>
         /// <returns></returns>
         DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest);
+
+        /// <summary>
+        /// Deletes the specified console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteConsoleHistoryResponse DeleteConsoleHistory(DeleteConsoleHistoryRequest param);
+
+        /// <summary>
+        /// Captures the most recent serial console data (up to a megabyte) for the specified instance.
+        /// The CaptureConsoleHistory operation works with the other console history operations as described below.
+        /// 1. Use CaptureConsoleHistory to request the capture of up to a megabyte of the most recent console history. 
+        ///    This call returns a ConsoleHistory object. The object will have a state of REQUESTED.
+        /// 2. Wait for the capture operation to succeed by polling GetConsoleHistory with the identifier of the console history metadata. 
+        ///    The state of the ConsoleHistory object will go from REQUESTED to GETTING-HISTORY and then SUCCEEDED (or FAILED).
+        /// 3. Use GetConsoleHistoryContent to get the actual console history data (not the metadata).
+        /// 4. Optionally, use DeleteConsoleHistory to delete the console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        CaptureConsoleHistoryResponse CaptureConsoleHistory(CaptureConsoleHistoryRequest param);
     }
 }
