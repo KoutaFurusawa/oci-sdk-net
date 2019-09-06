@@ -85,6 +85,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists the boot volume backups in the specified compartment. You can filter the results by boot volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ListBootVolumeBackupsResponse> ListBootVolumeBackups(ListBootVolumeBackupsRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListBootVolumeBackupsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<BootVolumeBackup>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Lists the volume backups in the specified compartment. You can filter the results by volume.
         /// </summary>
         /// <param name="param"></param>
@@ -255,6 +280,31 @@ namespace OCISDK.Core.src.Core
                 return new GetBootVolumeResponse()
                 {
                     BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets information for the specified boot volume backup.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<GetBootVolumeBackupResponse> GetBootVolumeBackup(GetBootVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetBootVolumeBackupResponse()
+                {
+                    BootVolumeBackup = JsonSerializer.Deserialize<BootVolumeBackup>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -560,7 +610,32 @@ namespace OCISDK.Core.src.Core
                 };
             }
         }
-        
+
+        /// <summary>
+        /// Moves a boot volume backup into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ChangeBootVolumeBackupCompartmentResponse> ChangeBootVolumeBackupCompartment(ChangeBootVolumeBackupCompartmentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}/actions/changeCompartment");
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeBootVolumeBackupCompartmentDetails, "", param.OpcRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeBootVolumeBackupCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
         /// <summary>
         /// Creates a new boot volume in the specified compartment from an existing boot volume or a 
         /// boot volume backup. For general information about boot volumes, see Boot Volumes. You may 
@@ -583,6 +658,35 @@ namespace OCISDK.Core.src.Core
                 return new CreateBootVolumeResponse()
                 {
                     BootVolume = JsonSerializer.Deserialize<BootVolume>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new boot volume backup of the specified boot volume. 
+        /// For general information about boot volume backups, see Overview of Boot Volume Backups
+        /// 
+        /// When the request is received, the backup object is in a REQUEST_RECEIVED state. 
+        /// When the data is imaged, it goes into a CREATING state. After the backup is fully uploaded to the cloud, it goes into an AVAILABLE state.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<CreateBootVolumeBackupResponse> CreateBootVolumeBackup(CreateBootVolumeBackupRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.BootVolumeBackup, this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateBootVolumeBackupDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateBootVolumeBackupResponse()
+                {
+                    BootVolumeBackup = JsonSerializer.Deserialize<BootVolumeBackup>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -758,6 +862,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Updates the display name for the specified boot volume backup. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<UpdateBootVolumeBackupResponse> UpdateBootVolumeBackup(UpdateBootVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateBootVolumeBackupDetails, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateBootVolumeBackupResponse()
+                {
+                    BootVolumeBackup = JsonSerializer.Deserialize<BootVolumeBackup>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified volume's display name. Avoid entering confidential information.
         /// </summary>
         /// <param name="param"></param>
@@ -903,6 +1032,29 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteBootVolumeResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// /Deletes a boot volume backup.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<DeleteBootVolumeBackupResponse> DeleteBootVolumeBackup(DeleteBootVolumeBackupRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteBootVolumeBackupResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

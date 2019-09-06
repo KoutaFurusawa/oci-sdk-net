@@ -75,6 +75,23 @@ namespace Example
             };
             var listCom = identityClient.ListCompartment(listCompartmentRequest);
 
+            Console.WriteLine("* List BootVolumeBackup-------------------");
+            listCom.Items.ForEach(com => {
+
+                ListBootVolumeBackupsRequest listBootVolumeBackupsRequest = new ListBootVolumeBackupsRequest()
+                {
+                    CompartmentId = com.Id
+                };
+                var listBootVolumeBackup = blockstorageClient.ListBootVolumeBackups(listBootVolumeBackupsRequest);
+                listBootVolumeBackup.Items.ForEach(bvB =>
+                {
+                    Console.WriteLine(" |-" + bvB.DisplayName);
+                    Console.WriteLine(" | id: " + bvB.Id);
+                    Console.WriteLine(" | lifecycle: " + bvB.LifecycleState);
+                    Console.WriteLine(" | type: " + bvB.Type);
+                });
+            });
+
             Console.WriteLine("* List VolumeBackup-------------------");
             listCom.Items.ForEach(com =>{
 

@@ -29,6 +29,13 @@ namespace OCISDK.Core.src.Core
         Task<ListBootVolumesResponse> ListBootVolumes(ListBootVolumesRequest listRequest);
 
         /// <summary>
+        /// Lists the boot volume backups in the specified compartment. You can filter the results by boot volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ListBootVolumeBackupsResponse> ListBootVolumeBackups(ListBootVolumeBackupsRequest param);
+
+        /// <summary>
         /// Lists the volumes in the specified compartment and availability domain.
         /// </summary>
         /// <param name="param"></param>
@@ -78,6 +85,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="getRequest"></param>
         /// <returns></returns>
         Task<GetBootVolumeResponse> GetBootVolume(GetBootVolumeRequest getRequest);
+
+        /// <summary>
+        /// Gets information for the specified boot volume backup.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<GetBootVolumeBackupResponse> GetBootVolumeBackup(GetBootVolumeBackupRequest param);
 
         /// <summary>
         /// Gets information for the specified volume.
@@ -169,6 +183,14 @@ namespace OCISDK.Core.src.Core
         Task<ChangeVolumeGroupBackupCompartmentResponse> ChangeVolumeGroupBackupCompartment(ChangeVolumeGroupBackupCompartmentRequest param);
 
         /// <summary>
+        /// Moves a boot volume backup into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ChangeBootVolumeBackupCompartmentResponse> ChangeBootVolumeBackupCompartment(ChangeBootVolumeBackupCompartmentRequest param);
+
+        /// <summary>
         /// Creates a new boot volume in the specified compartment from an existing boot volume or a 
         /// boot volume backup. For general information about boot volumes, see Boot Volumes. You may 
         /// optionally specify a display name for the volume, which is simply a friendly name or description. 
@@ -177,6 +199,16 @@ namespace OCISDK.Core.src.Core
         /// <param name="createRequest"></param>
         /// <returns></returns>
         Task<CreateBootVolumeResponse> CreateBootVolume(CreateBootVolumeRequest createRequest);
+        /// <summary>
+        /// Creates a new boot volume backup of the specified boot volume. 
+        /// For general information about boot volume backups, see Overview of Boot Volume Backups
+        /// 
+        /// When the request is received, the backup object is in a REQUEST_RECEIVED state. 
+        /// When the data is imaged, it goes into a CREATING state. After the backup is fully uploaded to the cloud, it goes into an AVAILABLE state.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<CreateBootVolumeBackupResponse> CreateBootVolumeBackup(CreateBootVolumeBackupRequest param);
 
         /// <summary>
         /// Creates a new volume in the specified compartment. Volumes can be created in sizes ranging from 50 GB 
@@ -239,6 +271,13 @@ namespace OCISDK.Core.src.Core
         Task<UpdateBootVolumeResponse> UpdateBootVolume(UpdateBootVolumeRequest updateRequest);
 
         /// <summary>
+        /// Updates the display name for the specified boot volume backup. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<UpdateBootVolumeBackupResponse> UpdateBootVolumeBackup(UpdateBootVolumeBackupRequest param);
+
+        /// <summary>
         /// Updates the specified volume's display name. Avoid entering confidential information.
         /// </summary>
         /// <param name="param"></param>
@@ -285,6 +324,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="deleteRequest"></param>
         /// <returns></returns>
         Task<DeleteBootVolumeResponse> DeleteBootVolume(DeleteBootVolumeRequest deleteRequest);
+
+        /// <summary>
+        /// /Deletes a boot volume backup.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<DeleteBootVolumeBackupResponse> DeleteBootVolumeBackup(DeleteBootVolumeBackupRequest param);
 
         /// <summary>
         /// Deletes the specified volume. The volume cannot have an active connection to an instance. 
