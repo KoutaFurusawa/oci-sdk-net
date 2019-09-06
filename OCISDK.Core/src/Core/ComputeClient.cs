@@ -195,6 +195,56 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Lists the volume attachments in the specified compartment. You can filter the list by specifying an instance OCID, volume OCID, or both.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        public ListVolumeAttachmentsResponse ListVolumeAttachments(ListVolumeAttachmentsRequest listRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}?{listRequest.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVolumeAttachmentsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<VolumeAttachment>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the console history metadata for the specified compartment or instance.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ListConsoleHistoriesResponse ListConsoleHistories(ListConsoleHistoriesRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListConsoleHistoriesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<ConsoleHistory>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -295,6 +345,81 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets information about the specified volume attachment.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        public GetVolumeAttachmentResponse GetVolumeAttachment(GetVolumeAttachmentRequest getRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}/{getRequest.VolumeAttachmentId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVolumeAttachmentResponse()
+                {
+                    VolumeAttachment = this.JsonSerializer.Deserialize<VolumeAttachment>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Shows the metadata for the specified console history. See CaptureConsoleHistory for details about using the console history operations.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetConsoleHistoryResponse GetConsoleHistory(GetConsoleHistoryRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetConsoleHistoryResponse()
+                {
+                    ConsoleHistory = this.JsonSerializer.Deserialize<ConsoleHistory>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the actual console history data (not the metadata). See CaptureConsoleHistory for details about using the console history operations.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public GetConsoleHistoryContentResponse GetConsoleHistoryContent(GetConsoleHistoryContentRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}/data?{param.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetConsoleHistoryContentResponse()
+                {
+                    Contents = response,
+                    OpcBytesRemaining = webResponse.Headers.Get("opc-bytes-remaining"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Attaches the specified boot volume to the specified instance.
         /// </summary>
         /// <param name="request"></param>
@@ -339,6 +464,31 @@ namespace OCISDK.Core.src.Core
                 return new AttachVnicResponse()
                 {
                     VnicAttachment = this.JsonSerializer.Deserialize<VnicAttachment>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Attaches the specified storage volume to the specified instance.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public AttachVolumeResponse AttachVolume(AttachVolumeRequest param)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VolumeAttachment, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, param.AttachVolumeDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new AttachVolumeResponse()
+                {
+                    VolumeAttachment = this.JsonSerializer.Deserialize<VolumeAttachment>(response),
                     ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -435,6 +585,38 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Captures the most recent serial console data (up to a megabyte) for the specified instance.
+        /// The CaptureConsoleHistory operation works with the other console history operations as described below.
+        /// 1. Use CaptureConsoleHistory to request the capture of up to a megabyte of the most recent console history. 
+        ///    This call returns a ConsoleHistory object. The object will have a state of REQUESTED.
+        /// 2. Wait for the capture operation to succeed by polling GetConsoleHistory with the identifier of the console history metadata. 
+        ///    The state of the ConsoleHistory object will go from REQUESTED to GETTING-HISTORY and then SUCCEEDED (or FAILED).
+        /// 3. Use GetConsoleHistoryContent to get the actual console history data (not the metadata).
+        /// 4. Optionally, use DeleteConsoleHistory to delete the console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CaptureConsoleHistoryResponse CaptureConsoleHistory(CaptureConsoleHistoryRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}");
+
+            var webResponse = this.RestClient.Post(uri, param.CaptureConsoleHistoryDetails, param.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CaptureConsoleHistoryResponse()
+                {
+                    ConsoleHistory = this.JsonSerializer.Deserialize<ConsoleHistory>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates certain fields on the specified instance.
         /// Fields that are not provided in the request will not be updated.
         /// Avoid entering confidential information.
@@ -458,6 +640,33 @@ namespace OCISDK.Core.src.Core
                 return new UpdateInstanceResponse()
                 {
                     Instance = this.JsonSerializer.Deserialize<Instance>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified console history metadata.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public UpdateConsoleHistoryResponse UpdateConsoleHistory(UpdateConsoleHistoryRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
+
+            var webResponse = this.RestClient.Put(uri,
+                param.UpdateConsoleHistoryDetails,
+                param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateConsoleHistoryResponse()
+                {
+                    ConsoleHistory = this.JsonSerializer.Deserialize<ConsoleHistory>(response),
                     ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -511,6 +720,54 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DetachBootVolumeResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Detaches a storage volume from an instance. You must specify the OCID of the volume attachment.
+        /// 
+        /// This is an asynchronous operation. The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="detachRequest"></param>
+        /// <returns></returns>
+        public DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}/{detachRequest.VolumeAttachmentId}");
+
+            var webResponse = this.RestClient.Delete(uri, detachRequest.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DetachVolumeResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DeleteConsoleHistoryResponse DeleteConsoleHistory(DeleteConsoleHistoryRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
+
+            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteConsoleHistoryResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

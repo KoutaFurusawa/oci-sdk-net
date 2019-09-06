@@ -68,6 +68,20 @@ namespace OCISDK.Core.src.Core
         ListVnicAttachmentsResponse ListVnicAttachments(ListVnicAttachmentsRequest listRequest);
 
         /// <summary>
+        /// Lists the volume attachments in the specified compartment. You can filter the list by specifying an instance OCID, volume OCID, or both.
+        /// </summary>
+        /// <param name="listRequest"></param>
+        /// <returns></returns>
+        ListVolumeAttachmentsResponse ListVolumeAttachments(ListVolumeAttachmentsRequest listRequest);
+
+        /// <summary>
+        /// Lists the console history metadata for the specified compartment or instance.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ListConsoleHistoriesResponse ListConsoleHistories(ListConsoleHistoriesRequest param);
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -96,6 +110,27 @@ namespace OCISDK.Core.src.Core
         GetVnicAttachmentResponse GetVnicAttachment(GetVnicAttachmentRequest getRequest);
 
         /// <summary>
+        /// Gets information about the specified volume attachment.
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        GetVolumeAttachmentResponse GetVolumeAttachment(GetVolumeAttachmentRequest getRequest);
+
+        /// <summary>
+        /// Shows the metadata for the specified console history. See CaptureConsoleHistory for details about using the console history operations.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetConsoleHistoryResponse GetConsoleHistory(GetConsoleHistoryRequest param);
+
+        /// <summary>
+        /// Gets the actual console history data (not the metadata). See CaptureConsoleHistory for details about using the console history operations.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        GetConsoleHistoryContentResponse GetConsoleHistoryContent(GetConsoleHistoryContentRequest param);
+
+        /// <summary>
         /// Attaches the specified boot volume to the specified instance.
         /// </summary>
         /// <param name="request"></param>
@@ -109,6 +144,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="request"></param>
         /// <returns></returns>
         AttachVnicResponse AttachVnic(AttachVnicRequest request);
+
+        /// <summary>
+        /// Attaches the specified storage volume to the specified instance.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        AttachVolumeResponse AttachVolume(AttachVolumeRequest request);
 
         /// <summary>
         /// Moves an instance into a different compartment within the same tenancy. 
@@ -147,6 +189,20 @@ namespace OCISDK.Core.src.Core
         LaunchInstanceResponse LaunchInstance(LaunchInstanceRequest request);
 
         /// <summary>
+        /// Captures the most recent serial console data (up to a megabyte) for the specified instance.
+        /// The CaptureConsoleHistory operation works with the other console history operations as described below.
+        /// 1. Use CaptureConsoleHistory to request the capture of up to a megabyte of the most recent console history. 
+        ///    This call returns a ConsoleHistory object. The object will have a state of REQUESTED.
+        /// 2. Wait for the capture operation to succeed by polling GetConsoleHistory with the identifier of the console history metadata. 
+        ///    The state of the ConsoleHistory object will go from REQUESTED to GETTING-HISTORY and then SUCCEEDED (or FAILED).
+        /// 3. Use GetConsoleHistoryContent to get the actual console history data (not the metadata).
+        /// 4. Optionally, use DeleteConsoleHistory to delete the console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        CaptureConsoleHistoryResponse CaptureConsoleHistory(CaptureConsoleHistoryRequest param);
+
+        /// <summary>
         /// Updates certain fields on the specified instance.
         /// Fields that are not provided in the request will not be updated.
         /// Avoid entering confidential information.
@@ -154,6 +210,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="updateRequest"></param>
         /// <returns></returns>
         UpdateInstanceResponse UpdateInstance(UpdateInstanceRequest updateRequest);
+
+        /// <summary>
+        /// Updates the specified console history metadata.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        UpdateConsoleHistoryResponse UpdateConsoleHistory(UpdateConsoleHistoryRequest param);
 
         /// <summary>
         /// Terminates the specified instance. 
@@ -174,8 +237,22 @@ namespace OCISDK.Core.src.Core
         /// </summary>
         /// <param name="detachBootVolumeRequest"></param>
         /// <returns></returns>
-        DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachBootVolumeRequest);
+        DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachRequest);
 
+        /// <summary>
+        /// Detaches a storage volume from an instance. You must specify the OCID of the volume attachment.
+        /// 
+        /// This is an asynchronous operation. The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="detachRequest"></param>
+        /// <returns></returns>
+        DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest);
 
+        /// <summary>
+        /// Deletes the specified console history metadata and the console history data.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        DeleteConsoleHistoryResponse DeleteConsoleHistory(DeleteConsoleHistoryRequest param);
     }
 }

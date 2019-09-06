@@ -2,246 +2,52 @@
   "regionShortNames": {
     "bom": "ap-mumbai-1",
     "icn": "ap-seoul-1",
+    "syd": "ap-sydney-1",
     "nrt": "ap-tokyo-1",
     "phx": "us-phoenix-1",
     "iad": "us-ashburn-1",
     "fra": "eu-frankfurt-1",
     "zrh": "eu-zurich-1",
+    "gru": "sa-saopaulo-1",
     "lhr": "uk-london-1",
     "yyz": "ca-toronto-1"
   },
   "services": {
     "core": {
       "version": "20160918",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "iaas.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "iaas.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "iaas.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "iaas.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "iaas.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "iaas.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "iaas.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "iaas.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "iaas.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "iaas"
     },
     "identity": {
       "version": "20160918",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "identity.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "identity.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "identity.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "identity.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "identity.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "identity.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "identity.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "identity.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "identity.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "identity"
     },
     "audit": {
       "version": "20160918",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "audit.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "audit.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "audit.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "audit.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "audit.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "audit.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "audit.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "audit.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "audit.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "audit"
     },
     "object_storage": {
       "version": "20160918",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "objectstorage.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "objectstorage.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "objectstorage.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "objectstorage.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "objectstorage.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "objectstorage.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "objectstorage.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "objectstorage.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "objectstorage.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "objectstorage"
     },
     "my_service": {
       "version": "v1",
-      "endpoints": {
-        "no-region": {
-          "hostname": "myservices"
-        }
-      }
+      "hosttag": "itra"
     },
     "search": {
       "version": "20180409",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "query.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "query.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "query.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "query.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "query.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "query.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "query.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "query.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "query.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "query"
     },
     "monitoring": {
       "version": "20180401",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "telemetry.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "telemetry.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "telemetry.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "telemetry.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "telemetry.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "telemetry.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "telemetry.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "telemetry.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "telemetry.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "telemetry"
     },
     "monitoring-ingestion": {
       "version": "20180401",
-      "endpoints": {
-        "ap-mumbai-1": {
-          "hostname": "telemetry-ingestion.ap-mumbai-1.oraclecloud.com"
-        },
-        "ap-seoul-1": {
-          "hostname": "telemetry-ingestion.ap-seoul-1.oraclecloud.com"
-        },
-        "ap-tokyo-1": {
-          "hostname": "telemetry-ingestion.ap-tokyo-1.oraclecloud.com"
-        },
-        "ca-toronto-1": {
-          "hostname": "telemetry-ingestion.ca-toronto-1.oraclecloud.com"
-        },
-        "eu-frankfurt-1": {
-          "hostname": "telemetry-ingestion.eu-frankfurt-1.oraclecloud.com"
-        },
-        "eu-zurich-1": {
-          "hostname": "telemetry-ingestion.eu-zurich-1.oraclecloud.com"
-        },
-        "uk-london-1": {
-          "hostname": "telemetry-ingestion.uk-london-1.oraclecloud.com"
-        },
-        "us-ashburn-1": {
-          "hostname": "telemetry-ingestion.us-ashburn-1.oraclecloud.com"
-        },
-        "us-phoenix-1": {
-          "hostname": "telemetry-ingestion.us-phoenix-1.oraclecloud.com"
-        }
-      }
+      "hosttag": "telemetry-ingestion"
+    },
+    "waas": {
+      "version": "20181116",
+      "hosttag": "waas"
     }
   }
 }

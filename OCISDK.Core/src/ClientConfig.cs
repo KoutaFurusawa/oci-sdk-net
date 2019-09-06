@@ -66,7 +66,8 @@ namespace OCISDK.Core.src
 
         public virtual string GetHostName(string serviceName, string region)
         {
-            return EndPoint.Services[serviceName].Endpoints[region].Hostname;
+            var host = $"{EndPoint.Services[serviceName].Hosttag}.{region}.oraclecloud.com";
+            return host;
         }
 
         public ClientConfigBase()
@@ -108,12 +109,7 @@ namespace OCISDK.Core.src
     public class ServiceConfigs
     {
         public string Version { get; set; }
-        
-        public IDictionary<string, Endpoint> Endpoints;
-    }
 
-    public class Endpoint
-    {
-        public string Hostname { get; set; }
+        public string Hosttag { get; set; }
     }
 }

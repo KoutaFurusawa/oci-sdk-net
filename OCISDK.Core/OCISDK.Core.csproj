@@ -79,4 +79,10 @@ Please send comments and requests for this SDK to GitHub.</Description>
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\Waas\Model\" />
+    <Folder Include="src\Waas\Request\" />
+    <Folder Include="src\Waas\Response\" />
+  </ItemGroup>
+
 </Project>

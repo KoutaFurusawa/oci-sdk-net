@@ -14,23 +14,7 @@ namespace OCISDK.Core.src
     /// </summary>
     public class ServiceClient
     {
-        private string _region;
-        public string Region
-        {
-            get { return _region; }
-            set
-            {
-                // the region is not null and registered to endpoints.json
-                if (!string.IsNullOrEmpty(value) && Config.ContainRegion(value))
-                {
-                    _region = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Region unknown");
-                }
-            }
-        }
+        public string Region { get; set; }
 
         /// <summary> Core Services Name </summary>
         protected string ServiceName { get; set; }
