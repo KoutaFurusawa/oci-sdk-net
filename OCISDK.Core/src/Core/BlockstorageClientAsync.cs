@@ -312,6 +312,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Gets the KMS key ID for the specified boot volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<GetBootVolumeKmsKeyResponse> GetBootVolumeKmsKey(GetBootVolumeKmsKeyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/kmsKey");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetBootVolumeKmsKeyResponse()
+                {
+                    BootVolumeKmsKey = JsonSerializer.Deserialize<BootVolumeKmsKey>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information for the specified volume.
         /// </summary>
         /// <param name="param"></param>
@@ -887,6 +912,31 @@ namespace OCISDK.Core.src.Core
         }
 
         /// <summary>
+        /// Updates the KMS key ID for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<UpdateBootVolumeKmsKeyResponse> UpdateBootVolumeKmsKey(UpdateBootVolumeKmsKeyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/kmsKey");
+
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateBootVolumeKmsKeyDetails, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateBootVolumeKmsKeyResponse()
+                {
+                    BootVolumeKmsKey = JsonSerializer.Deserialize<BootVolumeKmsKey>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified volume's display name. Avoid entering confidential information.
         /// </summary>
         /// <param name="param"></param>
@@ -1055,6 +1105,29 @@ namespace OCISDK.Core.src.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteBootVolumeBackupResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes the KMS key for the specified boot volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<DeleteBootVolumeKmsKeyResponse> DeleteBootVolumeKmsKey(DeleteBootVolumeKmsKeyRequest param)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/kmsKey");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, param.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteBootVolumeKmsKeyResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

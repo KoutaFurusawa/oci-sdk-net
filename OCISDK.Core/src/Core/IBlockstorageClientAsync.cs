@@ -94,6 +94,13 @@ namespace OCISDK.Core.src.Core
         Task<GetBootVolumeBackupResponse> GetBootVolumeBackup(GetBootVolumeBackupRequest param);
 
         /// <summary>
+        /// Gets the KMS key ID for the specified boot volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<GetBootVolumeKmsKeyResponse> GetBootVolumeKmsKey(GetBootVolumeKmsKeyRequest param);
+
+        /// <summary>
         /// Gets information for the specified volume.
         /// </summary>
         /// <param name="param"></param>
@@ -278,6 +285,13 @@ namespace OCISDK.Core.src.Core
         Task<UpdateBootVolumeBackupResponse> UpdateBootVolumeBackup(UpdateBootVolumeBackupRequest param);
 
         /// <summary>
+        /// Updates the KMS key ID for the specified volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<UpdateBootVolumeKmsKeyResponse> UpdateBootVolumeKmsKey(UpdateBootVolumeKmsKeyRequest param);
+
+        /// <summary>
         /// Updates the specified volume's display name. Avoid entering confidential information.
         /// </summary>
         /// <param name="param"></param>
@@ -331,6 +345,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         Task<DeleteBootVolumeBackupResponse> DeleteBootVolumeBackup(DeleteBootVolumeBackupRequest param);
+
+        /// <summary>
+        /// Removes the KMS key for the specified boot volume.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<DeleteBootVolumeKmsKeyResponse> DeleteBootVolumeKmsKey(DeleteBootVolumeKmsKeyRequest param);
 
         /// <summary>
         /// Deletes the specified volume. The volume cannot have an active connection to an instance. 
