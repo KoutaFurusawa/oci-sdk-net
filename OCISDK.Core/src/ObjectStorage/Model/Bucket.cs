@@ -29,7 +29,7 @@ namespace OCISDK.Core.src.ObjectStorage.Model
         /// <summary>
         /// Arbitrary string keys and values for user-defined metadata.
         /// </summary>
-        public Object Metadata { get; set; }
+        public object Metadata { get; set; }
 
         /// <summary>
         /// The OCID of the user who created the bucket.
@@ -99,6 +99,5 @@ namespace OCISDK.Core.src.ObjectStorage.Model
         /// Defined tags for this resource. Each key is predefined and scoped to a namespace. 
         /// </summary>
         public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
-
     }
 }

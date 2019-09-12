@@ -48,6 +48,13 @@ namespace OCISDK.Core.src.ObjectStorage
         GetBucketResponse GetBucket(GetBucketRequest request);
 
         /// <summary>
+        /// Efficiently checks to see if a bucket exists and gets the current entity tag (ETag) for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        HeadBucketResponse HeadBucket(HeadBucketRequest request);
+
+        /// <summary>
         /// Gets the metadata and body of an object.
         /// </summary>
         /// <param name="request"></param>
@@ -78,5 +85,43 @@ namespace OCISDK.Core.src.ObjectStorage
         /// <param name="request"></param>
         /// <returns></returns>
         ListObjectsResponse ListObjects(ListObjectsRequest request);
+
+        /// <summary>
+        /// Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential information in bucket names.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateBucketResponse CreateBucket(CreateBucketRequest request);
+
+        /// <summary>
+        /// Performs a partial or full update of a bucket's user-defined metadata.
+        /// 
+        /// Use UpdateBucket to move a bucket from one compartment to another within the same tenancy. 
+        /// Supply the compartmentID of the compartment that you want to move the bucket to. 
+        /// For more information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateBucketResponse UpdateBucket(UpdateBucketRequest request);
+
+        /// <summary>
+        /// By default, buckets created using the Amazon S3 Compatibility API or the Swift API are created in the root compartment of the Oracle Cloud Infrastructure tenancy.
+        /// 
+        /// You can change the default Swift/Amazon S3 compartmentId designation to a different compartmentId. 
+        /// All subsequent bucket creations will use the new default compartment, but no previously created buckets will be modified. 
+        /// A user must have OBJECTSTORAGE_NAMESPACE_UPDATE permission to make changes to the default compartments for Amazon S3 and Swift.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateNamespaceMetadataResponse UpdateNamespaceMetadata(UpdateNamespaceMetadataRequest request);
+
+        /// <summary>
+        /// Deletes a bucket if the bucket is already empty. 
+        /// If the bucket is not empty, use DeleteObject first. 
+        /// In addition, you cannot delete a bucket that has a multipart upload in progress or a pre-authenticated request associated with that bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteBucketResponse DeleteBucket(DeleteBucketRequest request);
     }
 }

@@ -13,6 +13,11 @@ namespace OCISDK.Core.src.ObjectStorage
             return $"n/{namespaceName}/b";
         }
 
+        public static string Bucket(string namespaceName, string bucketName)
+        {
+            return $"n/{namespaceName}/b/{bucketName}";
+        }
+
         public static string Object(string namespaceName, string bucketName)
         {
             return $"n/{namespaceName}/b/{bucketName}/o";

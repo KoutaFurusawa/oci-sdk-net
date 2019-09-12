@@ -13,8 +13,9 @@ namespace OCISDK.Core.src.Common
         Task<WebResponse> Get(Uri targetUri, string opcRequestId);
         Task<WebResponse> Get(Uri targetUri, string opcClientRequestId, string opcRequestId);
         Task<WebResponse> Get(Uri targetUri, string ifMatch, string ifNoneMatch, string opcClientRequestId, List<string> fields, string range, string opcRequestId);
-        Task<WebResponse> Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "", string opcRequestId = "", string ifMatch = "");
+        Task<WebResponse> Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "", string opcRequestId = "", string ifMatch = "", string OpcClientRequestId = "");
         Task<WebResponse> Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "");
         Task<WebResponse> Delete(Uri targetUri, string ifMatch = "", Object requestBody = null);
+        Task<WebResponse> Head(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string OpcClientRequestId = "");
     }
 }

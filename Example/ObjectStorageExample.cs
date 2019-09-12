@@ -46,16 +46,24 @@ namespace Example
             Console.WriteLine($" comaprtment : {config.TenancyId}");
 
             listBucket.Items.ForEach(bucket=> {
-                // get bucket details
-                GetBucketRequest getBucketRequest = new GetBucketRequest()
+                HeadBucketRequest headBucketRequest = new HeadBucketRequest()
                 {
                     NamespaceName = bucket.Namespace,
                     BucketName = bucket.Name
                 };
+                var buckethead = client.HeadBucket(headBucketRequest);
+
+                // get bucket details
+                GetBucketRequest getBucketRequest = new GetBucketRequest()
+                {
+                    NamespaceName = bucket.Namespace,
+                    BucketName = bucket.Name,
+                    IfMatch = buckethead.ETag
+                };
                 var bucketDetail = client.GetBucket(getBucketRequest);
                 Console.WriteLine($"\t|- name : {bucketDetail.Bucket.Name}");
                 Console.WriteLine($"\t|  timeCreated : {bucketDetail.Bucket.TimeCreated}");
-
+                
                 Console.WriteLine($"\t|* Object------------------------");
                 ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
                 {
@@ -109,6 +117,7 @@ namespace Example
                     }
 
                     // download object
+                    /*
                     if (!File.Exists($"./ExampleDownload/report/{r.Name.Replace('/', '_')}"))
                     {
                         var getObjectRequest = new GetObjectRequest()
@@ -118,7 +127,7 @@ namespace Example
                             ObjectName = r.Name,
                         };
                         client.DownloadObject(getObjectRequest, "./ExampleDownload/report/", r.Name.Replace('/', '_'));
-                    }
+                    }*/
                 });
             } catch (Exception e)
             {

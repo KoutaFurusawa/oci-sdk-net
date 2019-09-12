@@ -131,6 +131,29 @@ namespace OCISDK.Core.src.ObjectStorage
         }
 
         /// <summary>
+        /// Efficiently checks to see if a bucket exists and gets the current entity tag (ETag) for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<HeadBucketResponse> HeadBucket(HeadBucketRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}");
+
+            var webResponse = await this.RestClientAsync.Head(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                return new HeadBucketResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the metadata and body of an object.
         /// </summary>
         /// <param name="request"></param>
@@ -243,6 +266,118 @@ namespace OCISDK.Core.src.ObjectStorage
                 return new ListObjectsResponse()
                 {
                     ListObjects = JsonSerializer.Deserialize<ListObjectDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential information in bucket names.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateBucketResponse> CreateBucket(CreateBucketRequest request)
+        {
+            var uri = new Uri(GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateBucketDetails, "", "", "", request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateBucketResponse()
+                {
+                    Bucket = JsonSerializer.Deserialize<Bucket>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    Location = webResponse.Headers.Get("Location")
+                };
+            }
+        }
+
+        /// <summary>
+        /// By default, buckets created using the Amazon S3 Compatibility API or the Swift API are created in the root compartment of the Oracle Cloud Infrastructure tenancy.
+        /// 
+        /// You can change the default Swift/Amazon S3 compartmentId designation to a different compartmentId. 
+        /// All subsequent bucket creations will use the new default compartment, but no previously created buckets will be modified. 
+        /// A user must have OBJECTSTORAGE_NAMESPACE_UPDATE permission to make changes to the default compartments for Amazon S3 and Swift.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateNamespaceMetadataResponse> UpdateNamespaceMetadata(UpdateNamespaceMetadataRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Namespace, this.Region)}/{request.NamespaceName}");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.UpdateNamespaceMetadataDetails, "", "", "", request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateNamespaceMetadataResponse()
+                {
+                    NamespaceMetadata = JsonSerializer.Deserialize<NamespaceMetadata>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Performs a partial or full update of a bucket's user-defined metadata.
+        /// 
+        /// Use UpdateBucket to move a bucket from one compartment to another within the same tenancy. 
+        /// Supply the compartmentID of the compartment that you want to move the bucket to. 
+        /// For more information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateBucketResponse> UpdateBucket(UpdateBucketRequest request)
+        {
+            var uri = new Uri(GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.UpdateBucketDetails, "", "", request.IfMatch, request.OpcClientRequestId);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateBucketResponse()
+                {
+                    Bucket = JsonSerializer.Deserialize<Bucket>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes a bucket if the bucket is already empty. 
+        /// If the bucket is not empty, use DeleteObject first. 
+        /// In addition, you cannot delete a bucket that has a multipart upload in progress or a pre-authenticated request associated with that bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteBucketResponse> DeleteBucket(DeleteBucketRequest request)
+        {
+            var uri = new Uri(GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region));
+
+            var webResponse = await this.RestClientAsync.Delete(uri, request.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteBucketResponse()
+                {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
                 };

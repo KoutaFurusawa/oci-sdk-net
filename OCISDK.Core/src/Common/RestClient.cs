@@ -154,7 +154,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Post(Uri targetUri, Object requestBody=null, string opcRetryToken="", string opcRequestId="", string ifMatch = "")
+        public HttpWebResponse Post(Uri targetUri, Object requestBody=null, string opcRetryToken="", string opcRequestId="", string ifMatch = "", string OpcClientRequestId = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Post.Method;
@@ -170,6 +170,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(opcRequestId))
             {
                 request.Headers["opc-request-id"] = opcRequestId;
+            }
+
+            if (!String.IsNullOrEmpty(OpcClientRequestId))
+            {
+                request.Headers["opc-client-request-id"] = OpcClientRequestId;
             }
 
             if (!String.IsNullOrEmpty(ifMatch))
@@ -254,7 +259,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null)
+        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;
@@ -263,6 +268,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(ifMatch))
             {
                 request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!String.IsNullOrEmpty(OpcClientRequestId))
+            {
+                request.Headers["opc-client-request-id"] = OpcClientRequestId;
             }
 
             if (requestBody != null)
@@ -280,6 +290,39 @@ namespace OCISDK.Core.src.Common
                 }
             }
 
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
+
+            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+        }
+
+        /// <summary>
+        /// head method
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="ifMatch"></param>
+        /// <param name="ifNoneMatch"></param>
+        /// <param name="OpcClientRequestId"></param>
+        /// <returns></returns>
+        public HttpWebResponse Head(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string OpcClientRequestId = "")
+        {
+            var request = (HttpWebRequest)WebRequest.Create(targetUri);
+            request.Method = HttpMethod.Head.Method;
+            request.Accept = "application/json";
+            request.ReadWriteTimeout = Option.TimeoutSeconds;
+
+            if (!string.IsNullOrEmpty(ifMatch))
+            {
+                request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!string.IsNullOrEmpty(ifNoneMatch))
+            {
+                request.Headers["if-none-match"] = ifNoneMatch;
+            }
+            
             if (Signer != null)
             {
                 Signer.SignRequest(request);
