@@ -94,17 +94,6 @@ namespace OCISDK.Core.src.ObjectStorage
         CreateBucketResponse CreateBucket(CreateBucketRequest request);
 
         /// <summary>
-        /// Performs a partial or full update of a bucket's user-defined metadata.
-        /// 
-        /// Use UpdateBucket to move a bucket from one compartment to another within the same tenancy. 
-        /// Supply the compartmentID of the compartment that you want to move the bucket to. 
-        /// For more information about moving resources between compartments, see Moving Resources to a Different Compartment.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        UpdateBucketResponse UpdateBucket(UpdateBucketRequest request);
-
-        /// <summary>
         /// By default, buckets created using the Amazon S3 Compatibility API or the Swift API are created in the root compartment of the Oracle Cloud Infrastructure tenancy.
         /// 
         /// You can change the default Swift/Amazon S3 compartmentId designation to a different compartmentId. 
@@ -114,6 +103,17 @@ namespace OCISDK.Core.src.ObjectStorage
         /// <param name="request"></param>
         /// <returns></returns>
         UpdateNamespaceMetadataResponse UpdateNamespaceMetadata(UpdateNamespaceMetadataRequest request);
+
+        /// <summary>
+        /// Performs a partial or full update of a bucket's user-defined metadata.
+        /// 
+        /// Use UpdateBucket to move a bucket from one compartment to another within the same tenancy. 
+        /// Supply the compartmentID of the compartment that you want to move the bucket to. 
+        /// For more information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateBucketResponse UpdateBucket(UpdateBucketRequest request);
 
         /// <summary>
         /// Deletes a bucket if the bucket is already empty. 
