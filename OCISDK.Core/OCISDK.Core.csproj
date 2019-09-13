@@ -16,7 +16,7 @@ Supports several APIs.
 This SDK is unofficial and does not support all OCI services. It is also intended for personal research and limited project use only.
 Please be aware that the author is not responsible for any problems that may arise from using this SDK.
 Please send comments and requests for this SDK to GitHub.</Description>
-    <Version>0.5.5</Version>
+    <Version>0.5.6</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>2019/06/11 version 0.5.0 release
 2019/06/11 version 0.5.1 release
@@ -26,15 +26,23 @@ Please send comments and requests for this SDK to GitHub.</Description>
  * Implement AsyncClient
  * Supports ChangeCompartment
  * Add MonitoringService APIs
- * Change some request parameters</PackageReleaseNotes>
+ * Change some request parameters
+2019/09/01 version 0.5.6-rc release
+2019/09/10 version 0.5.6 release
+ * add Volume, BootVolume service APIs
+ * create a host for regions not in the endpoints.json.
+ * Redesigned endpoint determination method
+ * Change the region determination method
+ * add ConsoleHistory APIs
+    </PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.5.0</AssemblyVersion>
-    <FileVersion>0.5.5.0</FileVersion>
+    <AssemblyVersion>0.5.6.0</AssemblyVersion>
+    <FileVersion>0.5.6.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -80,9 +88,9 @@ Please send comments and requests for this SDK to GitHub.</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\Waas\Model\" />
-    <Folder Include="src\Waas\Request\" />
-    <Folder Include="src\Waas\Response\" />
+    <Folder Include="src\LoadBalancer\Model\" />
+    <Folder Include="src\LoadBalancer\Request\" />
+    <Folder Include="src\LoadBalancer\Response\" />
   </ItemGroup>
 
 </Project>

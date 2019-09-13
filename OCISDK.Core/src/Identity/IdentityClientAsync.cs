@@ -707,7 +707,7 @@ namespace OCISDK.Core.src.Identity
                 return new DeleteCompartmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
-                    opcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
                 };
             }
         }

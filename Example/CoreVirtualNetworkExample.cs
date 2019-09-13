@@ -18,7 +18,6 @@ namespace Example
             Console.WriteLine("[ESC] or [E(e)] : Back Example Menu");
             Console.WriteLine();
 
-            int mode = 0;
             var presskey = Console.ReadKey(true);
             if (presskey.Key == ConsoleKey.Escape || presskey.KeyChar == 'E' || presskey.KeyChar == 'e')
             {
@@ -26,7 +25,7 @@ namespace Example
                 return;
             }
             var select = presskey.KeyChar;
-            if (!int.TryParse(select.ToString(), out mode))
+            if (!int.TryParse(select.ToString(), out int mode))
             {
                 Console.WriteLine("Incorrect input...");
                 return;
