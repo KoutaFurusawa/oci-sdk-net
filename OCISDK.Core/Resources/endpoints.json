@@ -17,6 +17,10 @@
       "version": "20160918",
       "hosttag": "iaas"
     },
+    "database": {
+      "version": "20160918",
+      "hosttag": "database"
+    },
     "identity": {
       "version": "20160918",
       "hosttag": "identity"
