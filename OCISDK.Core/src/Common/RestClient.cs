@@ -212,7 +212,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="requestBody"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "")
+        public HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "", string opcRequestId = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Put.Method;
@@ -228,6 +228,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(opcRetryToken))
             {
                 request.Headers["opc-retry-token"] = opcRetryToken;
+            }
+
+            if (!String.IsNullOrEmpty(opcRequestId))
+            {
+                request.Headers["opc-request-id"] = opcRequestId;
             }
 
             if (requestBody != null)
