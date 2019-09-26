@@ -59,6 +59,54 @@ namespace Example
                     }
                 }
             }
+
+            Console.WriteLine("* DatabaseShapes------------------------");
+            foreach (var com in compartments)
+            {
+                if (com.LifecycleState != "ACTIVE")
+                {
+                    continue;
+                }
+
+                var listDbSystemShapesRequest = new ListDbSystemShapesRequest()
+                {
+                    CompartmentId = com.Id
+                };
+                var dbShapes = databaseClient.ListDbSystemShapes(listDbSystemShapesRequest).Items;
+
+                foreach (var shape in dbShapes)
+                {
+                    Console.WriteLine($"\t|- name: {shape.Name}");
+                    Console.WriteLine($"\t|  shape: {shape.Shape}");
+                    Console.WriteLine($"\t|  shapeFamily: {shape.ShapeFamily}");
+                    Console.WriteLine($"\t|  availableCoreCount: {shape.AvailableCoreCount}");
+                    Console.WriteLine($"\t|  coreCountIncrement: {shape.CoreCountIncrement}");
+                    Console.WriteLine($"\t|  maximumNodeCount: {shape.MaximumNodeCount}");
+                    Console.WriteLine($"\t|  minimumCoreCount: {shape.MinimumCoreCount}");
+                    Console.WriteLine($"\t|  minimumNodeCount: {shape.MinimumNodeCount}");
+                }
+            }
+
+            Console.WriteLine("* DatabaseVersions------------------------");
+            foreach (var com in compartments)
+            {
+                if (com.LifecycleState != "ACTIVE")
+                {
+                    continue;
+                }
+
+                var listDbVersionsRequest = new ListDbVersionsRequest() {
+                    CompartmentId = com.Id
+                };
+                var dbVersions = databaseClient.ListDbVersions(listDbVersionsRequest).Items;
+
+                foreach (var version in dbVersions)
+                {
+                    Console.WriteLine($"\t|- version: {version.Version}");
+                    Console.WriteLine($"\t|  supportsPdb: {version.SupportsPdb}");
+                    Console.WriteLine($"\t|  isLatestForMajorVersion: {version.IsLatestForMajorVersion}");
+                }
+            }
         }
     }
 }

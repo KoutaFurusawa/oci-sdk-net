@@ -39,6 +39,14 @@ namespace OCISDK.Core.src.Database
         ListDbVersionsResponse ListDbVersions(ListDbVersionsRequest request);
 
         /// <summary>
+        /// Gets a list of the shapes that can be used to launch a new DB system. 
+        /// The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListDbSystemShapesResponse ListDbSystemShapes(ListDbSystemShapesRequest request);
+
+        /// <summary>
         /// Gets information about a specific database.
         /// </summary>
         /// <param name="request"></param>

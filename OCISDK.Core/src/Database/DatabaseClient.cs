@@ -155,6 +155,32 @@ namespace OCISDK.Core.src.Database
         }
 
         /// <summary>
+        /// Gets a list of the shapes that can be used to launch a new DB system. 
+        /// The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListDbSystemShapesResponse ListDbSystemShapes(ListDbSystemShapesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystemShapes, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListDbSystemShapesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<DbSystemShapeSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about a specific database.
         /// </summary>
         /// <param name="request"></param>
