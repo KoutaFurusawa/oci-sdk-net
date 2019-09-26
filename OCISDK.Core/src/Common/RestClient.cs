@@ -73,19 +73,24 @@ namespace OCISDK.Core.src.Common
         /// <returns></returns>
         public HttpWebResponse Get(Uri targetUri)
         {
-            return this.Get(targetUri, "", "", "", null, "", "");
+            return this.Get(targetUri, "", "", "", "", null, "", "");
         }
 
         public HttpWebResponse Get(Uri targetUri, string opcRequestId)
         {
-            return this.Get(targetUri, "", "", "", null, "", opcRequestId);
+            return this.Get(targetUri, "", "", "", "", null, "", opcRequestId);
         }
 
         public HttpWebResponse Get(Uri targetUri, string opcClientRequestId, string opcRequestId)
         {
-            return this.Get(targetUri, "", "", opcClientRequestId, null, "", opcRequestId);
+            return this.Get(targetUri, "", "", "", opcClientRequestId, null, "", opcRequestId);
         }
-        
+
+        public HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string ifModifiedSince)
+        {
+            return this.Get(targetUri, ifMatch, ifNoneMatch, ifModifiedSince, "", null, "", "");
+        }
+
         /// <summary>
         /// Request a resource asynchronously.
         /// </summary>
@@ -94,7 +99,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="opcClientRequestId"></param>
         /// <returns></returns>
-        public HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string opcClientRequestId, List<string> fields, string range, string opcRequestId)
+        public HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string ifModifiedSince, string opcClientRequestId, List<string> fields, string range, string opcRequestId)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
@@ -109,6 +114,11 @@ namespace OCISDK.Core.src.Common
             if (!string.IsNullOrEmpty(ifNoneMatch))
             {
                 request.Headers["if-none-match"] = ifNoneMatch;
+            }
+
+            if (!string.IsNullOrEmpty(ifModifiedSince))
+            {
+                request.Headers["if-modified-since"] = ifModifiedSince;
             }
 
             if (!string.IsNullOrEmpty(opcClientRequestId))
@@ -212,7 +222,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="requestBody"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "", string opcRequestId = "")
+        public HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "", string opcRequestId = "", string IfUnmodifiedSince = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Put.Method;
@@ -223,6 +233,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(ifMatch))
             {
                 request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!String.IsNullOrEmpty(IfUnmodifiedSince))
+            {
+                request.Headers["if-unmodified-since"] = IfUnmodifiedSince;
             }
 
             if (!String.IsNullOrEmpty(opcRetryToken))
@@ -264,7 +279,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "")
+        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "", string IfUnmodifiedSince = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;
@@ -273,6 +288,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(ifMatch))
             {
                 request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!String.IsNullOrEmpty(IfUnmodifiedSince))
+            {
+                request.Headers["if-unmodified-since"] = IfUnmodifiedSince;
             }
 
             if (!String.IsNullOrEmpty(OpcClientRequestId))

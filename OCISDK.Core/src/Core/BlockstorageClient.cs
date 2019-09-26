@@ -494,7 +494,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
 
-            var webResponse = this.RestClient.Get(uri, param.IfMatch, "", "", null, "", "");
+            var webResponse = this.RestClient.Get(uri, param.IfMatch, "", "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

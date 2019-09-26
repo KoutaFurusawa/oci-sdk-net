@@ -109,6 +109,7 @@ namespace Example
                 Console.WriteLine("[8]: SearchResouces Example");
                 Console.WriteLine("[9]: Monitoring Example");
                 Console.WriteLine("[a]: Database Example");
+                Console.WriteLine("[b]: DNS Example");
                 Console.WriteLine("[ESC] or [E(e)] : Exit Example");
                 Console.WriteLine("");
 
@@ -175,6 +176,12 @@ namespace Example
                 if (mode == '1' || mode == 'a')
                 {
                     DatabaseExample.DatabaseConsoleDisplay(config);
+                }
+
+                //dns
+                if (mode == '1' || mode == 'b')
+                {
+                    DNSExample.DNSConsoleDisplay(config);
                 }
             }
         }

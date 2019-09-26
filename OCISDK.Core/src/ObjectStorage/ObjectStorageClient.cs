@@ -112,7 +112,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}/{request.BucketName}/");
 
-            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, request.Fields, "", "");
+            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, "", request.OpcClientRequestId, request.Fields, "", "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -161,7 +161,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
-            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
+            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, "", request.OpcClientRequestId, null, request.Range, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -199,7 +199,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
-            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, request.OpcClientRequestId, null, request.Range, "");
+            var webResponse = this.RestClient.Get(uri, request.IfMatch, request.IfNoneMatch, "", request.OpcClientRequestId, null, request.Range, "");
 
             using (var stream = webResponse.GetResponseStream())
             using (var fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write))
