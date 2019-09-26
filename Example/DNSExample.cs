@@ -48,6 +48,13 @@ namespace Example
 
                 foreach (var zone in zones)
                 {
+                    var getZoneRequest = new GetZoneRequest()
+                    {
+                        CompartmentId = com.Id,
+                        ZoneNameOrId = zone.Id
+                    };
+                    var zoneDetails = dnsClient.GetZone(getZoneRequest).Zone;
+
                     Console.WriteLine($"\t|- name: {zone.Name}");
                     Console.WriteLine($"\t|  version: {zone.Version}");
                     Console.WriteLine($"\t|  state: {zone.LifecycleState}");
@@ -55,6 +62,19 @@ namespace Example
                     Console.WriteLine($"\t|  type: {zone.ZoneType}");
                     Console.WriteLine($"\t|  self: {zone.Self}");
                     Console.WriteLine($"\t|  serial: {zone.Serial}");
+                    Console.WriteLine($"\t|  nameservers:");
+                    if (zoneDetails.Nameservers != null) {
+                        zoneDetails.Nameservers.ForEach(n => {
+                            Console.WriteLine($"\t|  |- {n.Hostname}");
+                        });
+                    }
+                    Console.WriteLine($"\t|  externalMasters:");
+                    if (zoneDetails.ExternalMasters != null)
+                    {
+                        zoneDetails.ExternalMasters.ForEach(e => {
+                            Console.Write($"\t|  |- {e.Addres}");
+                        });
+                    }
                 }
             }
 
