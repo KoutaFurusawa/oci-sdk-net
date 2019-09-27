@@ -23,6 +23,22 @@ namespace OCISDK.Core.src.DNS
         GetZoneResponse GetZone(GetZoneRequest request);
 
         /// <summary>
+        /// Gets all records in the specified zone. The results are sorted by domain in alphabetical order by default.
+        /// For more information about records, see Resource Record (RR) TYPEs.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetZoneRecordsResponse GetZoneRecords(GetZoneRecordsRequest request);
+
+        /// <summary>
+        /// Gets a list of all records at the specified zone and domain.
+        /// The results are sorted by rtype in alphabetical order by default. You can optionally filter and/or sort the results using the listed parameters.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetDomainRecordsResponse GetDomainRecords(GetDomainRecordsRequest request);
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
@@ -47,11 +63,54 @@ namespace OCISDK.Core.src.DNS
         UpdateZoneResponse UpdateZone(UpdateZoneRequest request);
 
         /// <summary>
+        /// Replaces records in the specified zone with the records specified in the request body. 
+        /// If a specified record does not exist, it will be created. If the record exists, then it will be updated to represent the record in the body of the request. 
+        /// If a record in the zone does not exist in the request body, the record will be removed from the zone.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateZoneRecordsResponse UpdateZoneRecords(UpdateZoneRecordsRequest request);
+
+        /// <summary>
+        /// Replaces records in the specified zone at a domain with the records specified in the request body. 
+        /// If a specified record does not exist, it will be created. If the record exists, then it will be updated to represent the record in the body of the request. 
+        /// If a record in the zone does not exist in the request body, the record will be removed from the zone.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateDomainRecordsResponse UpdateDomainRecords(UpdateDomainRecordsRequest request);
+
+        /// <summary>
+        /// Updates a collection of records in the specified zone. 
+        /// You can update one record or all records for the specified zone depending on the changes provided in the request body. 
+        /// You can also add or remove records using this function.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        PatchZoneRecordsResponse PatchZoneRecords(PatchZoneRecordsRequest request);
+
+        /// <summary>
+        /// Updates records in the specified zone at a domain.
+        /// You can update one record or all records for the specified zone depending on the changes provided in the request body.
+        /// You can also add or remove records using this function.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        PatchDomainRecordsResponse PatchDomainRecords(PatchDomainRecordsRequest request);
+
+        /// <summary>
         /// Deletes the specified zone and all its steering policy attachments. 
         /// A 204 response indicates that zone has been successfully deleted.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteZoneResponse DeleteZone(DeleteZoneRequest request);
+
+        /// <summary>
+        /// Deletes all records at the specified zone and domain.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteDomainRecordsResponse DeleteDomainRecords(DeleteDomainRecordsRequest request);
     }
 }

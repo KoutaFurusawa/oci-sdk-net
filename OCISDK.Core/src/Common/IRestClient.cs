@@ -15,6 +15,7 @@ namespace OCISDK.Core.src.Common
         HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string ifModifiedSince, string opcClientRequestId, List<string> fields, string range, string opcRequestId);
         HttpWebResponse Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "", string opcRequestId = "", string ifMatch = "", string OpcClientRequestId = "");
         HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "", string opcRequestId = "", string IfUnmodifiedSince = "");
+        HttpWebResponse Patch(Uri targetUri, Object requestBody = null, string ifMatch = "", string IfUnmodifiedSince = "");
         HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "", string IfUnmodifiedSince = "");
         HttpWebResponse Head(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string OpcClientRequestId = "");
     }

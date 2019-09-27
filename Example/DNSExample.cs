@@ -75,9 +75,37 @@ namespace Example
                             Console.Write($"\t|  |- {e.Addres}");
                         });
                     }
+
+                    var getZoneRecordsRequest = new GetZoneRecordsRequest() {
+                        ZoneNameOrId = zone.Id,
+                        CompartmentId = com.Id
+                    };
+                    var zrecords = dnsClient.GetZoneRecords(getZoneRecordsRequest).RecordCollection.Items;
+
+                    Console.WriteLine($"\t|  zone records");
+                    foreach (var zr in zrecords)
+                    {
+                        Console.WriteLine($"\t|  |- domain: {zr.Domain}");
+                        Console.WriteLine($"\t|  |  rrsetVersion: {zr.RrsetVersion}");
+                        Console.WriteLine($"\t|  |  rtype: {zr.Rtype}");
+                        Console.WriteLine($"\t|  |  rdata: {zr.Rdata}");
+
+                        var getDomainRecordsRequest = new GetDomainRecordsRequest() {
+                            ZoneNameOrId = zone.Id,
+                            Domain = zr.Domain,
+                            CompartmentId = com.Id
+                        };
+
+                        var drecords = dnsClient.GetDomainRecords(getDomainRecordsRequest).RecordCollection.Items;
+
+                        Console.WriteLine($"\t|  |- domain records");
+                        foreach (var dr in drecords)
+                        {
+                            Console.WriteLine($"\t|  |  |- domain: {dr.Domain}");
+                        }
+                    }
                 }
             }
-
         }
     }
 }

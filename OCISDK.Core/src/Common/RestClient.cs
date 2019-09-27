@@ -274,6 +274,55 @@ namespace OCISDK.Core.src.Common
         }
 
         /// <summary>
+        /// Patch a request object to the endpoint represented by the web target and get the response.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="ifMatch"></param>
+        /// <param name="IfUnmodifiedSince"></param>
+        /// <returns></returns>
+        public HttpWebResponse Patch(Uri targetUri, Object requestBody = null, string ifMatch = "", string IfUnmodifiedSince = "")
+        {
+            var request = (HttpWebRequest)WebRequest.Create(targetUri);
+            request.Method = HttpMethod.Patch.Method;
+            request.Accept = "application/json";
+            request.ContentType = "application/json";
+            request.ReadWriteTimeout = Option.TimeoutSeconds;
+
+            if (!String.IsNullOrEmpty(ifMatch))
+            {
+                request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!String.IsNullOrEmpty(IfUnmodifiedSince))
+            {
+                request.Headers["if-unmodified-since"] = IfUnmodifiedSince;
+            }
+
+            if (requestBody != null)
+            {
+                var body = JsonSerializer.Serialize(requestBody);
+
+                var bytes = Encoding.UTF8.GetBytes(body);
+
+                request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
+                request.ContentLength = bytes.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+            }
+
+            if (Signer != null)
+            {
+                Signer.SignRequest(request);
+            }
+
+            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+        }
+
+        /// <summary>
         /// Execute a delete on a resource and get the response.
         /// </summary>
         /// <param name="targetUri"></param>
