@@ -39,6 +39,13 @@ namespace OCISDK.Core.src.DNS
         GetDomainRecordsResponse GetDomainRecords(GetDomainRecordsRequest request);
 
         /// <summary>
+        /// Gets a list of all records in the specified RRSet. The results are sorted by recordHash by default.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetRRSetResponse GetRRSet(GetRRSetRequest request);
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
@@ -81,6 +88,13 @@ namespace OCISDK.Core.src.DNS
         UpdateDomainRecordsResponse UpdateDomainRecords(UpdateDomainRecordsRequest request);
 
         /// <summary>
+        /// Replaces records in the specified RRSet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateRRSetResponse UpdateRRSet(UpdateRRSetRequest request);
+
+        /// <summary>
         /// Updates a collection of records in the specified zone. 
         /// You can update one record or all records for the specified zone depending on the changes provided in the request body. 
         /// You can also add or remove records using this function.
@@ -99,6 +113,13 @@ namespace OCISDK.Core.src.DNS
         PatchDomainRecordsResponse PatchDomainRecords(PatchDomainRecordsRequest request);
 
         /// <summary>
+        /// Updates records in the specified RRSet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        PatchRRSetResponse PatchRRSet(PatchRRSetRequest request);
+
+        /// <summary>
         /// Deletes the specified zone and all its steering policy attachments. 
         /// A 204 response indicates that zone has been successfully deleted.
         /// </summary>
@@ -112,5 +133,12 @@ namespace OCISDK.Core.src.DNS
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteDomainRecordsResponse DeleteDomainRecords(DeleteDomainRecordsRequest request);
+
+        /// <summary>
+        /// Deletes all records in the specified RRSet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteRRSetResponse DeleteRRSet(DeleteRRSetRequest request);
     }
 }

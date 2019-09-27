@@ -185,6 +185,42 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Gets a list of all records in the specified RRSet. The results are sorted by recordHash by default.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetRRSetResponse GetRRSet(GetRRSetRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.Zones, this.Region)}/{request.ZoneNameOrId}/records/{request.Domain}/{request.Rtype}";
+
+            var options = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(options))
+            {
+                uriStr = $"{uriStr}?{options}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri, "", request.IfNoneMatch, request.IfModifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetRRSetResponse()
+                {
+                    RRSet = this.JsonSerializer.Deserialize<RRSetDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcTotalItems = webResponse.Headers.Get("opc-total-items"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
@@ -340,6 +376,40 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Replaces records in the specified RRSet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateRRSetResponse UpdateRRSet(UpdateRRSetRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.Zones, this.Region)}/{request.ZoneNameOrId}/records/{request.Domain}/{request.Rtype}";
+
+            if (!string.IsNullOrEmpty(request.CompartmentId))
+            {
+                uriStr = $"{uriStr}?compartmentId={request.CompartmentId}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateRRSetDetails, request.IfMatch, "", "", request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateRRSetResponse()
+                {
+                    RecordCollection = this.JsonSerializer.Deserialize<RecordCollection>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcTotalItems = webResponse.Headers.Get("opc-total-items"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates a collection of records in the specified zone. 
         /// You can update one record or all records for the specified zone depending on the changes provided in the request body. 
         /// You can also add or remove records using this function.
@@ -412,6 +482,40 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Updates records in the specified RRSet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public PatchRRSetResponse PatchRRSet(PatchRRSetRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.Zones, this.Region)}/{request.ZoneNameOrId}/records/{request.Domain}/{request.Rtype}";
+
+            if (!string.IsNullOrEmpty(request.CompartmentId))
+            {
+                uriStr = $"{uriStr}?compartmentId={request.CompartmentId}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Patch(uri, request.PatchRRSetDetails, request.IfMatch, request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new PatchRRSetResponse()
+                {
+                    RecordCollection = this.JsonSerializer.Deserialize<RecordCollection>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcTotalItems = webResponse.Headers.Get("opc-total-items"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified zone and all its steering policy attachments. 
         /// A 204 response indicates that zone has been successfully deleted.
         /// </summary>
@@ -466,6 +570,36 @@ namespace OCISDK.Core.src.DNS
                 var response = reader.ReadToEnd();
 
                 return new DeleteDomainRecordsResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes all records in the specified RRSet.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteRRSetResponse DeleteRRSet(DeleteRRSetRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.Zones, this.Region)}/{request.ZoneNameOrId}/records/{request.Domain}/{request.Rtype}";
+
+            if (!string.IsNullOrEmpty(request.CompartmentId))
+            {
+                uriStr = $"{uriStr}?compartmentId={request.CompartmentId}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Delete(uri, request.IfMatch, "", "", request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteRRSetResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

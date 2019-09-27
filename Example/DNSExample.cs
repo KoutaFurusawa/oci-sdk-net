@@ -80,7 +80,8 @@ namespace Example
                         ZoneNameOrId = zone.Id,
                         CompartmentId = com.Id
                     };
-                    var zrecords = dnsClient.GetZoneRecords(getZoneRecordsRequest).RecordCollection.Items;
+                    var zrecordRes = dnsClient.GetZoneRecords(getZoneRecordsRequest);
+                    var zrecords = zrecordRes.RecordCollection.Items;
 
                     Console.WriteLine($"\t|  zone records");
                     foreach (var zr in zrecords)
@@ -102,6 +103,22 @@ namespace Example
                         foreach (var dr in drecords)
                         {
                             Console.WriteLine($"\t|  |  |- domain: {dr.Domain}");
+                        }
+
+                        var getRRSetRequest = new GetRRSetRequest() {
+                            ZoneNameOrId = zone.Id,
+                            Domain = zr.Domain,
+                            Rtype = zr.Rtype,
+                            CompartmentId = com.Id
+                        };
+
+                        var rrsets = dnsClient.GetRRSet(getRRSetRequest).RRSet.Items;
+                        Console.WriteLine($"\t|  |- rrset");
+                        foreach (var rrset in rrsets)
+                        {
+                            Console.WriteLine($"\t|  |  |- rdata: {rrset.Rdata}");
+                            Console.WriteLine($"\t|  |  |  ttl: {rrset.Ttl}");
+                            Console.WriteLine($"\t|  |  |  rrsetVersion: {rrset.RrsetVersion}");
                         }
                     }
                 }
