@@ -125,7 +125,7 @@ namespace OCISDK.Core.src.DNS.Request
 
             if (!String.IsNullOrEmpty(this.TimeCreatedLessThan))
             {
-                sb.Append($"&T\timeCreatedLessThan={this.TimeCreatedLessThan}");
+                sb.Append($"&timeCreatedLessThan={this.TimeCreatedLessThan}");
             }
 
             if (this.Limit.HasValue)
