@@ -14,11 +14,7 @@ namespace OCISDK.Core.src.Common
     {
         private static readonly IDictionary<Type, object> StaticFields = new Dictionary<Type, object>();
 
-        public string Value
-        {
-            get;
-            private set;
-        }
+        public string Value { get; }
 
         protected ExpandableEnum(string value)
         {
