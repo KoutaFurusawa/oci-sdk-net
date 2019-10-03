@@ -50,9 +50,25 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// CustomDnsServer</para>
         /// </summary>
         /// <param name="serviceType"></param>
-        public void SetServerType(ServerType serviceType)
+        public void SetServerType(ServerTypes serviceType)
         {
-            ServerType = EnumAttribute.GetDisplayName(serviceType);
+            ServerType = serviceType.Value;
+        }
+
+        public class ServerTypes : ExpandableEnum<ServerTypes>
+        {
+            public ServerTypes(string value) : base(value) { }
+
+            public static implicit operator ServerTypes(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly ServerTypes VcnLocal = new ServerTypes("VcnLocal");
+
+            public static readonly ServerTypes VcnLocalPlusInternet = new ServerTypes("VcnLocalPlusInternet");
+
+            public static readonly ServerTypes CustomDnsServer = new ServerTypes("CustomDnsServer");
         }
 
         /// <summary>

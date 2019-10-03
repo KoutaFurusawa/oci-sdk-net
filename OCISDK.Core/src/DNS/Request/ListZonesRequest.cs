@@ -62,32 +62,50 @@ namespace OCISDK.Core.src.DNS.Request
         /// <summary>
         /// The state of a resource.
         /// </summary>
-        public LifecycleStateParam? LifecycleState { get; set; }
-
-        public enum LifecycleStateParam
+        public LifecycleStateParam LifecycleState { get; set; }
+        
+        /// <summary>
+        /// LifecycleState ExpandableEnum
+        /// </summary>
+        public class LifecycleStateParam : ExpandableEnum<LifecycleStateParam>
         {
-            [DisplayName("ACTIVE")]
-            ACTIVE,
-            [DisplayName("CREATING")]
-            DCREATINGESC,
-            [DisplayName("DELETED")]
-            DELETED,
-            [DisplayName("DELETING")]
-            DELETING,
-            [DisplayName("FAILED")]
-            FAILED
+            public LifecycleStateParam(string value) : base(value) { }
+
+            public static implicit operator LifecycleStateParam(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly LifecycleStateParam ACTIVE = new LifecycleStateParam("ACTIVE");
+
+            public static readonly LifecycleStateParam CREATING = new LifecycleStateParam("CREATING");
+
+            public static readonly LifecycleStateParam DELETED = new LifecycleStateParam("DELETED");
+
+            public static readonly LifecycleStateParam DELETING = new LifecycleStateParam("DELETING");
+
+            public static readonly LifecycleStateParam FAILED = new LifecycleStateParam("FAILED");
         }
 
-        public SortByParam? SortBy { get; set; }
+        public SortByParam SortBy { get; set; }
 
-        public enum SortByParam
+        /// <summary>
+        /// SortBy ExpandableEnum
+        /// </summary>
+        public class SortByParam : ExpandableEnum<SortByParam>
         {
-            [DisplayName("name")]
-            Name,
-            [DisplayName("zoneType")]
-            ZoneType,
-            [DisplayName("timeCreated")]
-            TimeCreated
+            public SortByParam(string value) : base(value) { }
+
+            public static implicit operator SortByParam(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly SortByParam Name = new SortByParam("name");
+
+            public static readonly SortByParam ZoneType = new SortByParam("zoneType");
+
+            public static readonly SortByParam TimeCreated = new SortByParam("timeCreated");
         }
 
         /// <summary>
@@ -95,7 +113,7 @@ namespace OCISDK.Core.src.DNS.Request
         /// <para>Required: no</para>
         /// <para>Allowed values are: ASC, DESC</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         public string GetOptionQuery()
         {
@@ -138,19 +156,19 @@ namespace OCISDK.Core.src.DNS.Request
                 sb.Append($"&page={this.Page}");
             }
 
-            if (this.LifecycleState.HasValue)
+            if (!(LifecycleState is null))
             {
-                sb.Append($"&lifecycleState={EnumAttribute.GetDisplayName(this.LifecycleState.Value)}");
+                sb.Append($"&lifecycleState={LifecycleState.Value}");
             }
 
-            if (this.SortBy.HasValue)
+            if (!(SortBy is null))
             {
-                sb.Append($"&sortBy={EnumAttribute.GetDisplayName(this.SortBy.Value)}");
+                sb.Append($"&sortBy={SortBy.Value}");
             }
 
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"&sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"&sortOrder={SortOrder.Value}");
             }
 
             return sb.ToString();

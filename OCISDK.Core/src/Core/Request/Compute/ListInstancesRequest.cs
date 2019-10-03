@@ -49,7 +49,24 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// TIMECREATED
         /// , DISPLAYNAME</para>
         /// </summary>
-        public SortBy? SortBy { get; set; }
+        public SortByParam SortBy { get; set; }
+
+        /// <summary>
+        /// SortBy ExpandableEnum
+        /// </summary>
+        public class SortByParam : ExpandableEnum<SortByParam>
+        {
+            public SortByParam(string value) : base(value) { }
+
+            public static implicit operator SortByParam(string value)
+            {
+                return Parse(value);
+            }
+            
+            public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
+
+            public static readonly SortByParam DISPLAYNAME = new SortByParam("DISPLAYNAME");
+        }
 
         /// <summary>
         /// <para>Required: no</para>
@@ -57,31 +74,40 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// ASC
         /// , DESC</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        public LifecycleStates? LifecycleState { get; set; }
+        public LifecycleStates LifecycleState { get; set; }
 
-        public enum LifecycleStates
+        /// <summary>
+        /// LifecycleState ExpandableEnum
+        /// </summary>
+        public class LifecycleStates : ExpandableEnum<LifecycleStates>
         {
-            [DisplayName("PROVISIONING")]
-            PROVISIONING,
-            [DisplayName("RUNNING")]
-            RUNNING,
-            [DisplayName("STARTING")]
-            STARTING,
-            [DisplayName("STOPPING")]
-            STOPPING,
-            [DisplayName("STOPPED")]
-            STOPPED,
-            [DisplayName("CREATING_IMAGE")]
-            CREATING_IMAGE,
-            [DisplayName("TERMINATING")]
-            TERMINATING,
-            [DisplayName("TERMINATED")]
-            TERMINATED
+            public LifecycleStates(string value) : base(value) { }
+
+            public static implicit operator LifecycleStates(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly LifecycleStates PROVISIONING = new LifecycleStates("PROVISIONING");
+
+            public static readonly LifecycleStates RUNNING = new LifecycleStates("RUNNING");
+
+            public static readonly LifecycleStates STARTING = new LifecycleStates("STARTING");
+
+            public static readonly LifecycleStates STOPPING = new LifecycleStates("STOPPING");
+
+            public static readonly LifecycleStates STOPPED = new LifecycleStates("STOPPED");
+
+            public static readonly LifecycleStates CREATING_IMAGE = new LifecycleStates("CREATING_IMAGE");
+
+            public static readonly LifecycleStates TERMINATING = new LifecycleStates("TERMINATING");
+
+            public static readonly LifecycleStates TERMINATED = new LifecycleStates("TERMINATED");
         }
 
         public string GetOptionQuery()
@@ -98,9 +124,9 @@ namespace OCISDK.Core.src.Core.Request.Compute
             {
                 sb.Append($"&displayName={this.DisplayName}");
             }
-            if (this.LifecycleState.HasValue)
+            if (!(LifecycleState is null))
             {
-                sb.Append($"&lifecycleState={EnumAttribute.GetDisplayName(this.LifecycleState.Value)}");
+                sb.Append($"&lifecycleState={LifecycleState.Value}");
             }
             if (this.Limit.HasValue)
             {
@@ -110,13 +136,13 @@ namespace OCISDK.Core.src.Core.Request.Compute
             {
                 sb.Append($"&page={this.Page}");
             }
-            if (this.SortBy.HasValue)
+            if (!(SortBy is null))
             {
-                sb.Append($"&sortBy={EnumAttribute.GetDisplayName(this.SortBy.Value)}");
+                sb.Append($"&sortBy={SortBy.Value}");
             }
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"&sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"&sortOrder={SortOrder.Value}");
             }
 
             return sb.ToString();

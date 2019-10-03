@@ -80,7 +80,8 @@ namespace Example
 
                 ListBootVolumeBackupsRequest listBootVolumeBackupsRequest = new ListBootVolumeBackupsRequest()
                 {
-                    CompartmentId = com.Id
+                    CompartmentId = com.Id,
+                    SortOrder = SortOrder.ASC
                 };
                 var listBootVolumeBackup = blockstorageClient.ListBootVolumeBackups(listBootVolumeBackupsRequest);
                 listBootVolumeBackup.Items.ForEach(bvB =>

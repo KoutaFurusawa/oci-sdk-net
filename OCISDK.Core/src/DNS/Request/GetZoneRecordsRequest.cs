@@ -71,16 +71,25 @@ namespace OCISDK.Core.src.DNS.Request
         /// The field by which to sort records.
         /// <para>Required: no</para>
         /// </summary>
-        public SortByParam? SortBy { get; set; }
+        public SortByParam SortBy { get; set; }
 
-        public enum SortByParam
+        /// <summary>
+        /// SortBy ExpandableEnum
+        /// </summary>
+        public class SortByParam : ExpandableEnum<SortByParam>
         {
-            [DisplayName("domain")]
-            Domain,
-            [DisplayName("rtype")]
-            RType,
-            [DisplayName("ttl")]
-            TTL
+            public SortByParam(string value) : base(value) { }
+
+            public static implicit operator SortByParam(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly SortByParam Domain = new SortByParam("domain");
+
+            public static readonly SortByParam RType = new SortByParam("rtype");
+
+            public static readonly SortByParam TTL = new SortByParam("ttl");
         }
 
         /// <summary>
@@ -88,7 +97,7 @@ namespace OCISDK.Core.src.DNS.Request
         /// <para>Required: no</para>
         /// <para>Allowed values are: ASC, DESC</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         /// <summary>
         /// The OCID of the compartment the resource belongs to.
@@ -143,15 +152,15 @@ namespace OCISDK.Core.src.DNS.Request
                 chainStr = "&";
             }
             
-            if (this.SortBy.HasValue)
+            if (!(SortBy is null))
             {
-                sb.Append($"{chainStr}sortBy={EnumAttribute.GetDisplayName(this.SortBy.Value)}");
+                sb.Append($"{chainStr}sortBy={SortBy.Value}");
                 chainStr = "&";
             }
 
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"{chainStr}sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"{chainStr}sortOrder={SortOrder.Value}");
             }
 
             return sb.ToString();

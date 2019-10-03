@@ -42,14 +42,23 @@ namespace OCISDK.Core.src.Database.Request
         /// <para>Required: no</para>
         /// <para>Allowed values are: DBNAME, TIMECREATED</para>
         /// </summary>
-        public SortByParam? SortBy { get; set; }
+        public SortByParam SortBy { get; set; }
 
-        public enum SortByParam
+        /// <summary>
+        /// SortBy ExpandableEnum
+        /// </summary>
+        public class SortByParam : ExpandableEnum<SortByParam>
         {
-            [DisplayName("TIMECREATED")]
-            TIMECREATED,
-            [DisplayName("DISPLAYNAME")]
-            DISPLAYNAME
+            public SortByParam(string value) : base(value) { }
+
+            public static implicit operator SortByParam(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
+
+            public static readonly SortByParam DISPLAYNAME = new SortByParam("DISPLAYNAME");
         }
 
         /// <summary>
@@ -57,7 +66,7 @@ namespace OCISDK.Core.src.Database.Request
         /// <para>Required: no</para>
         /// <para>Allowed values are: ASC, DESC</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         /// <summary>
         /// A filter to return only resources that match the given lifecycle state exactly.
@@ -102,14 +111,14 @@ namespace OCISDK.Core.src.Database.Request
                 sb.Append($"&page={this.Page}");
             }
 
-            if (this.SortBy.HasValue)
+            if (!(SortBy is null))
             {
-                sb.Append($"&sortBy={EnumAttribute.GetDisplayName(this.SortBy.Value)}");
+                sb.Append($"&sortBy={SortBy.Value}");
             }
 
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"&sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"&sortOrder={SortOrder.Value}");
             }
 
             return sb.ToString();

@@ -45,14 +45,23 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// The DISPLAYNAME sort order is case sensitive.
         /// <para>Required: no</para>
         /// </summary>
-        public SortByParam? SortBy { get; set; }
-
-        public enum SortByParam
+        public SortByParam SortBy { get; set; }
+        
+        /// <summary>
+        /// SortBy ExpandableEnum
+        /// </summary>
+        public class SortByParam : ExpandableEnum<SortByParam>
         {
-            [DisplayName("TIMECREATED")]
-            TIMECREATED,
-            [DisplayName("DISPLAYNAME")]
-            DISPLAYNAME
+            public SortByParam(string value) : base(value) { }
+
+            public static implicit operator SortByParam(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
+
+            public static readonly SortByParam DISPLAYNAME = new SortByParam("DISPLAYNAME");
         }
 
         /// <summary>
@@ -60,7 +69,7 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// The DISPLAYNAME sort order is case sensitive.
         /// <para>Required: no</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         /// <summary>
         /// A filter to only return resources that match the given lifecycle state. 
@@ -80,14 +89,14 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
             {
                 sb.Append($"&displayName={this.DisplayName}");
             }
-            if (this.SortBy.HasValue)
+            if (!(SortBy is null))
             {
-                sb.Append($"&sortBy={EnumAttribute.GetDisplayName(this.SortBy.Value)}");
+                sb.Append($"&sortBy={SortBy.Value}");
             }
 
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"&sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"&sortOrder={SortOrder.Value}");
             }
 
             if (this.Limit.HasValue)

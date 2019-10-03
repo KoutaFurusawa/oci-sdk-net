@@ -42,7 +42,7 @@ namespace Example
                 var listZonesRequest = new ListZonesRequest()
                 {
                     CompartmentId = com.Id,
-
+                    SortBy = ListZonesRequest.SortByParam.Name
                 };
                 var zones = dnsClient.ListZones(listZonesRequest).Items;
 
