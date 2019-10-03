@@ -30,7 +30,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void EqualParamA()
+        public void Equal_ParamA()
         {
             var param = TestEnum.ParamA;
 
@@ -38,7 +38,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void EqualParamB()
+        public void Equal_ParamB()
         {
             var param = TestEnum.ParamB;
 
@@ -54,7 +54,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void ParamAToStringEquals()
+        public void Equal_ToString()
         {
             var param = TestEnum.ParamA;
 
@@ -62,7 +62,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void ParamACompareToEquals()
+        public void CompareTo_Equivalent()
         {
             var param = TestEnum.ParamA;
 
@@ -72,7 +72,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void ParamBCompareToParamA()
+        public void CompareTo_TargetToFront()
         {
             var param = TestEnum.ParamB;
 
@@ -82,7 +82,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void ParamBCompareToParamC()
+        public void CompareTo_TargetToBack()
         {
             var param = TestEnum.ParamB;
 
@@ -92,7 +92,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void ParamAEquals()
+        public void Equals_True()
         {
             var param = TestEnum.ParamA;
 
@@ -102,7 +102,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void ParamANotEquals()
+        public void Equals_False()
         {
             var param = TestEnum.ParamA;
 
@@ -112,7 +112,18 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void OperatorTestParamEqualValue()
+        public void Equal_Null()
+        {
+            var param = TestEnum.ParamA;
+
+            var res = param.Equals(null);
+
+            Assert.False(res);
+        }
+
+
+        [Fact]
+        public void OperatorEqual_True()
         {
             var param = TestEnum.ParamA;
 
@@ -122,7 +133,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void OperatorTestParamNotEqualValue()
+        public void OperatorNotEqual_True()
         {
             var param = TestEnum.ParamA;
 
@@ -132,7 +143,18 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void OperatorTestValueEqualParam()
+        public void OperatorNotEqual_False()
+        {
+            var param = TestEnum.ParamA;
+
+            var res = TestEnum.ParamA != param.Value;
+
+            Assert.False(res);
+        }
+
+
+        [Fact]
+        public void OperatorEqual_ValueToParam_True()
         {
             var param = TestEnum.ParamA;
 
@@ -142,7 +164,7 @@ namespace OCISDK.Test.Common
         }
 
         [Fact]
-        public void OperatorTestValueNotEqualParam()
+        public void OperatorNotEqual_ValueToParam_True()
         {
             var param = TestEnum.ParamA;
 
@@ -150,9 +172,33 @@ namespace OCISDK.Test.Common
 
             Assert.True(res);
         }
-        
+
         [Fact]
-        public void ValuesCollectionContain()
+        public void OperatorNotEqual_ValueToParam_False()
+        {
+            var param = TestEnum.ParamA;
+
+            var res = param.Value != TestEnum.ParamA;
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void Parse_True()
+        {
+            var res = TestEnum.Parse("ParamA");
+
+            Assert.Equal(TestEnum.ParamA, res);
+        }
+
+        [Fact]
+        public void Parse_Exception()
+        {
+            Assert.Throws<InvalidCastException>(()=> TestEnum.Parse("ParamD"));
+        }
+
+        [Fact]
+        public void Contain_True()
         {
             var values = TestEnum.GetValues();
 
