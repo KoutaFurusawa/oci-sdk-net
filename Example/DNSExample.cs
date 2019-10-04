@@ -56,18 +56,36 @@ namespace Example
                     Console.WriteLine($"\t|- displayName: {steeringPolicy.DisplayName}");
                     Console.WriteLine($"\t|  state: {steeringPolicy.LifecycleState}");
                     Console.WriteLine($"\t|  timeCreated: {steeringPolicy.TimeCreated}");
-                    Console.WriteLine($"\t|  Rule: {steeringPolicy.Rules.Count}");
+                    Console.WriteLine($"\t|  rule: {steeringPolicy.Rules.Count}");
                     foreach (var rule in steeringPolicy.Rules)
                     {
                         Console.WriteLine($"\t|  | type: {rule.RuleType}");
                     }
-                    Console.WriteLine($"\t|  Answe: {steeringPolicy.Answers.Count}");
+                    Console.WriteLine($"\t|  Answer: {steeringPolicy.Answers.Count}");
                     foreach (var answer in steeringPolicy.Answers)
                     {
                         Console.WriteLine($"\t|  | name: {answer.Name}");
                         Console.WriteLine($"\t|  | pool: {answer.Pool}");
                         Console.WriteLine($"\t|  | rtype: {answer.Rtype}");
                         Console.WriteLine($"\t|  | rdata: {answer.Rdata}");
+                    }
+
+                    var listSteeringPolicyAttachmentsRequest = new ListSteeringPolicyAttachmentsRequest() {
+                        SteeringPolicyId = sp.Id,
+                        CompartmentId = com.Id
+                    };
+                    var steeringPolicyAttachments = dnsClient.ListSteeringPolicyAttachments(listSteeringPolicyAttachmentsRequest).Items;
+                    if (steeringPolicyAttachments.Count > 0)
+                    {
+                        Console.WriteLine($"\t|  Attach: {steeringPolicyAttachments.Count}");
+                        foreach (var attach in steeringPolicyAttachments)
+                        {
+                            Console.WriteLine($"\t|  | state: {attach.LifecycleState}");
+                            Console.WriteLine($"\t|  | rtype: {attach.Rtypes}");
+                            Console.WriteLine($"\t|  | self: {attach.Self}");
+                            Console.WriteLine($"\t|  | timeCreated: {attach.TimeCreated}");
+                            Console.WriteLine($"\t|  | zoneId: {attach.ZoneId}");
+                        }
                     }
                 }
             }

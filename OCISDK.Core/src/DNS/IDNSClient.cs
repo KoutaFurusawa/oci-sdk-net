@@ -23,6 +23,13 @@ namespace OCISDK.Core.src.DNS
         ListSteeringPoliciesResponse ListSteeringPolicies(ListSteeringPoliciesRequest request);
 
         /// <summary>
+        /// Lists the steering policy attachments in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListSteeringPolicyAttachmentsResponse ListSteeringPolicyAttachments(ListSteeringPolicyAttachmentsRequest request);
+
+        /// <summary>
         /// Gets information about the specified zone, including its creation date, zone type, and serial.
         /// </summary>
         /// <param name="request"></param>
@@ -60,6 +67,13 @@ namespace OCISDK.Core.src.DNS
         GetSteeringPolicyResponse GetSteeringPolicy(GetSteeringPolicyRequest request);
 
         /// <summary>
+        /// Gets information about the specified steering policy attachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetSteeringPolicyAttachmentResponse GetSteeringPolicyAttachment(GetSteeringPolicyAttachmentRequest request);
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
@@ -89,6 +103,16 @@ namespace OCISDK.Core.src.DNS
         /// <param name="request"></param>
         /// <returns></returns>
         CreateSteeringPolicyResponse CreateSteeringPolicy(CreateSteeringPolicyRequest request);
+
+        /// <summary>
+        /// Creates a new attachment between a steering policy and a domain, giving the policy permission to answer queries for the specified domain. 
+        /// A steering policy must be attached to a domain for the policy to answer DNS queries for that domain.
+        /// 
+        /// For the purposes of access control, the attachment is automatically placed into the same compartment as the domain's zone.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateSteeringPolicyAttachmentResponse CreateSteeringPolicyAttachment(CreateSteeringPolicyAttachmentRequest request);
 
         /// <summary>
         /// Updates the specified secondary zone with your new external master server information. 
@@ -129,6 +153,13 @@ namespace OCISDK.Core.src.DNS
         /// <param name="request"></param>
         /// <returns></returns>
         UpdateSteeringPolicyResponse UpdateSteeringPolicy(UpdateSteeringPolicyRequest request);
+
+        /// <summary>
+        /// Updates the specified steering policy attachment with your new information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateSteeringPolicyAttachmentResponse UpdateSteeringPolicyAttachment(UpdateSteeringPolicyAttachmentRequest request);
 
         /// <summary>
         /// Updates a collection of records in the specified zone. 
@@ -184,5 +215,12 @@ namespace OCISDK.Core.src.DNS
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteSteeringPolicyResponse DeleteSteeringPolicy(DeleteSteeringPolicyRequest request);
+
+        /// <summary>
+        /// Deletes the specified steering policy attachment. A 204 response indicates that the delete has been successful.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteSteeringPolicyAttachmentResponse DeleteSteeringPolicyAttachment(DeleteSteeringPolicyAttachmentRequest request);
     }
 }

@@ -105,6 +105,32 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Lists the steering policy attachments in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListSteeringPolicyAttachmentsResponse ListSteeringPolicyAttachments(ListSteeringPolicyAttachmentsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListSteeringPolicyAttachmentsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<SteeringPolicyAttachmentSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcTotalItems = webResponse.Headers.Get("opc-total-items"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about the specified zone, including its creation date, zone type, and serial.
         /// </summary>
         /// <param name="request"></param>
@@ -274,6 +300,33 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Gets information about the specified steering policy attachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetSteeringPolicyAttachmentResponse GetSteeringPolicyAttachment(GetSteeringPolicyAttachmentRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}/{request.SteeringPolicyAttachmentId}";
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri, "", request.IfNoneMatch, request.IfModifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetSteeringPolicyAttachmentResponse()
+                {
+                    SteeringPolicyAttachment = this.JsonSerializer.Deserialize<SteeringPolicyAttachmentDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
@@ -366,6 +419,34 @@ namespace OCISDK.Core.src.DNS
                 return new CreateSteeringPolicyResponse()
                 {
                     SteeringPolicy = this.JsonSerializer.Deserialize<SteeringPolicyDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new attachment between a steering policy and a domain, giving the policy permission to answer queries for the specified domain. 
+        /// A steering policy must be attached to a domain for the policy to answer DNS queries for that domain.
+        /// 
+        /// For the purposes of access control, the attachment is automatically placed into the same compartment as the domain's zone.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateSteeringPolicyAttachmentResponse CreateSteeringPolicyAttachment(CreateSteeringPolicyAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}");
+
+            var webResponse = this.RestClient.Post(uri, request.CreateSteeringPolicyAttachmentDetails, request.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateSteeringPolicyAttachmentResponse()
+                {
+                    SteeringPolicyAttachment = this.JsonSerializer.Deserialize<SteeringPolicyAttachmentDetails>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -532,6 +613,33 @@ namespace OCISDK.Core.src.DNS
                 return new UpdateSteeringPolicyResponse()
                 {
                     SteeringPolicy = this.JsonSerializer.Deserialize<SteeringPolicyDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified steering policy attachment with your new information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateSteeringPolicyAttachmentResponse UpdateSteeringPolicyAttachment(UpdateSteeringPolicyAttachmentRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}/{request.SteeringPolicyAttachmentId}";
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateSteeringPolicyAttachmentDetails, request.IfMatch, "", "", request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateSteeringPolicyAttachmentResponse()
+                {
+                    SteeringPolicyAttachment = this.JsonSerializer.Deserialize<SteeringPolicyAttachmentDetails>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -755,6 +863,31 @@ namespace OCISDK.Core.src.DNS
                 var response = reader.ReadToEnd();
 
                 return new DeleteSteeringPolicyResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified steering policy attachment. A 204 response indicates that the delete has been successful.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteSteeringPolicyAttachmentResponse DeleteSteeringPolicyAttachment(DeleteSteeringPolicyAttachmentRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}/{request.SteeringPolicyAttachmentId}";
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Delete(uri, request.IfMatch, "", "", request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteSteeringPolicyAttachmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
