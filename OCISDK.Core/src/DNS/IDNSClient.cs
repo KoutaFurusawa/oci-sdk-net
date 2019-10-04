@@ -83,6 +83,14 @@ namespace OCISDK.Core.src.DNS
         CreateZoneResponse CreateZone(CreateZoneRequest request);
 
         /// <summary>
+        /// Creates a new steering policy in the specified compartment.
+        /// For more information on creating policies with templates, see Traffic Management API Guide.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateSteeringPolicyResponse CreateSteeringPolicy(CreateSteeringPolicyRequest request);
+
+        /// <summary>
         /// Updates the specified secondary zone with your new external master server information. 
         /// For more information about secondary zone, see Manage DNS Service Zone.
         /// </summary>

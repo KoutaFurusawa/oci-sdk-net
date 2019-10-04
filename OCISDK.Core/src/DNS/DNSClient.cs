@@ -347,6 +347,32 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Creates a new steering policy in the specified compartment.
+        /// For more information on creating policies with templates, see Traffic Management API Guide.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateSteeringPolicyResponse CreateSteeringPolicy(CreateSteeringPolicyRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}");
+
+            var webResponse = this.RestClient.Post(uri, request.CreateSteeringPolicyDetails, request.OpcRetryToken);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateSteeringPolicyResponse()
+                {
+                    SteeringPolicy = this.JsonSerializer.Deserialize<SteeringPolicyDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified secondary zone with your new external master server information. 
         /// For more information about secondary zone, see Manage DNS Service Zone.
         /// </summary>
