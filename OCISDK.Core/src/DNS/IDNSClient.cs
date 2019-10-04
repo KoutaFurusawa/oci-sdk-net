@@ -16,6 +16,13 @@ namespace OCISDK.Core.src.DNS
         ListZonesResponse ListZones(ListZonesRequest request);
 
         /// <summary>
+        /// Gets a list of all steering policies in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListSteeringPoliciesResponse ListSteeringPolicies(ListSteeringPoliciesRequest request);
+
+        /// <summary>
         /// Gets information about the specified zone, including its creation date, zone type, and serial.
         /// </summary>
         /// <param name="request"></param>
@@ -46,12 +53,26 @@ namespace OCISDK.Core.src.DNS
         GetRRSetResponse GetRRSet(GetRRSetRequest request);
 
         /// <summary>
+        /// Gets information about the specified steering policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetSteeringPolicyResponse GetSteeringPolicy(GetSteeringPolicyRequest request);
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         ChangeZoneCompartmentResponse ChangeZoneCompartment(ChangeZoneCompartmentRequest request);
+
+        /// <summary>
+        /// Moves a steering policy into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ChangeSteeringPolicyCompartmentResponse ChangeSteeringPolicyCompartment(ChangeSteeringPolicyCompartmentRequest request);
 
         /// <summary>
         /// Creates a new zone in the specified compartment. 
@@ -93,6 +114,13 @@ namespace OCISDK.Core.src.DNS
         /// <param name="request"></param>
         /// <returns></returns>
         UpdateRRSetResponse UpdateRRSet(UpdateRRSetRequest request);
+
+        /// <summary>
+        /// Updates the configuration of the specified steering policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateSteeringPolicyResponse UpdateSteeringPolicy(UpdateSteeringPolicyRequest request);
 
         /// <summary>
         /// Updates a collection of records in the specified zone. 
@@ -140,5 +168,13 @@ namespace OCISDK.Core.src.DNS
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteRRSetResponse DeleteRRSet(DeleteRRSetRequest request);
+
+        /// <summary>
+        /// Deletes the specified steering policy. A 204 response indicates that the delete has been successful.
+        /// Deletion will fail if the policy is attached to any zones. To detach a policy from a zone, see DeleteSteeringPolicyAttachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteSteeringPolicyResponse DeleteSteeringPolicy(DeleteSteeringPolicyRequest request);
     }
 }

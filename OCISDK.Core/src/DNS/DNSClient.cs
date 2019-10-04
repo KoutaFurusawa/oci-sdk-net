@@ -79,6 +79,32 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Gets a list of all steering policies in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListSteeringPoliciesResponse ListSteeringPolicies(ListSteeringPoliciesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListSteeringPoliciesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<SteeringPolicySummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcTotalItems = webResponse.Headers.Get("opc-total-items"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about the specified zone, including its creation date, zone type, and serial.
         /// </summary>
         /// <param name="request"></param>
@@ -221,6 +247,33 @@ namespace OCISDK.Core.src.DNS
         }
 
         /// <summary>
+        /// Gets information about the specified steering policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetSteeringPolicyResponse GetSteeringPolicy(GetSteeringPolicyRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}/{request.SteeringPolicyId}";
+            
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri, "", request.IfNoneMatch, request.IfModifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetSteeringPolicyResponse()
+                {
+                    SteeringPolicy = this.JsonSerializer.Deserialize<SteeringPolicyDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource. 
         /// Note: All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
         /// </summary>
@@ -238,6 +291,29 @@ namespace OCISDK.Core.src.DNS
                 var response = reader.ReadToEnd();
 
                 return new ChangeZoneCompartmentResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a steering policy into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ChangeSteeringPolicyCompartmentResponse ChangeSteeringPolicyCompartment(ChangeSteeringPolicyCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}/{request.SteeringPolicyId}/actions/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, request.ChangeSteeringPolicyCompartmentDetails, request.OpcRetryToken, "", request.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeSteeringPolicyCompartmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -404,6 +480,33 @@ namespace OCISDK.Core.src.DNS
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcTotalItems = webResponse.Headers.Get("opc-total-items"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the configuration of the specified steering policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateSteeringPolicyResponse UpdateSteeringPolicy(UpdateSteeringPolicyRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}/{request.SteeringPolicyId}";
+            
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateSteeringPolicyDetails, request.IfMatch, "", "", request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateSteeringPolicyResponse()
+                {
+                    SteeringPolicy = this.JsonSerializer.Deserialize<SteeringPolicyDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
             }
@@ -600,6 +703,32 @@ namespace OCISDK.Core.src.DNS
                 var response = reader.ReadToEnd();
 
                 return new DeleteRRSetResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified steering policy. A 204 response indicates that the delete has been successful.
+        /// Deletion will fail if the policy is attached to any zones. To detach a policy from a zone, see DeleteSteeringPolicyAttachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteSteeringPolicyResponse DeleteSteeringPolicy(DeleteSteeringPolicyRequest request)
+        {
+            var uriStr = $"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}/{request.SteeringPolicyId}";
+            
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Delete(uri, request.IfMatch, "", "", request.IfUnmodifiedSince);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteSteeringPolicyResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

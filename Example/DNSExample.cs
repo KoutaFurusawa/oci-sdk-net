@@ -1,6 +1,7 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.DNS;
+using OCISDK.Core.src.DNS.Model;
 using OCISDK.Core.src.DNS.Request;
 using OCISDK.Core.src.Identity;
 using OCISDK.Core.src.Identity.Request;
@@ -28,6 +29,48 @@ namespace Example
                 AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
             };
             var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
+
+            var list = new List<SteeringPolicyFilterRule>();
+            
+            Console.WriteLine("* DNS SteeringPolicy------------------------");
+            foreach (var com in compartments)
+            {
+                if (com.LifecycleState != "ACTIVE")
+                {
+                    continue;
+                }
+
+                Console.WriteLine($" Compartment<{com.Name}>--------");
+
+                var listSteeringPoliciesRequest = new ListSteeringPoliciesRequest() {
+                    CompartmentId = com.Id,
+                    SortBy = ListSteeringPoliciesRequest.SortByParam.DisplayName
+                };
+                var steeringPolicies = dnsClient.ListSteeringPolicies(listSteeringPoliciesRequest).Items;
+                foreach (var sp in steeringPolicies)
+                {
+                    var getSteeringPolicyRequest = new GetSteeringPolicyRequest() {
+                        SteeringPolicyId = sp.Id
+                    };
+                    var steeringPolicy = dnsClient.GetSteeringPolicy(getSteeringPolicyRequest).SteeringPolicy;
+                    Console.WriteLine($"\t|- displayName: {steeringPolicy.DisplayName}");
+                    Console.WriteLine($"\t|  state: {steeringPolicy.LifecycleState}");
+                    Console.WriteLine($"\t|  timeCreated: {steeringPolicy.TimeCreated}");
+                    Console.WriteLine($"\t|  Rule: {steeringPolicy.Rules.Count}");
+                    foreach (var rule in steeringPolicy.Rules)
+                    {
+                        Console.WriteLine($"\t|  | type: {rule.RuleType}");
+                    }
+                    Console.WriteLine($"\t|  Answe: {steeringPolicy.Answers.Count}");
+                    foreach (var answer in steeringPolicy.Answers)
+                    {
+                        Console.WriteLine($"\t|  | name: {answer.Name}");
+                        Console.WriteLine($"\t|  | pool: {answer.Pool}");
+                        Console.WriteLine($"\t|  | rtype: {answer.Rtype}");
+                        Console.WriteLine($"\t|  | rdata: {answer.Rdata}");
+                    }
+                }
+            }
 
             Console.WriteLine("* DNS Zone------------------------");
             foreach (var com in compartments)
