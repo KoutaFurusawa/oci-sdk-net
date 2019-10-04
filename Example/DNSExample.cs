@@ -29,8 +29,6 @@ namespace Example
                 AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
             };
             var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
-
-            var list = new List<SteeringPolicyFilterRule>();
             
             Console.WriteLine("* DNS SteeringPolicy------------------------");
             foreach (var com in compartments)

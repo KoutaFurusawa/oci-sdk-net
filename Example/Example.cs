@@ -110,11 +110,12 @@ namespace Example
                 Console.WriteLine("[9]: Monitoring Example");
                 Console.WriteLine("[a]: Database Example");
                 Console.WriteLine("[b]: DNS Example");
-                Console.WriteLine("[ESC] or [E(e)] : Exit Example");
+                Console.WriteLine("[c]: LoadBalancer Example");
+                Console.WriteLine("[ESC]: Exit Example");
                 Console.WriteLine("");
 
                 var presskey = Console.ReadKey(true);
-                if (presskey.Key == ConsoleKey.Escape || presskey.KeyChar == 'E' || presskey.KeyChar == 'e')
+                if (presskey.Key == ConsoleKey.Escape)
                 {
                     Console.WriteLine("Exit....");
                     return;
@@ -182,6 +183,12 @@ namespace Example
                 if (mode == '1' || mode == 'b')
                 {
                     DNSExample.DNSConsoleDisplay(config);
+                }
+
+                //loadbalancer
+                if (mode == '1' || mode == 'c')
+                {
+                    LoadBalancerExample.ConsoleDisplay(config);
                 }
             }
         }

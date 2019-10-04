@@ -328,7 +328,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "", string IfUnmodifiedSince = "")
+        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "", string IfUnmodifiedSince = "", string opcRequestId = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;
@@ -337,6 +337,11 @@ namespace OCISDK.Core.src.Common
             if (!String.IsNullOrEmpty(ifMatch))
             {
                 request.Headers["if-match"] = ifMatch;
+            }
+
+            if (!String.IsNullOrEmpty(opcRequestId))
+            {
+                request.Headers["opc-request-id"] = opcRequestId;
             }
 
             if (!String.IsNullOrEmpty(IfUnmodifiedSince))

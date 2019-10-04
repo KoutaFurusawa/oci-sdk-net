@@ -29,6 +29,10 @@
       "version": "20160918",
       "hosttag": "identity"
     },
+    "load_balancing": {
+      "version": "20170115",
+      "hosttag": "iaas"
+    },
     "audit": {
       "version": "20160918",
       "hosttag": "audit"
