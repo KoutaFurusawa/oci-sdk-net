@@ -58,7 +58,20 @@ namespace Example
                     Console.WriteLine($"\t|  timeCreated: {lbDetail.TimeCreated}");
                     Console.WriteLine($"\t|  ipAddresses: {lbDetail.IpAddresses}");
                     Console.WriteLine($"\t|  private: {lbDetail.IsPrivate}");
-                    Console.WriteLine($"\t|  listeners: {lbDetail.Listeners}");
+                    Console.WriteLine($"\t|  listeners:");
+                    foreach (var key in lbDetail.Listeners.Keys)
+                    {
+                        Console.WriteLine($"\t|   |-{key} : {lbDetail.Listeners[key].DefaultBackendSetName}");
+                    }
+                    Console.WriteLine($"\t|  rules:");
+                    foreach (var key in lbDetail.RuleSets.Keys)
+                    {
+                        Console.WriteLine($"\t|   |-{lbDetail.RuleSets[key].Name}");
+                        foreach (var rule in lbDetail.RuleSets[key].Items)
+                        {
+                            Console.WriteLine($"\t|   |   |-{rule.Action}");
+                        }
+                    }
                 }
             }
         }

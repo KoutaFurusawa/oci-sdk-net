@@ -77,6 +77,7 @@ namespace OCISDK.Core.src.LoadBalancer
                 };
             }
         }
+
         /// <summary>
         /// Gets the specified load balancer's configuration information.
         /// </summary>

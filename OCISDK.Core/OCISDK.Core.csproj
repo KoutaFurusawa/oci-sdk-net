@@ -87,10 +87,4 @@ Please send comments and requests for this SDK to GitHub.</Description>
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="src\LoadBalancer\Model\" />
-    <Folder Include="src\LoadBalancer\Request\" />
-    <Folder Include="src\LoadBalancer\Response\" />
-  </ItemGroup>
-
 </Project>
