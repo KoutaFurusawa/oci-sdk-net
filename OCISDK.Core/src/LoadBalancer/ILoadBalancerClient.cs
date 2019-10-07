@@ -47,6 +47,14 @@ namespace OCISDK.Core.src.LoadBalancer
         UpdateLoadBalancerResponse UpdateLoadBalancer(UpdateLoadBalancerRequest request);
 
         /// <summary>
+        /// Moves a load balancer into a different compartment within the same tenancy.
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ChangeLoadBalancerCompartmentResponse ChangeLoadBalancerCompartment(ChangeLoadBalancerCompartmentRequest request);
+
+        /// <summary>
         /// Stops a load balancer and removes it from service.
         /// </summary>
         /// <param name="request"></param>

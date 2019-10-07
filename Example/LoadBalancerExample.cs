@@ -29,7 +29,7 @@ namespace Example
                 AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
             };
             var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
-
+            
             Console.WriteLine("* LB------------------------");
             foreach (var com in compartments)
             {

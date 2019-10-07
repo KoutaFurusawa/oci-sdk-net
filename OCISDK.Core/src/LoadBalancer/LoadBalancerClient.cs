@@ -160,6 +160,31 @@ namespace OCISDK.Core.src.LoadBalancer
         }
 
         /// <summary>
+        /// Moves a load balancer into a different compartment within the same tenancy.
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ChangeLoadBalancerCompartmentResponse ChangeLoadBalancerCompartment(ChangeLoadBalancerCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/changeCompartment");
+
+            var webResponse = this.RestClient.Post(uri, request.ChangeLoadBalancerCompartmentDetails, request.OpcRetryToken, request.OpcRequestId, request.IfMatch);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeLoadBalancerCompartmentResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Stops a load balancer and removes it from service.
         /// </summary>
         /// <param name="request"></param>
