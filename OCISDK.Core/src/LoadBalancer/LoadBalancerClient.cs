@@ -80,6 +80,106 @@ namespace OCISDK.Core.src.LoadBalancer
         }
 
         /// <summary>
+        /// Lists the summary health statuses for all load balancers in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListLoadBalancerHealthsResponse ListLoadBalancerHealths(ListLoadBalancerHealthsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancerShapes, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListLoadBalancerHealthsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<LoadBalancerHealthSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the available load balancer policies.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListPoliciesResponse ListPolicies(ListPoliciesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancerPolicies, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListPoliciesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<LoadBalancerPolicyDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists all supported traffic protocols.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListProtocolsResponse ListProtocols(ListProtocolsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancerProtocols, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListProtocolsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<LoadBalancerProtocolDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the health status for the specified load balancer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListShapesResponse ListShapes(ListShapesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancerShapes, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListShapesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<LoadBalancerShapeDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified load balancer's configuration information.
         /// </summary>
         /// <param name="request"></param>
@@ -98,6 +198,30 @@ namespace OCISDK.Core.src.LoadBalancer
                 return new GetLoadBalancerResponse()
                 {
                     LoadBalancer = this.JsonSerializer.Deserialize<LoadBalancerDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the health status for the specified load balancer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetLoadBalancerHealthResponse GetLoadBalancerHealth(GetLoadBalancerHealthRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/health");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetLoadBalancerHealthResponse()
+                {
+                    LoadBalancerHealth = this.JsonSerializer.Deserialize<LoadBalancerHealth>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }

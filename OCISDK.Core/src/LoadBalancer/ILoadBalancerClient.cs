@@ -19,11 +19,46 @@ namespace OCISDK.Core.src.LoadBalancer
         ListLoadBalancersResponse ListLoadBalancers(ListLoadBalancersRequest request);
 
         /// <summary>
+        /// Lists the summary health statuses for all load balancers in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListLoadBalancerHealthsResponse ListLoadBalancerHealths(ListLoadBalancerHealthsRequest request);
+
+        /// <summary>
+        /// Lists the available load balancer policies.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListPoliciesResponse ListPolicies(ListPoliciesRequest request);
+
+        /// <summary>
+        /// Lists all supported traffic protocols.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListProtocolsResponse ListProtocols(ListProtocolsRequest request);
+
+        /// <summary>
+        /// Gets the health status for the specified load balancer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListShapesResponse ListShapes(ListShapesRequest request);
+
+        /// <summary>
         /// Gets the specified load balancer's configuration information.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         GetLoadBalancerResponse GetLoadBalancer(GetLoadBalancerRequest request);
+
+        /// <summary>
+        /// Gets the health status for the specified load balancer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetLoadBalancerHealthResponse GetLoadBalancerHealth(GetLoadBalancerHealthRequest request);
 
         /// <summary>
         /// Creates a new load balancer in the specified compartment. 
