@@ -379,7 +379,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolumeAttachment, this.Region));
             
-            var webResponse = await this.RestClientAsync.Post(uri, request.AttachBootVolumeDetails, request.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, request.AttachBootVolumeDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -405,7 +405,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VNICAttachment, this.Region));
             
-            var webResponse = await this.RestClientAsync.Post(uri, request.AttachVnicDetails, request.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, request.AttachVnicDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -433,7 +433,12 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{param.InstanceId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeInstanceCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam() {
+                OpcRetryToken = param.OpcRetryToken,
+                OpcRequestId = param.OpcRequestId,
+                IfMatch = param.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeInstanceCompartmentDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -458,7 +463,13 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}/{param.ImageId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeImageCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = param.OpcRetryToken,
+                OpcRequestId = param.OpcRequestId,
+                IfMatch = param.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeImageCompartmentDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -493,7 +504,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.Instance, this.Region));
             
-            var webResponse = await this.RestClientAsync.Post(uri, request.LaunchInstanceDetails, request.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, request.LaunchInstanceDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -525,7 +536,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CaptureConsoleHistoryDetails, param.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, param.CaptureConsoleHistoryDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -551,11 +562,13 @@ namespace OCISDK.Core.src.Core
         public async Task<UpdateInstanceResponse> UpdateInstance(UpdateInstanceRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{updateRequest.InstanceId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, 
-                updateRequest.UpdateInstanceDetails, 
-                updateRequest.IfMatch, 
-                updateRequest.OpcRetryToken);
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = updateRequest.OpcRetryToken,
+                IfMatch = updateRequest.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateInstanceDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -580,9 +593,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri,
-                param.UpdateConsoleHistoryDetails,
-                param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateConsoleHistoryDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -612,7 +623,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{deleteRequest.InstanceId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch, deleteRequest.PreserveBootVolume);
+            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.PreserveBootVolume, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

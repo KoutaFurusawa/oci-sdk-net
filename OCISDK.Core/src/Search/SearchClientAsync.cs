@@ -40,13 +40,13 @@ namespace OCISDK.Core.src.Search
         /// Results include resources that you have permission to view and can span different resource types.
         /// You can also sort results based on a specified resource attribute.
         /// </summary>
-        /// <param name="searchResourcesRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<SearchResourcesResponse> SearchResources(SearchResourcesRequest searchResourcesRequest)
+        public async Task<SearchResourcesResponse> SearchResources(SearchResourcesRequest request)
         {
             var uri = new Uri(GetEndPoint(SearchServices.RESOURCES, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, searchResourcesRequest.SearchDetails, searchResourcesRequest.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, request.SearchDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

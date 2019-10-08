@@ -1,4 +1,5 @@
-﻿using OCISDK.Core.src.LoadBalancer.Model;
+﻿using OCISDK.Core.src.Common;
+using OCISDK.Core.src.LoadBalancer.Model;
 using OCISDK.Core.src.LoadBalancer.Request;
 using OCISDK.Core.src.LoadBalancer.Response;
 using System;
@@ -62,7 +63,7 @@ namespace OCISDK.Core.src.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, request.OpcRequestId);
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -87,7 +88,7 @@ namespace OCISDK.Core.src.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}");
 
-            var webResponse = this.RestClient.Get(uri, request.OpcRequestId);
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -118,7 +119,11 @@ namespace OCISDK.Core.src.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.CreateLoadBalancerDetails, request.OpcRetryToken, request.OpcRequestId);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam() {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Post(uri, request.CreateLoadBalancerDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -144,7 +149,12 @@ namespace OCISDK.Core.src.LoadBalancer
             
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateLoadBalancerDetails, "", request.OpcRetryToken, request.OpcRequestId, "");
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Put(uri, request.UpdateLoadBalancerDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -169,7 +179,13 @@ namespace OCISDK.Core.src.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/changeCompartment");
 
-            var webResponse = this.RestClient.Post(uri, request.ChangeLoadBalancerCompartmentDetails, request.OpcRetryToken, request.OpcRequestId, request.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = this.RestClient.Post(uri, request.ChangeLoadBalancerCompartmentDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -195,7 +211,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, "", null, "", "", request.OpcRequestId);
+            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

@@ -428,7 +428,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolumeAttachment, this.Region));
             
-            var webResponse = this.RestClient.Post(uri, request.AttachBootVolumeDetails, request.OpcRetryToken);
+            var webResponse = this.RestClient.Post(uri, request.AttachBootVolumeDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -454,7 +454,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VNICAttachment, this.Region));
             
-            var webResponse = this.RestClient.Post(uri, request.AttachVnicDetails, request.OpcRetryToken);
+            var webResponse = this.RestClient.Post(uri, request.AttachVnicDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -479,7 +479,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VolumeAttachment, this.Region));
 
-            var webResponse = this.RestClient.Post(uri, param.AttachVolumeDetails, param.OpcRetryToken);
+            var webResponse = this.RestClient.Post(uri, param.AttachVolumeDetails, new HttpRequestHeaderParam { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -507,7 +507,12 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{param.InstanceId}/actions/changeCompartment");
 
-            var webResponse = this.RestClient.Post(uri, param.ChangeInstanceCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam() {
+                OpcRetryToken = param.OpcRetryToken,
+                OpcRequestId = param.OpcRequestId,
+                IfMatch = param.IfMatch
+            };
+            var webResponse = this.RestClient.Post(uri, param.ChangeInstanceCompartmentDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -532,7 +537,13 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}/{param.ImageId}/actions/changeCompartment");
 
-            var webResponse = this.RestClient.Post(uri, param.ChangeImageCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = param.OpcRetryToken,
+                OpcRequestId = param.OpcRequestId,
+                IfMatch = param.IfMatch
+            };
+            var webResponse = this.RestClient.Post(uri, param.ChangeImageCompartmentDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -567,7 +578,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.Instance, this.Region));
             
-            var webResponse = this.RestClient.Post(uri, request.LaunchInstanceDetails, request.OpcRetryToken);
+            var webResponse = this.RestClient.Post(uri, request.LaunchInstanceDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -600,7 +611,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, param.CaptureConsoleHistoryDetails, param.OpcRetryToken);
+            var webResponse = this.RestClient.Post(uri, param.CaptureConsoleHistoryDetails, new HttpRequestHeaderParam { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -626,11 +637,13 @@ namespace OCISDK.Core.src.Core
         public UpdateInstanceResponse UpdateInstance(UpdateInstanceRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{updateRequest.InstanceId}");
-            
-            var webResponse = this.RestClient.Put(uri, 
-                updateRequest.UpdateInstanceDetails, 
-                updateRequest.IfMatch, 
-                updateRequest.OpcRetryToken);
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch  = updateRequest.IfMatch,
+                OpcRetryToken  = updateRequest.OpcRetryToken
+            };
+            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateInstanceDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -655,9 +668,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
 
-            var webResponse = this.RestClient.Put(uri,
-                param.UpdateConsoleHistoryDetails,
-                param.IfMatch);
+            var webResponse = this.RestClient.Put(uri, param.UpdateConsoleHistoryDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -687,7 +698,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{deleteRequest.InstanceId}");
             
-            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch, deleteRequest.PreserveBootVolume);
+            var webResponse = this.RestClient.Delete(uri, deleteRequest.PreserveBootVolume, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

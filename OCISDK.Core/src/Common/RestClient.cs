@@ -21,9 +21,9 @@ namespace OCISDK.Core.src.Common
     public class RestClient : IRestClient
     {
         public IOciSigner Signer { get; set; }
-        
+
         public IJsonSerializer JsonSerializer { get; set; }
-        
+
         public RestOption Option { get; }
 
         public RestClient()
@@ -73,22 +73,12 @@ namespace OCISDK.Core.src.Common
         /// <returns></returns>
         public HttpWebResponse Get(Uri targetUri)
         {
-            return this.Get(targetUri, "", "", "", "", null, "", "");
+            return this.Get(targetUri, null);
         }
 
-        public HttpWebResponse Get(Uri targetUri, string opcRequestId)
+        public HttpWebResponse Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
-            return this.Get(targetUri, "", "", "", "", null, "", opcRequestId);
-        }
-
-        public HttpWebResponse Get(Uri targetUri, string opcClientRequestId, string opcRequestId)
-        {
-            return this.Get(targetUri, "", "", "", opcClientRequestId, null, "", opcRequestId);
-        }
-
-        public HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string ifModifiedSince)
-        {
-            return this.Get(targetUri, ifMatch, ifNoneMatch, ifModifiedSince, "", null, "", "");
+            return this.Get(targetUri, httpRequestHeaderParam, null);
         }
 
         /// <summary>
@@ -99,41 +89,16 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="opcClientRequestId"></param>
         /// <returns></returns>
-        public HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string ifModifiedSince, string opcClientRequestId, List<string> fields, string range, string opcRequestId)
+        public HttpWebResponse Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, List<string> fields)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Get.Method;
             request.Accept = "application/json";
             request.ReadWriteTimeout = Option.TimeoutSeconds;
 
-            if (!string.IsNullOrEmpty(ifMatch))
+            if (httpRequestHeaderParam != null)
             {
-                request.Headers["if-match"] = ifMatch;
-            }
-
-            if (!string.IsNullOrEmpty(ifNoneMatch))
-            {
-                request.Headers["if-none-match"] = ifNoneMatch;
-            }
-
-            if (!string.IsNullOrEmpty(ifModifiedSince))
-            {
-                request.Headers["if-modified-since"] = ifModifiedSince;
-            }
-
-            if (!string.IsNullOrEmpty(opcClientRequestId))
-            {
-                request.Headers["opc-client-request-id"] = opcClientRequestId;
-            }
-
-            if (!string.IsNullOrEmpty(range))
-            {
-                request.Headers["range"] = range;
-            }
-
-            if (!string.IsNullOrEmpty(opcRequestId))
-            {
-                request.Headers["opc-request-id"] = opcRequestId;
+                request = httpRequestHeaderParam.SetHeader(request);
             }
 
             if (fields != null && fields.Count != 0)
@@ -158,38 +123,33 @@ namespace OCISDK.Core.src.Common
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
-        
+
+        public HttpWebResponse Post(Uri targetUri)
+        {
+            return Post(targetUri, null);
+        }
+
+        public HttpWebResponse Post(Uri targetUri, object requestBody)
+        {
+            return Post(targetUri, requestBody, null);
+        }
+
         /// <summary>
         /// Post a request object to the endpoint represented by the web target and get the response.
         /// </summary>
         /// <param name="TargetUri"></param>
         /// <returns></returns>
-        public HttpWebResponse Post(Uri targetUri, Object requestBody=null, string opcRetryToken="", string opcRequestId="", string ifMatch = "", string OpcClientRequestId = "")
+        public HttpWebResponse Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Post.Method;
             request.Accept = "application/json";
             request.ContentType = "application/json";
             request.ReadWriteTimeout = Option.TimeoutSeconds;
-            
-            if (!String.IsNullOrEmpty(opcRetryToken))
-            {
-                request.Headers["opc-retry-token"] = opcRetryToken;
-            }
 
-            if (!String.IsNullOrEmpty(opcRequestId))
+            if (httpRequestHeaderParam != null)
             {
-                request.Headers["opc-request-id"] = opcRequestId;
-            }
-
-            if (!String.IsNullOrEmpty(OpcClientRequestId))
-            {
-                request.Headers["opc-client-request-id"] = OpcClientRequestId;
-            }
-
-            if (!String.IsNullOrEmpty(ifMatch))
-            {
-                request.Headers["if-match"] = ifMatch;
+                request = httpRequestHeaderParam.SetHeader(request);
             }
 
             if (requestBody != null)
@@ -215,6 +175,16 @@ namespace OCISDK.Core.src.Common
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
 
+        public HttpWebResponse Put(Uri targetUri)
+        {
+            return Put(targetUri, null);
+        }
+
+        public HttpWebResponse Put(Uri targetUri, object requestBody)
+        {
+            return Put(targetUri, requestBody, null);
+        }
+
         /// <summary>
         /// Put a request object to the endpoint represented by the web target and get the response.
         /// </summary>
@@ -222,7 +192,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="requestBody"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "", string opcRequestId = "", string IfUnmodifiedSince = "")
+        public HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Put.Method;
@@ -230,24 +200,9 @@ namespace OCISDK.Core.src.Common
             request.ContentType = "application/json";
             request.ReadWriteTimeout = Option.TimeoutSeconds;
 
-            if (!String.IsNullOrEmpty(ifMatch))
+            if (httpRequestHeaderParam != null)
             {
-                request.Headers["if-match"] = ifMatch;
-            }
-
-            if (!String.IsNullOrEmpty(IfUnmodifiedSince))
-            {
-                request.Headers["if-unmodified-since"] = IfUnmodifiedSince;
-            }
-
-            if (!String.IsNullOrEmpty(opcRetryToken))
-            {
-                request.Headers["opc-retry-token"] = opcRetryToken;
-            }
-
-            if (!String.IsNullOrEmpty(opcRequestId))
-            {
-                request.Headers["opc-request-id"] = opcRequestId;
+                request = httpRequestHeaderParam.SetHeader(request);
             }
 
             if (requestBody != null)
@@ -271,6 +226,16 @@ namespace OCISDK.Core.src.Common
             }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+        }
+
+        public HttpWebResponse Patch(Uri targetUri)
+        {
+            return Patch(targetUri, null);
+        }
+
+        public HttpWebResponse Patch(Uri targetUri, object requestBody)
+        {
+            return Patch(targetUri, requestBody, null);
         }
 
         /// <summary>
@@ -281,7 +246,7 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifMatch"></param>
         /// <param name="IfUnmodifiedSince"></param>
         /// <returns></returns>
-        public HttpWebResponse Patch(Uri targetUri, Object requestBody = null, string ifMatch = "", string IfUnmodifiedSince = "")
+        public HttpWebResponse Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Patch.Method;
@@ -289,14 +254,9 @@ namespace OCISDK.Core.src.Common
             request.ContentType = "application/json";
             request.ReadWriteTimeout = Option.TimeoutSeconds;
 
-            if (!String.IsNullOrEmpty(ifMatch))
+            if (httpRequestHeaderParam != null)
             {
-                request.Headers["if-match"] = ifMatch;
-            }
-
-            if (!String.IsNullOrEmpty(IfUnmodifiedSince))
-            {
-                request.Headers["if-unmodified-since"] = IfUnmodifiedSince;
+                request = httpRequestHeaderParam.SetHeader(request);
             }
 
             if (requestBody != null)
@@ -322,36 +282,30 @@ namespace OCISDK.Core.src.Common
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
 
+        public HttpWebResponse Delete(Uri targetUri)
+        {
+            return Delete(targetUri, null);
+        }
+
+        public HttpWebResponse Delete(Uri targetUri, object requestBody) {
+            return Delete(targetUri, requestBody, null);
+        }
+
         /// <summary>
         /// Execute a delete on a resource and get the response.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "", string IfUnmodifiedSince = "", string opcRequestId = "")
+        public HttpWebResponse Delete(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;
             request.ReadWriteTimeout = Option.TimeoutSeconds;
 
-            if (!String.IsNullOrEmpty(ifMatch))
+            if (httpRequestHeaderParam != null)
             {
-                request.Headers["if-match"] = ifMatch;
-            }
-
-            if (!String.IsNullOrEmpty(opcRequestId))
-            {
-                request.Headers["opc-request-id"] = opcRequestId;
-            }
-
-            if (!String.IsNullOrEmpty(IfUnmodifiedSince))
-            {
-                request.Headers["if-unmodified-since"] = IfUnmodifiedSince;
-            }
-
-            if (!String.IsNullOrEmpty(OpcClientRequestId))
-            {
-                request.Headers["opc-client-request-id"] = OpcClientRequestId;
+                request = httpRequestHeaderParam.SetHeader(request);
             }
 
             if (requestBody != null)
@@ -375,6 +329,11 @@ namespace OCISDK.Core.src.Common
             }
 
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+        }
+
+        public HttpWebResponse Head(Uri targetUri)
+        {
+            return Head(targetUri, null);
         }
 
         /// <summary>
@@ -385,23 +344,18 @@ namespace OCISDK.Core.src.Common
         /// <param name="ifNoneMatch"></param>
         /// <param name="OpcClientRequestId"></param>
         /// <returns></returns>
-        public HttpWebResponse Head(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string OpcClientRequestId = "")
+        public HttpWebResponse Head(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Head.Method;
             request.Accept = "application/json";
             request.ReadWriteTimeout = Option.TimeoutSeconds;
 
-            if (!string.IsNullOrEmpty(ifMatch))
+            if (httpRequestHeaderParam != null)
             {
-                request.Headers["if-match"] = ifMatch;
+                request = httpRequestHeaderParam.SetHeader(request);
             }
 
-            if (!string.IsNullOrEmpty(ifNoneMatch))
-            {
-                request.Headers["if-none-match"] = ifNoneMatch;
-            }
-            
             if (Signer != null)
             {
                 Signer.SignRequest(request);
@@ -410,4 +364,5 @@ namespace OCISDK.Core.src.Common
             return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
         }
     }
+
 }
