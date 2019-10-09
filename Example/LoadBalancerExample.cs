@@ -7,6 +7,7 @@ using OCISDK.Core.src.LoadBalancer.Request;
 using OCISDK.Core.src.LoadBalancer.Response;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Example
@@ -30,7 +31,7 @@ namespace Example
             };
             var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
             
-            Console.WriteLine("* LB------------------------");
+            Console.WriteLine("* LB Resources------------------------");
             foreach (var com in compartments)
             {
                 if (com.LifecycleState != "ACTIVE")
@@ -45,6 +46,7 @@ namespace Example
                     CompartmentId = com.Id,
                     SortBy = ListLoadBalancersRequest.SortByParam.DISPLAYNAME
                 };
+                Console.WriteLine("   LoadBalancer------");
                 var loadbalancers = lbClient.ListLoadBalancers(listLoadBalancersRequest).Items;
                 foreach (var lb in loadbalancers)
                 {
@@ -72,6 +74,76 @@ namespace Example
                             Console.WriteLine($"\t|   |   |-{rule.Action}");
                         }
                     }
+
+                    Console.WriteLine($"\t|  workRequest:");
+                    var listWorkRequestsRequest = new ListWorkRequestsRequest() {
+                        LoadBalancerId = lb.Id
+                    };
+                    var works = lbClient.ListWorkRequests(listWorkRequestsRequest).Items;
+                    foreach (var work in works)
+                    {
+                        Console.WriteLine($"\t|   |-{work.Type}");
+                        Console.WriteLine($"\t|   | {work.LifecycleState}");
+                    }
+                }
+
+                Console.WriteLine("   LoadBalancerHealth------");
+                var listLoadBalancerHealthsRequest = new ListLoadBalancerHealthsRequest() {
+                    CompartmentId = com.Id
+                };
+                var lbHealths = lbClient.ListLoadBalancerHealths(listLoadBalancerHealthsRequest).Items;
+                foreach (var health in lbHealths)
+                {
+                    var getLoadBalancerHealthRequest = new GetLoadBalancerHealthRequest() {
+                        LoadBalancerId = health.LoadBalancerId
+                    };
+                    var healthDetail = lbClient.GetLoadBalancerHealth(getLoadBalancerHealthRequest).LoadBalancerHealth;
+                    Console.WriteLine($"\t|- criticalStateBackendSetNames:");
+                    foreach (var name in healthDetail.CriticalStateBackendSetNames)
+                    {
+                        Console.WriteLine($"\t|    |-{name}");
+                    }
+                    Console.WriteLine($"\t|- unknownStateBackendSetNames:");
+                    foreach (var name in healthDetail.UnknownStateBackendSetNames)
+                    {
+                        Console.WriteLine($"\t|    |-{name}");
+                    }
+                    Console.WriteLine($"\t|- warningStateBackendSetNames:");
+                    foreach (var name in healthDetail.WarningStateBackendSetNames)
+                    {
+                        Console.WriteLine($"\t|    |-{name}");
+                    }
+                }
+
+                Console.WriteLine("   LoadBalancerPolicy------");
+                var listLoadBalancerPoliciesRequest = new ListLoadBalancerPoliciesRequest()
+                {
+                    CompartmentId = com.Id
+                };
+                var lbPolicies = lbClient.ListLoadBalancerPolicies(listLoadBalancerPoliciesRequest).Items;
+                foreach (var policy in lbPolicies)
+                {
+                    Console.WriteLine($"\t|- name: {policy.Name}");
+                }
+
+                Console.WriteLine("   LoadBalancerProtocol------");
+                var listLoadBalancerProtocolsRequest = new ListLoadBalancerProtocolsRequest() {
+                    CompartmentId = com.Id
+                };
+                var lbProtocols = lbClient.ListLoadBalancerProtocols(listLoadBalancerProtocolsRequest).Items;
+                foreach (var protocol in lbProtocols)
+                {
+                    Console.WriteLine($"\t|- name: {protocol.Name}");
+                }
+
+                Console.WriteLine("   LoadBalancerShape------");
+                var listLoadBalancerShapesRequest = new ListLoadBalancerShapesRequest() {
+                    CompartmentId = com.Id
+                };
+                var lbShapes = lbClient.ListLoadBalancerShapes(listLoadBalancerShapesRequest).Items;
+                foreach (var shape in lbShapes)
+                {
+                    Console.WriteLine($"\t|- name: {shape.Name}");
                 }
             }
         }

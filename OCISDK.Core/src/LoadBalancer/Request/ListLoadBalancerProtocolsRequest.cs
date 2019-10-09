@@ -7,7 +7,7 @@ namespace OCISDK.Core.src.LoadBalancer.Request
     /// <summary>
     /// Lists all supported traffic protocols.
     /// </summary>
-    public class ListProtocolsRequest
+    public class ListLoadBalancerProtocolsRequest
     {
         /// <summary>
         /// The unique Oracle-assigned identifier for the request. 

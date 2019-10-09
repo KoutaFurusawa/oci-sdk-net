@@ -5,9 +5,9 @@ using System.Text;
 namespace OCISDK.Core.src.LoadBalancer.Request
 {
     /// <summary>
-    /// ListShapes request
+    /// ListWorkRequests Request
     /// </summary>
-    public class ListShapesRequest
+    public class ListWorkRequestsRequest
     {
         /// <summary>
         /// The unique Oracle-assigned identifier for the request. 
@@ -15,12 +15,6 @@ namespace OCISDK.Core.src.LoadBalancer.Request
         /// <para>Required: no</para>
         /// </summary>
         public string OpcRequestId { get; set; }
-
-        /// <summary>
-        /// The compartment OCID.
-        /// <para>Required: yes</para>
-        /// </summary>
-        public string CompartmentId { get; set; }
 
         /// <summary>
         /// The maximum number of items to return per page.
@@ -35,22 +29,28 @@ namespace OCISDK.Core.src.LoadBalancer.Request
         /// </summary>
         public string Page { get; set; }
 
+        /// <summary>
+        /// The OCID of the load balancer associated with the work requests to retrieve.
+        /// <para>Required: yes</para>
+        /// </summary>
+        public string LoadBalancerId { get; set; }
+
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.Append($"compartmentId={this.CompartmentId}");
+            var chainStr = "";
             
             if (this.Limit.HasValue)
             {
-                sb.Append($"&limit={this.Limit.Value}");
+                sb.Append($"limit={this.Limit.Value}");
+                chainStr = "&";
             }
 
             if (!String.IsNullOrEmpty(this.Page))
             {
-                sb.Append($"&page={this.Page}");
+                sb.Append($"{chainStr}page={this.Page}");
             }
-            
+
             return sb.ToString();
         }
     }

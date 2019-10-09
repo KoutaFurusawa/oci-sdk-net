@@ -5,9 +5,9 @@ using System.Text;
 namespace OCISDK.Core.src.LoadBalancer.Request
 {
     /// <summary>
-    /// ListPolicies Request
+    /// ListShapes request
     /// </summary>
-    public class ListPoliciesRequest
+    public class ListLoadBalancerShapesRequest
     {
         /// <summary>
         /// The unique Oracle-assigned identifier for the request. 
@@ -40,7 +40,7 @@ namespace OCISDK.Core.src.LoadBalancer.Request
             StringBuilder sb = new StringBuilder();
 
             sb.Append($"compartmentId={this.CompartmentId}");
-
+            
             if (this.Limit.HasValue)
             {
                 sb.Append($"&limit={this.Limit.Value}");
@@ -50,7 +50,7 @@ namespace OCISDK.Core.src.LoadBalancer.Request
             {
                 sb.Append($"&page={this.Page}");
             }
-
+            
             return sb.ToString();
         }
     }

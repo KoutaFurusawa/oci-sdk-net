@@ -6,9 +6,9 @@ using System.Text;
 namespace OCISDK.Core.src.LoadBalancer.Response
 {
     /// <summary>
-    /// ListShapes response
+    /// ListPolicies Response
     /// </summary>
-    public class ListShapesResponse
+    public class ListLoadBalancerPoliciesResponse
     {
         /// <summary>
         /// For list pagination. When this header appears in the response, additional pages of results remain.
@@ -23,8 +23,8 @@ namespace OCISDK.Core.src.LoadBalancer.Response
         public string OpcRequestId { get; set; }
 
         /// <summary>
-        /// The response body will contain an array of LoadBalancerShape resources.
+        /// The response body will contain an array of LoadBalancerPolicy resources.
         /// </summary>
-        public List<LoadBalancerShapeDetails> Items { get; set; }
+        public List<LoadBalancerPolicyDetails> Items { get; set; }
     }
 }

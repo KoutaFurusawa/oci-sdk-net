@@ -18,5 +18,7 @@ namespace OCISDK.Core.src.LoadBalancer
         public readonly static string LoadBalancerPolicies = "loadBalancerPolicies";
 
         public readonly static string LoadBalancerShapes = "loadBalancerShapes";
+
+        public readonly static string LoadBalancerWorkRequests = "loadBalancerWorkRequests";
     }
 }
