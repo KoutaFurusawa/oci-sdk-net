@@ -16,7 +16,7 @@ Supports several APIs.
 This SDK is unofficial and does not support all OCI services. It is also intended for personal research and limited project use only.
 Please be aware that the author is not responsible for any problems that may arise from using this SDK.
 Please send comments and requests for this SDK to GitHub.</Description>
-    <Version>0.5.6</Version>
+    <Version>0.5.7-rc</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
