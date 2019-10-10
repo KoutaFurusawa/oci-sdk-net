@@ -18,7 +18,8 @@ Please be aware that the author is not responsible for any problems that may ari
 Please send comments and requests for this SDK to GitHub.</Description>
     <Version>0.5.6</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
-    <PackageReleaseNotes>2019/06/11 version 0.5.0 release
+    <PackageReleaseNotes>
+2019/06/11 version 0.5.0 release
 2019/06/11 version 0.5.1 release
 2019/06/11 version 0.5.2 release
 2019/08/09 version 0.5.5-rc release
@@ -34,6 +35,13 @@ Please send comments and requests for this SDK to GitHub.</Description>
  * Redesigned endpoint determination method
  * Change the region determination method
  * add ConsoleHistory APIs
+2019/10/10 version 0.5.7-rc release
+ * Revised Enum implementation and implemented ExtendedEnum class.
+ * Significant correction of RestClient header parameter specification method.
+ * add DNS APIs
+ * add DatabaseSystem APIs
+ * add ObjectStorage Bucket UpdateMethod
+ * add LoadBalancer APIs
     </PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
@@ -41,8 +49,12 @@ Please send comments and requests for this SDK to GitHub.</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.6.0</AssemblyVersion>
-    <FileVersion>0.5.6.0</FileVersion>
+    <AssemblyVersion>0.5.7.0-rc</AssemblyVersion>
+    <FileVersion>0.5.7.0-rc</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
