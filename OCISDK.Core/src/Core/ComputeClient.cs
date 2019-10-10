@@ -698,7 +698,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{deleteRequest.InstanceId}");
             
-            var webResponse = this.RestClient.Delete(uri, deleteRequest.PreserveBootVolume, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch }, deleteRequest.PreserveBootVolume);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -717,13 +717,13 @@ namespace OCISDK.Core.src.Core
         ///This is an asynchronous operation.The attachment's lifecycleState will change to DETACHING 
         ///temporarily until the attachment is completely removed.
         /// </summary>
-        /// <param name="detachBootVolumeRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachBootVolumeRequest)
+        public DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{detachBootVolumeRequest.BootVolumeAttachmentId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{request.BootVolumeAttachmentId}");
             
-            var webResponse = this.RestClient.Delete(uri, detachBootVolumeRequest.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -742,13 +742,13 @@ namespace OCISDK.Core.src.Core
         /// 
         /// This is an asynchronous operation. The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
         /// </summary>
-        /// <param name="detachRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest)
+        public DetachVolumeResponse DetachVolume(DetachVolumeRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}/{detachRequest.VolumeAttachmentId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.VolumeAttachment, this.Region)}/{request.VolumeAttachmentId}");
 
-            var webResponse = this.RestClient.Delete(uri, detachRequest.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -765,13 +765,13 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Deletes the specified console history metadata and the console history data.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public DeleteConsoleHistoryResponse DeleteConsoleHistory(DeleteConsoleHistoryRequest param)
+        public DeleteConsoleHistoryResponse DeleteConsoleHistory(DeleteConsoleHistoryRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{request.InstanceConsoleHistoryId}");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

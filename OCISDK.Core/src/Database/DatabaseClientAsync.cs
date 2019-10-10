@@ -559,7 +559,7 @@ namespace OCISDK.Core.src.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}/{request.DbHomeId}?performFinalBackup={request.PerformFinalBackup}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, request.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -584,7 +584,7 @@ namespace OCISDK.Core.src.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}/{request.DbSystemId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, request.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

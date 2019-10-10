@@ -693,11 +693,11 @@ namespace OCISDK.Core.src.Identity
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteCompartmentResponse> DeleteCompartment(DeleteCompartmentRequest deleteRequest)
+        public async Task<DeleteCompartmentResponse> DeleteCompartment(DeleteCompartmentRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{deleteRequest.CompartmentId}");
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{request.CompartmentId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -716,13 +716,13 @@ namespace OCISDK.Core.src.Identity
         /// Deletes the specified policy.
         /// The deletion takes effect typically within 10 seconds.
         /// </summary>
-        /// <param name="deletePolicyRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeletePolicyResponse> DeletePolicy(DeletePolicyRequest deletePolicyRequest)
+        public async Task<DeletePolicyResponse> DeletePolicy(DeletePolicyRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{deletePolicyRequest.PolicyId}");
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{request.PolicyId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, deletePolicyRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

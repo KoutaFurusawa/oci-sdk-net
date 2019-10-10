@@ -1073,7 +1073,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{deleteRequest.BootVolumeId}");
             
-            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1096,7 +1096,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1119,7 +1119,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/kmsKey");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1144,7 +1144,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeId}");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1167,7 +1167,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1190,7 +1190,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackupPolicyAssignment, this.Region)}/{param.PolicyAssignmentId}");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1213,7 +1213,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1236,7 +1236,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
 
-            var webResponse = this.RestClient.Delete(uri, param.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

@@ -852,13 +852,13 @@ namespace OCISDK.Core
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteVcnResponse> DeleteVcn(DeleteVcnRequest deleteRequest)
+        public async Task<DeleteVcnResponse> DeleteVcn(DeleteVcnRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{deleteRequest.VcnId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{request.VcnId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -876,13 +876,13 @@ namespace OCISDK.Core
         /// Deletes the specified internet gateway.
         /// The internet gateway does not have to be disabled, but there must not be a route table that lists it as a target.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteInternetGatewayResponse> DeleteInternetGateway(DeleteInternetGatewayRequest deleteRequest)
+        public async Task<DeleteInternetGatewayResponse> DeleteInternetGateway(DeleteInternetGatewayRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{deleteRequest.IgId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{request.IgId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -900,13 +900,13 @@ namespace OCISDK.Core
         /// Deletes the specified set of DHCP options, but only if it's not associated with a subnet.
         /// You can't delete a VCN's default set of DHCP options.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteDhcpOptionsResponse> DeleteDhcpOptions(DeleteDhcpOptionsRequest deleteRequest)
+        public async Task<DeleteDhcpOptionsResponse> DeleteDhcpOptions(DeleteDhcpOptionsRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{deleteRequest.DhcpId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{request.DhcpId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -924,13 +924,13 @@ namespace OCISDK.Core
         /// Deletes the specified security list, but only if it's not associated with a subnet.
         /// You can't delete a VCN's default security list.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteSecurityListResponse> DeleteSecurityList(DeleteSecurityListRequest deleteRequest)
+        public async Task<DeleteSecurityListResponse> DeleteSecurityList(DeleteSecurityListRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{deleteRequest.SecurityListId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{request.SecurityListId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -950,13 +950,13 @@ namespace OCISDK.Core
         /// temporarily. If there are any instances in the subnet, the state will instead change back 
         /// to AVAILABLE.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest deleteRequest)
+        public async Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{deleteRequest.SubnetId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{request.SubnetId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -974,13 +974,13 @@ namespace OCISDK.Core
         /// Deletes the specified route table, but only if it's not associated with a subnet. You can't delete a VCN's default route table.
         /// This is an asynchronous operation. The route table's lifecycleState will change to TERMINATING temporarily until the route table is completely removed.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest deleteRequest)
+        public async Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{deleteRequest.RtId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{request.RtId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
