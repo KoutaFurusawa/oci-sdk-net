@@ -523,6 +523,46 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Creates a new user in your tenancy. For conceptual information about users, your tenancy, and other IAM Service components, see Overview of the IAM Service.
+        /// 
+        /// You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy is simply the root compartment). 
+        /// Notice that IAM resources (users, groups, compartments, and some policies) reside within the tenancy itself, unlike cloud resources such as compute instances, 
+        /// which typically reside within compartments inside the tenancy. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must also specify a name for the user, which must be unique across all users in your tenancy and cannot be changed. 
+        /// Allowed characters: No spaces. Only letters, numerals, hyphens, periods, underscores, +, and @. If you specify a name that's already in use, you'll get a 409 error. 
+        /// This name will be the user's login to the Console. You might want to pick a name that your company's own identity system (e.g., Active Directory, LDAP, etc.) already uses. 
+        /// If you delete a user and then create a new user with the same name, they'll be considered different users because they have different OCIDs.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// 
+        /// A new user has no permissions until you place the user in one or more groups (see AddUserToGroup). 
+        /// If the user needs to access the Console, you need to provide the user a password (see CreateOrResetUIPassword). 
+        /// If the user needs to access the Oracle Cloud Infrastructure REST API, you need to upload a public API signing key for that user (see Required Keys and OCIDs and also UploadApiKey).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateUserResponse CreateUser(CreateUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}");
+
+            var webResponse = this.RestClient.Post(uri, request.CreateUserDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new policy in the specified compartment (either the tenancy or another of your compartments). 
         /// If you're new to policies, see Getting Started with Policies.
         /// You must specify a name for the policy, which must be unique across all policies in your tenancy and cannot be changed.
@@ -661,6 +701,81 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Updates the description of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateUserResponse UpdateUser(UpdateUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateUserDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the capabilities of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateUserCapabilitiesResponse UpdateUserCapabilities(UpdateUserCapabilitiesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/capabilities/");
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateUserCapabilitiesDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateUserCapabilitiesResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the state of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateUserStateResponse UpdateUserState(UpdateUserStateRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/state/");
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateStateDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateUserStateResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified policy. You can update the description or the policy statements themselves.
         /// Policy changes take effect typically within 10 seconds.
         /// </summary>
@@ -707,6 +822,29 @@ namespace OCISDK.Core.src.Identity
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified user. The user must not be in any groups.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteUserResponse DeleteUser(DeleteUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteUserResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
         }

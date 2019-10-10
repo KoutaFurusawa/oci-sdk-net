@@ -164,6 +164,28 @@ namespace OCISDK.Core.src.Identity
         Task<CreateTagResponse> CreateTag(CreateTagRequest createRequest);
 
         /// <summary>
+        /// Creates a new user in your tenancy. For conceptual information about users, your tenancy, and other IAM Service components, see Overview of the IAM Service.
+        /// 
+        /// You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy is simply the root compartment). 
+        /// Notice that IAM resources (users, groups, compartments, and some policies) reside within the tenancy itself, unlike cloud resources such as compute instances, 
+        /// which typically reside within compartments inside the tenancy. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must also specify a name for the user, which must be unique across all users in your tenancy and cannot be changed. 
+        /// Allowed characters: No spaces. Only letters, numerals, hyphens, periods, underscores, +, and @. If you specify a name that's already in use, you'll get a 409 error. 
+        /// This name will be the user's login to the Console. You might want to pick a name that your company's own identity system (e.g., Active Directory, LDAP, etc.) already uses. 
+        /// If you delete a user and then create a new user with the same name, they'll be considered different users because they have different OCIDs.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// 
+        /// A new user has no permissions until you place the user in one or more groups (see AddUserToGroup). 
+        /// If the user needs to access the Console, you need to provide the user a password (see CreateOrResetUIPassword). 
+        /// If the user needs to access the Oracle Cloud Infrastructure REST API, you need to upload a public API signing key for that user (see Required Keys and OCIDs and also UploadApiKey).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreateUserResponse> CreateUser(CreateUserRequest request);
+
+        /// <summary>
         /// Creates a new policy in the specified compartment (either the tenancy or another of your compartments). 
         /// If you're new to policies, see Getting Started with Policies.
         /// You must specify a name for the policy, which must be unique across all policies in your tenancy and cannot be changed.
@@ -214,6 +236,27 @@ namespace OCISDK.Core.src.Identity
         Task<UpdateTagResponse> UpdateTag(UpdateTagRequest updateRequest);
 
         /// <summary>
+        /// Updates the description of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request);
+
+        /// <summary>
+        /// Updates the capabilities of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateUserCapabilitiesResponse> UpdateUserCapabilities(UpdateUserCapabilitiesRequest request);
+
+        /// <summary>
+        /// Updates the state of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateUserStateResponse> UpdateUserState(UpdateUserStateRequest request);
+
+        /// <summary>
         /// Updates the specified policy. You can update the description or the policy statements themselves.
         /// Policy changes take effect typically within 10 seconds.
         /// </summary>
@@ -227,6 +270,13 @@ namespace OCISDK.Core.src.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DeleteCompartmentResponse> DeleteCompartment(DeleteCompartmentRequest deleteRequest);
+
+        /// <summary>
+        /// Deletes the specified user. The user must not be in any groups.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request);
 
         /// <summary>
         /// Deletes the specified policy.
