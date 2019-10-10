@@ -49,8 +49,8 @@ Please send comments and requests for this SDK to GitHub.</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.7.0-rc</AssemblyVersion>
-    <FileVersion>0.5.7.0-rc</FileVersion>
+    <AssemblyVersion>0.5.7.0</AssemblyVersion>
+    <FileVersion>0.5.7.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
