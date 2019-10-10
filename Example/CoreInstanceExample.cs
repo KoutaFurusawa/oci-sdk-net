@@ -41,7 +41,8 @@ namespace Example
                 CompartmentId = computeClient.Config.TenancyId,
                 Limit = 50,
                 LifecycleState = ListInstancesRequest.LifecycleStates.RUNNING,
-                SortOrder = SortOrder.ASC
+                SortOrder = SortOrder.ASC,
+                SortBy = ListInstancesRequest.SortByParam.TIMECREATED
             };
             // get instance
             var listInstance = computeClient.ListInstances(listInstanceRequest);
@@ -163,7 +164,8 @@ namespace Example
                 CompartmentId = config.TenancyId,
                 Limit = 10,
                 LifecycleState = ListImagesRequest.LifecycleStates.AVAILABLE,
-                SortOrder = SortOrder.ASC
+                SortOrder = SortOrder.ASC,
+                SortBy = ListImagesRequest.SortByParam.TIMECREATED
             };
             // get instance
             var listImage = computeClient.ListImages(listImagesRequest);

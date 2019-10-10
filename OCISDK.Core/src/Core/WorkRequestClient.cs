@@ -1,4 +1,5 @@
-﻿using OCISDK.Core.src.Core.Model.WorkRequest;
+﻿using OCISDK.Core.src.Common;
+using OCISDK.Core.src.Core.Model.WorkRequest;
 using OCISDK.Core.src.Core.Request.WorkRequest;
 using OCISDK.Core.src.Core.Response.WorkRequest;
 using System;
@@ -60,7 +61,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -85,7 +86,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{param.WorkRequestId}/errors?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -110,7 +111,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{param.WorkRequestId}/logs?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, param.OpcRequestId);
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

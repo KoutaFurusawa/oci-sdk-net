@@ -64,7 +64,7 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// The sort order to use when sorting returned alarm definitions. Ascending (ASC) or descending (DESC).
         /// <para>Required: no</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         public string GetOptionQuery()
         {
@@ -80,9 +80,9 @@ namespace OCISDK.Core.src.Monitoring.Request
                 sb.Append($"&sortBy={this.SortBy}");
             }
 
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"&sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"&sortOrder={SortOrder.Value}");
             }
 
             if (CompartmentIdInSubtree.HasValue)

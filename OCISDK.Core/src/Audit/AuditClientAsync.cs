@@ -68,7 +68,7 @@ namespace OCISDK.Core.src.Audit
         {
             var uri = new Uri($"{GetEndPoint(AuditServices.EVENT, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri, listRequest.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = listRequest.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

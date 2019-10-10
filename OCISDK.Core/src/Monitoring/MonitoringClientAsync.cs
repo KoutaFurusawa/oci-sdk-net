@@ -1,4 +1,5 @@
-﻿using OCISDK.Core.src.Monitoring.Model;
+﻿using OCISDK.Core.src.Common;
+using OCISDK.Core.src.Monitoring.Model;
 using OCISDK.Core.src.Monitoring.Request;
 using OCISDK.Core.src.Monitoring.Response;
 using System;
@@ -66,7 +67,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Metrics, this.Region)}/actions/listMetrics?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ListMetricsDetails, null, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ListMetricsDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -95,7 +96,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Metrics, this.Region)}/actions/summarizeMetricsData?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.SummarizeMetricsDataDetails, null, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.SummarizeMetricsDataDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -136,7 +137,7 @@ namespace OCISDK.Core.src.Monitoring
                 $"{Config.GetServiceVersion(ServiceName)}/" +
                 $"{MonitoringServices.Metrics}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.PostMetricDataDetails, null, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.PostMetricDataDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -161,7 +162,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -188,7 +189,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/status?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -214,7 +215,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}/history?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -241,7 +242,7 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri, param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -266,7 +267,11 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CreateAlarmDetails, param.OpcRetryToken, param.OpcRequestId);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam() {
+                OpcRetryToken = param.OpcRetryToken,
+                OpcRequestId = param.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateAlarmDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -292,7 +297,12 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateAlarmDetails, param.IfMatch, param.OpcRequestId);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch = param.IfMatch,
+                OpcRequestId = param.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateAlarmDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -318,7 +328,13 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeAlarmCompartmentDetails, param.OpcRetryToken, param.OpcRequestId, param.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch = param.IfMatch,
+                OpcRequestId = param.OpcRequestId,
+                OpcRetryToken = param.OpcRetryToken
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeAlarmCompartmentDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -342,7 +358,12 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, param.IfMatch, param.OpcRequestId);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch = param.IfMatch,
+                OpcRequestId = param.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -366,7 +387,12 @@ namespace OCISDK.Core.src.Monitoring
         {
             var uri = new Uri($"{GetEndPoint(MonitoringServices.Alarms, this.Region)}/{param.AlarmId}/actions/removeSuppression");
 
-            var webResponse = await this.RestClientAsync.Post(uri,null, null, param.OpcRequestId, param.IfMatch);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch = param.IfMatch,
+                OpcRequestId = param.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Post(uri,null, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

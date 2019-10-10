@@ -450,7 +450,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri(GetEndPoint(IdentityServices.Compartment, this.Region));
             
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateCompartmentDetails, createRequest.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateCompartmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -476,7 +476,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri(GetEndPoint(IdentityServices.TagNamespaces, this.Region));
             
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateTagNamespaceDetails, createRequest.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateTagNamespaceDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -508,7 +508,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{createRequest.TagNamespaceId}/tags");
             
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateTagDetails, createRequest.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateTagDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -534,7 +534,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/");
 
-            var webResponse = await this.RestClientAsync.Post(uri, createPolicyRequest.CreatePolicyDetails, createPolicyRequest.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, createPolicyRequest.CreatePolicyDetails, new HttpRequestHeaderParam() { OpcRetryToken = createPolicyRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -564,7 +564,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/actions/changeCompartment");
             
-            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeTagNamespaceCompartmentDetail, request.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeTagNamespaceCompartmentDetail, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -587,7 +587,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{updateRequest.CompartmentId}");
             
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateCompartmentDetails, updateRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateCompartmentDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -707,7 +707,7 @@ namespace OCISDK.Core.src.Identity
                 return new DeleteCompartmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
-                    opcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
                 };
             }
         }

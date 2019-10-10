@@ -35,15 +35,23 @@ namespace OCISDK.Core.src.Identity.Request
         /// ANY
         /// , ACCESSIBLE</para>
         /// </summary>
-        public AccessLevels? AccessLevel { get; set; }
+        public AccessLevels AccessLevel { get; set; }
 
-
-        public enum AccessLevels
+        /// <summary>
+        /// AccessLevel ExpandableEnum
+        /// </summary>
+        public class AccessLevels : ExpandableEnum<AccessLevels>
         {
-            [DisplayName("ANY")]
-            ANY,
-            [DisplayName("ACCESSIBLE")]
-            ACCESSIBLE
+            public AccessLevels(string value) : base(value) { }
+
+            public static implicit operator AccessLevels(string value)
+            {
+                return Parse(value);
+            }
+
+            public static readonly AccessLevels ANY = new AccessLevels("ANY");
+
+            public static readonly AccessLevels ACCESSIBLE = new AccessLevels("ACCESSIBLE");
         }
 
         /// <summary>
@@ -64,9 +72,9 @@ namespace OCISDK.Core.src.Identity.Request
             {
                 options += $"&limit={this.Limit.Value}";
             }
-            if (this.AccessLevel.HasValue)
+            if (!(AccessLevel is null))
             {
-                options += $"&accessLevel={EnumAttribute.GetDisplayName(this.AccessLevel.Value)}";
+                options += $"&accessLevel={AccessLevel.Value}";
             }
             if (this.CompartmentIdInSubtree.HasValue)
             {

@@ -9,12 +9,26 @@ namespace OCISDK.Core.src.Common
     {
         HttpWebResponse Get(HttpWebRequest request);
         HttpWebResponse Get(Uri targetUri);
-        HttpWebResponse Get(Uri targetUri, string opcRequestId);
-        HttpWebResponse Get(Uri targetUri, string opcClientRequestId, string opcRequestId);
-        HttpWebResponse Get(Uri targetUri, string ifMatch, string ifNoneMatch, string opcClientRequestId, List<string> fields, string range, string opcRequestId);
-        HttpWebResponse Post(Uri targetUri, Object requestBody = null, string opcRetryToken = "", string opcRequestId = "", string ifMatch = "", string OpcClientRequestId = "");
-        HttpWebResponse Put(Uri targetUri, Object requestBody = null, string ifMatch = "", string opcRetryToken = "");
-        HttpWebResponse Delete(Uri targetUri, string ifMatch = "", Object requestBody = null, string OpcClientRequestId = "");
-        HttpWebResponse Head(Uri targetUri, string ifMatch = "", string ifNoneMatch = "", string OpcClientRequestId = "");
+        HttpWebResponse Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam);
+        HttpWebResponse Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, List<string> fields);
+
+        HttpWebResponse Post(Uri targetUri);
+        HttpWebResponse Post(Uri targetUri, object requestBody);
+        HttpWebResponse Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+
+        HttpWebResponse Put(Uri targetUri);
+        HttpWebResponse Put(Uri targetUri, object requestBody);
+        HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+
+        HttpWebResponse Patch(Uri targetUri);
+        HttpWebResponse Patch(Uri targetUri, object requestBody);
+        HttpWebResponse Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+        
+        HttpWebResponse Delete(Uri targetUri);
+        HttpWebResponse Delete(Uri targetUri, object requestBody);
+        HttpWebResponse Delete(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+
+        HttpWebResponse Head(Uri targetUri);
+        HttpWebResponse Head(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam);
     }
 }

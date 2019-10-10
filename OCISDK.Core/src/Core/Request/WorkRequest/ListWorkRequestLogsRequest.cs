@@ -34,7 +34,7 @@ namespace OCISDK.Core.src.Core.Request.WorkRequest
         /// The sort order to use, either ascending (ASC) or descending (DESC).
         /// <para>Required: no</para>
         /// </summary>
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder SortOrder { get; set; }
 
         /// <summary>
         /// Unique Oracle-assigned identifier for the request. 
@@ -61,9 +61,9 @@ namespace OCISDK.Core.src.Core.Request.WorkRequest
                 ch = "&";
             }
 
-            if (this.SortOrder.HasValue)
+            if (!(SortOrder is null))
             {
-                sb.Append($"{ch}sortOrder={EnumAttribute.GetDisplayName(this.SortOrder.Value)}");
+                sb.Append($"{ch}sortOrder={SortOrder.Value}");
             }
 
             return sb.ToString();

@@ -495,7 +495,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
 
-            var webResponse = await this.RestClientAsync.Get(uri, param.IfMatch, "", "", null, "", "");
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -521,7 +521,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeBootVolumeCompartmentDetails, "", param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeBootVolumeCompartmentDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -546,7 +546,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeCompartmentDetails, "", param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeCompartmentDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -571,7 +571,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeBackupCompartmentDetails, "", param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeBackupCompartmentDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -596,7 +596,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroup, this.Region)}/{param.VolumeGroupId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeGroupCompartmentDetails, "", param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeGroupCompartmentDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -621,7 +621,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeGroupBackupCompartmentDetails, "", param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVolumeGroupBackupCompartmentDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -646,7 +646,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}/actions/changeCompartment");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeBootVolumeBackupCompartmentDetails, "", param.OpcRequestId);
+            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeBootVolumeBackupCompartmentDetails, new HttpRequestHeaderParam() { OpcRequestId = param.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -673,7 +673,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolume, this.Region));
             
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateBootVolumeDetails, createRequest.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateBootVolumeDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -702,7 +702,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolumeBackup, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CreateBootVolumeBackupDetails, param.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateBootVolumeBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -737,7 +737,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.Volume, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeDetails, param.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -765,7 +765,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VolumeBackup, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeBackupDetails, param.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -820,7 +820,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VolumeGroup, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeGroupDetails, param.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeGroupDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -845,7 +845,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VolumeGroupBackup, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeGroupBackupDetails, param.OpcRetryToken);
+            var webResponse = await this.RestClientAsync.Post(uri, param.CreateVolumeGroupBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -870,7 +870,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{updateRequest.BootVolumeId}");
             
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateBootVolumeDetails, updateRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateBootVolumeDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -895,7 +895,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeBackup, this.Region)}/{param.BootVolumeBackupId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateBootVolumeBackupDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateBootVolumeBackupDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -920,7 +920,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolume, this.Region)}/{param.BootVolumeId}/kmsKey");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateBootVolumeKmsKeyDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateBootVolumeKmsKeyDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -945,7 +945,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -970,7 +970,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeBackupDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeBackupDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -999,7 +999,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroup, this.Region)}/{param.VolumeGroupId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeGroupDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeGroupDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1024,7 +1024,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeGroupBackup, this.Region)}/{param.VolumeGroupBackupId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeGroupBackupDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeGroupBackupDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1048,7 +1048,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Volume, this.Region)}/{param.VolumeId}/kmsKey");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeKmsKeyDetails, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateVolumeKmsKeyDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1260,7 +1260,11 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VolumeBackup, this.Region)}/{param.VolumeBackupId}/actions/copy");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CopyVolumeBackupDetails, param.OpcRetryToken);
+            var httpRequestHeaderParam = new HttpRequestHeaderParam() {
+                OpcRequestId = param.OpcRequestId,
+                OpcRetryToken = param.OpcRetryToken
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, param.CopyVolumeBackupDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

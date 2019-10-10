@@ -26,6 +26,7 @@ namespace OCISDK.Core.src.Common
             {
                 return JSON.Deserialize<T>("", Options);
             }
+            
             return JSON.Deserialize<T>(text, Options);
         }
     }

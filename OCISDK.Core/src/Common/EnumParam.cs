@@ -7,31 +7,20 @@ using System.ComponentModel;
 
 namespace OCISDK.Core.src.Common
 {
-    public enum SortOrder
+    /// <summary>
+    /// SortOrder ExpandableEnum
+    /// </summary>
+    public class SortOrder : ExpandableEnum<SortOrder>
     {
-        [DisplayName("ASC")]
-        ASC,
-        [DisplayName("DESC")]
-        DESC
-    }
+        public SortOrder(string value) : base(value) { }
 
-    public enum SortBy
-    {
-        [DisplayName("ID")]
-        ID,
-        [DisplayName("TIMECREATED")]
-        TIMECREATED,
-        [DisplayName("DISPLAYNAME")]
-        DISPLAYNAME
-    }
+        public static implicit operator SortOrder(string value)
+        {
+            return Parse(value);
+        }
 
-    public enum ServerType
-    {
-        [DisplayName("VcnLocal")]
-        VcnLocal,
-        [DisplayName("VcnLocalPlusInternet")]
-        VcnLocalPlusInternet,
-        [DisplayName("CustomDnsServer")]
-        CustomDnsServer
+        public static readonly SortOrder ASC = new SortOrder("ASC");
+
+        public static readonly SortOrder DESC = new SortOrder("DESC");
     }
 }
