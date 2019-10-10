@@ -692,11 +692,11 @@ namespace OCISDK.Core.src.Identity
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public DeleteCompartmentResponse DeleteCompartment(DeleteCompartmentRequest deleteRequest)
+        public DeleteCompartmentResponse DeleteCompartment(DeleteCompartmentRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{deleteRequest.CompartmentId}");
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{request.CompartmentId}");
             
-            var webResponse = this.RestClient.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -721,7 +721,7 @@ namespace OCISDK.Core.src.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{deletePolicyRequest.PolicyId}");
 
-            var webResponse = this.RestClient.Delete(uri, deletePolicyRequest.IfMatch);
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deletePolicyRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

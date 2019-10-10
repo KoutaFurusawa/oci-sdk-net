@@ -26,8 +26,8 @@ namespace OCISDK.Core.src.Common
         Task<WebResponse> Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
 
         Task<WebResponse> Delete(Uri targetUri);
-        Task<WebResponse> Delete(Uri targetUri, object requestBody);
-        Task<WebResponse> Delete(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+        Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam);
+        Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, object requestBody);
 
         Task<WebResponse> Head(Uri targetUri);
         Task<WebResponse> Head(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam);

@@ -283,18 +283,18 @@ namespace OCISDK.Core.src.Common
             return await Delete(targetUri, null);
         }
 
-        public async Task<WebResponse> Delete(Uri targetUri, object requestBody)
+        public async Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
-            return await Delete(targetUri, requestBody, null);
+            return await Delete(targetUri, httpRequestHeaderParam, null);
         }
-
+    
         /// <summary>
         /// Execute a delete on a resource and get the response.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public async Task<WebResponse> Delete(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
+        public async Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, object requestBody)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;
