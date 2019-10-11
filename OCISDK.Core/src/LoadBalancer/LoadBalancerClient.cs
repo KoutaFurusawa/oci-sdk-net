@@ -1216,7 +1216,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1244,7 +1244,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1270,7 +1270,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1296,7 +1296,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1322,7 +1322,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1348,7 +1348,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1376,7 +1376,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -1403,7 +1403,7 @@ namespace OCISDK.Core.src.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, null, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

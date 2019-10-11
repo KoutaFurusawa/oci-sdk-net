@@ -855,7 +855,7 @@ namespace OCISDK.Core.src.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = this.RestClient.Delete(uri, null, httpRequestHeaderParam);
+            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -890,7 +890,7 @@ namespace OCISDK.Core.src.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = this.RestClient.Delete(uri, null, httpRequestHeaderParam);
+            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -925,7 +925,7 @@ namespace OCISDK.Core.src.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = this.RestClient.Delete(uri, null, httpRequestHeaderParam);
+            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -956,7 +956,7 @@ namespace OCISDK.Core.src.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = this.RestClient.Delete(uri, null, httpRequestHeaderParam);
+            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -986,7 +986,7 @@ namespace OCISDK.Core.src.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = this.RestClient.Delete(uri, null, httpRequestHeaderParam);
+            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
