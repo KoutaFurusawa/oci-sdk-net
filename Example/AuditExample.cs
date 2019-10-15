@@ -5,6 +5,7 @@ using OCISDK.Core.src.Audit.Request;
 using System;
 using System.Linq;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Request;
 
 namespace Example
 {
@@ -53,8 +54,14 @@ namespace Example
                     Console.WriteLine($"\t type:{e.EventType}");
                     Console.WriteLine($"\t source:{e.Source}");
                     Console.WriteLine($"\t time:{e.EventTime}");
-                    Console.WriteLine($"\t payload:{e.Data.ResourceName}");
+                    Console.WriteLine($"\t resourceName:{e.Data.ResourceName}");
                     Console.WriteLine($"\t principal:{e.Data.Identity.PrincipalId}");
+
+                    var getUserRequest = new GetUserRequest() {
+                        UserId = e.Data.Identity.PrincipalId
+                    };
+                    var user = identityClinet.GetUser(getUserRequest);
+                    Console.WriteLine($"\t user:{user.User.Name}");
                 });
             }
         }
