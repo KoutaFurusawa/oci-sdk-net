@@ -10,6 +10,8 @@ namespace OCISDK.Core.src.Identity
     {
         public readonly static string Users = "users";
 
+        public readonly static string UserGroupMemberships = "userGroupMemberships";
+
         public readonly static string Region = "regions";
 
         public readonly static string AvailabilityDomain = "availabilityDomains";

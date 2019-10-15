@@ -113,6 +113,23 @@ namespace OCISDK.Core.src.Identity
         Task<ListTagDefaultsResponse> ListTagDefaults(ListTagDefaultsRequest listRequest);
 
         /// <summary>
+        /// Lists the users in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (remember that the tenancy is simply the root compartment). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListUsersResponse> ListUsers(ListUsersRequest request);
+
+        /// <summary>
+        /// Lists the UserGroupMembership objects in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (see Where to Get the Tenancy's OCID and User's OCID). 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListUserGroupMembershipsResponse> ListUserGroupMemberships(ListUserGroupMembershipsRequest request);
+
+        /// <summary>
         /// Gets the specified compartment's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -132,6 +149,20 @@ namespace OCISDK.Core.src.Identity
         /// <param name="getRequest"></param>
         /// <returns></returns>
         Task<GetTagDefaultResponse> GetTagDefault(GetTagDefaultRequest getRequest);
+
+        /// <summary>
+        /// Gets the specified user's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetUserResponse> GetUser(GetUserRequest request);
+
+        /// <summary>
+        /// Gets the specified UserGroupMembership's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetUserGroupMembershipResponse> GetUserGroupMembership(GetUserGroupMembershipRequest request);
 
         /// <summary>
         /// Creates a new compartment in the specified compartment.
@@ -198,6 +229,16 @@ namespace OCISDK.Core.src.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         Task<CreateUserResponse> CreateUser(CreateUserRequest request);
+
+        /// <summary>
+        /// Adds the specified user to the specified group and returns a UserGroupMembership object with its own OCID.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. 
+        /// Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<AddUserToGroupResponse> AddUserToGroup(AddUserToGroupRequest request);
 
         /// <summary>
         /// Creates a new policy in the specified compartment (either the tenancy or another of your compartments). 
@@ -291,6 +332,13 @@ namespace OCISDK.Core.src.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request);
+
+        /// <summary>
+        /// Removes a user from a group by deleting the corresponding UserGroupMembership.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<RemoveUserFromGroupResponse> RemoveUserFromGroup(RemoveUserFromGroupRequest request);
 
         /// <summary>
         /// Deletes the specified policy.

@@ -137,7 +137,7 @@ namespace OCISDK.Core.src.Identity
         public GetTenancyResponse GetTenancy(GetTenancyRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Tenancy, this.Region)}/{getRequest.TenancyId}");
-            
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -162,7 +162,7 @@ namespace OCISDK.Core.src.Identity
         public GetTagNamespaceResponse GetTagNamespace(GetTagNamespaceRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{getRequest.TagNamespaceId}");
-            
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -211,8 +211,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public ListCompartmentResponse ListCompartment(ListCompartmentRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.Compartment, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -241,8 +249,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public ListAvailabilityDomainsResponse ListAvailabilityDomains(ListAvailabilityDomainsRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -266,8 +282,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public ListTagNamespacesResponse ListTagNamespaces(ListTagNamespacesRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -292,10 +316,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public ListCostTrackingTagsResponse ListCostTrackingTags(ListCostTrackingTagsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags?" +
-                $"{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -318,10 +348,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public ListTagsResponse ListTags(ListTagsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags?" +
-                $"{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -345,8 +381,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public ListTagDefaultsResponse ListTagDefaults(ListTagDefaultsRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagDefault, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -364,6 +408,73 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Lists the users in your tenancy. You must specify your tenancy's OCID as the value for the compartment ID (remember that the tenancy is simply the root compartment). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListUsersResponse ListUsers(ListUsersRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.Users, this.Region)}";
+            var querys = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys)) {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUsersResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<UserDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the UserGroupMembership objects in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (see Where to Get the Tenancy's OCID and User's OCID). 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListUserGroupMembershipsResponse ListUserGroupMemberships(ListUserGroupMembershipsRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}";
+            var querys = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUserGroupMembershipsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<UserGroupMembership>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified compartment's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -371,7 +482,7 @@ namespace OCISDK.Core.src.Identity
         public GetCompartmentResponse GetCompartment(GetCompartmentRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{getRequest.CompartmentId}");
-            
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -398,7 +509,7 @@ namespace OCISDK.Core.src.Identity
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/" +
                 $"{getRequest.TagNamespaceId}/tags/{getRequest.TagName}");
-            
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -421,9 +532,8 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public GetTagDefaultResponse GetTagDefault(GetTagDefaultRequest getRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/{getRequest.TagDefaultId}");
-            
+            var uri = new Uri($"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/{getRequest.TagDefaultId}");
+
             var webResponse = this.RestClient.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -441,6 +551,56 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Gets the specified user's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetUserResponse GetUser(GetUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified UserGroupMembership's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetUserGroupMembershipResponse GetUserGroupMembership(GetUserGroupMembershipRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUserGroupMembershipResponse()
+                {
+                    UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new compartment in the specified compartment.
         /// </summary>
         /// <param name="request"></param>
@@ -448,7 +608,7 @@ namespace OCISDK.Core.src.Identity
         public CreateCompartmentResponse CreateCompartment(CreateCompartmentRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(IdentityServices.Compartment, this.Region));
-            
+
             var webResponse = this.RestClient.Post(uri, createRequest.CreateCompartmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
@@ -474,7 +634,7 @@ namespace OCISDK.Core.src.Identity
         public CreateTagNamespaceResponse CreateTagNamespace(CreateTagNamespaceRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(IdentityServices.TagNamespaces, this.Region));
-            
+
             var webResponse = this.RestClient.Post(uri, createRequest.CreateTagNamespaceDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
@@ -506,7 +666,7 @@ namespace OCISDK.Core.src.Identity
         public CreateTagResponse CreateTag(CreateTagRequest createRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{createRequest.TagNamespaceId}/tags");
-            
+
             var webResponse = this.RestClient.Post(uri, createRequest.CreateTagDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
@@ -595,6 +755,34 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Adds the specified user to the specified group and returns a UserGroupMembership object with its own OCID.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. 
+        /// Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public AddUserToGroupResponse AddUserToGroup(AddUserToGroupRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}");
+
+            var webResponse = this.RestClient.Post(uri, request.AddUserToGroupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new AddUserToGroupResponse()
+                {
+                    UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new policy in the specified compartment (either the tenancy or another of your compartments). 
         /// If you're new to policies, see Getting Started with Policies.
         /// You must specify a name for the policy, which must be unique across all policies in your tenancy and cannot be changed.
@@ -634,7 +822,7 @@ namespace OCISDK.Core.src.Identity
         public ChangeTagNamespaceCompartmentResponse ChangeTagNamespaceCompartment(ChangeTagNamespaceCompartmentRequest request)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/actions/changeCompartment");
-            
+
             var webResponse = this.RestClient.Post(uri, request.ChangeTagNamespaceCompartmentDetail, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
             using (var stream = webResponse.GetResponseStream())
@@ -657,7 +845,7 @@ namespace OCISDK.Core.src.Identity
         public UpdateCompartmentResponse UpdateCompartment(UpdateCompartmentRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{updateRequest.CompartmentId}");
-            
+
             var webResponse = this.RestClient.Put(uri, updateRequest.UpdateCompartmentDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
@@ -690,7 +878,7 @@ namespace OCISDK.Core.src.Identity
         public UpdateTagNamespaceResponse UpdateTagNamespace(UpdateTagNamespaceRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{updateRequest.TagNamespaceId}");
-            
+
             var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagNamespaceDetails);
 
             using (var stream = webResponse.GetResponseStream())
@@ -716,7 +904,7 @@ namespace OCISDK.Core.src.Identity
             var uri = new Uri(
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{updateRequest.TagNamespaceId}/tags/" +
                 $"{updateRequest.TagName}");
-            
+
             var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagDetails);
 
             using (var stream = webResponse.GetResponseStream())
@@ -842,7 +1030,7 @@ namespace OCISDK.Core.src.Identity
         public DeleteCompartmentResponse DeleteCompartment(DeleteCompartmentRequest request)
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{request.CompartmentId}");
-            
+
             var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
@@ -875,6 +1063,29 @@ namespace OCISDK.Core.src.Identity
                 var response = reader.ReadToEnd();
 
                 return new DeleteUserResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes a user from a group by deleting the corresponding UserGroupMembership.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public RemoveUserFromGroupResponse RemoveUserFromGroup(RemoveUserFromGroupRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
+
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new RemoveUserFromGroupResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

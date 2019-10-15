@@ -212,8 +212,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListCompartmentResponse> ListCompartment(ListCompartmentRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.Compartment, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -242,8 +250,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListAvailabilityDomainsResponse> ListAvailabilityDomains(ListAvailabilityDomainsRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -267,8 +283,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListTagNamespacesResponse> ListTagNamespaces(ListTagNamespacesRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -293,10 +317,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListCostTrackingTagsResponse> ListCostTrackingTags(ListCostTrackingTagsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags?" +
-                $"{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -319,10 +349,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListTagsResponse> ListTags(ListTagsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags?" +
-                $"{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -346,8 +382,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListTagDefaultsResponse> ListTagDefaults(ListTagDefaultsRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagDefault, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -358,6 +402,75 @@ namespace OCISDK.Core.src.Identity
                 return new ListTagDefaultsResponse()
                 {
                     Items = JsonSerializer.Deserialize<List<TagDefaultSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the users in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (remember that the tenancy is simply the root compartment). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListUsersResponse> ListUsers(ListUsersRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.Users, this.Region)}";
+            var querys = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUsersResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<UserDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the UserGroupMembership objects in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (see Where to Get the Tenancy's OCID and User's OCID). 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListUserGroupMembershipsResponse> ListUserGroupMemberships(ListUserGroupMembershipsRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}";
+            var querys = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUserGroupMembershipsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<UserGroupMembership>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -435,6 +548,56 @@ namespace OCISDK.Core.src.Identity
                 return new GetTagDefaultResponse()
                 {
                     TagDefault = JsonSerializer.Deserialize<TagDefault>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified user's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetUserResponse> GetUser(GetUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified UserGroupMembership's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetUserGroupMembershipResponse> GetUserGroupMembership(GetUserGroupMembershipRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUserGroupMembershipResponse()
+                {
+                    UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -589,6 +752,34 @@ namespace OCISDK.Core.src.Identity
                 return new CreateUserResponse()
                 {
                     User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Adds the specified user to the specified group and returns a UserGroupMembership object with its own OCID.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. 
+        /// Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<AddUserToGroupResponse> AddUserToGroup(AddUserToGroupRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.AddUserToGroupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new AddUserToGroupResponse()
+                {
+                    UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -876,6 +1067,29 @@ namespace OCISDK.Core.src.Identity
                 var response = reader.ReadToEnd();
 
                 return new DeleteUserResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes a user from a group by deleting the corresponding UserGroupMembership.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<RemoveUserFromGroupResponse> RemoveUserFromGroup(RemoveUserFromGroupRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new RemoveUserFromGroupResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
