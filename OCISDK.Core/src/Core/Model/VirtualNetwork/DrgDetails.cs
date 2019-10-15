@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
-    public class Drg
+    public class DrgDetails
     {
         /// <summary>
         /// The OCID of the compartment containing the DRG.
@@ -48,11 +48,11 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        public IDictionary<string, string> FreeformTags { get; set; }
+        public Dictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
         /// </summary>
-        public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
+        public Dictionary<string, Dictionary<string, string>> DefinedTags { get; set; }
     }
 }

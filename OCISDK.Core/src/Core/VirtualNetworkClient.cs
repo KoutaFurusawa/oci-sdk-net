@@ -165,6 +165,56 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Lists the DrgAttachment objects for the specified compartment. You can filter the results by VCN or DRG.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListDrgAttachmentsResponse ListDrgAttachments(ListDrgAttachmentsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListDrgAttachmentsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<DrgAttachment>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the DRGs in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListDrgsResponse ListDrgs(ListDrgsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListDrgsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<DrgDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Lists the virtual cloud networks (VCNs) in the specified compartment.
         /// </summary>
         /// <param name="listRequest"></param>
@@ -384,6 +434,56 @@ namespace OCISDK.Core
                 return new GetSubnetResponse()
                 {
                     Subnet = JsonSerializer.Deserialize<Subnet>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the information for the specified DrgAttachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetDrgAttachmentResponse GetDrgAttachment(GetDrgAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetDrgAttachmentResponse()
+                {
+                    DrgAttachment = JsonSerializer.Deserialize<DrgAttachment>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified DRG's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetDrgResponse GetDrg(GetDrgRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetDrgResponse()
+                {
+                    Drg = JsonSerializer.Deserialize<DrgDetails>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -669,6 +769,72 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Attaches the specified DRG to the specified VCN. A VCN can be attached to only one DRG at a time, and vice versa. 
+        /// The response includes a DrgAttachment object with its own OCID. For more information about DRGs, see Dynamic Routing Gateways (DRGs).
+        /// 
+        /// You may optionally specify a display name for the attachment, otherwise a default is provided. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// 
+        /// For the purposes of access control, the DRG attachment is automatically placed into the same compartment as the VCN. 
+        /// For more information about compartments and access control, see Overview of the IAM Service.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateDrgAttachmentResponse CreateDrgAttachment(CreateDrgAttachmentRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.DRGAttachment, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, request.CreateDrgAttachmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateDrgAttachmentResponse()
+                {
+                    DrgAttachment = JsonSerializer.Deserialize<DrgAttachment>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new dynamic routing gateway (DRG) in the specified compartment. For more information, see Dynamic Routing Gateways (DRGs).
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the DRG to reside. 
+        /// Notice that the DRG doesn't have to be in the same compartment as the VCN, the DRG attachment, or other Networking Service components. 
+        /// If you're not sure which compartment to use, put the DRG in the same compartment as the VCN. 
+        /// For more information about compartments and access control, see Overview of the IAM Service. 
+        /// For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You may optionally specify a display name for the DRG, otherwise a default is provided. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateDrgResponse CreateDrg(CreateDrgRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.DRG, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, request.CreateDrgDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateDrgResponse()
+                {
+                    Drg = JsonSerializer.Deserialize<DrgDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -848,6 +1014,56 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Updates the display name for the specified DrgAttachment. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateDrgAttachmentResponse UpdateDrgAttachment(UpdateDrgAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateDrgAttachmentDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateDrgAttachmentResponse()
+                {
+                    DrgAttachment = JsonSerializer.Deserialize<DrgAttachment>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified DRG's display name or tags. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateDrgResponse UpdateDrg(UpdateDrgRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateDrgDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateDrgResponse()
+                {
+                    Drg = JsonSerializer.Deserialize<DrgDetails>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+        
+        /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
@@ -988,6 +1204,55 @@ namespace OCISDK.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteRouteTableResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Detaches a DRG from a VCN by deleting the corresponding DrgAttachment. This is an asynchronous operation. 
+        /// The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteDrgAttachmentResponse DeleteDrgAttachment(DeleteDrgAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
+
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteDrgAttachmentResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified DRG. The DRG must not be attached to a VCN or be connected to your on-premise network. 
+        /// Also, there must not be a route table that lists the DRG as a target. This is an asynchronous operation. 
+        /// The DRG's lifecycleState will change to TERMINATING temporarily until the DRG is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteDrgResponse DeleteDrg(DeleteDrgRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
+
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteDrgResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
