@@ -399,7 +399,7 @@ namespace OCISDK.Core.src.ObjectStorage
         {
             var uri = new Uri(GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region));
 
-            var webResponse = await this.RestClientAsync.Delete(uri, request.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

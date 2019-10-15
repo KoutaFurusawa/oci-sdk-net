@@ -3,6 +3,8 @@ using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Model.VirtualNetwork;
 using OCISDK.Core.src.Core.Request.VirtualNetwork;
+using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Request;
 using System;
 
 namespace Example
@@ -13,7 +15,7 @@ namespace Example
         {
             Console.WriteLine();
             Console.WriteLine("VertualNetwork Example Menu");
-            Console.WriteLine("[1]: Deisplay List");
+            Console.WriteLine("[1]: Display List");
             Console.WriteLine("[2]: Create new VCN");
             Console.WriteLine("[ESC] or [E(e)] : Back Example Menu");
             Console.WriteLine();
@@ -178,6 +180,36 @@ namespace Example
                     Console.WriteLine(" |\t|\t" + ig.Id);
                 });
             });
+            
+            Console.WriteLine("* List DRG------------------------");
+
+            var identityClient = new IdentityClient(config)
+            {
+                Region = Regions.US_ASHBURN_1
+            };
+
+            var listCompartmentRequest = new ListCompartmentRequest()
+            {
+                CompartmentId = config.TenancyId,
+                CompartmentIdInSubtree = true,
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
+            };
+            var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
+
+            foreach (var com in compartments)
+            {
+                var listDrgsRequest = new ListDrgsRequest() {
+                    CompartmentId = com.Id
+                };
+                var drgs = client.ListDrgs(listDrgsRequest).Items;
+                foreach (var drg in drgs)
+                {
+                    Console.WriteLine($" |-name: {drg.DisplayName}");
+                    Console.WriteLine($" | state: {drg.LifecycleState}");
+                    Console.WriteLine($" | timeCreate: {drg.TimeCreated}");
+                    Console.WriteLine($" | compartment: {com.Name}");
+                }
+            }
         }
         
         private static void CreateVirtualNetwork(ClientConfig config)

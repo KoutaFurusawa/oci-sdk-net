@@ -15,8 +15,9 @@ namespace OCISDK.Core.src.Audit.Model
     {
         /// <summary>
         /// The retention period setting, specified in days. The minimum is 90, the maximum 365.
+        /// <para>Required: no</para>
         /// </summary>
         /// <example>90</example>
-        public int RetentionPeriodDays { get; set; }
+        public int? RetentionPeriodDays { get; set; }
     }
 }

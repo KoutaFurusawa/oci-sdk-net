@@ -4,6 +4,8 @@ using OCISDK.Core.src.Audit;
 using OCISDK.Core.src.Audit.Request;
 using System;
 using System.Linq;
+using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Request;
 
 namespace Example
 {
@@ -13,6 +15,10 @@ namespace Example
         {
             // create client
             AuditClient client = new AuditClient(config)
+            {
+                Region = Regions.US_ASHBURN_1
+            };
+            IdentityClient identityClinet = new IdentityClient(config)
             {
                 Region = Regions.US_ASHBURN_1
             };
@@ -43,16 +49,20 @@ namespace Example
                 Console.WriteLine("* Audit Events-------------------");
 
                 events.Items.ForEach(e => {
-                    Console.WriteLine($"* eventName:{e.EventName}");
+                    Console.WriteLine($"* eventName:{e.Data.EventName}");
                     Console.WriteLine($"\t id:{e.EventId}");
                     Console.WriteLine($"\t type:{e.EventType}");
-                    Console.WriteLine($"\t source:{e.EventSource}");
+                    Console.WriteLine($"\t source:{e.Source}");
                     Console.WriteLine($"\t time:{e.EventTime}");
-                    Console.WriteLine($"\t user:{e.UserName}");
-                    Console.WriteLine($"\t principal:{e.PrincipalId}");
-                    Console.WriteLine($"\t payload:{e.ResponsePayload}");
-                });
+                    Console.WriteLine($"\t resourceName:{e.Data.ResourceName}");
+                    Console.WriteLine($"\t principal:{e.Data.Identity.PrincipalId}");
 
+                    var getUserRequest = new GetUserRequest() {
+                        UserId = e.Data.Identity.PrincipalId
+                    };
+                    var user = identityClinet.GetUser(getUserRequest);
+                    Console.WriteLine($"\t user:{user.User.Name}");
+                });
             }
         }
     }

@@ -287,17 +287,18 @@ namespace OCISDK.Core.src.Common
             return Delete(targetUri, null);
         }
 
-        public HttpWebResponse Delete(Uri targetUri, object requestBody) {
-            return Delete(targetUri, requestBody, null);
+        public HttpWebResponse Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
+        {
+            return Delete(targetUri, httpRequestHeaderParam, null);
         }
-
+        
         /// <summary>
         /// Execute a delete on a resource and get the response.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="ifMatch"></param>
         /// <returns></returns>
-        public HttpWebResponse Delete(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
+        public HttpWebResponse Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, object requestBody)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Delete.Method;

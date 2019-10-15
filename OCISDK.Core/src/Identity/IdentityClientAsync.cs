@@ -212,8 +212,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListCompartmentResponse> ListCompartment(ListCompartmentRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.Compartment, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -242,8 +250,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListAvailabilityDomainsResponse> ListAvailabilityDomains(ListAvailabilityDomainsRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.AvailabilityDomain, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -267,8 +283,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListTagNamespacesResponse> ListTagNamespaces(ListTagNamespacesRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -293,10 +317,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListCostTrackingTagsResponse> ListCostTrackingTags(ListCostTrackingTagsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags?" +
-                $"{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/actions/listCostTrackingTags";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -319,10 +349,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListTagsResponse> ListTags(ListTagsRequest listRequest)
         {
-            var uri = new Uri(
-                $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags?" +
-                $"{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{listRequest.TagNamespaceId}/tags";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -346,8 +382,16 @@ namespace OCISDK.Core.src.Identity
         /// <returns></returns>
         public async Task<ListTagDefaultsResponse> ListTagDefaults(ListTagDefaultsRequest listRequest)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/?{listRequest.GetOptionQuery()}");
-            
+            var uriStr = $"{GetEndPoint(IdentityServices.TagDefault, this.Region)}";
+            var querys = listRequest.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
             var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
@@ -358,6 +402,75 @@ namespace OCISDK.Core.src.Identity
                 return new ListTagDefaultsResponse()
                 {
                     Items = JsonSerializer.Deserialize<List<TagDefaultSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the users in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (remember that the tenancy is simply the root compartment). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListUsersResponse> ListUsers(ListUsersRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.Users, this.Region)}";
+            var querys = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUsersResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<UserDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the UserGroupMembership objects in your tenancy. 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (see Where to Get the Tenancy's OCID and User's OCID). 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListUserGroupMembershipsResponse> ListUserGroupMemberships(ListUserGroupMembershipsRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}";
+            var querys = request.GetOptionQuery();
+
+            if (!string.IsNullOrEmpty(querys))
+            {
+                uriStr = $"{uriStr}?{querys}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUserGroupMembershipsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<UserGroupMembership>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-next-page")
                 };
@@ -442,6 +555,56 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Gets the specified user's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetUserResponse> GetUser(GetUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified UserGroupMembership's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetUserGroupMembershipResponse> GetUserGroupMembership(GetUserGroupMembershipRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUserGroupMembershipResponse()
+                {
+                    UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new compartment in the specified compartment.
         /// </summary>
         /// <param name="request"></param>
@@ -519,6 +682,106 @@ namespace OCISDK.Core.src.Identity
                 {
                     Tag = JsonSerializer.Deserialize<Tag>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new Console one-time password for the specified user. For more information about user credentials, see User Credentials.
+        /// 
+        /// Use this operation after creating a new user, or if a user forgets their password. 
+        /// The new one-time password is returned to you in the response, and you must securely deliver it to the user. 
+        /// They'll be prompted to change this password the next time they sign in to the Console. 
+        /// If they don't change it within 7 days, the password will expire and you'll need to create a new one-time password for the user.
+        /// 
+        /// Note: The user's Console login is the unique name you specified when you created the user (see CreateUser).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateOrResetUIPasswordResponse> CreateOrResetUIPassword(CreateOrResetUIPasswordRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/uiPassword");
+
+            var webResponse = await this.RestClientAsync.Post(uri, null, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateOrResetUIPasswordResponse()
+                {
+                    UIPassword = JsonSerializer.Deserialize<UIPasswordDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new user in your tenancy. For conceptual information about users, your tenancy, and other IAM Service components, see Overview of the IAM Service.
+        /// 
+        /// You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy is simply the root compartment). 
+        /// Notice that IAM resources (users, groups, compartments, and some policies) reside within the tenancy itself, unlike cloud resources such as compute instances, 
+        /// which typically reside within compartments inside the tenancy. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must also specify a name for the user, which must be unique across all users in your tenancy and cannot be changed. 
+        /// Allowed characters: No spaces. Only letters, numerals, hyphens, periods, underscores, +, and @. If you specify a name that's already in use, you'll get a 409 error. 
+        /// This name will be the user's login to the Console. You might want to pick a name that your company's own identity system (e.g., Active Directory, LDAP, etc.) already uses. 
+        /// If you delete a user and then create a new user with the same name, they'll be considered different users because they have different OCIDs.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// 
+        /// A new user has no permissions until you place the user in one or more groups (see AddUserToGroup). 
+        /// If the user needs to access the Console, you need to provide the user a password (see CreateOrResetUIPassword). 
+        /// If the user needs to access the Oracle Cloud Infrastructure REST API, you need to upload a public API signing key for that user (see Required Keys and OCIDs and also UploadApiKey).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateUserDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Adds the specified user to the specified group and returns a UserGroupMembership object with its own OCID.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. 
+        /// Before using the object, first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<AddUserToGroupResponse> AddUserToGroup(AddUserToGroupRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.AddUserToGroupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new AddUserToGroupResponse()
+                {
+                    UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
                 };
             }
         }
@@ -662,6 +925,81 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Updates the description of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateUserDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateUserResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the capabilities of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateUserCapabilitiesResponse> UpdateUserCapabilities(UpdateUserCapabilitiesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/capabilities/");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateUserCapabilitiesDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateUserCapabilitiesResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the state of the specified user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateUserStateResponse> UpdateUserState(UpdateUserStateRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/state/");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateStateDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateUserStateResponse()
+                {
+                    User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified policy. You can update the description or the policy statements themselves.
         /// Policy changes take effect typically within 10 seconds.
         /// </summary>
@@ -693,11 +1031,11 @@ namespace OCISDK.Core.src.Identity
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteCompartmentResponse> DeleteCompartment(DeleteCompartmentRequest deleteRequest)
+        public async Task<DeleteCompartmentResponse> DeleteCompartment(DeleteCompartmentRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{deleteRequest.CompartmentId}");
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{request.CompartmentId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -713,16 +1051,62 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Deletes the specified user. The user must not be in any groups.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteUserResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes a user from a group by deleting the corresponding UserGroupMembership.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<RemoveUserFromGroupResponse> RemoveUserFromGroup(RemoveUserFromGroupRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new RemoveUserFromGroupResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified policy.
         /// The deletion takes effect typically within 10 seconds.
         /// </summary>
-        /// <param name="deletePolicyRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeletePolicyResponse> DeletePolicy(DeletePolicyRequest deletePolicyRequest)
+        public async Task<DeletePolicyResponse> DeletePolicy(DeletePolicyRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{deletePolicyRequest.PolicyId}");
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{request.PolicyId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, deletePolicyRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

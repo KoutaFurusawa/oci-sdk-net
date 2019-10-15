@@ -623,7 +623,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{deleteRequest.InstanceId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.PreserveBootVolume, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch });
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch }, deleteRequest.PreserveBootVolume);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -642,13 +642,13 @@ namespace OCISDK.Core.src.Core
         ///This is an asynchronous operation.The attachment's lifecycleState will change to DETACHING 
         ///temporarily until the attachment is completely removed.
         /// </summary>
-        /// <param name="detachBootVolumeRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DetachBootVolumeResponse> DetachBootVolume(DetachBootVolumeRequest detachBootVolumeRequest)
+        public async Task<DetachBootVolumeResponse> DetachBootVolume(DetachBootVolumeRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{detachBootVolumeRequest.BootVolumeAttachmentId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{request.BootVolumeAttachmentId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, detachBootVolumeRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -671,7 +671,7 @@ namespace OCISDK.Core.src.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, param.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

@@ -34,7 +34,7 @@
       "hosttag": "iaas"
     },
     "audit": {
-      "version": "20160918",
+      "version": "20190901",
       "hosttag": "audit"
     },
     "object_storage": {

@@ -15,118 +15,61 @@ namespace OCISDK.Core.src.Audit.Model
     public class AuditEvent
     {
         /// <summary>
-        /// The OCID of the tenant.
-        /// </summary>
-        public string TenantId { get; set; }
-
-        /// <summary>
-        /// The OCID of the compartment.
-        /// </summary>
-        public string CompartmentId { get; set; }
-
-        /// <summary>
-        /// The name of the compartment. This value is the friendly name associated with compartmentId. 
-        /// This value can change, but the service logs the value that appeared at the time of the audit event.
-        /// </summary>
-        public string CompartmentName { get; set; }
-
-        /// <summary>
-        /// The GUID of the event.
-        /// Example: examplea9-f488-4842-96cb-a10f2893b369
-        /// </summary>
-        public string EventId { get; set; }
-
-        /// <summary>
-        /// The name of the event.
-        /// </summary>
-        public string EventName { get; set; }
-
-        /// <summary>
-        /// The source of the event.
-        /// </summary>
-        public string EventSource { get; set; }
-
-        /// <summary>
-        /// The type of event.
+        /// The type of event that happened.
+        /// 
+        /// The service that produces the event can also add, remove, or change the meaning of a field. 
+        /// A service implementing these type changes would publish a new version of an eventType and revise the eventTypeVersion field.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 1024</para>
         /// </summary>
         public string EventType { get; set; }
 
         /// <summary>
+        /// The version of the CloudEvents specification. 
+        /// The structure of the envelope follows the CloudEvents industry standard format hosted by the Cloud Native Computing Foundation ( CNCF).
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
+        /// </summary>
+        public string CloudEventsVersion { get; set; }
+
+        /// <summary>
+        /// The version of the event type. This version applies to the payload of the event, not the envelope. 
+        /// Use cloudEventsVersion to determine the version of the envelope.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
+        /// </summary>
+        public string EventTypeVersion { get; set; }
+
+        /// <summary>
+        /// The source of the event.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 1024</para>
+        /// </summary>
+        public string Source { get; set; }
+
+        /// <summary>
+        /// The GUID of the event.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
+        /// </summary>
+        public string EventId { get; set; }
+
+        /// <summary>
         /// The time the event occurred, expressed in RFC 3339 timestamp format.
+        /// <para>Required: yes</para>
         /// </summary>
         public string EventTime { get; set; }
 
         /// <summary>
-        /// The OCID of the user whose action triggered the event.
+        /// The content type of the data contained in data.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
         /// </summary>
-        public string PrincipalId { get; set; }
+        public string ContentType { get; set; }
 
         /// <summary>
-        /// The credential ID of the user. This value is extracted from the HTTP 'Authorization' request header. 
-        /// It consists of the tenantId, userId, and user fingerprint, all delimited by a slash (/).
+        /// <para>Required: yes</para>
         /// </summary>
-        public string CredentialId { get; set; }
-
-        /// <summary>
-        /// The HTTP method of the request.
-        /// </summary>
-        public string RequestAction { get; set; }
-
-        /// <summary>
-        /// The opc-request-id of the request.
-        /// </summary>
-        public string RequestId { get; set; }
-
-        /// <summary>
-        /// The user agent of the client that made the request.
-        /// </summary>
-        public string RequestAgent { get; set; }
-
-        /// <summary>
-        /// The HTTP header fields and values in the request.
-        /// </summary>
-        public object RequestHeaders { get; set; }
-
-        /// <summary>
-        /// The IP address of the source of the request.
-        /// </summary>
-        public string RequestOrigin { get; set; }
-
-        /// <summary>
-        /// The query parameter fields and values for the request.
-        /// </summary>
-        public object RequestParameters { get; set; }
-
-        /// <summary>
-        /// The resource targeted by the request.
-        /// </summary>
-        public string RequestResource { get; set; }
-
-        /// <summary>
-        /// The headers of the response.
-        /// </summary>
-        public object ResponseHeaders { get; set; }
-
-        /// <summary>
-        /// The status code of the response.
-        /// </summary>
-        public string ResponseStatus { get; set; }
-
-        /// <summary>
-        /// The time of the response to the audited request, expressed in RFC 3339 timestamp format.
-        /// </summary>
-        public string ResponseTime { get; set; }
-
-        /// <summary>
-        /// Metadata of interest from the response payload. For example, the OCID of a resource (id) and 
-        /// the name of the resource (resourceName). Some API operations can generate an audit event, 
-        /// but don't involve a resource, so then responsePayload is empty.
-        /// </summary>
-        public object ResponsePayload { get; set; }
-
-        /// <summary>
-        /// The name of the user or service. This value is the friendly name associated with principalId.
-        /// </summary>
-        public string UserName { get; set; }
+        public DataDetails Data { get; set; }
     }
 }

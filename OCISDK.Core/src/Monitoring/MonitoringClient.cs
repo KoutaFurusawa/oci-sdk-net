@@ -359,7 +359,7 @@ namespace OCISDK.Core.src.Monitoring
                 IfMatch = param.IfMatch,
                 OpcRequestId = param.OpcRequestId
             };
-            var webResponse = this.RestClient.Delete(uri, null, httpRequestHeaderParam);
+            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

@@ -215,6 +215,56 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Lists the DrgAttachment objects for the specified compartment. You can filter the results by VCN or DRG.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListDrgAttachmentsResponse> ListDrgAttachments(ListDrgAttachmentsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListDrgAttachmentsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<DrgAttachment>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the DRGs in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListDrgsResponse> ListDrgs(ListDrgsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListDrgsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<DrgDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -384,6 +434,56 @@ namespace OCISDK.Core
                 return new GetSubnetResponse()
                 {
                     Subnet = JsonSerializer.Deserialize<Subnet>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the information for the specified DrgAttachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetDrgAttachmentResponse> GetDrgAttachment(GetDrgAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetDrgAttachmentResponse()
+                {
+                    DrgAttachment = JsonSerializer.Deserialize<DrgAttachment>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified DRG's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetDrgResponse> GetDrg(GetDrgRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetDrgResponse()
+                {
+                    Drg = JsonSerializer.Deserialize<DrgDetails>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -669,6 +769,72 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Attaches the specified DRG to the specified VCN. A VCN can be attached to only one DRG at a time, and vice versa. 
+        /// The response includes a DrgAttachment object with its own OCID. For more information about DRGs, see Dynamic Routing Gateways (DRGs).
+        /// 
+        /// You may optionally specify a display name for the attachment, otherwise a default is provided. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// 
+        /// For the purposes of access control, the DRG attachment is automatically placed into the same compartment as the VCN. 
+        /// For more information about compartments and access control, see Overview of the IAM Service.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateDrgAttachmentResponse> CreateDrgAttachment(CreateDrgAttachmentRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.DRGAttachment, this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateDrgAttachmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateDrgAttachmentResponse()
+                {
+                    DrgAttachment = JsonSerializer.Deserialize<DrgAttachment>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new dynamic routing gateway (DRG) in the specified compartment. For more information, see Dynamic Routing Gateways (DRGs).
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the DRG to reside. 
+        /// Notice that the DRG doesn't have to be in the same compartment as the VCN, the DRG attachment, or other Networking Service components. 
+        /// If you're not sure which compartment to use, put the DRG in the same compartment as the VCN. 
+        /// For more information about compartments and access control, see Overview of the IAM Service. 
+        /// For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You may optionally specify a display name for the DRG, otherwise a default is provided. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateDrgResponse> CreateDrg(CreateDrgRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.DRG, this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateDrgDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateDrgResponse()
+                {
+                    Drg = JsonSerializer.Deserialize<DrgDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -848,17 +1014,67 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Updates the display name for the specified DrgAttachment. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateDrgAttachmentResponse> UpdateDrgAttachment(UpdateDrgAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDrgAttachmentDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateDrgAttachmentResponse()
+                {
+                    DrgAttachment = JsonSerializer.Deserialize<DrgAttachment>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified DRG's display name or tags. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateDrgResponse> UpdateDrg(UpdateDrgRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDrgDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateDrgResponse()
+                {
+                    Drg = JsonSerializer.Deserialize<DrgDetails>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteVcnResponse> DeleteVcn(DeleteVcnRequest deleteRequest)
+        public async Task<DeleteVcnResponse> DeleteVcn(DeleteVcnRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{deleteRequest.VcnId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{request.VcnId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -876,13 +1092,13 @@ namespace OCISDK.Core
         /// Deletes the specified internet gateway.
         /// The internet gateway does not have to be disabled, but there must not be a route table that lists it as a target.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteInternetGatewayResponse> DeleteInternetGateway(DeleteInternetGatewayRequest deleteRequest)
+        public async Task<DeleteInternetGatewayResponse> DeleteInternetGateway(DeleteInternetGatewayRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{deleteRequest.IgId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{request.IgId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -900,13 +1116,13 @@ namespace OCISDK.Core
         /// Deletes the specified set of DHCP options, but only if it's not associated with a subnet.
         /// You can't delete a VCN's default set of DHCP options.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteDhcpOptionsResponse> DeleteDhcpOptions(DeleteDhcpOptionsRequest deleteRequest)
+        public async Task<DeleteDhcpOptionsResponse> DeleteDhcpOptions(DeleteDhcpOptionsRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{deleteRequest.DhcpId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{request.DhcpId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -924,13 +1140,13 @@ namespace OCISDK.Core
         /// Deletes the specified security list, but only if it's not associated with a subnet.
         /// You can't delete a VCN's default security list.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteSecurityListResponse> DeleteSecurityList(DeleteSecurityListRequest deleteRequest)
+        public async Task<DeleteSecurityListResponse> DeleteSecurityList(DeleteSecurityListRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{deleteRequest.SecurityListId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{request.SecurityListId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -950,13 +1166,13 @@ namespace OCISDK.Core
         /// temporarily. If there are any instances in the subnet, the state will instead change back 
         /// to AVAILABLE.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest deleteRequest)
+        public async Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{deleteRequest.SubnetId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{request.SubnetId}");
             
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -974,13 +1190,13 @@ namespace OCISDK.Core
         /// Deletes the specified route table, but only if it's not associated with a subnet. You can't delete a VCN's default route table.
         /// This is an asynchronous operation. The route table's lifecycleState will change to TERMINATING temporarily until the route table is completely removed.
         /// </summary>
-        /// <param name="deleteRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest deleteRequest)
+        public async Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{deleteRequest.RtId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{request.RtId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, deleteRequest.IfMatch);
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -988,6 +1204,30 @@ namespace OCISDK.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteRouteTableResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Detaches a DRG from a VCN by deleting the corresponding DrgAttachment. This is an asynchronous operation. 
+        /// The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteDrgAttachmentResponse> DeleteDrgAttachment(DeleteDrgAttachmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteDrgAttachmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

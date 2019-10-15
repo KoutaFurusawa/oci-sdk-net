@@ -66,6 +66,20 @@ namespace OCISDK.Core.src.Core
         Task<ListSecurityListsResponse> ListSecurityLists(ListSecurityListsRequest listRequest);
 
         /// <summary>
+        /// Lists the DrgAttachment objects for the specified compartment. You can filter the results by VCN or DRG.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListDrgAttachmentsResponse> ListDrgAttachments(ListDrgAttachmentsRequest request);
+        
+        /// <summary>
+        /// Lists the DRGs in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListDrgsResponse> ListDrgs(ListDrgsRequest request);
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -114,6 +128,19 @@ namespace OCISDK.Core.src.Core
         /// <param name="getRequest"></param>
         /// <returns></returns>
         Task<GetSubnetResponse> GetSubnet(GetSubnetRequest getRequest);
+
+        /// <summary>
+        /// Gets the information for the specified DrgAttachment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetDrgAttachmentResponse> GetDrgAttachment(GetDrgAttachmentRequest request);
+        /// <summary>
+        /// Gets the specified DRG's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetDrgResponse> GetDrg(GetDrgRequest request);
 
         /// <summary>
         /// Moves a VCN into a different compartment within the same tenancy. 
@@ -197,6 +224,36 @@ namespace OCISDK.Core.src.Core
         Task<CreateRouteTableResponse> CreateRouteTable(CreateRouteTableRequest createRequest);
 
         /// <summary>
+        /// Attaches the specified DRG to the specified VCN. A VCN can be attached to only one DRG at a time, and vice versa. 
+        /// The response includes a DrgAttachment object with its own OCID. For more information about DRGs, see Dynamic Routing Gateways (DRGs).
+        /// 
+        /// You may optionally specify a display name for the attachment, otherwise a default is provided. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// 
+        /// For the purposes of access control, the DRG attachment is automatically placed into the same compartment as the VCN. 
+        /// For more information about compartments and access control, see Overview of the IAM Service.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreateDrgAttachmentResponse> CreateDrgAttachment(CreateDrgAttachmentRequest request);
+
+        /// <summary>
+        /// Creates a new dynamic routing gateway (DRG) in the specified compartment. For more information, see Dynamic Routing Gateways (DRGs).
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the DRG to reside. 
+        /// Notice that the DRG doesn't have to be in the same compartment as the VCN, the DRG attachment, or other Networking Service components. 
+        /// If you're not sure which compartment to use, put the DRG in the same compartment as the VCN. 
+        /// For more information about compartments and access control, see Overview of the IAM Service. 
+        /// For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You may optionally specify a display name for the DRG, otherwise a default is provided. 
+        /// It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreateDrgResponse> CreateDrg(CreateDrgRequest request);
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -250,6 +307,20 @@ namespace OCISDK.Core.src.Core
         Task<UpdateRouteTableResponse> UpdateRouteTable(UpdateRouteTableRequest updateRequest);
 
         /// <summary>
+        /// Updates the display name for the specified DrgAttachment. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateDrgAttachmentResponse> UpdateDrgAttachment(UpdateDrgAttachmentRequest request);
+
+        /// <summary>
+        /// Updates the specified DRG's display name or tags. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateDrgResponse> UpdateDrg(UpdateDrgRequest request);
+
+        /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
@@ -300,5 +371,12 @@ namespace OCISDK.Core.src.Core
         /// <returns></returns>
         Task<DeleteRouteTableResponse> DeleteRouteTable(DeleteRouteTableRequest deleteRequest);
 
+        /// <summary>
+        /// Detaches a DRG from a VCN by deleting the corresponding DrgAttachment. This is an asynchronous operation. 
+        /// The attachment's lifecycleState will change to DETACHING temporarily until the attachment is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteDrgAttachmentResponse> DeleteDrgAttachment(DeleteDrgAttachmentRequest request);
     }
 }
