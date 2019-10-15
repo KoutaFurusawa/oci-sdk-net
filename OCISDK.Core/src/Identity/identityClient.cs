@@ -523,6 +523,38 @@ namespace OCISDK.Core.src.Identity
         }
 
         /// <summary>
+        /// Creates a new Console one-time password for the specified user. For more information about user credentials, see User Credentials.
+        /// 
+        /// Use this operation after creating a new user, or if a user forgets their password. 
+        /// The new one-time password is returned to you in the response, and you must securely deliver it to the user. 
+        /// They'll be prompted to change this password the next time they sign in to the Console. 
+        /// If they don't change it within 7 days, the password will expire and you'll need to create a new one-time password for the user.
+        /// 
+        /// Note: The user's Console login is the unique name you specified when you created the user (see CreateUser).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateOrResetUIPasswordResponse CreateOrResetUIPassword(CreateOrResetUIPasswordRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/uiPassword");
+
+            var webResponse = this.RestClient.Post(uri, null, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateOrResetUIPasswordResponse()
+                {
+                    UIPassword = JsonSerializer.Deserialize<UIPasswordDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new user in your tenancy. For conceptual information about users, your tenancy, and other IAM Service components, see Overview of the IAM Service.
         /// 
         /// You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy is simply the root compartment). 
