@@ -15,8 +15,14 @@ Unofficial Oracle Cloud SDK for .NET.
 Supports several APIs.
 This SDK is unofficial and does not support all OCI services. It is also intended for personal research and limited project use only.
 Please be aware that the author is not responsible for any problems that may arise from using this SDK.
-Please send comments and requests for this SDK to GitHub.</Description>
-    <Version>0.5.7.1-rc</Version>
+Please send comments and requests for this SDK to GitHub.
+
+RCバージョンにはバグが含まれている場合があります。
+重要な作業には公式バージョンを使用してください。
+
+The RC version may contain bugs.
+Use the official version for important work.</Description>
+    <Version>0.5.8.0-rc</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -35,15 +41,21 @@ Please send comments and requests for this SDK to GitHub.</Description>
     * add LoadBalancer APIs
 2019/10/10 version 0.5.7.1-rc release
     * Client DeleteMethod Bug fixed
-    </PackageReleaseNotes>
+2019/10/15 version 0.5.8-rc release
+     * add UserAPIs CreateUpdateDelete
+     * add UserGroup APIs
+     * add UIPassword APIs
+     * add DRG APIs
+     * audit version up(issue #11)
+     * delete method call correction(issue #12)</PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.7.1</AssemblyVersion>
-    <FileVersion>0.5.7.1</FileVersion>
+    <AssemblyVersion>0.5.8.0</AssemblyVersion>
+    <FileVersion>0.5.8.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
