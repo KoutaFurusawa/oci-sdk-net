@@ -1,6 +1,7 @@
 ﻿using OCISDK.Core.src;
 using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;
 using System;
 
@@ -128,7 +129,7 @@ namespace Example
             var listCompartment = identityClient.ListCompartment(listCompartmenRequest);
             listCompartment.Items.ForEach(comp => {
                 // compartment detail get
-                GetCompartmentRequest getCompartmentRequest = new GetCompartmentRequest()
+                var getCompartmentRequest = new GetCompartmentRequest()
                 {
                     CompartmentId = comp.Id
                 };
@@ -138,7 +139,15 @@ namespace Example
                 Console.WriteLine("\t|\t lifecycleState: " + getCompartment.Compartment.LifecycleState);
                 Console.WriteLine("\t|\t timeCreated: " + getCompartment.Compartment.TimeCreated);
                 Console.WriteLine("\t|\t inactiveStatus: " + getCompartment.Compartment.InactiveStatus);
-                
+                var path = GetCompartmetPath(identityClient, getCompartment.Compartment.Id);
+                Console.WriteLine("\t|\t path: " + path);
+                getCompartmentRequest = new GetCompartmentRequest()
+                {
+                    CompartmentId = getCompartment.Compartment.CompartmentId
+                };
+                getCompartment = identityClient.GetCompartment(getCompartmentRequest);
+                Console.WriteLine("\t|\t parent: " + getCompartment.Compartment.Name);
+
                 // tagNamespaces get in compartment
                 Console.WriteLine("\t|\t tgaNamespaces:");
                 listTagNamespacesRequest = new ListTagNamespacesRequest()
@@ -154,6 +163,25 @@ namespace Example
                     Console.WriteLine("\t|\t |  timeCreated: " + tagNs.TimeCreated);
                 });
             });
+        }
+
+        private static string GetCompartmetPath(IdentityClient identityClient, string compartmentId)
+        {
+            var res = "";
+
+            var getCompartmentRequest = new GetCompartmentRequest()
+            {
+                CompartmentId = compartmentId
+            };
+            var getCompartment = identityClient.GetCompartment(getCompartmentRequest).Compartment;
+
+            res = $"{getCompartment.Name}{res}";
+
+            if (!string.IsNullOrEmpty(getCompartment.CompartmentId)) {
+                res = $"{GetCompartmetPath(identityClient, getCompartment.CompartmentId)}/{res}";
+            }
+
+            return res;
         }
     }
 }
