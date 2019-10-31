@@ -42,7 +42,7 @@ namespace OCISDK.Core.src.Common
 
         public PolicyWrap<WebResponse> GetPoliciesAsync (RestOption option)
         {
-            return Policy.Wrap(GetRetryPolicyAsync(option), GetCircuitBreakerPolicyAsync(option), GetFallbackPolicyAsync());
+            return Policy.WrapAsync(GetRetryPolicyAsync(option), GetCircuitBreakerPolicyAsync(option), GetFallbackPolicyAsync());
         }
 
         public Policy<WebResponse> GetRetryPolicyAsync(RestOption option)
