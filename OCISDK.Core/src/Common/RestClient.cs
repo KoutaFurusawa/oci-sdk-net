@@ -24,46 +24,20 @@ namespace OCISDK.Core.src.Common
 
         public IJsonSerializer JsonSerializer { get; set; }
 
-        public RestOption Option { get; }
+        public IWebRequestPolicy WebRequestPolicy { get; set; }
 
-        public RestClient()
-        {
-            // default
-            Option = new RestOption();
-        }
-
-        private PolicyWrap<HttpWebResponse> GetPolicies()
-        {
-            return Policy.Wrap(GetRetryPolicy(), GetCircuitBreakerPolicy(), GetFallbackPolicy());
-        }
-
-        private Policy<HttpWebResponse> GetRetryPolicy()
-        {
-            // wait retry 100mSec interval
-            var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
-            return Policy<HttpWebResponse>
-                .HandleResult(r => (int)r.StatusCode >= 500)
-                .WaitAndRetry(Option.RetryCount, retryAttempt =>
-                    TimeSpan.FromSeconds(Math.Pow(Option.SleepDurationSeconds, retryAttempt)) + jitter);
-        }
-
-        private Policy<HttpWebResponse> GetCircuitBreakerPolicy()
-        {
-            return Policy<HttpWebResponse>
-                .HandleResult(r => (int)r.StatusCode >= 500)
-                .CircuitBreaker(Option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(Option.DurationOfBreakSeconds));
-        }
-
-        private Policy<HttpWebResponse> GetFallbackPolicy()
-        {
-            return Policy<HttpWebResponse>
-                .HandleResult(r => (int)r.StatusCode >= 500)
-                .Fallback(new HttpWebResponse());
-        }
-
+        public RestOption Option { get; set; }
+        
         public HttpWebResponse Get(HttpWebRequest request)
         {
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         /// <summary>
@@ -121,7 +95,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public HttpWebResponse Post(Uri targetUri)
@@ -172,7 +153,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public HttpWebResponse Put(Uri targetUri)
@@ -225,7 +213,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public HttpWebResponse Patch(Uri targetUri)
@@ -279,7 +274,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public HttpWebResponse Delete(Uri targetUri)
@@ -329,7 +331,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public HttpWebResponse Head(Uri targetUri)
@@ -362,7 +371,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return GetPolicies().Execute(() => (HttpWebResponse)request.GetResponse());
+            var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
     }
 

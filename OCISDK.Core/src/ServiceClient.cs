@@ -24,7 +24,9 @@ namespace OCISDK.Core.src
         public ClientConfigStream Config { get; set; }
         
         public IJsonSerializer JsonSerializer;
-
+        
+        public IWebRequestPolicy WebRequestPolicy { get; set; }
+        
         protected IRestClient RestClient { get; set; }
 
         protected IRestClientAsync RestClientAsync { get; set; }
@@ -110,6 +112,8 @@ namespace OCISDK.Core.src
             Signer = ociSigner;
 
             JsonSerializer = new JsonDefaultSerializer();
+            
+            WebRequestPolicy = new DefaultWebRequestPolicy();
 
             // default region setting
             if (string.IsNullOrEmpty(config.HomeRegion))
@@ -126,13 +130,17 @@ namespace OCISDK.Core.src
             this.RestClient = new RestClient()
             {
                 Signer = this.Signer,
-                JsonSerializer = JsonSerializer
+                JsonSerializer = JsonSerializer,
+                WebRequestPolicy = WebRequestPolicy,
+                Option = new RestOption()
             };
 
             this.RestClientAsync = new RestClientAsync()
             {
                 Signer = this.Signer,
-                JsonSerializer = JsonSerializer
+                JsonSerializer = JsonSerializer,
+                WebRequestPolicy = WebRequestPolicy,
+                Option = new RestOption()
             };
         }
 
