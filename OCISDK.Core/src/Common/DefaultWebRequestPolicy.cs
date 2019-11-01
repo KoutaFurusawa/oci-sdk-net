@@ -40,12 +40,12 @@ namespace OCISDK.Core.src.Common
                 .Fallback(new HttpWebResponse());
         }
 
-        public PolicyWrap<WebResponse> GetPoliciesAsync (RestOption option)
+        public IAsyncPolicy<WebResponse> GetPoliciesAsync (RestOption option)
         {
             return Policy.WrapAsync(GetRetryPolicyAsync(option), GetCircuitBreakerPolicyAsync(option), GetFallbackPolicyAsync());
         }
 
-        public Policy<WebResponse> GetRetryPolicyAsync(RestOption option)
+        public IAsyncPolicy<WebResponse> GetRetryPolicyAsync(RestOption option)
         {
             var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
             return Policy<WebResponse>
@@ -54,14 +54,14 @@ namespace OCISDK.Core.src.Common
                     TimeSpan.FromSeconds(Math.Pow(option.SleepDurationSeconds, retryAttempt)) + jitter);
         }
 
-        public Policy<WebResponse> GetCircuitBreakerPolicyAsync(RestOption option)
+        public IAsyncPolicy<WebResponse> GetCircuitBreakerPolicyAsync(RestOption option)
         {
             return Policy<WebResponse>
                 .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
                 .CircuitBreakerAsync(option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(option.DurationOfBreakSeconds));
         }
 
-        public Policy<WebResponse> GetFallbackPolicyAsync()
+        public IAsyncPolicy<WebResponse> GetFallbackPolicyAsync()
         {
             return Policy<WebResponse>
                 .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)

@@ -17,12 +17,12 @@ namespace OCISDK.Core.src.Common
 
         Policy<HttpWebResponse> GetFallbackPolicy();
 
-        PolicyWrap<WebResponse> GetPoliciesAsync(RestOption option);
+        IAsyncPolicy<WebResponse> GetPoliciesAsync(RestOption option);
 
-        Policy<WebResponse> GetRetryPolicyAsync(RestOption option);
+        IAsyncPolicy<WebResponse> GetRetryPolicyAsync(RestOption option);
 
-        Policy<WebResponse> GetCircuitBreakerPolicyAsync(RestOption option);
+        IAsyncPolicy<WebResponse> GetCircuitBreakerPolicyAsync(RestOption option);
 
-        Policy<WebResponse> GetFallbackPolicyAsync();
+        IAsyncPolicy<WebResponse> GetFallbackPolicyAsync();
     }
 }
