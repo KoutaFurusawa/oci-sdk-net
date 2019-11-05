@@ -1,6 +1,9 @@
 ﻿using OCISDK.Core.src.Audit;
 using OCISDK.Core.src.Core;
+using OCISDK.Core.src.Database;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.LoadBalancer;
+using OCISDK.Core.src.Monitoring;
 using OCISDK.Core.src.ObjectStorage;
 using OCISDK.Core.src.Search;
 using System;
@@ -101,5 +104,40 @@ namespace OCISDK.Core.src
         /// <returns></returns>
         IWorkRequestClientAsync GetWorkRequestClientAsync();
 
+        /// <summary>
+        /// Get DatabaseClient
+        /// </summary>
+        /// <returns></returns>
+        IDatabaseClient GetDatabaseClient();
+
+        /// <summary>
+        /// Get DatabaseClient Async
+        /// </summary>
+        /// <returns></returns>
+        IDatabaseClientAsync GetDatabaseClientAsync();
+
+        /// <summary>
+        /// Get LoadBalancerClient
+        /// </summary>
+        /// <returns></returns>
+        ILoadBalancerClient GetLoadBalancerClient();
+
+        /// <summary>
+        /// Get LoadBalancerClient Async
+        /// </summary>
+        /// <returns></returns>
+        ILoadBalancerClientAsync GetLoadBalancerClientAsync();
+
+        /// <summary>
+        /// Get MonitoringClient
+        /// </summary>
+        /// <returns></returns>
+        IMonitoringClient GetMonitoringClient();
+
+        /// <summary>
+        /// Get MonitoringClient Async
+        /// </summary>
+        /// <returns></returns>
+        IMonitoringClientAsync GetMonitoringClientAsync();
     }
 }

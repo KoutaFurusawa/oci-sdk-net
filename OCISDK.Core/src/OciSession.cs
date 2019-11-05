@@ -1,6 +1,10 @@
 ﻿using OCISDK.Core.src.Audit;
 using OCISDK.Core.src.Core;
+using OCISDK.Core.src.Database;
+using OCISDK.Core.src.DNS;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.LoadBalancer;
+using OCISDK.Core.src.Monitoring;
 using OCISDK.Core.src.ObjectStorage;
 using OCISDK.Core.src.Search;
 using System;
@@ -200,5 +204,76 @@ namespace OCISDK.Core.src
             return new WorkRequestClientAsync(ClientConfigStream, OciSigner);
         }
 
+        /// <summary>
+        /// Get DatabaseClient
+        /// </summary>
+        /// <returns></returns>
+        public IDatabaseClient GetDatabaseClient()
+        {
+            return new DatabaseClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get DatabaseClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IDatabaseClientAsync GetDatabaseClientAsync()
+        {
+            return new DatabaseClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get DNSClient
+        /// </summary>
+        /// <returns></returns>
+        public IDNSClient GetDNSClient()
+        {
+            return new DNSClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get DNSClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IDNSClientAsync GetDNSClientAsync()
+        {
+            return new DNSClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get LoadBalancerClient
+        /// </summary>
+        /// <returns></returns>
+        public ILoadBalancerClient GetLoadBalancerClient()
+        {
+            return new LoadBalancerClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get LoadBalancerClient Async
+        /// </summary>
+        /// <returns></returns>
+        public ILoadBalancerClientAsync GetLoadBalancerClientAsync()
+        {
+            return new LoadBalancerClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get MonitoringClient
+        /// </summary>
+        /// <returns></returns>
+        public IMonitoringClient GetMonitoringClient()
+        {
+            return new MonitoringClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get MonitoringClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IMonitoringClientAsync GetMonitoringClientAsync()
+        {
+            return new MonitoringClientAsync(ClientConfigStream, OciSigner);
+        }
     }
 }
