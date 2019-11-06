@@ -11,28 +11,28 @@ namespace OCISDK.Core.src.DNS
 {
     public class DNSClient : ServiceClient, IDNSClient
     {
-        private readonly string DatabaseServiceName = "dns";
+        private readonly string DNSServiceName = "dns";
         /// <summary>
         /// Constructer
         /// </summary>
         public DNSClient(ClientConfig config) : base(config)
         {
-            ServiceName = DatabaseServiceName;
+            ServiceName = DNSServiceName;
         }
 
         public DNSClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = DatabaseServiceName;
+            ServiceName = DNSServiceName;
         }
 
         public DNSClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = DatabaseServiceName;
+            ServiceName = DNSServiceName;
         }
 
         public DNSClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = DatabaseServiceName;
+            ServiceName = DNSServiceName;
         }
 
         /// <summary>
