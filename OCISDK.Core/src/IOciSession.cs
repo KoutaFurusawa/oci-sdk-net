@@ -1,6 +1,7 @@
 ﻿using OCISDK.Core.src.Audit;
 using OCISDK.Core.src.Core;
 using OCISDK.Core.src.Database;
+using OCISDK.Core.src.DNS;
 using OCISDK.Core.src.Identity;
 using OCISDK.Core.src.LoadBalancer;
 using OCISDK.Core.src.Monitoring;
@@ -140,6 +141,18 @@ namespace OCISDK.Core.src
         /// </summary>
         /// <returns></returns>
         IMonitoringClientAsync GetMonitoringClientAsync();
+
+        /// <summary>
+        /// Get DNSClient
+        /// </summary>
+        /// <returns></returns>
+        IDNSClient GetDNSClient();
+
+        /// <summary>
+        /// Get DNSClient Async
+        /// </summary>
+        /// <returns></returns>
+        IDNSClientAsync GetDNSClientAsync();
 
         /// <summary>
         /// Get WaasClient
