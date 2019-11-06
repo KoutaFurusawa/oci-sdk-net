@@ -7,6 +7,7 @@ using OCISDK.Core.src.LoadBalancer;
 using OCISDK.Core.src.Monitoring;
 using OCISDK.Core.src.ObjectStorage;
 using OCISDK.Core.src.Search;
+using OCISDK.Core.src.Waas;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -274,6 +275,23 @@ namespace OCISDK.Core.src
         public IMonitoringClientAsync GetMonitoringClientAsync()
         {
             return new MonitoringClientAsync(ClientConfigStream, OciSigner);
+        }
+        /// <summary>
+        /// Get WaasClient
+        /// </summary>
+        /// <returns></returns>
+        public IWaasClient GetWaasClient()
+        {
+            return new WaasClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get WaasClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IWaasClientAsync GetWaasClientAsync()
+        {
+            return new WaasClientAsync(ClientConfigStream, OciSigner);
         }
     }
 }
