@@ -63,11 +63,7 @@ Use the official version for important work.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\endpoints.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\endpoints.json">
+    <EmbeddedResource Include="Properties\endpoints.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
