@@ -45,7 +45,7 @@ namespace OCISDK.Core.src
         /// <summary> oracle cloud home region </summary>
         public string HomeRegion { get; set; }
 
-        public const string ConfigFileName = "Resources/endpoints.json";
+        public const string ConfigFileName = "Properties/endpoints.json";
 
         protected EndpointConfig EndPoint;
 
@@ -74,7 +74,7 @@ namespace OCISDK.Core.src
         {
             var jsonSerializer = new JsonDefaultSerializer();
 
-            var resourceName = "OCISDK.Core.Resources.endpoints.json";
+            var resourceName = "OCISDK.Core.Properties.endpoints.json";
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
