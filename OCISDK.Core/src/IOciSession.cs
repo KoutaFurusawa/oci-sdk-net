@@ -7,6 +7,8 @@ using OCISDK.Core.src.LoadBalancer;
 using OCISDK.Core.src.Monitoring;
 using OCISDK.Core.src.ObjectStorage;
 using OCISDK.Core.src.Search;
+using OCISDK.Core.src.UnpublishedService.Commercial;
+using OCISDK.Core.src.UnpublishedService.UsageCosts;
 using OCISDK.Core.src.Waas;
 using System;
 using System.Collections.Generic;
@@ -165,5 +167,21 @@ namespace OCISDK.Core.src
         /// </summary>
         /// <returns></returns>
         IWaasClientAsync GetWaasClientAsync();
+
+        /// <summary>
+        /// Get CommercialClient
+        /// 
+        /// The client officially uses an unpublished API.
+        /// </summary>
+        /// <returns></returns>
+        ICommercialClient GetCommercialClient();
+
+        /// <summary>
+        /// Get UsageCostsClient
+        /// 
+        /// The client officially uses an unpublished API.
+        /// </summary>
+        /// <returns></returns>
+        IUsageCostsClient GetUsageCostsClient();
     }
 }

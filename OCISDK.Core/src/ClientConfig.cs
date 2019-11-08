@@ -66,7 +66,12 @@ namespace OCISDK.Core.src
 
         public virtual string GetHostName(string serviceName, string region)
         {
-            var host = $"{EndPoint.Services[serviceName].Hosttag}.{region}.oraclecloud.com";
+            return GetHostName(serviceName, region, "oraclecloud.com");
+        }
+
+        public virtual string GetHostName(string serviceName, string region, string domain)
+        {
+            var host = $"{EndPoint.Services[serviceName].Hosttag}.{region}.{domain}";
             return host;
         }
 

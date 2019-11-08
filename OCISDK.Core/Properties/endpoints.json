@@ -60,6 +60,14 @@
     "waas": {
       "version": "20181116",
       "hosttag": "waas"
+    },
+    "commercial": {
+      "version": "20180827",
+      "hosttag": "commercial"
+    },
+    "usagecost": {
+      "version": "20190111",
+      "hosttag": "identity"
     }
   }
 }
