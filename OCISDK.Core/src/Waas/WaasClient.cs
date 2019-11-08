@@ -183,6 +183,35 @@ namespace OCISDK.Core.src.Waas
         }
 
         /// <summary>
+        /// Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, sorted by timeObserved in ascending order (starting from oldest data).
+        /// </summary>
+        /// <param name="rwquest"></param>
+        /// <returns></returns>
+        public ListWafBlockedRequestsResponse ListWafBlockedRequests(ListWafBlockedRequestsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/reports/waf/blocked?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWafBlockedRequestsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<WafBlockedRequest>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the details of a WAAS policy.
         /// </summary>
         /// <param name="request"></param>
