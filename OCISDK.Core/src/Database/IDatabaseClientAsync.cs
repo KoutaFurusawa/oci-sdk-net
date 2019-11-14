@@ -10,6 +10,18 @@ namespace OCISDK.Core.src.Database
     public interface IDatabaseClientAsync
     {
         /// <summary>
+        /// setter region
+        /// </summary>
+        /// <param name="region"></param>
+        void SetRegion(string region);
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        string GetRegion();
+
+        /// <summary>
         /// Gets a list of the databases in the specified database home.
         /// </summary>
         /// <param name="request"></param>

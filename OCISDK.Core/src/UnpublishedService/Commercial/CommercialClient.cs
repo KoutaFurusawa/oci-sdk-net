@@ -67,7 +67,7 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
         /// <returns></returns>
         public ListPurchaseEntitlementsResponse ListPurchaseEntitlements(ListPurchaseEntitlementsRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(CommercialServices.PurchaseEntitlements, this.Region, "oci.oraclecloud.com")}?compartmentId={request.CompartmentId}");
+            var uri = new Uri($"{GetEndPoint(CommercialServices.PurchaseEntitlements, this.Region, DomainName)}?compartmentId={request.CompartmentId}");
 
             var httpRequestHeaderParam = new HttpRequestHeaderParam()
             {
