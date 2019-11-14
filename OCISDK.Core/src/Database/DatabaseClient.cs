@@ -105,6 +105,31 @@ namespace OCISDK.Core.src.Database
         }
 
         /// <summary>
+        /// Gets a list of database nodes in the specified DB system and compartment. A database node is a server running database software.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListDbNodesResponse ListDbNodes(ListDbNodesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DatabaseServices.DbNodes, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListDbNodesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<DbNodeSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets a list of the DB systems in the specified compartment. 
         /// You can specify a backupId to list only the DB systems that support creating a database using this backup in this compartment.
         /// </summary>
@@ -225,6 +250,31 @@ namespace OCISDK.Core.src.Database
                 return new GetDbHomeResponse()
                 {
                     DbHome = this.JsonSerializer.Deserialize<DbHomeDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets information about the specified database node.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetDbNodeResponse GetDbNode(GetDbNodeRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DatabaseServices.DbNodes, this.Region)}/{request.DbNodeId}");
+            
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetDbNodeResponse()
+                {
+                    DbNode = this.JsonSerializer.Deserialize<DbNodeDetails>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -385,7 +435,41 @@ namespace OCISDK.Core.src.Database
                 };
             }
         }
-        
+
+        /// <summary>
+        /// Stopping a node affects billing differently, depending on the type of DB system:
+        /// Bare metal and Exadata DB systems - The stop state has no effect on the resources you consume.Billing 
+        /// continues for DB nodes that you stop, and related resources continue to apply against any relevant quotas.
+        /// You must terminate the DB system (TerminateDbSystem) to remove its resources from billing and quotas.
+        /// Virtual machine DB systems - Stopping a node stops billing for all OCPUs associated with that node, 
+        /// and billing resumes when you restart the node.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DbNodeActionResponse DbNodeAction(DbNodeActionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(DatabaseServices.DbNodes, this.Region)}/{request.DbNodeId}?action={request.Action.Value}");
+
+            var headParam = new HttpRequestHeaderParam() { 
+                OpcRetryToken = request.OpcRetryToken,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = this.RestClient.Post(uri, null, headParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DbNodeActionResponse()
+                {
+                    DbNode = this.JsonSerializer.Deserialize<DbNodeDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
         /// <summary>
         /// Launches a new DB system in the specified compartment and availability domain.
         /// The Oracle Database edition that you specify applies to all the databases on that DB system. The selected edition cannot be changed.
