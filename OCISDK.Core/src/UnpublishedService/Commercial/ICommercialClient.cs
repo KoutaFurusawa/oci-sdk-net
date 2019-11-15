@@ -29,5 +29,12 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
         /// <param name="requets"></param>
         /// <returns></returns>
         ListPurchaseEntitlementsResponse ListPurchaseEntitlements(ListPurchaseEntitlementsRequest requets);
+
+        /// <summary>
+        /// GetServiceEntitlementRegistrations
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListServiceEntitlementRegistrationsResponse GetServiceEntitlementRegistrations(ListServiceEntitlementRegistrationsRequest request);
     }
 }

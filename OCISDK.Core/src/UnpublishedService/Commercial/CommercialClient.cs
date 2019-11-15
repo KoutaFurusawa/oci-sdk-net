@@ -87,5 +87,33 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
                 };
             }
         }
+
+        /// <summary>
+        /// GetServiceEntitlementRegistrations
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListServiceEntitlementRegistrationsResponse GetServiceEntitlementRegistrations(ListServiceEntitlementRegistrationsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CommercialServices.ServiceEntitlementRegistrations, this.Region, DomainName)}?compartmentId={request.CompartmentId}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListServiceEntitlementRegistrationsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<ServiceEntitlementRegistrations>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
     public class CommercialServices
     {
         public readonly static string PurchaseEntitlements = "purchaseEntitlements";
+
+        public readonly static string ServiceEntitlementRegistrations = "serviceEntitlementRegistrations";
     }
 }
