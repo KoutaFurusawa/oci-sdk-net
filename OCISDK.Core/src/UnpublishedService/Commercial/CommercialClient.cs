@@ -89,11 +89,11 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
         }
 
         /// <summary>
-        /// GetServiceEntitlementRegistrations
+        /// ListServiceEntitlementRegistrations
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ListServiceEntitlementRegistrationsResponse GetServiceEntitlementRegistrations(ListServiceEntitlementRegistrationsRequest request)
+        public ListServiceEntitlementRegistrationsResponse ListServiceEntitlementRegistrations(ListServiceEntitlementRegistrationsRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CommercialServices.ServiceEntitlementRegistrations, this.Region, DomainName)}?compartmentId={request.CompartmentId}");
 

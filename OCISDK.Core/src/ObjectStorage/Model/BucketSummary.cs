@@ -7,6 +7,11 @@ namespace OCISDK.Core.src.ObjectStorage.Model
     public class BucketSummary
     {
         /// <summary>
+        /// OCID
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// The Object Storage namespace in which the bucket lives.
         /// </summary>
         public string Namespace { get; set; }
