@@ -61,7 +61,7 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
         /// the source/destination check, see Using a Private IP as a Route Target.
         /// <para>Required: no</para>
         /// </summary>
-        public bool SkipSourceDestCheck { get; set; }
+        public bool? SkipSourceDestCheck { get; set; }
 
         /// <summary>
         /// The OCID of the subnet to create the VNIC in. 

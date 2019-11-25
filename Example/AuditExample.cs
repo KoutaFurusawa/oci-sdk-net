@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using OCISDK.Core.src.Identity;
 using OCISDK.Core.src.Identity.Request;
+using OCISDK.Core.src.Audit.Response;
+using System.Net;
 
 namespace Example
 {
@@ -24,7 +26,7 @@ namespace Example
             };
 
             DateTime now = DateTime.Now;
-            var startDate = now.ToString("yyyy-MM-ddT01:00:00Z");
+            var startDate = now.ToString("yyyy-MM-ddT00:00:00Z");
             var endDate = now.ToString("yyyy-MM-ddT01:30:00Z");
 
             // get config
@@ -37,17 +39,23 @@ namespace Example
             Console.WriteLine($"retentionPeriodDays:{auditConfig.Configuration.RetentionPeriodDays}");
 
             // get Audit Events
-            ListEventsRequest listEventsRequest = new ListEventsRequest()
+            Console.WriteLine("* Audit Events-------------------");
+            DisplayAudit(config, client, identityClinet, startDate, endDate, "");
+        }
+
+        private static void DisplayAudit(ClientConfig config, AuditClient client, IdentityClient identityClinet, string startDate, string endDate, string pageId)
+        {
+            // get Audit Events
+            var listEventsRequest = new ListEventsRequest()
             {
                 CompartmentId = config.TenancyId,
                 StartTime = startDate,
-                EndTime = endDate
+                EndTime = endDate,
+                Page = pageId
             };
             var events = client.ListEvents(listEventsRequest);
             if (events.Items.Count > 0)
             {
-                Console.WriteLine("* Audit Events-------------------");
-
                 events.Items.ForEach(e => {
                     Console.WriteLine($"* eventName:{e.Data.EventName}");
                     Console.WriteLine($"\t id:{e.EventId}");
@@ -55,14 +63,38 @@ namespace Example
                     Console.WriteLine($"\t source:{e.Source}");
                     Console.WriteLine($"\t time:{e.EventTime}");
                     Console.WriteLine($"\t resourceName:{e.Data.ResourceName}");
-                    Console.WriteLine($"\t principal:{e.Data.Identity.PrincipalId}");
+                    if (e.Data.Identity != null)
+                    {
+                        Console.WriteLine($"\t principal:{e.Data.Identity.PrincipalId}");
 
-                    var getUserRequest = new GetUserRequest() {
-                        UserId = e.Data.Identity.PrincipalId
-                    };
-                    var user = identityClinet.GetUser(getUserRequest);
-                    Console.WriteLine($"\t user:{user.User.Name}");
+                        try
+                        {
+                            var getUserRequest = new GetUserRequest()
+                            {
+                                UserId = e.Data.Identity.PrincipalId
+                            };
+                            var user = identityClinet.GetUser(getUserRequest);
+                            Console.WriteLine($"\t user:{user.User.Name}");
+                        }
+                        catch (WebException we)
+                        {
+                            if (we.Status.Equals(WebExceptionStatus.ProtocolError))
+                            {
+                                var code = ((HttpWebResponse)we.Response).StatusCode;
+                                if (code == HttpStatusCode.NotFound)
+                                {
+                                    // エラーだけ残す
+                                    Console.WriteLine($"\t user not found");
+                                    return;
+                                }
+                            }
+                        }
+                    }
                 });
+            }
+
+            if (!string.IsNullOrEmpty(events.OpcNextPage)) {
+                DisplayAudit(config, client, identityClinet, startDate, endDate, events.OpcNextPage);
             }
         }
     }

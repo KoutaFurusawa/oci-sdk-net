@@ -117,31 +117,31 @@ namespace OCISDK.Core.src.LoadBalancer.Model
         public Dictionary<string, PathRouteSetDetails> PathRouteSets { get; set; }
 
         /// <summary>
-        /// System tags for this resource. Each key is predefined and scoped to a namespace. 
-        /// For more information, see Resource Tags. System tags can be viewed by users, but can only be created by the system.
-        /// <para>Required: no</para>
-        /// </summary>
-        public Dictionary<string, Dictionary<string, string>> SystemTags { get; set; }
-
-        /// <summary>
         /// A mapping of strings to RuleSet objects.
         /// <para>Required: no</para>
         /// </summary>
         public Dictionary<string, RuleSetDetails> RuleSets { get; set; }
 
         /// <summary>
+        /// System tags for this resource. Each key is predefined and scoped to a namespace. 
+        /// For more information, see Resource Tags. System tags can be viewed by users, but can only be created by the system.
+        /// <para>Required: no</para>
+        /// </summary>
+        public IDictionary<string, IDictionary<string, string>> SystemTags { get; set; }
+
+        /// <summary>
         /// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. 
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        public Dictionary<string, string> FreeformTags { get; set; }
+        public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// Defined tags for this resource. Each key is predefined and scoped to a namespace. 
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        public Dictionary<string, Dictionary<string, string>> DefinedTags { get; set; }
+        public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
         
     }
 }

@@ -45,7 +45,7 @@ namespace OCISDK.Core.src.Database.Model
         /// <para>Min Length: 1, Max Length: 255</para>
         /// </summary>
         public string BackupSubnetId { get; set; }
-
+        
         /// <summary>
         /// The cluster name for Exadata and 2-node RAC virtual machine DB systems. 
         /// The cluster name must begin with an an alphabetic character, and may contain hyphens (-). 
@@ -65,7 +65,7 @@ namespace OCISDK.Core.src.Database.Model
         /// The number of CPU cores enabled on the DB system.
         /// <para>Required: yes</para>
         /// </summary>
-        public string CpuCoreCount { get; set; }
+        public int CpuCoreCount { get; set; }
 
         /// <summary>
         /// The percentage assigned to DATA storage (user data and database files). 
@@ -86,6 +86,11 @@ namespace OCISDK.Core.src.Database.Model
         /// <para>Required: yes</para>
         /// </summary>
         public string DatabaseEdition { get; set; }
+
+        /// <summary>
+        /// <para>Required: no</para>
+        /// </summary>
+        public DbSystemOptions DbSystemOptions { get; set; }
 
         /// <summary>
         /// The type of redundancy configured for the DB system. NORMAL is 2-way redundancy. HIGH is 3-way redundancy.

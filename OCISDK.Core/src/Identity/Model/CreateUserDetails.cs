@@ -40,13 +40,13 @@ namespace OCISDK.Core.src.Identity.Model
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        public Dictionary<string, string> FreeformTags { get; set; }
+        public IDictionary<string, string> FreeformTags { get; set; }
 
         /// <summary>
         /// Defined tags for this resource. Each key is predefined and scoped to a namespace. 
         /// For more information, see Resource Tags.
         /// <para>Required: no</para>
         /// </summary>
-        public Dictionary<string, Dictionary<string, string>> DefinedTags { get; set; }
+        public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
     }
 }

@@ -114,6 +114,13 @@ namespace OCISDK.Core.src.Core.Model.Compute
         public string TimeMaintenanceRebootDue { get; set; }
 
         /// <summary>
+        /// System tags for this resource. Each key is predefined and scoped to a namespace. 
+        /// For more information, see Resource Tags. System tags can be viewed by users, but can only be created by the system.
+        /// <para>Required: no</para>
+        /// </summary>
+        public IDictionary<string, IDictionary<string, string>> SystemTags { get; set; }
+
+        /// <summary>
         /// <para>Required: no</para>
         /// </summary>
         public IDictionary<string, string> FreeformTags { get; set; }

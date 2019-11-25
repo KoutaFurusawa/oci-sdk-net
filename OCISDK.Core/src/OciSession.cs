@@ -1,8 +1,15 @@
 ﻿using OCISDK.Core.src.Audit;
 using OCISDK.Core.src.Core;
+using OCISDK.Core.src.Database;
+using OCISDK.Core.src.DNS;
 using OCISDK.Core.src.Identity;
+using OCISDK.Core.src.LoadBalancer;
+using OCISDK.Core.src.Monitoring;
 using OCISDK.Core.src.ObjectStorage;
 using OCISDK.Core.src.Search;
+using OCISDK.Core.src.UnpublishedService.Commercial;
+using OCISDK.Core.src.UnpublishedService.UsageCosts;
+using OCISDK.Core.src.Waas;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -200,5 +207,115 @@ namespace OCISDK.Core.src
             return new WorkRequestClientAsync(ClientConfigStream, OciSigner);
         }
 
+        /// <summary>
+        /// Get DatabaseClient
+        /// </summary>
+        /// <returns></returns>
+        public IDatabaseClient GetDatabaseClient()
+        {
+            return new DatabaseClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get DatabaseClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IDatabaseClientAsync GetDatabaseClientAsync()
+        {
+            return new DatabaseClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get DNSClient
+        /// </summary>
+        /// <returns></returns>
+        public IDNSClient GetDNSClient()
+        {
+            return new DNSClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get DNSClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IDNSClientAsync GetDNSClientAsync()
+        {
+            return new DNSClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get LoadBalancerClient
+        /// </summary>
+        /// <returns></returns>
+        public ILoadBalancerClient GetLoadBalancerClient()
+        {
+            return new LoadBalancerClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get LoadBalancerClient Async
+        /// </summary>
+        /// <returns></returns>
+        public ILoadBalancerClientAsync GetLoadBalancerClientAsync()
+        {
+            return new LoadBalancerClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get MonitoringClient
+        /// </summary>
+        /// <returns></returns>
+        public IMonitoringClient GetMonitoringClient()
+        {
+            return new MonitoringClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get MonitoringClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IMonitoringClientAsync GetMonitoringClientAsync()
+        {
+            return new MonitoringClientAsync(ClientConfigStream, OciSigner);
+        }
+        /// <summary>
+        /// Get WaasClient
+        /// </summary>
+        /// <returns></returns>
+        public IWaasClient GetWaasClient()
+        {
+            return new WaasClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get WaasClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IWaasClientAsync GetWaasClientAsync()
+        {
+            return new WaasClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get CommercialClient
+        /// 
+        /// The client officially uses an unpublished API.
+        /// </summary>
+        /// <returns></returns>
+        public ICommercialClient GetCommercialClient()
+        {
+            return new CommercialClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get UsageCostsClient
+        /// 
+        /// The client officially uses an unpublished API.
+        /// </summary>
+        /// <returns></returns>
+        public IUsageCostsClient GetUsageCostsClient()
+        {
+            return new UsageCostsClient(ClientConfigStream, OciSigner);
+        }
     }
 }

@@ -24,47 +24,21 @@ namespace OCISDK.Core.src.Common
         public IOciSigner Signer { get; set; }
         
         public IJsonSerializer JsonSerializer { get; set; }
-        
-        public RestOption Option { get; }
 
-        public RestClientAsync()
-        {
-            // default
-            Option = new RestOption();
-        }
+        public IWebRequestPolicy WebRequestPolicy { get; set; }
 
-        private PolicyWrap<WebResponse> GetPolicies()
-        {
-            return Policy.WrapAsync(GetRetryPolicy(), GetCircuitBreakerPolicy(), GetFallbackPolicy());
-        }
-
-        private Policy<WebResponse> GetRetryPolicy()
-        {
-            // wait retry 100mSec interval
-            var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
-            return Policy<WebResponse>
-                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
-                .WaitAndRetryAsync(Option.RetryCount, retryAttempt =>
-                    TimeSpan.FromSeconds(Math.Pow(Option.SleepDurationSeconds, retryAttempt)) + jitter);
-        }
-
-        private Policy<WebResponse> GetCircuitBreakerPolicy()
-        {
-            return Policy<WebResponse>
-                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
-                .CircuitBreakerAsync(Option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(Option.DurationOfBreakSeconds));
-        }
-
-        private Policy<WebResponse> GetFallbackPolicy()
-        {
-            return Policy<WebResponse>
-                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
-                .FallbackAsync(new HttpWebResponse());
-        }
+        public RestOption Option { get; set; }
         
         public async Task<WebResponse> Get(HttpWebRequest request)
         {
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public async Task<WebResponse> Get(Uri targetUri)
@@ -117,7 +91,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public async Task<WebResponse> Post(Uri targetUri)
@@ -168,7 +149,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public async Task<WebResponse> Put(Uri targetUri)
@@ -221,7 +209,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public async Task<WebResponse> Patch(Uri targetUri)
@@ -275,7 +270,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
         public async Task<WebResponse> Delete(Uri targetUri)
@@ -325,7 +327,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
 
 
@@ -359,7 +368,14 @@ namespace OCISDK.Core.src.Common
                 Signer.SignRequest(request);
             }
 
-            return await GetPolicies().ExecuteAsync(() => request.GetResponseAsync());
+            var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
+
+            if (res.Outcome == OutcomeType.Failure && (res.FinalException is WebException))
+            {
+                throw res.FinalException;
+            }
+
+            return res.Result;
         }
     }
 }

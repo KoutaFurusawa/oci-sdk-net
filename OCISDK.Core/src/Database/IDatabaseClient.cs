@@ -9,6 +9,18 @@ namespace OCISDK.Core.src.Database
     public interface IDatabaseClient
     {
         /// <summary>
+        /// setter region
+        /// </summary>
+        /// <param name="region"></param>
+        void SetRegion(string region);
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        string GetRegion();
+
+        /// <summary>
         /// Gets a list of the databases in the specified database home.
         /// </summary>
         /// <param name="request"></param>
@@ -22,6 +34,13 @@ namespace OCISDK.Core.src.Database
         /// <param name="request"></param>
         /// <returns></returns>
         ListDbHomesResponse ListDbHomes(ListDbHomesRequest request);
+
+        /// <summary>
+        /// Gets a list of database nodes in the specified DB system and compartment. A database node is a server running database software.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListDbNodesResponse ListDbNodes(ListDbNodesRequest request);
 
         /// <summary>
         /// Gets a list of the DB systems in the specified compartment. 
@@ -59,6 +78,13 @@ namespace OCISDK.Core.src.Database
         /// <param name="request"></param>
         /// <returns></returns>
         GetDbHomeResponse GetDbHome(GetDbHomeRequest request);
+
+        /// <summary>
+        /// Gets information about the specified database node.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetDbNodeResponse GetDbNode(GetDbNodeRequest request);
 
         /// <summary>
         /// Gets information about the specified DB system.
@@ -102,6 +128,18 @@ namespace OCISDK.Core.src.Database
         /// <param name="request"></param>
         /// <returns></returns>
         CreateDbHomeWithDbSystemIdResponse CreateDbHome(CreateDbHomeWithDbSystemIdFromBackupRequest request);
+
+        /// <summary>
+        /// Stopping a node affects billing differently, depending on the type of DB system:
+        /// Bare metal and Exadata DB systems - The stop state has no effect on the resources you consume.Billing 
+        /// continues for DB nodes that you stop, and related resources continue to apply against any relevant quotas.
+        /// You must terminate the DB system (TerminateDbSystem) to remove its resources from billing and quotas.
+        /// Virtual machine DB systems - Stopping a node stops billing for all OCPUs associated with that node, 
+        /// and billing resumes when you restart the node.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DbNodeActionResponse DbNodeAction(DbNodeActionRequest request);
 
         /// <summary>
         /// Launches a new DB system in the specified compartment and availability domain.

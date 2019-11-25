@@ -22,7 +22,7 @@ namespace OCISDK.Core.src.Core.Model.Blockstorage
         /// The size of the boot volume in GBs.
         /// <para>Required: no</para>
         /// </summary>
-        public int SizeInGBs { get; set; }
+        public int? SizeInGBs { get; set; }
 
         /// <summary>
         /// <para>Required: no</para>
