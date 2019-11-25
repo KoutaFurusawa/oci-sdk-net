@@ -62,6 +62,20 @@ namespace OCISDK.Core.src.Waas
         Task<ListWaasPoliciesResponse> ListWaasPolicies(ListWaasPoliciesRequest request);
 
         /// <summary>
+        /// Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, sorted by timeObserved in ascending order (starting from oldest data).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWafBlockedRequestsResponse> ListWafBlockedRequests(ListWafBlockedRequestsRequest request);
+
+        /// <summary>
+        /// Gets structured Web Application Firewall event logs for a WAAS policy. Sorted by the timeObserved in ascending order (starting from the oldest recorded event).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWafLogsResponse> ListWafLogs(ListWafLogsRequest request);
+
+        /// <summary>
         /// Gets the details of a WAAS policy.
         /// </summary>
         /// <param name="request"></param>
