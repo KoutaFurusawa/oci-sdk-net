@@ -99,17 +99,34 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// displayName
+            /// </summary>
             public static readonly SortByParam DisplayName = new SortByParam("displayName");
 
+            /// <summary>
+            /// timeCreated
+            /// </summary>
             public static readonly SortByParam TimeCreated = new SortByParam("timeCreated");
 
+            /// <summary>
+            /// domainName
+            /// </summary>
             public static readonly SortByParam DomainName = new SortByParam("domainName");
         }
 
@@ -120,6 +137,10 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public SortOrder SortOrder { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

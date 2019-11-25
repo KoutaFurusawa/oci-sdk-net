@@ -1,15 +1,12 @@
-﻿/// <summary>
-/// ListCompartment Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using System;
 using System.ComponentModel;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListCompartment Request
+    /// </summary>
     public class ListCompartmentRequest
     {
         /// <summary>
@@ -42,15 +39,29 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public class AccessLevels : ExpandableEnum<AccessLevels>
         {
+            /// <summary>
+            /// AccessLevel ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public AccessLevels(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator AccessLevels(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// ANY
+            /// </summary>
             public static readonly AccessLevels ANY = new AccessLevels("ANY");
 
+            /// <summary>
+            /// ACCESSIBLE
+            /// </summary>
             public static readonly AccessLevels ACCESSIBLE = new AccessLevels("ACCESSIBLE");
         }
 
@@ -61,6 +72,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public bool? CompartmentIdInSubtree { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var options = $"compartmentId={this.CompartmentId}";

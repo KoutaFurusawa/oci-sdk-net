@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// UpdateRRSet Request
+    /// </summary>
     public class UpdateRRSetRequest
     {
         /// <summary>

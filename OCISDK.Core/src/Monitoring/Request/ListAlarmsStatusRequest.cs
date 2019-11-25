@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// ListAlarmsStatus Request
+    /// </summary>
     public class ListAlarmsStatusRequest
     {
         /// <summary>
@@ -66,6 +69,10 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// </summary>
         public SortOrder SortOrder { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder($"compartmentId={this.CompartmentId}");

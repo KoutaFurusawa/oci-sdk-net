@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// DetachBootVolumeRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Request.Compute
+﻿namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// DetachBootVolume Request
+    /// </summary>
     public class DetachBootVolumeRequest
     {
         /// <summary>

@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// Rest call client Class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -19,16 +13,36 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Common
 {
+    /// <summary>
+    /// rest client async
+    /// </summary>
     public class RestClientAsync : IRestClientAsync
     {
+        /// <summary>
+        /// Signer
+        /// </summary>
         public IOciSigner Signer { get; set; }
-        
+
+        /// <summary>
+        /// JsonSerializer
+        /// </summary>
         public IJsonSerializer JsonSerializer { get; set; }
 
+        /// <summary>
+        /// WebRequestPolicy
+        /// </summary>
         public IWebRequestPolicy WebRequestPolicy { get; set; }
 
+        /// <summary>
+        /// rest option
+        /// </summary>
         public RestOption Option { get; set; }
         
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Get(HttpWebRequest request)
         {
             var res = await WebRequestPolicy.GetPoliciesAsync(Option).ExecuteAndCaptureAsync(() => request.GetResponseAsync());
@@ -41,11 +55,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Get(Uri targetUri)
         {
             return await Get(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             return await Get(targetUri, httpRequestHeaderParam, null);
@@ -55,9 +80,8 @@ namespace OCISDK.Core.src.Common
         /// Request a resource asynchronously.
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="ifMatch"></param>
-        /// <param name="ifNoneMatch"></param>
-        /// <param name="opcClientRequestId"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="fields"></param>
         /// <returns></returns>
         public async Task<WebResponse> Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, List<string> fields)
         {
@@ -101,11 +125,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Post(Uri targetUri)
         {
             return await Post(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Post(Uri targetUri, object requestBody)
         {
             return await Post(targetUri, requestBody, null);
@@ -114,7 +149,9 @@ namespace OCISDK.Core.src.Common
         /// <summary>
         /// Post a request object to the endpoint represented by the web target and get the response.
         /// </summary>
-        /// <param name="TargetUri"></param>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
@@ -159,11 +196,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Put(Uri targetUri)
         {
             return await Put(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Put(Uri targetUri, object requestBody)
         {
             return await Put(targetUri, requestBody, null);
@@ -174,7 +222,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
-        /// <param name="ifMatch"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
@@ -219,11 +267,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Patch(Uri targetUri)
         {
             return await Patch(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Patch(Uri targetUri, object requestBody)
         {
             return await Patch(targetUri, requestBody, null);
@@ -234,8 +293,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
-        /// <param name="ifMatch"></param>
-        /// <param name="IfUnmodifiedSince"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
@@ -280,21 +338,33 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Delete(Uri targetUri)
         {
             return await Delete(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             return await Delete(targetUri, httpRequestHeaderParam, null);
         }
-    
+
         /// <summary>
         /// Execute a delete on a resource and get the response.
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="ifMatch"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="requestBody"></param>
         /// <returns></returns>
         public async Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, object requestBody)
         {
@@ -337,7 +407,11 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
-
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public async Task<WebResponse> Head(Uri targetUri)
         {
             return await Head(targetUri, null);
@@ -347,9 +421,7 @@ namespace OCISDK.Core.src.Common
         /// head method
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="ifMatch"></param>
-        /// <param name="ifNoneMatch"></param>
-        /// <param name="OpcClientRequestId"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Head(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {

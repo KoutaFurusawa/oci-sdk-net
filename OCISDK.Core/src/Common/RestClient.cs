@@ -1,33 +1,47 @@
-﻿/// <summary>
-/// Rest call client Class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-using Polly;    // Microsoft.Extensions.Http.Polly
+using Polly;
 using Polly.Wrap;
 using System.Net.Http;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Common
 {
+    /// <summary>
+    /// RestClient
+    /// </summary>
     public class RestClient : IRestClient
     {
+        /// <summary>
+        /// signer
+        /// </summary>
         public IOciSigner Signer { get; set; }
 
+        /// <summary>
+        /// JsonSerializer
+        /// </summary>
         public IJsonSerializer JsonSerializer { get; set; }
 
+        /// <summary>
+        /// WebRequestPolicy
+        /// </summary>
         public IWebRequestPolicy WebRequestPolicy { get; set; }
 
+        /// <summary>
+        /// rest option
+        /// </summary>
         public RestOption Option { get; set; }
         
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public HttpWebResponse Get(HttpWebRequest request)
         {
             var res = WebRequestPolicy.GetPolicies(Option).ExecuteAndCapture(() => (HttpWebResponse)request.GetResponse());
@@ -43,13 +57,19 @@ namespace OCISDK.Core.src.Common
         /// <summary>
         /// Request a resource asynchronously.
         /// </summary>
-        /// <param name="TargetUri"></param>
+        /// <param name="targetUri"></param>
         /// <returns></returns>
         public HttpWebResponse Get(Uri targetUri)
         {
             return this.Get(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <returns></returns>
         public HttpWebResponse Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             return this.Get(targetUri, httpRequestHeaderParam, null);
@@ -59,9 +79,8 @@ namespace OCISDK.Core.src.Common
         /// Request a resource asynchronously.
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="ifMatch"></param>
-        /// <param name="ifNoneMatch"></param>
-        /// <param name="opcClientRequestId"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="fields"></param>
         /// <returns></returns>
         public HttpWebResponse Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, List<string> fields)
         {
@@ -105,11 +124,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public HttpWebResponse Post(Uri targetUri)
         {
             return Post(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         public HttpWebResponse Post(Uri targetUri, object requestBody)
         {
             return Post(targetUri, requestBody, null);
@@ -118,7 +148,9 @@ namespace OCISDK.Core.src.Common
         /// <summary>
         /// Post a request object to the endpoint represented by the web target and get the response.
         /// </summary>
-        /// <param name="TargetUri"></param>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public HttpWebResponse Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
@@ -163,11 +195,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public HttpWebResponse Put(Uri targetUri)
         {
             return Put(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         public HttpWebResponse Put(Uri targetUri, object requestBody)
         {
             return Put(targetUri, requestBody, null);
@@ -178,7 +221,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
-        /// <param name="ifMatch"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
@@ -223,11 +266,22 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public HttpWebResponse Patch(Uri targetUri)
         {
             return Patch(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         public HttpWebResponse Patch(Uri targetUri, object requestBody)
         {
             return Patch(targetUri, requestBody, null);
@@ -238,8 +292,7 @@ namespace OCISDK.Core.src.Common
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
-        /// <param name="ifMatch"></param>
-        /// <param name="IfUnmodifiedSince"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public HttpWebResponse Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
         {
@@ -284,21 +337,33 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public HttpWebResponse Delete(Uri targetUri)
         {
             return Delete(targetUri, null);
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <returns></returns>
         public HttpWebResponse Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {
             return Delete(targetUri, httpRequestHeaderParam, null);
         }
-        
+
         /// <summary>
         /// Execute a delete on a resource and get the response.
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="ifMatch"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="requestBody"></param>
         /// <returns></returns>
         public HttpWebResponse Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam, object requestBody)
         {
@@ -341,6 +406,11 @@ namespace OCISDK.Core.src.Common
             return res.Result;
         }
 
+        /// <summary>
+        /// Request a resource asynchronously.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <returns></returns>
         public HttpWebResponse Head(Uri targetUri)
         {
             return Head(targetUri, null);
@@ -350,9 +420,7 @@ namespace OCISDK.Core.src.Common
         /// head method
         /// </summary>
         /// <param name="targetUri"></param>
-        /// <param name="ifMatch"></param>
-        /// <param name="ifNoneMatch"></param>
-        /// <param name="OpcClientRequestId"></param>
+        /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public HttpWebResponse Head(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam)
         {

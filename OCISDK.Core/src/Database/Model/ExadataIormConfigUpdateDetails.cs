@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OCISDK.Core.src.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -16,20 +17,55 @@ namespace OCISDK.Core.src.Database.Model
         /// </summary>
         public List<DbIormConfigUpdateDetail> DbPlans { get; set; }
 
-        public string Objective { get; set; }
+        /// <summary>
+        /// Objective
+        /// </summary>
+        public ObjectiveParam Objective { get; set; }
 
-        public enum ObjectiveParam
+        /// <summary>
+        /// Objective ExpandableEnum
+        /// </summary>
+        public class ObjectiveParam : ExpandableEnum<ObjectiveParam>
         {
-            [DisplayName("LOW_LATENCY")]
-            LOW_LATENCY,
-            [DisplayName("HIGH_THROUGHPUT")]
-            HIGH_THROUGHPUT,
-            [DisplayName("BALANCED")]
-            BALANCED,
-            [DisplayName("AUTO")]
-            AUTO,
-            [DisplayName("BASIC")]
-            BASIC
+            /// <summary>
+            /// Objective ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
+            public ObjectiveParam(string value) : base(value) { }
+
+            /// <summary>
+            /// parase
+            /// </summary>
+            /// <param name="value"></param>
+            public static implicit operator ObjectiveParam(string value)
+            {
+                return Parse(value);
+            }
+
+            /// <summary>
+            /// LOW_LATENCY
+            /// </summary>
+            public static readonly ObjectiveParam LOW_LATENCY = new ObjectiveParam("LOW_LATENCY");
+
+            /// <summary>
+            /// HIGH_THROUGHPUT
+            /// </summary>
+            public static readonly ObjectiveParam HIGH_THROUGHPUT = new ObjectiveParam("HIGH_THROUGHPUT");
+
+            /// <summary>
+            /// BALANCED
+            /// </summary>
+            public static readonly ObjectiveParam BALANCED = new ObjectiveParam("BALANCED");
+
+            /// <summary>
+            /// AUTO
+            /// </summary>
+            public static readonly ObjectiveParam AUTO = new ObjectiveParam("AUTO");
+
+            /// <summary>
+            /// BASIC
+            /// </summary>
+            public static readonly ObjectiveParam BASIC = new ObjectiveParam("BASIC");
         }
     }
 }

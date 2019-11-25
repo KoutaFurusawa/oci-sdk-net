@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// GetSecurityListRespons class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// GetSecurityList Respons
+    /// </summary>
     public class GetSecurityListRespons
     {
         /// <summary>

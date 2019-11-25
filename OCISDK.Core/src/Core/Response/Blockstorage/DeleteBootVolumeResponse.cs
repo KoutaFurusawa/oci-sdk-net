@@ -1,11 +1,9 @@
-﻿/// <summary>
-/// DeleteBootVolumeResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
+﻿
 namespace OCISDK.Core.src.Core.Response.Blockstorage
 {
+    /// <summary>
+    /// DeleteBootVolume Response
+    /// </summary>
     public class DeleteBootVolumeResponse
     {
         /// <summary>

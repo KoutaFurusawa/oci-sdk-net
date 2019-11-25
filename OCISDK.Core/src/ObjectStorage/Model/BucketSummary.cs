@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Model
 {
+    /// <summary>
+    /// BucketSummary
+    /// </summary>
     public class BucketSummary
     {
         /// <summary>

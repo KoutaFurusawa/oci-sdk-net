@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Response
 {
+    /// <summary>
+    /// ChangeAlarmCompartment Response
+    /// </summary>
     public class ChangeAlarmCompartmentResponse
     {
         /// <summary>

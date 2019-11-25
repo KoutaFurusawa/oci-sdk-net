@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Waas
 {
+    /// <summary>
+    /// WaasClientAsync
+    /// </summary>
     public class WaasClientAsync : ServiceClient, IWaasClientAsync
     {
         private readonly string WaasServiceName = "waas";
@@ -22,16 +25,25 @@ namespace OCISDK.Core.src.Waas
             ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = WaasServiceName;
@@ -59,7 +71,7 @@ namespace OCISDK.Core.src.Waas
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         public async Task<ChangeWaasPolicyCompartmentResponse> ChangeWaasPolicyCompartment(ChangeWaasPolicyCompartmentRequest request)
         {
@@ -188,7 +200,7 @@ namespace OCISDK.Core.src.Waas
         /// <summary>
         /// Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, sorted by timeObserved in ascending order (starting from oldest data).
         /// </summary>
-        /// <param name="rwquest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         public async Task<ListWafBlockedRequestsResponse> ListWafBlockedRequests(ListWafBlockedRequestsRequest request)
         {

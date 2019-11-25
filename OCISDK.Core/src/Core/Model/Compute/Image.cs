@@ -1,15 +1,13 @@
-﻿/// <summary>
-/// Image Reference
-/// A boot disk image for launching an instance. For more information, see Overview of the Compute Service.
-/// 
-/// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// Image Reference
+    /// A boot disk image for launching an instance. For more information, see Overview of the Compute Service.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// </summary>
     public class Image
     {
         /// <summary>
@@ -59,6 +57,9 @@ namespace OCISDK.Core.src.Core.Model.Compute
         /// </summary>
         public LaunchOptions LaunchOptions { get; set; }
 
+        /// <summary>
+        /// LifecycleState
+        /// </summary>
         public string LifecycleState { get; set; }
 
         /// <summary>

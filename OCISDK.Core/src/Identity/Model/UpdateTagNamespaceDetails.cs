@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateTagNamespaceDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// UpdateTagNamespaceDetails
+    /// </summary>
     public class UpdateTagNamespaceDetails
     {
 

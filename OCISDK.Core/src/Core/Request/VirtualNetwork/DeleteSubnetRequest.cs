@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteSubnetRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteSubnet Request
+    /// </summary>
     public class DeleteSubnetRequest
     {
         /// <summary>

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// UpdateNamespaceMetadata Request
+    /// </summary>
     public class UpdateNamespaceMetadataRequest
     {
         /// <summary>

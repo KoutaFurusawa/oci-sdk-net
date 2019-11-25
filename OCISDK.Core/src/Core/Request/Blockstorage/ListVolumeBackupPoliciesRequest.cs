@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// ListVolumeBackupPolicies Request
+    /// </summary>
     public class ListVolumeBackupPoliciesRequest
     {
         /// <summary>
@@ -22,6 +25,10 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// </summary>
         public string Page { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

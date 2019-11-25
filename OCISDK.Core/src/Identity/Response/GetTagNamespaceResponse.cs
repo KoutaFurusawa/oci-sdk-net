@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// GetTagNamespace Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// GetTagNamespace Response
+    /// </summary>
     public class GetTagNamespaceResponse
     {
         /// <summary>

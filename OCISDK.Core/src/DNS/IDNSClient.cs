@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS
 {
+    /// <summary>
+    /// DNSClient interface
+    /// </summary>
     public interface IDNSClient
     {
         /// <summary>

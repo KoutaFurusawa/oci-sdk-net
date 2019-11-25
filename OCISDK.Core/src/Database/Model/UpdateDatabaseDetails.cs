@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Model
 {
+    /// <summary>
+    /// UpdateDatabaseDetails
+    /// </summary>
     public class UpdateDatabaseDetails
     {
         /// <summary>

@@ -1,16 +1,8 @@
-﻿/// <summary>
-/// DhcpOption Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
-
     /// <summary>
     /// A single DHCP option according to [RFC 1533](https://tools.ietf.org/html/rfc1533).
     /// </summary>
@@ -55,19 +47,39 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
             ServerType = serviceType.Value;
         }
 
+        /// <summary>
+        /// ServerTypes
+        /// </summary>
         public class ServerTypes : ExpandableEnum<ServerTypes>
         {
+            /// <summary>
+            /// ServerTypes
+            /// </summary>
+            /// <param name="value"></param>
             public ServerTypes(string value) : base(value) { }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator ServerTypes(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// VcnLocal
+            /// </summary>
             public static readonly ServerTypes VcnLocal = new ServerTypes("VcnLocal");
 
+            /// <summary>
+            /// VcnLocalPlusInternet
+            /// </summary>
             public static readonly ServerTypes VcnLocalPlusInternet = new ServerTypes("VcnLocalPlusInternet");
 
+            /// <summary>
+            /// CustomDnsServer
+            /// </summary>
             public static readonly ServerTypes CustomDnsServer = new ServerTypes("CustomDnsServer");
         }
 

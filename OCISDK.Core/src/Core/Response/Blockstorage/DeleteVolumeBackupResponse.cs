@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Blockstorage
 {
+    /// <summary>
+    /// DeleteVolumeBackup Response
+    /// </summary>
     public class DeleteVolumeBackupResponse
     {
         /// <summary>

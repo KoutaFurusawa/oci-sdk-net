@@ -48,17 +48,34 @@ namespace OCISDK.Core.src.Waas.Request
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parase
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
-
+            
+            /// <summary>
+            /// id
+            /// </summary>
             public static readonly SortByParam ID = new SortByParam("id");
 
+            /// <summary>
+            /// displayName
+            /// </summary>
             public static readonly SortByParam DISPLAYNAME = new SortByParam("displayName");
 
+            /// <summary>
+            /// timeCreated
+            /// </summary>
             public static readonly SortByParam TIMECREATED = new SortByParam("timeCreated");
         }
 
@@ -98,6 +115,10 @@ namespace OCISDK.Core.src.Waas.Request
         /// </summary>
         public string TimeCreatedLessThan { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

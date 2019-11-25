@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// GetObject Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.ObjectStorage.Request
+﻿namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// GetObject Request
+    /// </summary>
     public class GetObjectRequest
     {
         /// <summary>

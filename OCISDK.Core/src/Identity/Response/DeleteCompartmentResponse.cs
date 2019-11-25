@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteCompartment Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Response
+﻿namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// DeleteCompartment Response
+    /// </summary>
     public class DeleteCompartmentResponse
     {
         /// <summary>

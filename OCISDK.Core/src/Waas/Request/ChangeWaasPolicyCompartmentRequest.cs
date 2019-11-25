@@ -7,6 +7,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas.Request
 {
+    /// <summary>
+    /// ChangeWaasPolicyCompartment Request
+    /// </summary>
     public class ChangeWaasPolicyCompartmentRequest
     {
         /// <summary>

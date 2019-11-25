@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Search.Response
 {
+    /// <summary>
+    /// SearchResources Response
+    /// </summary>
     public class SearchResourcesResponse
     {
         /// <summary>
@@ -21,6 +24,9 @@ namespace OCISDK.Core.src.Search.Response
         /// </summary>
         public string OpcNextPage { get; set; }
 
+        /// <summary>
+        /// ResourceSummaryCollection
+        /// </summary>
         public ResourceSummaryCollection ResourceSummaryCollection { get; set; }
     }
 }

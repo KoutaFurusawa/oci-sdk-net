@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Search
 {
+    /// <summary>
+    /// SearchClient interface
+    /// </summary>
     public interface ISearchClient
     {
         /// <summary>

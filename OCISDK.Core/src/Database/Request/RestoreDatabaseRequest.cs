@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// RestoreDatabase Request
+    /// </summary>
     public class RestoreDatabaseRequest
     {
         /// <summary>

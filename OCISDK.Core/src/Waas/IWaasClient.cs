@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas
 {
+    /// <summary>
+    /// WaasClient interface
+    /// </summary>
     public interface IWaasClient
     {
         /// <summary>
@@ -24,7 +27,7 @@ namespace OCISDK.Core.src.Waas
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         ChangeWaasPolicyCompartmentResponse ChangeWaasPolicyCompartment(ChangeWaasPolicyCompartmentRequest request);
 

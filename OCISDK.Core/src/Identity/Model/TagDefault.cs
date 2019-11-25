@@ -1,18 +1,15 @@
-﻿/// <summary>
-/// TagDefault Reference
-/// Tag defaults let you specify a default tag (tagnamespace.tag="value") to apply to all resource types 
-/// in a specified compartment. The tag default is applied at the time the resource is created. Resources 
-/// that exist in the compartment before you create the tag default are not tagged. The TagDefault object 
-/// specifies the tag and compartment details.
-/// 
-/// To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, 
-/// talk to an administrator.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Model
+﻿namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// TagDefault Reference
+    /// Tag defaults let you specify a default tag (tagnamespace.tag="value") to apply to all resource types 
+    /// in a specified compartment. The tag default is applied at the time the resource is created. Resources 
+    /// that exist in the compartment before you create the tag default are not tagged. The TagDefault object 
+    /// specifies the tag and compartment details.
+    /// 
+    /// To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, 
+    /// talk to an administrator.
+    /// </summary>
     public class TagDefault
     {
         /// <summary>

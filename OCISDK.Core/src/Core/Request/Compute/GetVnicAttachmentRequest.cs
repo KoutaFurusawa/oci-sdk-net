@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// GetVnicAttachmentRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Request.Compute
+﻿namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetVnicAttachment Request
+    /// </summary>
     public class GetVnicAttachmentRequest
     {
         /// <summary>

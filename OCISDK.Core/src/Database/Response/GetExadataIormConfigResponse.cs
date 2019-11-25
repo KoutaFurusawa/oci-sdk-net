@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// GetExadataIormConfig Response
+    /// </summary>
     public class GetExadataIormConfigResponse
     {
         /// <summary>

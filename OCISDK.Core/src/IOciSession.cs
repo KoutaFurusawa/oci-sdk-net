@@ -16,6 +16,9 @@ using System.Text;
 
 namespace OCISDK.Core.src
 {
+    /// <summary>
+    /// OciSession interface
+    /// </summary>
     public interface IOciSession
     {
         /// <summary>

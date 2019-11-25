@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// GetConfiguration Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Audit.Model;
+﻿using OCISDK.Core.src.Audit.Model;
 
 namespace OCISDK.Core.src.Audit.Response
 {
+    /// <summary>
+    /// GetConfiguration Response
+    /// </summary>
     public class GetConfigurationResponse
     {
         /// <summary>

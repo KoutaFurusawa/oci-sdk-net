@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// DeleteDhcpOptionsResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Response.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
     /// <summary>
     /// This response has no body content.

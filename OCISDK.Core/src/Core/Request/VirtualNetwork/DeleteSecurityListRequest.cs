@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteSecurityListRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteSecurityList Request
+    /// </summary>
     public class DeleteSecurityListRequest
     {
         /// <summary>

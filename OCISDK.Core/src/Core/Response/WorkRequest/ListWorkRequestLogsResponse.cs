@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.WorkRequest
 {
+    /// <summary>
+    /// ListWorkRequestLogs Response
+    /// </summary>
     public class ListWorkRequestLogsResponse
     {
         /// <summary>

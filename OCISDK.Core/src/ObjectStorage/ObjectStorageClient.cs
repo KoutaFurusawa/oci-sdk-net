@@ -9,29 +9,43 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage
 {
+    /// <summary>
+    /// ObjectStorageClient
+    /// </summary>
     public class ObjectStorageClient : ServiceClient, IObjectStorageClient
     {
+        private readonly string ObjectStorageServiceName = "object_storage";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public ObjectStorageClient(ClientConfig config) : base(config)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ObjectStorageClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ObjectStorageClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ObjectStorageClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
         /// <summary>
@@ -212,6 +226,7 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
+        /// <param name="filename"></param>
         public void DownloadObject(GetObjectRequest request, string savePath, string filename)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");

@@ -1,20 +1,16 @@
-﻿/// <summary>
-/// Vnic Reference
-/// A virtual network interface card. Each VNIC resides in a subnet in a VCN. An instance attaches to a VNIC to obtain a 
-/// network connection into the VCN through that subnet. Each instance has a primary VNIC that is automatically created and 
-/// attached during launch. You can add secondary VNICs to an instance after it's launched. For more information, see 
-/// Virtual Network Interface Cards (VNICs).
-/// 
-/// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
+    /// <summary>
+    /// Vnic Reference
+    /// A virtual network interface card. Each VNIC resides in a subnet in a VCN. An instance attaches to a VNIC to obtain a 
+    /// network connection into the VCN through that subnet. Each instance has a primary VNIC that is automatically created and 
+    /// attached during launch. You can add secondary VNICs to an instance after it's launched. For more information, see 
+    /// Virtual Network Interface Cards (VNICs).
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// </summary>
     public class Vnic
     {
         /// <summary>

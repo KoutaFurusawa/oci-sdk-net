@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateInternetGatewayRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// UpdateInternetGateway Request
+    /// </summary>
     public class UpdateInternetGatewayRequest
     {
         /// <summary>

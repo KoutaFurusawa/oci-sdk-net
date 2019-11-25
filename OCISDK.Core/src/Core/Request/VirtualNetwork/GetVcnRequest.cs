@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetVcnRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// GetVcn Request
+    /// </summary>
     public class GetVcnRequest
     {
         /// <summary>

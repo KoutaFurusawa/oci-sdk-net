@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// LaunchDbSystem Request
+    /// </summary>
     public class LaunchDbSystemRequest
     {
         /// <summary>

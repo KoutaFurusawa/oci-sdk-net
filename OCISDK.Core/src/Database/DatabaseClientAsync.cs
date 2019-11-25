@@ -10,9 +10,13 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Database
 {
+    /// <summary>
+    /// DatabaseClientAsync
+    /// </summary>
     public class DatabaseClientAsync : ServiceClient, IDatabaseClientAsync
     {
         private readonly string DatabaseServiceName = "database";
+
         /// <summary>
         /// Constructer
         /// </summary>
@@ -21,16 +25,25 @@ namespace OCISDK.Core.src.Database
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DatabaseClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DatabaseClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DatabaseClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
@@ -640,7 +653,7 @@ namespace OCISDK.Core.src.Database
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<DeleteDbHomeRsponse> DeleteDbHome(DeleteDbHomeRequest request)
+        public async Task<DeleteDbHomeResponse> DeleteDbHome(DeleteDbHomeRequest request)
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}/{request.DbHomeId}?performFinalBackup={request.PerformFinalBackup}");
 
@@ -651,7 +664,7 @@ namespace OCISDK.Core.src.Database
             {
                 var response = reader.ReadToEnd();
 
-                return new DeleteDbHomeRsponse()
+                return new DeleteDbHomeResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

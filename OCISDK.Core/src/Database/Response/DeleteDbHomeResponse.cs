@@ -4,7 +4,10 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
-    public class DeleteDbHomeRsponse
+    /// <summary>
+    /// DeleteDbHome Response
+    /// </summary>
+    public class DeleteDbHomeResponse
     {
         /// <summary>
         /// Unique Oracle-assigned identifier for the request.If you need to contact Oracle about a particular request, please provide the request ID.

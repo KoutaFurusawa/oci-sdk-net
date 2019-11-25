@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// CreateDbHomeWithDbSystemId Response
+    /// </summary>
     public class CreateDbHomeWithDbSystemIdResponse
     {
         /// <summary>

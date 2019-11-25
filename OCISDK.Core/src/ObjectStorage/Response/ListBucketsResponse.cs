@@ -1,13 +1,11 @@
-﻿/// <summary>
-/// ListBuckets Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.ObjectStorage.Model;
+﻿using OCISDK.Core.src.ObjectStorage.Model;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.ObjectStorage.Response
 {
+    /// <summary>
+    /// ListBuckets Response
+    /// </summary>
     public class ListBucketsResponse
     {
         /// <summary>

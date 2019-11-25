@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// TerminateInstanceRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.Compute
+﻿namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// TerminateInstance Request
+    /// </summary>
     public class TerminateInstanceRequest
     {
         /// <summary>

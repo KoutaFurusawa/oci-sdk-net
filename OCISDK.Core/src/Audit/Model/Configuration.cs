@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// Configuration
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
-
-namespace OCISDK.Core.src.Audit.Model
+﻿namespace OCISDK.Core.src.Audit.Model
 {
     /// <summary>
     /// The retention period setting, specified in days. For more information, see Setting Audit Log Retention Period.

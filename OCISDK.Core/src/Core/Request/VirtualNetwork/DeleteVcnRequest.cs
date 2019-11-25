@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteVcnRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteVcn Request
+    /// </summary>
     public class DeleteVcnRequest
     {
         /// <summary>

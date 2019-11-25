@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// PostMetricData Request
+    /// </summary>
     public class PostMetricDataRequest
     {
         /// <summary>

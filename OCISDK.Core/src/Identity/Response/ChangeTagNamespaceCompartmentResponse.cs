@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// ChangeTagNamespaceCompartmentDetail Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Identity.Response
+﻿namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// ChangeTagNamespaceCompartment Response
+    /// </summary>
     public class ChangeTagNamespaceCompartmentResponse
     {
         /// <summary>

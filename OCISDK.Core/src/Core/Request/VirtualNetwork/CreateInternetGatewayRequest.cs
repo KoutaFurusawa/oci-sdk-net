@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// CreateInternetGatewayRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// CreateInternetGateway Request
+    /// </summary>
     public class CreateInternetGatewayRequest
     {
         /// <summary>
@@ -21,6 +18,9 @@ namespace OCISDK.Core.src.Core.Request.VirtualNetwork
         /// </summary>
         public string OpcRetryToken { get; set; }
 
+        /// <summary>
+        /// CreateInternetGateway
+        /// </summary>
         public CreateInternetGatewayDetails CreateInternetGatewayDetails { get; set; }
     }
 }

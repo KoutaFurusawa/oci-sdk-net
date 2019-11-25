@@ -1,14 +1,10 @@
-﻿/// <summary>
-/// GetBucket Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// GetBucket Request
+    /// </summary>
     public class GetBucketRequest
     {
         /// <summary>

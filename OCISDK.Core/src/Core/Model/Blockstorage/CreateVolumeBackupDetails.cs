@@ -1,10 +1,14 @@
-﻿using System;
+﻿using OCISDK.Core.src.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// CreateVolumeBackupDetails
+    /// </summary>
     public class CreateVolumeBackupDetails
     {
         /// <summary>
@@ -26,14 +30,37 @@ namespace OCISDK.Core.src.Core.Model.Blockstorage
         /// The type of backup to create. If omitted, defaults to INCREMENTAL.
         /// <para>Required: no</para>
         /// </summary>
-        public Types Type { get; set; }
+        public TypeParam Type { get; set; }
 
-        public enum Types
+        /// <summary>
+        /// Type ExpandableEnum
+        /// </summary>
+        public class TypeParam : ExpandableEnum<TypeParam>
         {
-            [DisplayName("FULL")]
-            FULL,
-            [DisplayName("INCREMENTAL")]
-            INCREMENTAL
+            /// <summary>
+            /// Type ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
+            public TypeParam(string value) : base(value) { }
+
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
+            public static implicit operator TypeParam(string value)
+            {
+                return Parse(value);
+            }
+
+            /// <summary>
+            /// TIMECREATED
+            /// </summary>
+            public static readonly TypeParam FULL = new TypeParam("FULL");
+
+            /// <summary>
+            /// DISPLAYNAME
+            /// </summary>
+            public static readonly TypeParam INCREMENTAL = new TypeParam("INCREMENTAL");
         }
 
         /// <summary>

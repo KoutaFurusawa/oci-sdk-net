@@ -43,6 +43,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public string ExternalIdentifier { get; set; }
 
+        /// <summary>
+        /// option quert
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var options = $"compartmentId={this.CompartmentId}";

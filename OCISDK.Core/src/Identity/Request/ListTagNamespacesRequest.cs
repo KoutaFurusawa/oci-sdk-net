@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// ListTagNamespaces Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListTagNamespaces Request
+    /// </summary>
     public class ListTagNamespacesRequest
     {
         /// <summary>
@@ -36,6 +33,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public bool? IncludeSubcompartments { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var options = $"compartmentId={this.CompartmentId}";

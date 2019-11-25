@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// GetAlarmHistory Request
+    /// </summary>
     public class GetAlarmHistoryRequest
     {
         /// <summary>
@@ -54,6 +57,10 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// </summary>
         public string TimestampLessThan { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder();

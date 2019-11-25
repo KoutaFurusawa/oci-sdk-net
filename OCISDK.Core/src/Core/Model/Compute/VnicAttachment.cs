@@ -1,13 +1,11 @@
-﻿/// <summary>
-/// VnicAttachment Reference
-/// Represents an attachment between a VNIC and an instance. For more information, see Virtual Network Interface Cards (VNICs).
-/// 
-/// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Model.Compute
+﻿namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// VnicAttachment Reference
+    /// Represents an attachment between a VNIC and an instance. For more information, see Virtual Network Interface Cards (VNICs).
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// </summary>
     public class VnicAttachment
     {
         /// <summary>

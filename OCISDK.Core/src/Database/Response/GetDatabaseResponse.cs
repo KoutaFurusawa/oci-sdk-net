@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// GetDatabase Response
+    /// </summary>
     public class GetDatabaseResponse
     {
         /// <summary>

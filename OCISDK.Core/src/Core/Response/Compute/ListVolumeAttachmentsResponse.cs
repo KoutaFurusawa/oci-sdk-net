@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// ListVolumeAttachments Response
+    /// </summary>
     public class ListVolumeAttachmentsResponse
     {
         /// <summary>

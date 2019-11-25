@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// VirtualNetwork Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -17,6 +11,9 @@ using OCISDK.Core.src.Core.Response.VirtualNetwork;
 
 namespace OCISDK.Core
 {
+    /// <summary>
+    /// VirtualNetworkClientAsync
+    /// </summary>
     public class VirtualNetworkClientAsync : ServiceClient, IVirtualNetworkClientAsync
     {
         /// <summary>
@@ -27,16 +24,25 @@ namespace OCISDK.Core
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public VirtualNetworkClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public VirtualNetworkClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public VirtualNetworkClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
@@ -267,7 +273,7 @@ namespace OCISDK.Core
         /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getDhcpRequest"></param>
         /// <returns></returns>
         public async Task<GetDhcpResponse> GetDhcp(GetDhcpRequest getDhcpRequest)
         {
@@ -367,7 +373,7 @@ namespace OCISDK.Core
         /// <summary>
         /// Gets the specified VCN's information.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getVcnRequest"></param>
         /// <returns></returns>
         public async Task<GetVcnResponse> GetVcn(GetVcnRequest getVcnRequest)
         {
@@ -395,9 +401,9 @@ namespace OCISDK.Core
         /// </summary>
         /// <param name="getVcnRequest"></param>
         /// <returns></returns>
-        public async Task<GetVnicResponse> GetVnic(GetVnicRequest getRequest)
+        public async Task<GetVnicResponse> GetVnic(GetVnicRequest getVcnRequest)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{getRequest.VnicId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{getVcnRequest.VnicId}");
             
             var webResponse = await this.RestClientAsync.Get(uri);
 
@@ -915,7 +921,7 @@ namespace OCISDK.Core
         /// Updates the specified set of DHCP options. 
         /// You can update the display name or the options themselves. Avoid entering confidential information.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         public async Task<UpdateDhcpOptionsResponse> UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest)
         {
@@ -965,7 +971,7 @@ namespace OCISDK.Core
         /// <summary>
         /// Updates the specified subnet.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         public async Task<UpdateSubnetResponse> UpdateSubnet(UpdateSubnetRequest updateRequest)
         {

@@ -12,6 +12,12 @@ namespace OCISDK.Core.src.Common
             excludeNulls: true
         );
 
+        /// <summary>
+        /// deafult Serialize
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public string Serialize<T>(T data)
         {
             if (data == null) {
@@ -20,6 +26,12 @@ namespace OCISDK.Core.src.Common
             return JSON.Serialize(data, Options);
         }
 
+        /// <summary>
+        /// deafault Deserialize
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public T Deserialize<T>(string text)
         {
             if (string.IsNullOrEmpty(text))

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// ChangeVcnCompartment Request
+    /// </summary>
     public class ChangeVcnCompartmentRequest
     {
         /// <summary>

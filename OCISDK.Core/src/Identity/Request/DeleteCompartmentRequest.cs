@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteCompartment Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// DeleteCompartment Request
+    /// </summary>
     public class DeleteCompartmentRequest
     {
         /// <summary>

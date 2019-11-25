@@ -10,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Monitoring
 {
+    /// <summary>
+    /// MonitoringClientAsync
+    /// </summary>
     public class MonitoringClientAsync : ServiceClient, IMonitoringClientAsync
     {
+        private readonly string monitaringServiceName = "monitoring";
         private readonly string IngestionServiceName = "monitoring-ingestion";
 
         /// <summary>
@@ -19,22 +23,31 @@ namespace OCISDK.Core.src.Monitoring
         /// </summary>
         public MonitoringClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public MonitoringClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public MonitoringClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public MonitoringClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
         
         /// <summary>

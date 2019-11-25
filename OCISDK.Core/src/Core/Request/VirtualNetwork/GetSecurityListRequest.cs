@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetSecurityListRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// GetSecurityList Request
+    /// </summary>
     public class GetSecurityListRequest
     {
         /// <summary>

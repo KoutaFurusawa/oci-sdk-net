@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateVcnRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// UpdateVcn Request
+    /// </summary>
     public class UpdateVcnRequest
     {
         /// <summary>

@@ -27,16 +27,25 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
             ServiceName = CommercialServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public CommercialClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CommercialServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public CommercialClient(ClientConfigStream config) : base(config)
         {
             ServiceName = CommercialServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public CommercialClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CommercialServiceName;
@@ -63,7 +72,7 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
         /// <summary>
         /// GetPurchaseEntitlements
         /// </summary>
-        /// <param name="requets"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         public ListPurchaseEntitlementsResponse ListPurchaseEntitlements(ListPurchaseEntitlementsRequest request)
         {

@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// GetImageRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Request.Compute
+﻿namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetImage Request
+    /// </summary>
     public class GetImageRequest
     {
         /// <summary>

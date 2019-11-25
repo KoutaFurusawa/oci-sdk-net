@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// DetachVolume Response
+    /// </summary>
     public class DetachVolumeResponse
     {
         /// <summary>

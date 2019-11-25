@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Identity
 {
+    /// <summary>
+    /// IdentityClient interface
+    /// </summary>
     public interface IIdentityClient
     {
         /// <summary>
@@ -165,7 +168,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Creates a new compartment in the specified compartment.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="createRequest"></param>
         /// <returns></returns>
         CreateCompartmentResponse CreateCompartment(CreateCompartmentRequest createRequest);
 
@@ -262,7 +265,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Updates the specified compartment's description or name. You can't update the root compartment.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         UpdateCompartmentResponse UpdateCompartment(UpdateCompartmentRequest updateRequest);
 
@@ -320,7 +323,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="deleteRequest"></param>
         /// <returns></returns>
         DeleteCompartmentResponse DeleteCompartment(DeleteCompartmentRequest deleteRequest);
 

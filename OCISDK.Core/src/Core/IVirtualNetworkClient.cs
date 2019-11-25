@@ -3,6 +3,9 @@ using OCISDK.Core.src.Core.Response.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// VirtualNetwork Client interface
+    /// </summary>
     public interface IVirtualNetworkClient
     {
         /// <summary>
@@ -80,7 +83,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getDhcpRequest"></param>
         /// <returns></returns>
         GetDhcpResponse GetDhcp(GetDhcpRequest getDhcpRequest);
 
@@ -108,7 +111,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Gets the specified VCN's information.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getVcnRequest"></param>
         /// <returns></returns>
         GetVcnResponse GetVcn(GetVcnRequest getVcnRequest);
 
@@ -116,7 +119,7 @@ namespace OCISDK.Core.src.Core
         /// Gets the information for the specified virtual network interface card (VNIC).
         /// You can get the VNIC OCID from the ListVnicAttachments operation.
         /// </summary>
-        /// <param name="getVcnRequest"></param>
+        /// <param name="getRequest"></param>
         /// <returns></returns>
         GetVnicResponse GetVnic(GetVnicRequest getRequest);
 
@@ -279,7 +282,7 @@ namespace OCISDK.Core.src.Core
         /// Updates the specified set of DHCP options. 
         /// You can update the display name or the options themselves. Avoid entering confidential information.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         UpdateDhcpOptionsResponse UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest);
 
@@ -293,7 +296,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Updates the specified subnet.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         UpdateSubnetResponse UpdateSubnet(UpdateSubnetRequest updateRequest);
 

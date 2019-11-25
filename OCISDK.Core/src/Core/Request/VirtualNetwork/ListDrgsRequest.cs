@@ -28,7 +28,10 @@ namespace OCISDK.Core.src.Core.Request.VirtualNetwork
         /// </summary>
         public string Page { get; set; }
 
-
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// DeleteZone Request
+    /// </summary>
     public class DeleteZoneRequest
     {
         /// <summary>

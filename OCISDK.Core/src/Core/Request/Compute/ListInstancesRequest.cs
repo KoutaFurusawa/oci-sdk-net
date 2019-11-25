@@ -1,16 +1,13 @@
-﻿/// <summary>
-/// ListInstancesRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using System;
 using System.ComponentModel;
 using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// ListInstances Request
+    /// </summary>
     public class ListInstancesRequest
     {
         /// <summary>
@@ -56,15 +53,29 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
-            
+
+            /// <summary>
+            /// TIMECREATED
+            /// </summary>
             public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
 
+            /// <summary>
+            /// DISPLAYNAME
+            /// </summary>
             public static readonly SortByParam DISPLAYNAME = new SortByParam("DISPLAYNAME");
         }
 
@@ -86,30 +97,66 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// </summary>
         public class LifecycleStates : ExpandableEnum<LifecycleStates>
         {
+            /// <summary>
+            /// LifecycleState ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public LifecycleStates(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator LifecycleStates(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// PROVISIONING
+            /// </summary>
             public static readonly LifecycleStates PROVISIONING = new LifecycleStates("PROVISIONING");
 
+            /// <summary>
+            /// RUNNING
+            /// </summary>
             public static readonly LifecycleStates RUNNING = new LifecycleStates("RUNNING");
 
+            /// <summary>
+            /// STARTING
+            /// </summary>
             public static readonly LifecycleStates STARTING = new LifecycleStates("STARTING");
 
+            /// <summary>
+            /// STOPPING
+            /// </summary>
             public static readonly LifecycleStates STOPPING = new LifecycleStates("STOPPING");
 
+            /// <summary>
+            /// STOPPED
+            /// </summary>
             public static readonly LifecycleStates STOPPED = new LifecycleStates("STOPPED");
 
+            /// <summary>
+            /// CREATING_IMAGE
+            /// </summary>
             public static readonly LifecycleStates CREATING_IMAGE = new LifecycleStates("CREATING_IMAGE");
 
+            /// <summary>
+            /// TERMINATING
+            /// </summary>
             public static readonly LifecycleStates TERMINATING = new LifecycleStates("TERMINATING");
 
+            /// <summary>
+            /// TERMINATED
+            /// </summary>
             public static readonly LifecycleStates TERMINATED = new LifecycleStates("TERMINATED");
         }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

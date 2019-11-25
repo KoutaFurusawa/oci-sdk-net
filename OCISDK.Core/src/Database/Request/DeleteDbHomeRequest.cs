@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// DeleteDbHome Request
+    /// </summary>
     public class DeleteDbHomeRequest
     {
         /// <summary>

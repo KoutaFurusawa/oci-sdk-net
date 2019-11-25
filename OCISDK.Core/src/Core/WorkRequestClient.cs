@@ -9,29 +9,43 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// WorkRequestClient
+    /// </summary>
     public class WorkRequestClient : ServiceClient, IWorkRequestClient
     {
+        private readonly string WorkRequestServiceName = "core";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public WorkRequestClient(ClientConfig config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = WorkRequestServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WorkRequestClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = WorkRequestServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WorkRequestClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = WorkRequestServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WorkRequestClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = WorkRequestServiceName;
         }
 
         /// <summary>

@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// GetTag Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// GetTag Response
+    /// </summary>
     public class GetTagResponse
     {
         /// <summary>

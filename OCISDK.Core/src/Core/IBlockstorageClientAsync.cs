@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// BlockstorageClient Async interface
+    /// </summary>
     public interface IBlockstorageClientAsync
     {
         /// <summary>
@@ -185,7 +188,7 @@ namespace OCISDK.Core.src.Core
         /// Moves a volume group backup into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="param"></param>
         /// <returns></returns>
         Task<ChangeVolumeGroupBackupCompartmentResponse> ChangeVolumeGroupBackupCompartment(ChangeVolumeGroupBackupCompartmentRequest param);
 

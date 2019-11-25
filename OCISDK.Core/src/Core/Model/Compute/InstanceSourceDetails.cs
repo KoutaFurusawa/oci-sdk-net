@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// InstanceSourceDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Model.Compute
+﻿namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// InstanceSourceDetails
+    /// </summary>
     public class InstanceSourceDetails
     {
         /// <summary>

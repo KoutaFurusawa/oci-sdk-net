@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetConsoleHistory Request
+    /// </summary>
     public class GetConsoleHistoryRequest
     {
         /// <summary>

@@ -22,10 +22,20 @@ namespace OCISDK.Core.src
     /// </summary>
     public class OciSession : IOciSession
     {
+        /// <summary>
+        /// OciSigner
+        /// </summary>
         public readonly OciSigner OciSigner;
 
+        /// <summary>
+        /// ClientConfigStream
+        /// </summary>
         public readonly ClientConfigStream ClientConfigStream;
 
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
         public OciSession(ClientConfig config)
         {
             var streamConfig = new ClientConfigStream
@@ -59,6 +69,10 @@ namespace OCISDK.Core.src
 
         }
 
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
         public OciSession(ClientConfigStream config)
         {
             OciSigner = new OciSigner(

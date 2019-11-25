@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// CreatePolicyDetails
+    /// </summary>
     public class CreatePolicyDetails
     {
         /// <summary>

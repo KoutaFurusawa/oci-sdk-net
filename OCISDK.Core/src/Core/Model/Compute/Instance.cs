@@ -1,17 +1,17 @@
-﻿/// <summary>
-/// Instance Reference
-/// A compute host. The image used to launch the instance determines its operating system and other software. 
-/// The shape specified during the launch process determines the number of CPUs and memory allocated to the instance. 
-/// For more information, see Overview of the Compute Service.
-/// 
-/// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// Instance Reference
+    /// A compute host. The image used to launch the instance determines its operating system and other software. 
+    /// The shape specified during the launch process determines the number of CPUs and memory allocated to the instance. 
+    /// For more information, see Overview of the Compute Service.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// 
+    /// author: koutaro furusawa
+    /// </summary>
     public class Instance
     {
         /// <summary>

@@ -1,13 +1,11 @@
-﻿/// <summary>
-/// ListEvents Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Audit.Model;
+﻿using OCISDK.Core.src.Audit.Model;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Audit.Response
 {
+    /// <summary>
+    /// ListEvents Response
+    /// </summary>
     public class ListEventsResponse
     {
         /// <summary>

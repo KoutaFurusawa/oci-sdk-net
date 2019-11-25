@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// GetBootVolumeAttachmentResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Compute;
+﻿using OCISDK.Core.src.Core.Model.Compute;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// GetBootVolumeAttachment Response
+    /// </summary>
     public class GetBootVolumeAttachmentResponse
     {
         /// <summary>

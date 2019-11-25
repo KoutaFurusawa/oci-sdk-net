@@ -4,6 +4,14 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// A point-in-time copy of a volume group that can then be used to create a new volume group or restore a volume group. For more information, see Volume Groups.
+    /// 
+    /// To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. 
+    /// If you're an administrator who needs to write policies to give users access, see Getting Started with Policies.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// </summary>
     public class VolumeGroupBackup
     {
         /// <summary>

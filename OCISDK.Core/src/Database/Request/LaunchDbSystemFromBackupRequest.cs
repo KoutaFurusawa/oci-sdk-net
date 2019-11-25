@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// LaunchDbSystemFromBackup Request
+    /// </summary>
     public class LaunchDbSystemFromBackupRequest
     {
         /// <summary>

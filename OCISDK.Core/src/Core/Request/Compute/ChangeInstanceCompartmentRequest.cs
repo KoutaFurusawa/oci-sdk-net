@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// ChangeInstanceCompartment Request
+    /// </summary>
     public class ChangeInstanceCompartmentRequest
     {
         /// <summary>

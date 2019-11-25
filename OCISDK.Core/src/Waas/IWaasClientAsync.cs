@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Waas
 {
+    /// <summary>
+    /// IWaasClientAsync interface
+    /// </summary>
     public interface IWaasClientAsync
     {
         /// <summary>
@@ -25,7 +28,7 @@ namespace OCISDK.Core.src.Waas
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         Task<ChangeWaasPolicyCompartmentResponse> ChangeWaasPolicyCompartment(ChangeWaasPolicyCompartmentRequest request);
 

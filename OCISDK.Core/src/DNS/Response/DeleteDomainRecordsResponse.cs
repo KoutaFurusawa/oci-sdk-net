@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Response
 {
+    /// <summary>
+    /// DeleteDomainRecords Response
+    /// </summary>
     public class DeleteDomainRecordsResponse
     {
         /// <summary>

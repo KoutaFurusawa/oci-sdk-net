@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Search.Request
 {
+    /// <summary>
+    /// SearchResources Request
+    /// </summary>
     public class SearchResourcesRequest
     {
         /// <summary>

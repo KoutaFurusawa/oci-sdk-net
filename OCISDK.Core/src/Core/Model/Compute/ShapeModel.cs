@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// Shape Reference
-/// A compute instance shape that can be used in LaunchInstance. 
-/// For more information, see Overview of the Compute Service.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Model.Compute
+﻿namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// Shape Reference
+    /// A compute instance shape that can be used in LaunchInstance. 
+    /// For more information, see Overview of the Compute Service.
+    /// </summary>
     public class ShapeModel
     {
         /// <summary>

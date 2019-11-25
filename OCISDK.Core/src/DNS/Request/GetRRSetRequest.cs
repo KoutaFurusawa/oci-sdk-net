@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// GetRRSet Request
+    /// </summary>
     public class GetRRSetRequest
     {
         /// <summary>
@@ -67,6 +70,10 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public string CompartmentId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder();

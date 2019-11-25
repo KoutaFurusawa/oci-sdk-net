@@ -3,6 +3,9 @@ using OCISDK.Core.src.Monitoring.Response;
 
 namespace OCISDK.Core.src.Monitoring
 {
+    /// <summary>
+    /// MonitoringClient interface
+    /// </summary>
     public interface IMonitoringClient
     {
         /// <summary>

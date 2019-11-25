@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// GetBootVolumeKmsKey Request
+    /// </summary>
     public class GetBootVolumeKmsKeyRequest
     {
         /// <summary>

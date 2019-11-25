@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// CreateBootVolumeRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Core.Model.Blockstorage;
+﻿using OCISDK.Core.src.Core.Model.Blockstorage;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// CreateBootVolume Request
+    /// </summary>
     public class CreateBootVolumeRequest
     {
         /// <summary>
@@ -20,6 +18,9 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// </summary>
         public string OpcRetryToken { get; set; }
 
+        /// <summary>
+        /// CreateBootVolume
+        /// </summary>
         public CreateBootVolumeDetails CreateBootVolumeDetails { get; set; }
     }
 }

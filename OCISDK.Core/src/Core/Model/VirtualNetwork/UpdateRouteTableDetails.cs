@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
+    /// <summary>
+    /// UpdateRouteTableDetails
+    /// </summary>
     public class UpdateRouteTableDetails
     {
         /// <summary>

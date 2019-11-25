@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteSecurityListResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Response.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteSecurityList Response
+    /// </summary>
     public class DeleteSecurityListResponse
     {
         /// <summary>

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// DeleteBucket Request
+    /// </summary>
     public class DeleteBucketRequest
     {
         /// <summary>

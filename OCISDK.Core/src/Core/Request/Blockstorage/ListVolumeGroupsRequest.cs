@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// ListVolumeGroups Request
+    /// </summary>
     public class ListVolumeGroupsRequest
     {
         /// <summary>
@@ -52,15 +55,29 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// TIMECREATED
+            /// </summary>
             public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
 
+            /// <summary>
+            /// DISPLAYNAME
+            /// </summary>
             public static readonly SortByParam DISPLAYNAME = new SortByParam("DISPLAYNAME");
         }
 
@@ -77,6 +94,10 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// </summary>
         public string LifecycleState { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

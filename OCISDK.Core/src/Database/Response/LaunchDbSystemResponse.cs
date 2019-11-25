@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// LaunchDbSystem Response
+    /// </summary>
     public class LaunchDbSystemResponse
     {
         /// <summary>

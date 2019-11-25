@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// BlockstorageClient interface
+    /// </summary>
     public interface IBlockstorageClient
     {
         /// <summary>
@@ -184,7 +187,7 @@ namespace OCISDK.Core.src.Core
         /// Moves a volume group backup into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="param"></param>
         /// <returns></returns>
         ChangeVolumeGroupBackupCompartmentResponse ChangeVolumeGroupBackupCompartment(ChangeVolumeGroupBackupCompartmentRequest param);
 

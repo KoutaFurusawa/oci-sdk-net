@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas.Response
 {
+    /// <summary>
+    /// ChangeWaasPolicyCompartment Response
+    /// </summary>
     public class ChangeWaasPolicyCompartmentResponse
     {
         /// <summary>

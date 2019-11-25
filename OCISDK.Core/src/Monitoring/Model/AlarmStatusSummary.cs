@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Model
 {
+    /// <summary>
+    /// AlarmStatusSummary
+    /// </summary>
     public class AlarmStatusSummary
     {
         /// <summary>

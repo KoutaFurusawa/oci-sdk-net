@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetConsoleHistoryContent Request
+    /// </summary>
     public class GetConsoleHistoryContentRequest
     {
         /// <summary>
@@ -24,6 +27,10 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// </summary>
         public int? Length { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

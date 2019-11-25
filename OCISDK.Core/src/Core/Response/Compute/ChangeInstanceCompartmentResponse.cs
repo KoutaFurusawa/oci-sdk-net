@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// ChangeInstanceCompartment Response
+    /// </summary>
     public class ChangeInstanceCompartmentResponse
     {
         /// <summary>

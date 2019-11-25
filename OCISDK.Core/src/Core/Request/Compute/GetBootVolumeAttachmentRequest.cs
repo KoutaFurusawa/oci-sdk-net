@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// GetBootVolumeAttachmentRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Request.Compute
+﻿namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetBootVolumeAttachment Request
+    /// </summary>
     public class GetBootVolumeAttachmentRequest
     {
         /// <summary>

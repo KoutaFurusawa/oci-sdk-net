@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// VirtualNetworkClient Async interface
+    /// </summary>
     public interface IVirtualNetworkClientAsync
     {
         /// <summary>
@@ -82,7 +85,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getDhcpRequest"></param>
         /// <returns></returns>
         Task<GetDhcpResponse> GetDhcp(GetDhcpRequest getDhcpRequest);
 
@@ -110,7 +113,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Gets the specified VCN's information.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getVcnRequest"></param>
         /// <returns></returns>
         Task<GetVcnResponse> GetVcn(GetVcnRequest getVcnRequest);
 
@@ -120,7 +123,7 @@ namespace OCISDK.Core.src.Core
         /// </summary>
         /// <param name="getVcnRequest"></param>
         /// <returns></returns>
-        Task<GetVnicResponse> GetVnic(GetVnicRequest getRequest);
+        Task<GetVnicResponse> GetVnic(GetVnicRequest getVcnRequest);
 
         /// <summary>
         /// Gets the specified subnet's information.
@@ -280,7 +283,7 @@ namespace OCISDK.Core.src.Core
         /// Updates the specified set of DHCP options. 
         /// You can update the display name or the options themselves. Avoid entering confidential information.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         Task<UpdateDhcpOptionsResponse> UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest);
 
@@ -294,7 +297,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Updates the specified subnet.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         Task<UpdateSubnetResponse> UpdateSubnet(UpdateSubnetRequest updateRequest);
 

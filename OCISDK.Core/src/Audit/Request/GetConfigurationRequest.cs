@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetConfiguration Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Audit.Request
+﻿namespace OCISDK.Core.src.Audit.Request
 {
+    /// <summary>
+    /// GetConfiguration Request
+    /// </summary>
     public class GetConfigurationRequest
     {
         /// <summary>

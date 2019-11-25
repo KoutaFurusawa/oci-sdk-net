@@ -1,17 +1,13 @@
-﻿/// <summary>
-/// Tag Reference
-/// A tag definition that belongs to a specific tag namespace. 
-/// "Defined tags" must be set up in your tenancy before you can apply them to resources. 
-/// For more information, see Managing Tags and Tag Namespaces.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// Tag Reference
+    /// A tag definition that belongs to a specific tag namespace. 
+    /// "Defined tags" must be set up in your tenancy before you can apply them to resources. 
+    /// For more information, see Managing Tags and Tag Namespaces.
+    /// </summary>
     public class Tag
     {
         /// <summary>

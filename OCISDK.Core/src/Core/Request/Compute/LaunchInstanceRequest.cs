@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// LaunchInstanceRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Compute;
+﻿using OCISDK.Core.src.Core.Model.Compute;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// LaunchInstance Request
+    /// </summary>
     public class LaunchInstanceRequest
     {
         /// <summary>

@@ -1,11 +1,4 @@
-﻿/// <summary>
-/// Audit Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using OCISDK.Core.src.Audit.Model;
+﻿using OCISDK.Core.src.Audit.Model;
 using OCISDK.Core.src.Audit.Request;
 using OCISDK.Core.src.Audit.Response;
 using OCISDK.Core.src.Common;
@@ -16,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Audit
 {
+    /// <summary>
+    /// Audit service
+    /// </summary>
     public class AuditClientAsync : ServiceClient, IAuditClientAsync
     {
         /// <summary>
@@ -26,16 +22,25 @@ namespace OCISDK.Core.src.Audit
             ServiceName = "audit";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public AuditClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "audit";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public AuditClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = "audit";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public AuditClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "audit";

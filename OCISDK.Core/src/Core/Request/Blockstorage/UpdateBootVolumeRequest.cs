@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// UpdateBootVolumeRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Core.Model.Blockstorage;
+﻿using OCISDK.Core.src.Core.Model.Blockstorage;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// UpdateBootVolume Request
+    /// </summary>
     public class UpdateBootVolumeRequest
     {
         /// <summary>

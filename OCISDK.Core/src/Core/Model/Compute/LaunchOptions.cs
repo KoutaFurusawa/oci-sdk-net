@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// LaunchOptions Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Model.Compute
+﻿namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// LaunchOptions
+    /// </summary>
     public class LaunchOptions
     {
         /// <summary>

@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// GetInternetGatewayResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// GetInternetGateway Response
+    /// </summary>
     public class GetInternetGatewayResponse
     {
         /// <summary>

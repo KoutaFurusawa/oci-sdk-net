@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetSubnetRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// /GetSubnet Request
+    /// </summary>
     public class GetSubnetRequest
     {
         /// <summary>

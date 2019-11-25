@@ -5,6 +5,9 @@ using OCISDK.Core.src.Core.Model.Blockstorage;
 
 namespace OCISDK.Core.src.Core.Response.Blockstorage
 {
+    /// <summary>
+    /// CopyVolumeBackup Response
+    /// </summary>
     public class CopyVolumeBackupResponse
     {
         /// <summary>

@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// GetInstanceRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Request.Compute
+﻿namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetInstance Request
+    /// </summary>
     public class GetInstanceRequest
     {
         /// <summary>

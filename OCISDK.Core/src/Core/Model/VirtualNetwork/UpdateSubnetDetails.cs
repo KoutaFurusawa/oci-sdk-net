@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateSubnetDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
+    /// <summary>
+    /// UpdateSubnetDetails Reference
+    /// </summary>
     public class UpdateSubnetDetails
     {
         /// <summary>

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteRouteTable Request
+    /// </summary>
     public class DeleteRouteTableRequest
     {
         /// <summary>

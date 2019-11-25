@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// CreateSecurityListRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// CreateSecurityList Request
+    /// </summary>
     public class CreateSecurityListRequest
     {
         /// <summary>
@@ -21,6 +18,9 @@ namespace OCISDK.Core.src.Core.Request.VirtualNetwork
         /// </summary>
         public string OpcRetryToken { get; set; }
 
+        /// <summary>
+        /// CreateSecurityList
+        /// </summary>
         public CreateSecurityListDetails CreateSecurityListDetails { get; set; }
     }
 }

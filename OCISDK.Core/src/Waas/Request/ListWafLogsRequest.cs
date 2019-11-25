@@ -149,7 +149,10 @@ namespace OCISDK.Core.src.Waas.Request
         /// </summary>
         public List<string> ProtectionRuleKey { get; set; }
 
-
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

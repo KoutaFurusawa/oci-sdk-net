@@ -1,16 +1,13 @@
-﻿/// <summary>
-/// ConfigFileReader Class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace OCISDK.Core.src.Common
 {
+    /// <summary>
+    /// OCI configfile reader
+    /// </summary>
     public static class ConfigFileReader
     {
         /// <summary>
@@ -89,9 +86,9 @@ namespace OCISDK.Core.src.Common
         /// <summary>
         /// Create a new instance using an input stream.
         /// </summary>
-        /// <param name="ConfigurationStream"></param>
+        /// <param name="configurationFilePath"></param>
         /// <param name="profile"></param>
-        /// <param name="encode"></param>
+        /// <param name="encoding"></param>
         /// <returns></returns>
         public static ConfigFile Parse(string configurationFilePath, string profile, Encoding encoding)
         {
@@ -131,12 +128,22 @@ namespace OCISDK.Core.src.Common
             private ConfigAccumulator Accumulator;
             private readonly string Profile;
 
+            /// <summary>
+            /// constracter
+            /// </summary>
+            /// <param name="accumulator"></param>
+            /// <param name="profile"></param>
             public ConfigFile(ConfigAccumulator accumulator, string profile)
             {
                 Accumulator = accumulator;
                 Profile = profile;
             }
 
+            /// <summary>
+            /// Get
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
             public string Get(string key)
             {
                 if (Profile != null && (Accumulator.ConfigurationByProfile[Profile].ContainsKey(key)))
@@ -149,14 +156,30 @@ namespace OCISDK.Core.src.Common
             }
         }
 
+        /// <summary>
+        /// ConfigAccumulator
+        /// </summary>
         public class ConfigAccumulator
         {
+            /// <summary>
+            /// initialize
+            /// </summary>
             public Dictionary<string, Dictionary<string, string>> ConfigurationByProfile 
                 = new Dictionary<string, Dictionary<string, string>>();
 
+            /// <summary>
+            /// CurrentProfile
+            /// </summary>
             public string CurrentProfile = null;
+
+            /// <summary>
+            /// FoundDefaultProfile
+            /// </summary>
             public bool FoundDefaultProfile = false;
 
+            /// <summary>
+            /// Accept
+            /// </summary>
             public void Accept(string line)
             {
                 string trimmedLine = line.Trim();

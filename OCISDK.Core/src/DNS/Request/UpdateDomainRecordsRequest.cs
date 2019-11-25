@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// UpdateDomainRecords Request
+    /// </summary>
     public class UpdateDomainRecordsRequest
     {
         /// <summary>
@@ -47,6 +50,9 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public string CompartmentId { get; set; }
 
+        /// <summary>
+        /// UpdateDomainRecordsDetails
+        /// </summary>
         public UpdateDomainRecordsDetails UpdateDomainRecordsDetails { get; set; }
     }
 }

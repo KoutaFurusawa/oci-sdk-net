@@ -1,14 +1,10 @@
-﻿/// <summary>
-/// UpdateCompartmentDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// UpdateCompartmentDetails Reference
+    /// </summary>
     public class UpdateCompartmentDetails
     {
         /// <summary>

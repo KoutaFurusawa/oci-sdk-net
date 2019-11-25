@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// IdentityService Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Identity.Model;
 using OCISDK.Core.src.Identity.Request;
 using OCISDK.Core.src.Identity.Response;
@@ -15,29 +9,43 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Identity
 {
+    /// <summary>
+    /// IdentityService Client
+    /// </summary>
     public class IdentityClientAsync : ServiceClient, IIdentityClientAsync
     {
+        private readonly string identityServiceName = "identity";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public IdentityClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "identity";
+            ServiceName = identityServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public IdentityClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "identity";
+            ServiceName = identityServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public IdentityClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "identity";
+            ServiceName = identityServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public IdentityClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "identity";
+            ServiceName = identityServiceName;
         }
 
         /// <summary>
@@ -607,7 +615,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Creates a new compartment in the specified compartment.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="createRequest"></param>
         /// <returns></returns>
         public async Task<CreateCompartmentResponse> CreateCompartment(CreateCompartmentRequest createRequest)
         {
@@ -844,7 +852,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Updates the specified compartment's description or name. You can't update the root compartment.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         public async Task<UpdateCompartmentResponse> UpdateCompartment(UpdateCompartmentRequest updateRequest)
         {

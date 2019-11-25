@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// ListAlarms Request
+    /// </summary>
     public class ListAlarmsRequest
     {
         /// <summary>
@@ -73,6 +76,10 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// </summary>
         public bool? CompartmentIdInSubtree { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder($"compartmentId={this.CompartmentId}");

@@ -1,10 +1,9 @@
-﻿/// <summary>
-/// BootVolumeSourceDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
+﻿
 namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// BootVolumeSourceDetails
+    /// </summary>
     public class BootVolumeSourceDetails
     {
         /// <summary>

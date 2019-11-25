@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Identity
 {
+    /// <summary>
+    /// IdentityClientAsync interface
+    /// </summary>
     public interface IIdentityClientAsync
     {
         /// <summary>
@@ -167,7 +170,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Creates a new compartment in the specified compartment.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="createRequest"></param>
         /// <returns></returns>
         Task<CreateCompartmentResponse> CreateCompartment(CreateCompartmentRequest createRequest);
 
@@ -264,7 +267,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Updates the specified compartment's description or name. You can't update the root compartment.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         Task<UpdateCompartmentResponse> UpdateCompartment(UpdateCompartmentRequest updateRequest);
 
@@ -322,7 +325,7 @@ namespace OCISDK.Core.src.Identity
         /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="deleteRequest"></param>
         /// <returns></returns>
         Task<DeleteCompartmentResponse> DeleteCompartment(DeleteCompartmentRequest deleteRequest);
 

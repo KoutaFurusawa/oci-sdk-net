@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// UpdateTag Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// UpdateTag Request
+    /// </summary>
     public class UpdateTagRequest
     {
         /// <summary>

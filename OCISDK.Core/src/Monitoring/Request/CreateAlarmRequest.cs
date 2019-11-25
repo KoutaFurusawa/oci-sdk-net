@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// CreateAlarm Request
+    /// </summary>
     public class CreateAlarmRequest
     {
         /// <summary>

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Audit
 {
+    /// <summary>
+    /// AuditClient interface
+    /// </summary>
     public interface IAuditClient
     {
         /// <summary>

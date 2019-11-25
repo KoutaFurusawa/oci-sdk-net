@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// Retrieves the specified tag default.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// GetTagDefault Request
+    /// </summary>
     public class GetTagDefaultRequest
     {
         /// <summary>

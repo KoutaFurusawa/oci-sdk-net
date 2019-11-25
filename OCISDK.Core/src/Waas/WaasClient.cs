@@ -9,29 +9,43 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas
 {
+    /// <summary>
+    /// WaasClient
+    /// </summary>
     public class WaasClient : ServiceClient, IWaasClient
     {
+        private readonly string WaasServiceName = "waas";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public WaasClient(ClientConfig config) : base(config)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
         /// <summary>
@@ -56,7 +70,7 @@ namespace OCISDK.Core.src.Waas
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         public ChangeWaasPolicyCompartmentResponse ChangeWaasPolicyCompartment(ChangeWaasPolicyCompartmentRequest request)
         {

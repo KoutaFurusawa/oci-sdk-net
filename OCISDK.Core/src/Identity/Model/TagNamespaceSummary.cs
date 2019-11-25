@@ -1,14 +1,10 @@
-﻿/// <summary>
-/// TagNamespaceSummary Reference
-/// A container for defined tags.
-/// 
-/// author: kouta furusawa
-/// </summary>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// TagNamespaceSummary
+    /// </summary>
     public class TagNamespaceSummary
     {
         /// <summary>

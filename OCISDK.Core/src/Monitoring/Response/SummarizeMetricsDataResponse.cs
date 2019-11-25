@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Response
 {
+    /// <summary>
+    /// SummarizeMetricsData Response
+    /// </summary>
     public class SummarizeMetricsDataResponse
     {
         /// <summary>

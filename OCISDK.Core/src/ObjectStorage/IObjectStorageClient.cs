@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage
 {
+    /// <summary>
+    /// ObjectStorageClient interface
+    /// </summary>
     public interface IObjectStorageClient
     {
         /// <summary>
@@ -66,6 +69,7 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
+        /// <param name="filename"></param>
         void DownloadObject(GetObjectRequest request, string savePath, string filename);
 
         /// <summary>

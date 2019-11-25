@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// AvailabilityDomain Reference
-/// One or more isolated, fault-tolerant Oracle data centers that host cloud resources such as instances, 
-/// volumes, and subnets. A region contains several Availability Domains. For more information, see Regions 
-/// and Availability Domains.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Model
+﻿namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// AvailabilityDomain Reference
+    /// One or more isolated, fault-tolerant Oracle data centers that host cloud resources such as instances, 
+    /// volumes, and subnets. A region contains several Availability Domains. For more information, see Regions 
+    /// and Availability Domains.
+    /// </summary>
     public class AvailabilityDomain
     {
         /// <summary>

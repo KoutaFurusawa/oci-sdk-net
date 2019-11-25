@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Response
 {
+    /// <summary>
+    /// ChangeZoneCompartment Response
+    /// </summary>
     public class ChangeZoneCompartmentResponse
     {
         /// <summary>

@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// AttachVnicDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// AttachVnicDetails
+    /// </summary>
     public class AttachVnicDetails
     {
         /// <summary>

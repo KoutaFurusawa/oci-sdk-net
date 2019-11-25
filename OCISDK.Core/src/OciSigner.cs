@@ -16,6 +16,9 @@ using Org.BouncyCastle.Security;
 
 namespace OCISDK.Core.src
 {
+    /// <summary>
+    /// OciSigner
+    /// </summary>
     public class OciSigner : IOciSigner
     {
         private static readonly IDictionary<string, List<string>> RequiredHeaders = new Dictionary<string, List<string>>
@@ -60,6 +63,11 @@ namespace OCISDK.Core.src
             SignerService.Init(true, privateKeyParams);
         }
 
+        /// <summary>
+        /// SignRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="useLessHeadersForPut"></param>
         public void SignRequest(HttpWebRequest request, bool useLessHeadersForPut = false)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
@@ -132,8 +140,16 @@ namespace OCISDK.Core.src
     {
         private readonly char[] password;
 
+        /// <summary>
+        /// key password
+        /// </summary>
+        /// <param name="password"></param>
         public Password(char[] password) { this.password = password; }
 
+        /// <summary>
+        /// password getter
+        /// </summary>
+        /// <returns></returns>
         public char[] GetPassword() { return (char[])password.Clone(); }
     }
 }

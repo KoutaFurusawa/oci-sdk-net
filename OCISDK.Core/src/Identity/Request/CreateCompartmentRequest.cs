@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// CreateCompartment Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// CreateCompartment Request
+    /// </summary>
     public class CreateCompartmentRequest
     {
         /// <summary>

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// ListDbSystemShapes Request
+    /// </summary>
     public class ListDbSystemShapesRequest
     {
         /// <summary>
@@ -34,6 +37,10 @@ namespace OCISDK.Core.src.Database.Request
         /// </summary>
         public string Page { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder();

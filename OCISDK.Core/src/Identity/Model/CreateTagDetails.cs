@@ -1,14 +1,10 @@
-﻿/// <summary>
-/// CreateTagDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// CreateTagDetails
+    /// </summary>
     public class CreateTagDetails
     {
         /// <summary>

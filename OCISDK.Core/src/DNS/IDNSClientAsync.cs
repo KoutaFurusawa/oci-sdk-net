@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.DNS
 {
+    /// <summary>
+    /// DNSClientAsync interface
+    /// </summary>
     public interface IDNSClientAsync
     {
         /// <summary>

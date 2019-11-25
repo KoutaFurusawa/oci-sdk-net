@@ -1,16 +1,13 @@
-﻿/// <summary>
-/// ListSubnetsRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using System;
 using System.ComponentModel;
 using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// ListSubnets Request
+    /// </summary>
     public class ListSubnetsRequest
     {
         /// <summary>
@@ -52,19 +49,39 @@ namespace OCISDK.Core.src.Core.Request.VirtualNetwork
         /// </summary>
         public class LifecycleStates : ExpandableEnum<LifecycleStates>
         {
+            /// <summary>
+            /// v
+            /// </summary>
+            /// <param name="value"></param>
             public LifecycleStates(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator LifecycleStates(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// PROVISIONING
+            /// </summary>
             public static readonly LifecycleStates PROVISIONING = new LifecycleStates("PROVISIONING");
 
+            /// <summary>
+            /// AVAILABLE
+            /// </summary>
             public static readonly LifecycleStates AVAILABLE = new LifecycleStates("AVAILABLE");
 
+            /// <summary>
+            /// TERMINATING
+            /// </summary>
             public static readonly LifecycleStates TERMINATING = new LifecycleStates("TERMINATING");
 
+            /// <summary>
+            /// v
+            /// </summary>
             public static readonly LifecycleStates TERMINATED = new LifecycleStates("TERMINATED");
         }
 
@@ -81,15 +98,29 @@ namespace OCISDK.Core.src.Core.Request.VirtualNetwork
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
-            
+
+            /// <summary>
+            /// TIMECREATED
+            /// </summary>
             public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
 
+            /// <summary>
+            /// DISPLAYNAME
+            /// </summary>
             public static readonly SortByParam DISPLAYNAME = new SortByParam("DISPLAYNAME");
         }
 
@@ -101,6 +132,10 @@ namespace OCISDK.Core.src.Core.Request.VirtualNetwork
         /// </summary>
         public SortOrder SortOrder { get; set; }
         
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

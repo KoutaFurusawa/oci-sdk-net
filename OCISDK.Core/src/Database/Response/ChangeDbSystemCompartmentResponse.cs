@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// ChangeDbSystemCompartment Response
+    /// </summary>
     public class ChangeDbSystemCompartmentResponse
     {
         /// <summary>

@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// CreateCompartmentDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
+﻿
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// CreateCompartmentDetails Reference
+    /// </summary>
     public class CreateCompartmentDetails
     {
         /// <summary>

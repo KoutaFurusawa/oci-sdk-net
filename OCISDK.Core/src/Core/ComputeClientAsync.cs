@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// Compute Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Model.Compute;
 using OCISDK.Core.src.Core.Request.Compute;
 using OCISDK.Core.src.Core.Response.Compute;
@@ -15,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// Compute Service Client
+    /// </summary>
     public class ComputeClientAsync : ServiceClient, IComputeClientAsync
     {
         /// <summary>
@@ -25,16 +22,25 @@ namespace OCISDK.Core.src.Core
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ComputeClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ComputeClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ComputeClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
@@ -617,7 +623,7 @@ namespace OCISDK.Core.src.Core
         /// This is an asynchronous operation.The instance's lifecycleState will change to TERMINATING temporarily until the instance 
         /// is completely removed.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="deleteRequest"></param>
         /// <returns></returns>
         public async Task<TerminateInstanceResponse> TerminateInstance(TerminateInstanceRequest deleteRequest)
         {

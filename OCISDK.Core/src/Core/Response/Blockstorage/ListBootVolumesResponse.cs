@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListBootVolumesResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Blockstorage;
+﻿using OCISDK.Core.src.Core.Model.Blockstorage;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Response.Blockstorage
 {
+    /// <summary>
+    /// ListBootVolumes Response
+    /// </summary>
     public class ListBootVolumesResponse
     {
         /// <summary>

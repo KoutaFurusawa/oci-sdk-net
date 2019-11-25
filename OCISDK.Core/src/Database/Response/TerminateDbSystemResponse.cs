@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// TerminateDbSystem Response
+    /// </summary>
     public class TerminateDbSystemResponse
     {
         /// <summary>

@@ -1,13 +1,11 @@
-﻿/// <summary>
-/// ListBuckets Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// ListBuckets Request
+    /// </summary>
     public class ListBucketsRequest
     {
         /// <summary>
@@ -51,6 +49,10 @@ namespace OCISDK.Core.src.ObjectStorage.Request
         /// </summary>
         public List<string> Fields { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

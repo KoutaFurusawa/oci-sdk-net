@@ -1,13 +1,11 @@
-﻿/// <summary>
-/// ListObjects Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// ListObjects Request
+    /// </summary>
     public class ListObjectsRequest
     {
         /// <summary>
@@ -73,6 +71,10 @@ namespace OCISDK.Core.src.ObjectStorage.Request
         /// </summary>
         public string OpcClientRequestId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

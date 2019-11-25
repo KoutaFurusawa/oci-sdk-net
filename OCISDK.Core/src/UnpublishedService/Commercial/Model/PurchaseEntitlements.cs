@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OCISDK.Core.src.UnpublishedService.Commercial.Model
 {
-    // purchaseEntitlements
+    /// purchaseEntitlements
     public class PurchaseEntitlements
     {
         /// <summary>
@@ -52,6 +52,9 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial.Model
         /// </summary>
         public string OperationItemsOverviews { get; set; }
 
+        /// <summary>
+        /// Account
+        /// </summary>
         public Account Account { get; set; }
 
         /// <summary>

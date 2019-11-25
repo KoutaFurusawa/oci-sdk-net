@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// HeadBucket Request
+    /// </summary>
     public class HeadBucketRequest
     {
         /// <summary>

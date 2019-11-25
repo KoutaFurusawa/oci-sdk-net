@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// ChangeVolumeGroupCompartmentDetails
+    /// </summary>
     public class ChangeVolumeGroupCompartmentDetails
     {
         /// <summary>

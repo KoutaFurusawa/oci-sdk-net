@@ -7,6 +7,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Response
 {
+    /// <summary>
+    /// PatchZoneRecords Response
+    /// </summary>
     public class PatchZoneRecordsResponse
     {
         /// <summary>

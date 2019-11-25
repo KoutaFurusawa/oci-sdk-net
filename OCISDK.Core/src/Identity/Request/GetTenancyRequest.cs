@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetTenancy Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// GetTenancy Request
+    /// </summary>
     public class GetTenancyRequest
     {
         /// <summary>

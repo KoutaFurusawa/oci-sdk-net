@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// ListVolumeAttachments Request
+    /// </summary>
     public class ListVolumeAttachmentsRequest
     {
         /// <summary>
@@ -47,6 +50,10 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// </summary>
         public string VolumeId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();
