@@ -296,6 +296,32 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// The deprecated operation lists available bandwidth levels for virtual circuits. For the compartment ID, provide the OCID of your tenancy (the root compartment).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListVirtualCircuitBandwidthShapesResponse> ListVirtualCircuitBandwidthShapes(ListVirtualCircuitBandwidthShapesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuitBandwidthShape, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVirtualCircuitBandwidthShapesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VirtualCircuitBandwidthShape>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
         /// <param name="getDhcpRequest"></param>
@@ -692,6 +718,56 @@ namespace OCISDK.Core
                 return new ChangeVirtualCircuitCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Adds one or more customer public IP prefixes to the specified public virtual circuit. Use this operation 
+        /// (and not UpdateVirtualCircuit) to add prefixes to the virtual circuit. Oracle must verify the customer's ownership 
+        /// of each prefix before traffic for that prefix will flow across the virtual circuit.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<BulkAddVirtualCircuitPublicPrefixesResponse> BulkAddVirtualCircuitPublicPrefixes(BulkAddVirtualCircuitPublicPrefixesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/bulkAddPublicPrefixes");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.BulkAddVirtualCircuitPublicPrefixesDetails);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new BulkAddVirtualCircuitPublicPrefixesResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes one or more customer public IP prefixes from the specified public virtual circuit. Use this operation (and not UpdateVirtualCircuit) 
+        /// to remove prefixes from the virtual circuit. When the virtual circuit's state switches back to PROVISIONED, Oracle stops advertising 
+        /// the specified prefixes across the connection.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<BulkDeleteVirtualCircuitPublicPrefixesResponse> BulkDeleteVirtualCircuitPublicPrefixes(BulkDeleteVirtualCircuitPublicPrefixesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/bulkDeletePublicPrefixes");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.BulkDeleteVirtualCircuitPublicPrefixesDetails);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new BulkDeleteVirtualCircuitPublicPrefixesResponse()
+                {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }

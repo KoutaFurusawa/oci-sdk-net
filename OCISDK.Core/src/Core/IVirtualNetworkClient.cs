@@ -88,6 +88,13 @@ namespace OCISDK.Core.src.Core
         ListVirtualCircuitsResponse ListVirtualCircuits(ListVirtualCircuitsRequest request);
 
         /// <summary>
+        /// The deprecated operation lists available bandwidth levels for virtual circuits. For the compartment ID, provide the OCID of your tenancy (the root compartment).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListVirtualCircuitBandwidthShapesResponse ListVirtualCircuitBandwidthShapes(ListVirtualCircuitBandwidthShapesRequest request);
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
         /// <param name="getDhcpRequest"></param>
@@ -197,6 +204,24 @@ namespace OCISDK.Core.src.Core
         /// <param name="request"></param>
         /// <returns></returns>
         ChangeVirtualCircuitCompartmentResponse ChangeVirtualCircuitCompartment(ChangeVirtualCircuitCompartmentRequest request);
+
+        /// <summary>
+        /// Adds one or more customer public IP prefixes to the specified public virtual circuit. Use this operation 
+        /// (and not UpdateVirtualCircuit) to add prefixes to the virtual circuit. Oracle must verify the customer's ownership 
+        /// of each prefix before traffic for that prefix will flow across the virtual circuit.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        BulkAddVirtualCircuitPublicPrefixesResponse BulkAddVirtualCircuitPublicPrefixes(BulkAddVirtualCircuitPublicPrefixesRequest request);
+
+        /// <summary>
+        /// Removes one or more customer public IP prefixes from the specified public virtual circuit. Use this operation (and not UpdateVirtualCircuit) 
+        /// to remove prefixes from the virtual circuit. When the virtual circuit's state switches back to PROVISIONED, Oracle stops advertising 
+        /// the specified prefixes across the connection.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        BulkDeleteVirtualCircuitPublicPrefixesResponse BulkDeleteVirtualCircuitPublicPrefixes(BulkDeleteVirtualCircuitPublicPrefixesRequest request);
 
         /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
