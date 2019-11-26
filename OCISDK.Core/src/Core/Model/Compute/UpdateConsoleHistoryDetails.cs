@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// UpdateConsoleHistoryDetails
+    /// </summary>
     public class UpdateConsoleHistoryDetails
     {
         /// <summary>

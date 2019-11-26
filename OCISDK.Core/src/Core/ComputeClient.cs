@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// Compute Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Model.Compute;
 using OCISDK.Core.src.Core.Request.Compute;
 using OCISDK.Core.src.Core.Response.Compute;
@@ -14,29 +8,43 @@ using System.IO;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// ComputeClient
+    /// </summary>
     public class ComputeClient : ServiceClient, IComputeClient
     {
+        private readonly string Compute = "core";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public ComputeClient(ClientConfig config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = Compute;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ComputeClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = Compute;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ComputeClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = Compute;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ComputeClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = Compute;
         }
 
         /// <summary>
@@ -473,7 +481,7 @@ namespace OCISDK.Core.src.Core
         /// <summary>
         /// Attaches the specified storage volume to the specified instance.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="param"></param>
         /// <returns></returns>
         public AttachVolumeResponse AttachVolume(AttachVolumeRequest param)
         {
@@ -692,7 +700,7 @@ namespace OCISDK.Core.src.Core
         /// This is an asynchronous operation.The instance's lifecycleState will change to TERMINATING temporarily until the instance 
         /// is completely removed.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="deleteRequest"></param>
         /// <returns></returns>
         public TerminateInstanceResponse TerminateInstance(TerminateInstanceRequest deleteRequest)
         {

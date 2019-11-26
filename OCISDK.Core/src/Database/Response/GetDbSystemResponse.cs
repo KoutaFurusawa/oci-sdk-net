@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// GetDbSystem Response
+    /// </summary>
     public class GetDbSystemResponse
     {
         /// <summary>
@@ -19,6 +22,9 @@ namespace OCISDK.Core.src.Database.Response
         /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// DbSystemDetails
+        /// </summary>
         public DbSystemDetails DbSystem { get; set; }
     }
 }

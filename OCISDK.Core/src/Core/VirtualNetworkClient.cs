@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// VirtualNetwork Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -17,6 +11,9 @@ using OCISDK.Core.src.Core.Response.VirtualNetwork;
 
 namespace OCISDK.Core
 {
+    /// <summary>
+    /// VirtualNetworkClient
+    /// </summary>
     public class VirtualNetworkClient : ServiceClient, IVirtualNetworkClient
     {
         /// <summary>
@@ -27,16 +24,25 @@ namespace OCISDK.Core
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public VirtualNetworkClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public VirtualNetworkClient(ClientConfigStream config) : base(config)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public VirtualNetworkClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
@@ -265,9 +271,59 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Lists the virtual circuits in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListVirtualCircuitsResponse ListVirtualCircuits(ListVirtualCircuitsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVirtualCircuitsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VirtualCircuit>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// The deprecated operation lists available bandwidth levels for virtual circuits. For the compartment ID, provide the OCID of your tenancy (the root compartment).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListVirtualCircuitBandwidthShapesResponse ListVirtualCircuitBandwidthShapes(ListVirtualCircuitBandwidthShapesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuitBandwidthShape, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListVirtualCircuitBandwidthShapesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VirtualCircuitBandwidthShape>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getDhcpRequest"></param>
         /// <returns></returns>
         public GetDhcpResponse GetDhcp(GetDhcpRequest getDhcpRequest)
         {
@@ -367,7 +423,7 @@ namespace OCISDK.Core
         /// <summary>
         /// Gets the specified VCN's information.
         /// </summary>
-        /// <param name="getRequest"></param>
+        /// <param name="getVcnRequest"></param>
         /// <returns></returns>
         public GetVcnResponse GetVcn(GetVcnRequest getVcnRequest)
         {
@@ -395,9 +451,9 @@ namespace OCISDK.Core
         /// </summary>
         /// <param name="getVcnRequest"></param>
         /// <returns></returns>
-        public GetVnicResponse GetVnic(GetVnicRequest getRequest)
+        public GetVnicResponse GetVnic(GetVnicRequest getVcnRequest)
         {
-            var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{getRequest.VnicId}");
+            var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{getVcnRequest.VnicId}");
             
             var webResponse = this.RestClient.Get(uri);
 
@@ -484,6 +540,31 @@ namespace OCISDK.Core
                 return new GetDrgResponse()
                 {
                     Drg = JsonSerializer.Deserialize<DrgDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified virtual circuit's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetVirtualCircuitResponse GetVirtualCircuit(GetVirtualCircuitRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetVirtualCircuitResponse()
+                {
+                    VirtualCircuit = JsonSerializer.Deserialize<VirtualCircuit>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -606,6 +687,86 @@ namespace OCISDK.Core
                 return new ChangeRouteTableCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a virtual circuit into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ChangeVirtualCircuitCompartmentResponse ChangeVirtualCircuitCompartment(ChangeVirtualCircuitCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/changeCompartment");
+
+            var headers = new HttpRequestHeaderParam
+            {
+                OpcRequestId = request.OpcRequestId,
+                OpcRetryToken = request.OpcRetryToken
+            };
+            var webResponse = this.RestClient.Post(uri, request.ChangeVirtualCircuitCompartmentDetails, headers);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeVirtualCircuitCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+        
+        /// <summary>
+        /// Adds one or more customer public IP prefixes to the specified public virtual circuit. Use this operation 
+        /// (and not UpdateVirtualCircuit) to add prefixes to the virtual circuit. Oracle must verify the customer's ownership 
+        /// of each prefix before traffic for that prefix will flow across the virtual circuit.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public BulkAddVirtualCircuitPublicPrefixesResponse BulkAddVirtualCircuitPublicPrefixes(BulkAddVirtualCircuitPublicPrefixesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/bulkAddPublicPrefixes");
+            
+            var webResponse = this.RestClient.Post(uri, request.BulkAddVirtualCircuitPublicPrefixesDetails);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new BulkAddVirtualCircuitPublicPrefixesResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Removes one or more customer public IP prefixes from the specified public virtual circuit. Use this operation (and not UpdateVirtualCircuit) 
+        /// to remove prefixes from the virtual circuit. When the virtual circuit's state switches back to PROVISIONED, Oracle stops advertising 
+        /// the specified prefixes across the connection.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public BulkDeleteVirtualCircuitPublicPrefixesResponse BulkDeleteVirtualCircuitPublicPrefixes(BulkDeleteVirtualCircuitPublicPrefixesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/bulkDeletePublicPrefixes");
+
+            var webResponse = this.RestClient.Post(uri, request.BulkDeleteVirtualCircuitPublicPrefixesDetails);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new BulkDeleteVirtualCircuitPublicPrefixesResponse()
+                {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -835,6 +996,40 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Creates a new virtual circuit to use with Oracle Cloud Infrastructure FastConnect. For more information, see FastConnect Overview.
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the virtual circuit to reside. 
+        /// If you're not sure which compartment to use, put the virtual circuit in the same compartment with the DRG it's using. 
+        /// For more information about compartments and access control, see Overview of the IAM Service. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You may optionally specify a display name for the virtual circuit. It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// 
+        /// Important: When creating a virtual circuit, you specify a DRG for the traffic to flow through. Make sure you attach the DRG to your VCN and confirm the VCN's 
+        /// routing sends traffic to the DRG. Otherwise traffic will not flow. For more information, see Route Tables.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateVirtualCircuitResponse CreateVirtualCircuit(CreateVirtualCircuitRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.VirtualCircuit, this.Region));
+
+            var webResponse = this.RestClient.Post(uri, request.CreateVirtualCircuitDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateVirtualCircuitResponse()
+                {
+                    VirtualCircuit = JsonSerializer.Deserialize<VirtualCircuit>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -915,7 +1110,7 @@ namespace OCISDK.Core
         /// Updates the specified set of DHCP options. 
         /// You can update the display name or the options themselves. Avoid entering confidential information.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         public UpdateDhcpOptionsResponse UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest)
         {
@@ -965,7 +1160,7 @@ namespace OCISDK.Core
         /// <summary>
         /// Updates the specified subnet.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="updateRequest"></param>
         /// <returns></returns>
         public UpdateSubnetResponse UpdateSubnet(UpdateSubnetRequest updateRequest)
         {
@@ -1062,7 +1257,43 @@ namespace OCISDK.Core
                 };
             }
         }
-        
+
+        /// <summary>
+        /// Updates the specified virtual circuit. This can be called by either the customer who owns the virtual circuit, or the provider 
+        /// (when provisioning or de-provisioning the virtual circuit from their end). The documentation for UpdateVirtualCircuitDetails 
+        /// indicates who can update each property of the virtual circuit.
+        /// 
+        /// Important: If the virtual circuit is working and in the PROVISIONED state, updating any of the network-related properties (such as 
+        /// the DRG being used, the BGP ASN, and so on) will cause the virtual circuit's state to switch to PROVISIONING and the related BGP session 
+        /// to go down. After Oracle re-provisions the virtual circuit, its state will return to PROVISIONED. Make sure you confirm that the associated 
+        /// BGP session is back up. For more information about the various states and how to test connectivity, see FastConnect Overview.
+        /// 
+        /// To change the list of public IP prefixes for a public virtual circuit, use BulkAddVirtualCircuitPublicPrefixes and BulkDeleteVirtualCircuitPublicPrefixes. 
+        /// Updating the list of prefixes does NOT cause the BGP session to go down. However, Oracle must verify the customer's ownership of each added prefix before 
+        /// traffic for that prefix will flow across the virtual circuit.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateVirtualCircuitResponse UpdateVirtualCircuit(UpdateVirtualCircuitRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}");
+
+            var webResponse = this.RestClient.Put(uri, request.UpdateVirtualCircuitDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateVirtualCircuitResponse()
+                {
+                    VirtualCircuit = JsonSerializer.Deserialize<VirtualCircuit>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
         /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
@@ -1253,6 +1484,30 @@ namespace OCISDK.Core
                 var response = reader.ReadToEnd();
 
                 return new DeleteDrgResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified virtual circuit.
+        /// Important: If you're using FastConnect via a provider, make sure to also terminate the connection with the provider, or else the provider may continue to bill you.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteVirtualCircuitResponse DeleteVirtualCircuit(DeleteVirtualCircuitRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}");
+
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteVirtualCircuitResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

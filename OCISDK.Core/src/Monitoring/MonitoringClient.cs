@@ -9,8 +9,12 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring
 {
+    /// <summary>
+    /// MonitoringClient
+    /// </summary>
     public class MonitoringClient : ServiceClient, IMonitoringClient
     {
+        private readonly string monitaringServiceName = "monitoring";
         private readonly string IngestionServiceName = "monitoring-ingestion";
 
         /// <summary>
@@ -18,22 +22,31 @@ namespace OCISDK.Core.src.Monitoring
         /// </summary>
         public MonitoringClient(ClientConfig config) : base(config)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public MonitoringClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public MonitoringClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public MonitoringClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "monitoring";
+            ServiceName = monitaringServiceName;
         }
         
         /// <summary>

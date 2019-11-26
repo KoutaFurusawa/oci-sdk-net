@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListRegionSubscriptions Request
+    /// </summary>
     public class ListRegionSubscriptionsRequest
     {
         /// <summary>

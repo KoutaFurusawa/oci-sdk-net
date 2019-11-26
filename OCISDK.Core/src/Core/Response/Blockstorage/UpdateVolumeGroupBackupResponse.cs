@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Blockstorage
 {
+    /// <summary>
+    /// UpdateVolumeGroupBackup Response
+    /// </summary>
     public class UpdateVolumeGroupBackupResponse
     {
         /// <summary>

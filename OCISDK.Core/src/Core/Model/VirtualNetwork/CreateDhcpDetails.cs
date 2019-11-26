@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// CreateDhcpDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
+    /// <summary>
+    /// CreateDhcpDetails
+    /// </summary>
     public class CreateDhcpDetails
     {
         /// <summary>

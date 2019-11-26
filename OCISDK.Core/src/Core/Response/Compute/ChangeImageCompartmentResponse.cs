@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// ChangeImageCompartment Response
+    /// </summary>
     public class ChangeImageCompartmentResponse
     {
         /// <summary>

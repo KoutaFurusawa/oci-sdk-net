@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// ComputeClient Async iterface
+    /// </summary>
     public interface IComputeClientAsync
     {
         /// <summary>
@@ -206,7 +209,7 @@ namespace OCISDK.Core.src.Core
         /// This is an asynchronous operation.The instance's lifecycleState will change to TERMINATING temporarily until the instance 
         /// is completely removed.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="deleteRequest"></param>
         /// <returns></returns>
         Task<TerminateInstanceResponse> TerminateInstance(TerminateInstanceRequest deleteRequest);
 

@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// AttachBootVolumeDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Model.Compute
+﻿namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// AttachBootVolumeDetails
+    /// </summary>
     public class AttachBootVolumeDetails
     {
         /// <summary>

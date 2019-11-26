@@ -1,15 +1,8 @@
-﻿/// <summary>
-/// GetConfiguration Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System;
-using System.Collections.Generic;
-using System.Text;
-using OCISDK.Core.src.Audit.Model;
-
-namespace OCISDK.Core.src.Audit.Response
+﻿namespace OCISDK.Core.src.Audit.Response
 {
+    /// <summary>
+    /// UpdateConfiguration Response
+    /// </summary>
     public class UpdateConfigurationResponse
     {
         /// <summary>

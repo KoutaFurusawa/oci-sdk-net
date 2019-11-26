@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// DeleteVolumeBackupPolicyAssignment Request
+    /// </summary>
     public class DeleteVolumeBackupPolicyAssignmentRequest
     {
         /// <summary>

@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListShapesResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Compute;
+﻿using OCISDK.Core.src.Core.Model.Compute;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// ListShapes Response
+    /// </summary>
     public class ListShapesResponse
     {
         /// <summary>

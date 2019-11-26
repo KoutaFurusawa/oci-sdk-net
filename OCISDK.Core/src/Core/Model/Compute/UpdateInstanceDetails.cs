@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// UpdateInstanceDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.Compute
 {
+    /// <summary>
+    /// UpdateInstanceDetails
+    /// </summary>
     public class UpdateInstanceDetails
     {
         /// <summary>

@@ -7,13 +7,26 @@ using System.Text;
 
 namespace OCISDK.Core.src.Common
 {
+    /// <summary>
+    /// default Polly
+    /// </summary>
     public class DefaultWebRequestPolicy : IWebRequestPolicy
     {
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public PolicyWrap<HttpWebResponse> GetPolicies(RestOption option)
         {
             return Policy.Wrap(GetRetryPolicy(option), GetCircuitBreakerPolicy(option), GetFallbackPolicy());
         }
 
+        /// <summary>
+        /// retry
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public Policy<HttpWebResponse> GetRetryPolicy(RestOption option)
         {
             var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
@@ -24,6 +37,11 @@ namespace OCISDK.Core.src.Common
                     TimeSpan.FromSeconds(Math.Pow(option.SleepDurationSeconds, retryAttempt)) + jitter);
         }
 
+        /// <summary>
+        /// circuitBreaker
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public Policy<HttpWebResponse> GetCircuitBreakerPolicy(RestOption option)
         {
             return Policy<HttpWebResponse>
@@ -32,6 +50,10 @@ namespace OCISDK.Core.src.Common
                 .CircuitBreaker(option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(option.DurationOfBreakSeconds));
         }
 
+        /// <summary>
+        /// fallback
+        /// </summary>
+        /// <returns></returns>
         public Policy<HttpWebResponse> GetFallbackPolicy()
         {
             return Policy<HttpWebResponse>
@@ -40,11 +62,21 @@ namespace OCISDK.Core.src.Common
                 .Fallback(new HttpWebResponse());
         }
 
+        /// <summary>
+        /// get async
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public IAsyncPolicy<WebResponse> GetPoliciesAsync (RestOption option)
         {
             return Policy.WrapAsync(GetRetryPolicyAsync(option), GetCircuitBreakerPolicyAsync(option), GetFallbackPolicyAsync());
         }
 
+        /// <summary>
+        /// retry async
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public IAsyncPolicy<WebResponse> GetRetryPolicyAsync(RestOption option)
         {
             var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
@@ -54,6 +86,11 @@ namespace OCISDK.Core.src.Common
                     TimeSpan.FromSeconds(Math.Pow(option.SleepDurationSeconds, retryAttempt)) + jitter);
         }
 
+        /// <summary>
+        /// circuitBreaker async
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public IAsyncPolicy<WebResponse> GetCircuitBreakerPolicyAsync(RestOption option)
         {
             return Policy<WebResponse>
@@ -61,6 +98,10 @@ namespace OCISDK.Core.src.Common
                 .CircuitBreakerAsync(option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(option.DurationOfBreakSeconds));
         }
 
+        /// <summary>
+        /// fallback async
+        /// </summary>
+        /// <returns></returns>
         public IAsyncPolicy<WebResponse> GetFallbackPolicyAsync()
         {
             return Policy<WebResponse>

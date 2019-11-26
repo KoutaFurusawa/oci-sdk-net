@@ -5,24 +5,56 @@ using System.Text;
 
 namespace OCISDK.Core.src.Common
 {
+    /// <summary>
+    /// HttpRequestHeaderParam
+    /// </summary>
     public class HttpRequestHeaderParam
     {
+        /// <summary>
+        /// IfMatch header
+        /// </summary>
         public string IfMatch { get; set; }
 
+        /// <summary>
+        /// IfNoneMatch header
+        /// </summary>
         public string IfNoneMatch { get; set; }
 
+        /// <summary>
+        /// IfModifiedSince header
+        /// </summary>
         public string IfModifiedSince { get; set; }
 
+        /// <summary>
+        /// IfUnmodifiedSince header
+        /// </summary>
         public string IfUnmodifiedSince { get; set; }
 
+        /// <summary>
+        /// OpcClientRequestId header
+        /// </summary>
         public string OpcClientRequestId { get; set; }
 
+        /// <summary>
+        /// OpcRequestId header
+        /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// OpcRetryToken header
+        /// </summary>
         public string OpcRetryToken { get; set; }
 
+        /// <summary>
+        /// Range headr
+        /// </summary>
         public string Range { get; set; }
 
+        /// <summary>
+        /// HttpWebRequest setting header
+        /// </summary>
+        /// <param name="httpWebRequest"></param>
+        /// <returns></returns>
         public HttpWebRequest SetHeader(HttpWebRequest httpWebRequest)
         {
             if (!string.IsNullOrEmpty(IfMatch))

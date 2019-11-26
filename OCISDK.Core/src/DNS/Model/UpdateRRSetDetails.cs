@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Model
 {
+    /// <summary>
+    /// UpdateRRSetDetails
+    /// </summary>
     public class UpdateRRSetDetails
     {
         /// <summary>

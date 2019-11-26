@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// ChangeAlarmCompartment Request
+    /// </summary>
     public class ChangeAlarmCompartmentRequest
     {
         /// <summary>

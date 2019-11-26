@@ -33,7 +33,6 @@ namespace OCISDK.Core.src.Monitoring.Model
         /// Each dimension takes the form of a key-value pair.
         /// <para>Required: no</para>
         /// </summary>
-        /// <example>{ "resourceId": "<instance_OCID>" }</example>
         public object DimensionFilters { get; set; }
 
         /// <summary>

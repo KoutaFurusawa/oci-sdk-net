@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.WorkRequest
 {
+    /// <summary>
+    /// GetWorkRequest Request
+    /// </summary>
     public class GetWorkRequestRequest
     {
         /// <summary>

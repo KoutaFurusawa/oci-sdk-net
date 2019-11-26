@@ -1,12 +1,11 @@
 ﻿
 using OCISDK.Core.src.Audit.Model;
-/// <summary>
-/// UpdateConfiguration Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
+
 namespace OCISDK.Core.src.Audit.Request
 {
+    /// <summary>
+    /// UpdateConfiguration Request
+    /// </summary>
     public class UpdateConfigurationRequest
     {
         /// <summary>

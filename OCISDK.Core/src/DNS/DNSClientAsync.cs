@@ -10,9 +10,13 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.DNS
 {
+    /// <summary>
+    /// DNSClientAsync
+    /// </summary>
     public class DNSClientAsync : ServiceClient, IDNSClientAsync
     {
         private readonly string DatabaseServiceName = "dns";
+
         /// <summary>
         /// Constructer
         /// </summary>
@@ -21,16 +25,25 @@ namespace OCISDK.Core.src.DNS
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DNSClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DNSClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DNSClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;

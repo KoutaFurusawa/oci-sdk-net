@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// ListTags Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListTags Request
+    /// </summary>
     public class ListTagsRequest
     {
         /// <summary>
@@ -29,6 +26,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public int? Limit { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var options = $"tagNamespaceId={this.TagNamespaceId}";

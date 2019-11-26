@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// UpdatePolicy Request
+    /// </summary>
     public class UpdatePolicyRequest
     {
         /// <summary>
@@ -24,6 +27,9 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public string IfMatch { get; set; }
 
+        /// <summary>
+        /// The request body must contain a single UpdatePolicyDetails resource.
+        /// </summary>
         public UpdatePolicyDetails UpdatePolicyDetails { get; set; }
     }
 }

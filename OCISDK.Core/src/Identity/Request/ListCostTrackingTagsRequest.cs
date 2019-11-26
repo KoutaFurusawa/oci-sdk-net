@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// ListCostTrackingTags Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System;
+﻿using System;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListCostTrackingTags Request
+    /// </summary>
     public class ListCostTrackingTagsRequest
     {
         /// <summary>
@@ -27,6 +25,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public int? Limit { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var options = $"compartmentId={this.CompartmentId}";

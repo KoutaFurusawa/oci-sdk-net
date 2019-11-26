@@ -21,6 +21,9 @@ namespace OCISDK.Core.src.Core.Response.VirtualNetwork
         /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// The response body will contain a single Drg resource.
+        /// </summary>
         public DrgDetails Drg { get; set; }
     }
 }

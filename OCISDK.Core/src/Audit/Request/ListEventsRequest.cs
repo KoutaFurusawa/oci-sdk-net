@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// ListEvents Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System.Text;
+﻿using System.Text;
 
 namespace OCISDK.Core.src.Audit.Request
 {
+    /// <summary>
+    /// ListEvents Request
+    /// </summary>
     public class ListEventsRequest
     {
         /// <summary>
@@ -52,9 +50,13 @@ namespace OCISDK.Core.src.Audit.Request
         /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// option
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append($"compartmentId={this.CompartmentId}");
             sb.Append($"&startTime={this.StartTime}");
             sb.Append($"&endTime={this.EndTime}");

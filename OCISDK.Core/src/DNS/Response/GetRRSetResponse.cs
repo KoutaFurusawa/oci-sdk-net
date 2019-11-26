@@ -7,6 +7,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Response
 {
+    /// <summary>
+    /// GetRRSet Response
+    /// </summary>
     public class GetRRSetResponse
     {
         /// <summary>

@@ -155,6 +155,9 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial.Model
         public string Url { get; set; }
     }
 
+    /// <summary>
+    /// CustomAttribute
+    /// </summary>
     public class CustomAttribute
     {
         /// <summary>

@@ -9,6 +9,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.LoadBalancer
 {
+    /// <summary>
+    /// LoadBalancerClient
+    /// </summary>
     public class LoadBalancerClient : ServiceClient, ILoadBalancerClient
     {
         private readonly string DatabaseServiceName = "load_balancing";
@@ -21,16 +24,25 @@ namespace OCISDK.Core.src.LoadBalancer
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public LoadBalancerClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public LoadBalancerClient(ClientConfigStream config) : base(config)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public LoadBalancerClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;

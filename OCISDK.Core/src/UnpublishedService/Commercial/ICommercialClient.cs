@@ -31,10 +31,10 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
         ListPurchaseEntitlementsResponse ListPurchaseEntitlements(ListPurchaseEntitlementsRequest requets);
 
         /// <summary>
-        /// GetServiceEntitlementRegistrations
+        /// ListServiceEntitlementRegistrations
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        ListServiceEntitlementRegistrationsResponse GetServiceEntitlementRegistrations(ListServiceEntitlementRegistrationsRequest request);
+        ListServiceEntitlementRegistrationsResponse ListServiceEntitlementRegistrations(ListServiceEntitlementRegistrationsRequest request);
     }
 }

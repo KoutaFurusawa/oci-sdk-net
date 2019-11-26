@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateVcnDetails Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
+    /// <summary>
+    /// UpdateVcnDetails
+    /// </summary>
     public class UpdateVcnDetails
     {
         /// <summary>

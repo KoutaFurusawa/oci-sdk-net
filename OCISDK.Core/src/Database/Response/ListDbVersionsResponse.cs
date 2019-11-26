@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// ListDbVersions Response
+    /// </summary>
     public class ListDbVersionsResponse
     {
         /// <summary>

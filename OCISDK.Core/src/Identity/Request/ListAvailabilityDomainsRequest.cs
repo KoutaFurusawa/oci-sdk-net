@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// ListAvailabilityDomains Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListAvailabilityDomains Request
+    /// </summary>
     public class ListAvailabilityDomainsRequest
     {
         /// <summary>
@@ -15,6 +13,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public string CompartmentId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             return $"compartmentId={this.CompartmentId}";

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// GetDatabase Request
+    /// </summary>
     public class GetDatabaseRequest
     {
         /// <summary>

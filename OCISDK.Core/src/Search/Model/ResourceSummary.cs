@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Search.Model
 {
+    /// <summary>
+    /// ResourceSummary
+    /// </summary>
     public class ResourceSummary
     {
         /// <summary>

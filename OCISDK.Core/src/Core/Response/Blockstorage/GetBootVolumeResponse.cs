@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// GetBootVolumeResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Blockstorage;
+﻿using OCISDK.Core.src.Core.Model.Blockstorage;
 
 namespace OCISDK.Core.src.Core.Response.Blockstorage
 {
+    /// <summary>
+    /// GetBootVolume Response
+    /// </summary>
     public class GetBootVolumeResponse
     {
         /// <summary>

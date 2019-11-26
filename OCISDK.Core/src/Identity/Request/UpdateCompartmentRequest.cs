@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateCompartment Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// UpdateCompartment Request
+    /// </summary>
     public class UpdateCompartmentRequest
     {
         /// <summary>

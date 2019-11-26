@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// ListObjects Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.ObjectStorage.Model;
+﻿using OCISDK.Core.src.ObjectStorage.Model;
 
 namespace OCISDK.Core.src.ObjectStorage.Response
 {
+    /// <summary>
+    /// ListObjects Response
+    /// </summary>
     public class ListObjectsResponse
     {
         /// <summary>

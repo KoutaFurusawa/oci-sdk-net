@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Response
 {
+    /// <summary>
+    /// UpdateBucket Response
+    /// </summary>
     public class UpdateBucketResponse
     {
         /// <summary>

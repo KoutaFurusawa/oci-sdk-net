@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Response
 {
+    /// <summary>
+    /// DeleteBucket Response
+    /// </summary>
     public class DeleteBucketResponse
     {
         /// <summary>

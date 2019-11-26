@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// GetPolicy Response
+    /// </summary>
     public class GetPolicyResponse
     {
         /// <summary>

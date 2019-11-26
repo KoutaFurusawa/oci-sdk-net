@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.WorkRequest
 {
+    /// <summary>
+    /// ListWorkRequestLogs Request
+    /// </summary>
     public class ListWorkRequestLogsRequest
     {
         /// <summary>
@@ -43,6 +46,10 @@ namespace OCISDK.Core.src.Core.Request.WorkRequest
         /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

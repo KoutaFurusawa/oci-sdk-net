@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// GetExadataIormConfig Request
+    /// </summary>
     public class GetExadataIormConfigRequest
     {
         /// <summary>

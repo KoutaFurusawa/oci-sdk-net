@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// UpdateTagNamespace Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// UpdateTagNamespace Request
+    /// </summary>
     public class UpdateTagNamespaceRequest
     {
         /// <summary>

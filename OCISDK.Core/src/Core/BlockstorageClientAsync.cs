@@ -1,11 +1,4 @@
-﻿/// <summary>
-/// Blockstorage Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.src.Common;
 using OCISDK.Core.src.Core.Model.Blockstorage;
 using OCISDK.Core.src.Core.Request.Blockstorage;
 using OCISDK.Core.src.Core.Response.Blockstorage;
@@ -16,29 +9,43 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// Blockstorage Service Client
+    /// </summary>
     public class BlockstorageClientAsync : ServiceClient, IBlockstorageClientAsync
     {
+        private readonly string BlockstorageServiceName = "core";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public BlockstorageClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public BlockstorageClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public BlockstorageClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public BlockstorageClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
         /// <summary>
@@ -615,7 +622,7 @@ namespace OCISDK.Core.src.Core
         /// Moves a volume group backup into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="param"></param>
         /// <returns></returns>
         public async Task<ChangeVolumeGroupBackupCompartmentResponse> ChangeVolumeGroupBackupCompartment(ChangeVolumeGroupBackupCompartmentRequest param)
         {

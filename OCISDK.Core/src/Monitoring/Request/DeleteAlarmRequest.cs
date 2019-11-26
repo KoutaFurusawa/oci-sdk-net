@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// DeleteAlarm Request
+    /// </summary>
     public class DeleteAlarmRequest
     {
         /// <summary>

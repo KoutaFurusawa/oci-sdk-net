@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteSubnetResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Response.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteSubnet Response
+    /// </summary>
     public class DeleteSubnetResponse
     {
         /// <summary>

@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetDhcpRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// GetDhcp Request
+    /// </summary>
     public class GetDhcpRequest
     {
         /// <summary>

@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListBootVolumesRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// ListBootVolumes Request
+    /// </summary>
     public class ListBootVolumesRequest
     {
         /// <summary>
@@ -41,6 +38,10 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// </summary>
         public string VolumeGroupId { get; set; }
 
+        /// <summary>
+        /// optional query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListInstancesResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Compute;
+﻿using OCISDK.Core.src.Core.Model.Compute;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// ListInstances Response
+    /// </summary>
     public class ListInstancesResponse
     {
         /// <summary>

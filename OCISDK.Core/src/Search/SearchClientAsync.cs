@@ -10,29 +10,43 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Search
 {
+    /// <summary>
+    /// SearchClientAsync
+    /// </summary>
     public class SearchClientAsync : ServiceClient, ISearchClientAsync
     {
+        private readonly string SearchServiceName = "search";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public SearchClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public SearchClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public SearchClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public SearchClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
         /// <summary>

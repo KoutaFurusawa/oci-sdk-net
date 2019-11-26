@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.ObjectStorage
 {
+    /// <summary>
+    /// ObjectStorageClientAsync interface
+    /// </summary>
     public interface IObjectStorageClientAsync
     {
         /// <summary>
@@ -67,6 +70,7 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
+        /// <param name="filename"></param>
         Task DownloadObject(GetObjectRequest request, string savePath, string filename);
 
         /// <summary>

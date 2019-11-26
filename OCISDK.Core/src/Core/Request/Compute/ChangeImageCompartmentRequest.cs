@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// ChangeImageCompartment Request
+    /// </summary>
     public class ChangeImageCompartmentRequest
     {
         /// <summary>

@@ -1,14 +1,9 @@
-﻿/// <summary>
-/// TagDefaultSummary Reference
-/// Summary information for the specified tag default.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-
-namespace OCISDK.Core.src.Identity.Model
+﻿namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// TagDefaultSummary Reference
+    /// Summary information for the specified tag default.
+    /// </summary>
     public class TagDefaultSummary
     {
         /// <summary>

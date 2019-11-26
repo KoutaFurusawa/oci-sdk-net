@@ -22,7 +22,7 @@ RCバージョンにはバグが含まれている場合があります。
 
 The RC version may contain bugs.
 Use the official version for important work.</Description>
-    <Version>0.5.8.0-rc</Version>
+    <Version>0.5.8.9-rc</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -33,33 +33,56 @@ Use the official version for important work.</Description>
 2019/09/01 version 0.5.6-rc release
 2019/09/10 version 0.5.6 release
 2019/10/10 version 0.5.7-rc release
-    * Revised Enum implementation and implemented ExtendedEnum class.
-    * Significant correction of RestClient header parameter specification method.
-    * add DNS APIs
-    * add DatabaseSystem APIs
-    * add ObjectStorage Bucket UpdateMethod
-    * add LoadBalancer APIs
 2019/10/10 version 0.5.7.1-rc release
-    * Client DeleteMethod Bug fixed
 2019/10/15 version 0.5.8-rc release
+2019/10/24 version 0.5.8 release
      * add UserAPIs CreateUpdateDelete
      * add UserGroup APIs
      * add UIPassword APIs
      * add DRG APIs
-     * audit version up(issue #11)
-     * delete method call correction(issue #12)</PackageReleaseNotes>
+     * audit version2.0 format(issue #11)
+     * delete method call correction(issue #12)
+2019/10/31 version 0.5.8.1-rc release
+     * Polly setting Externalization
+2019/11/1 version 0.5.8.3-rc release
+2019/11/5 version 0.5.8.3 release
+     * Polly 7.1 support
+     * Changed to Polly alone due to strong dependence on MS.Polly
+2019/11/6 version 0.5.8.4-rc release
+     * Add missing session
+     * Test introduction of WaaSClient
+2019/11/7 version 0.5.8.5-rc release
+     * instance add systemTags
+     * Tags type Dictionary to IDictionary
+     * Changed to recommended Dotnet project configuration. Endpoint file only.
+2019/11/14 version 0.5.8.6-rc release
+     * unpublished service
+     * add WafBlocked
+     * Correction of missing setting value
+2019/11/15 version 0.5.8.7-rc release
+2019/11/20 version 0.5.8.7 release
+     * unpublished service ListServiceEntitlementRegistrationsResponse
+2019/11/26 version 0.5.8.8-rc release
+     * add WafLog service
+     * correction compartment detail model parameter
+     * Fixed an issue where comments would be removed when packaged(#15)
+2019/11/27 version 0.5.8.9-rc release
+     * add VirtualCircut Services
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.8.0</AssemblyVersion>
-    <FileVersion>0.5.8.0</FileVersion>
+    <AssemblyVersion>0.5.8.8</AssemblyVersion>
+    <FileVersion>0.5.8.8</FileVersion>
+    <NeutralLanguage></NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// ComputeClient interface
+    /// </summary>
     public interface IComputeClient
     {
         /// <summary>
@@ -226,7 +229,7 @@ namespace OCISDK.Core.src.Core
         /// This is an asynchronous operation.The instance's lifecycleState will change to TERMINATING temporarily until the instance 
         /// is completely removed.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="deleteRequest"></param>
         /// <returns></returns>
         TerminateInstanceResponse TerminateInstance(TerminateInstanceRequest deleteRequest);
 
@@ -235,7 +238,7 @@ namespace OCISDK.Core.src.Core
         ///This is an asynchronous operation.The attachment's lifecycleState will change to DETACHING 
         ///temporarily until the attachment is completely removed.
         /// </summary>
-        /// <param name="detachBootVolumeRequest"></param>
+        /// <param name="detachRequest"></param>
         /// <returns></returns>
         DetachBootVolumeResponse DetachBootVolume(DetachBootVolumeRequest detachRequest);
 

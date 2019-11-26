@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas.Model
 {
+    /// <summary>
+    /// OriginGroup Details
+    /// </summary>
     public class OriginGroupDetails
     {
         /// <summary>

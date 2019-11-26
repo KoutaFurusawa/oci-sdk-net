@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// WorkRequestClientAsync
+    /// </summary>
     public class WorkRequestClientAsync : ServiceClient, IWorkRequestClientAsync
     {
         /// <summary>
@@ -20,16 +23,25 @@ namespace OCISDK.Core.src.Core
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WorkRequestClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WorkRequestClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = "core";
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WorkRequestClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = "core";

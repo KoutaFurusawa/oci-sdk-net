@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListVcnResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// ListVcn Response
+    /// </summary>
     public class ListVcnResponse
     {
         /// <summary>

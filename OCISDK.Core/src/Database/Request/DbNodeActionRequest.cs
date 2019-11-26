@@ -47,19 +47,39 @@ namespace OCISDK.Core.src.Database.Request
         /// </summary>
         public class ActionParam : ExpandableEnum<ActionParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public ActionParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator ActionParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// STOP
+            /// </summary>
             public static readonly ActionParam STOP = new ActionParam("STOP");
 
+            /// <summary>
+            /// START
+            /// </summary>
             public static readonly ActionParam START = new ActionParam("START");
 
+            /// <summary>
+            /// SOFTRESET
+            /// </summary>
             public static readonly ActionParam SOFTRESET = new ActionParam("SOFTRESET");
 
+            /// <summary>
+            /// RESET
+            /// </summary>
             public static readonly ActionParam RESET = new ActionParam("RESET");
         }
 

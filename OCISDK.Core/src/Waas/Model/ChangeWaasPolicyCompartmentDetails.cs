@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas.Model
 {
+    /// <summary>
+    /// ChangeWaasPolicyCompartment Details
+    /// </summary>
     public class ChangeWaasPolicyCompartmentDetails
     {
         /// <summary>

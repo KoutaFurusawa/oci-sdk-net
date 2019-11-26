@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListShapesRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// ListShapes Request
+    /// </summary>
     public class ListShapesRequest
     {
         /// <summary>
@@ -40,6 +37,10 @@ namespace OCISDK.Core.src.Core.Request.Compute
         /// </summary>
         public string Page { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

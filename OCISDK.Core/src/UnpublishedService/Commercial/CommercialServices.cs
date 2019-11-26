@@ -9,8 +9,14 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial
     /// </summary>
     public class CommercialServices
     {
+        /// <summary>
+        /// purchaseEntitlements
+        /// </summary>
         public readonly static string PurchaseEntitlements = "purchaseEntitlements";
 
+        /// <summary>
+        /// serviceEntitlementRegistrations
+        /// </summary>
         public readonly static string ServiceEntitlementRegistrations = "serviceEntitlementRegistrations";
     }
 }

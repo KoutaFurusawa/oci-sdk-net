@@ -9,9 +9,13 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS
 {
+    /// <summary>
+    /// DNSClient
+    /// </summary>
     public class DNSClient : ServiceClient, IDNSClient
     {
         private readonly string DNSServiceName = "dns";
+
         /// <summary>
         /// Constructer
         /// </summary>
@@ -20,16 +24,25 @@ namespace OCISDK.Core.src.DNS
             ServiceName = DNSServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DNSClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DNSServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DNSClient(ClientConfigStream config) : base(config)
         {
             ServiceName = DNSServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public DNSClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DNSServiceName;

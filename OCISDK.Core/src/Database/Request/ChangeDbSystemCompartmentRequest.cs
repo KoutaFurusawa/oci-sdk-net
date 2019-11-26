@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// ChangeDbSystemCompartment Request
+    /// </summary>
     public class ChangeDbSystemCompartmentRequest
     {
         /// <summary>

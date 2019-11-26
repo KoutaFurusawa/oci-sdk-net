@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Search
 {
+    /// <summary>
+    /// SearchClientAsync interface
+    /// </summary>
     public interface ISearchClientAsync
     {
         /// <summary>

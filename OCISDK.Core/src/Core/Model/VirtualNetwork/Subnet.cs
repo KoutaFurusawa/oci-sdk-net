@@ -1,19 +1,17 @@
-﻿/// <summary>
-/// Subnet Reference
-/// A logical subdivision of a VCN. Each subnet exists in a single availability domain and consists of a 
-/// contiguous range of IP addresses that do not overlap with other subnets in the VCN. Example: 172.16.1.0/24. For 
-/// more information, see Overview of the Networking Service and VCNs and Subnets.
-/// 
-/// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
+    /// <summary>
+    /// Subnet Reference
+    /// A logical subdivision of a VCN. Each subnet exists in a single availability domain and consists of a 
+    /// contiguous range of IP addresses that do not overlap with other subnets in the VCN. Example: 172.16.1.0/24. For 
+    /// more information, see Overview of the Networking Service and VCNs and Subnets.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// 
+    /// author: koutaro furusawa
+    /// </summary>
     public class Subnet
     {
         /// <summary>

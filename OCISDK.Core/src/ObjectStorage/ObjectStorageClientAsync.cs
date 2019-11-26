@@ -10,29 +10,43 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.ObjectStorage
 {
+    /// <summary>
+    /// ObjectStorageClientAsync
+    /// </summary>
     public class ObjectStorageClientAsync : ServiceClient, IObjectStorageClientAsync
     {
+        private readonly string ObjectStorageServiceName = "object_storage";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public ObjectStorageClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ObjectStorageClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ObjectStorageClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public ObjectStorageClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "object_storage";
+            ServiceName = ObjectStorageServiceName;
         }
 
         /// <summary>
@@ -214,6 +228,7 @@ namespace OCISDK.Core.src.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
+        /// <param name="filename"></param>
         public async Task DownloadObject(GetObjectRequest request, string savePath, string filename)
         {
             var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");

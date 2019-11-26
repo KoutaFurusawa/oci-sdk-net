@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OCISDK.Core.src.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -159,17 +160,46 @@ namespace OCISDK.Core.src.Database.Model
         /// <para>Required: yes</para>
         /// </summary>
         public DatabaseEditionParam DatabaseEdition { get; set; }
-
-        public enum DatabaseEditionParam
+        
+        /// <summary>
+        /// DatabaseEditionParam ExpandableEnum
+        /// </summary>
+        public class DatabaseEditionParam : ExpandableEnum<DatabaseEditionParam>
         {
-            [DisplayName("STANDARD_EDITION")]
-            STANDARD_EDITION,
-            [DisplayName("ENTERPRISE_EDITION")]
-            ENTERPRISE_EDITION,
-            [DisplayName("ENTERPRISE_EDITION_HIGH_PERFORMANCE")]
-            ENTERPRISE_EDITION_HIGH_PERFORMANCE,
-            [DisplayName("ENTERPRISE_EDITION_EXTREME_PERFORMANCE")]
-            ENTERPRISE_EDITION_EXTREME_PERFORMANCE
+            /// <summary>
+            /// DatabaseEditionParam ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
+            public DatabaseEditionParam(string value) : base(value) { }
+
+            /// <summary>
+            /// parase
+            /// </summary>
+            /// <param name="value"></param>
+            public static implicit operator DatabaseEditionParam(string value)
+            {
+                return Parse(value);
+            }
+
+            /// <summary>
+            /// STANDARD_EDITION
+            /// </summary>
+            public static readonly DatabaseEditionParam STANDARD_EDITION = new DatabaseEditionParam("STANDARD_EDITION");
+
+            /// <summary>
+            /// ENTERPRISE_EDITION
+            /// </summary>
+            public static readonly DatabaseEditionParam ENTERPRISE_EDITION = new DatabaseEditionParam("ENTERPRISE_EDITION");
+
+            /// <summary>
+            /// ENTERPRISE_EDITION_HIGH_PERFORMANCE
+            /// </summary>
+            public static readonly DatabaseEditionParam ENTERPRISE_EDITION_HIGH_PERFORMANCE = new DatabaseEditionParam("ENTERPRISE_EDITION_HIGH_PERFORMANCE");
+
+            /// <summary>
+            /// ENTERPRISE_EDITION_EXTREME_PERFORMANCE
+            /// </summary>
+            public static readonly DatabaseEditionParam ENTERPRISE_EDITION_EXTREME_PERFORMANCE = new DatabaseEditionParam("ENTERPRISE_EDITION_EXTREME_PERFORMANCE");
         }
 
         /// <summary>
@@ -182,14 +212,37 @@ namespace OCISDK.Core.src.Database.Model
         /// High is 3-way redundancy, recommended for production systems.
         /// <para>Required: no</para>
         /// </summary>
-        public DiskRedundancyParam? DiskRedundancy { get; set; }
-
-        public enum DiskRedundancyParam
+        public DiskRedundancyParam DiskRedundancy { get; set; }
+        
+        /// <summary>
+        /// DiskRedundancy ExpandableEnum
+        /// </summary>
+        public class DiskRedundancyParam : ExpandableEnum<DiskRedundancyParam>
         {
-            [DisplayName("HIGH")]
-            HIGH,
-            [DisplayName("NORMAL")]
-            NORMAL
+            /// <summary>
+            /// DiskRedundancy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
+            public DiskRedundancyParam(string value) : base(value) { }
+
+            /// <summary>
+            /// parase
+            /// </summary>
+            /// <param name="value"></param>
+            public static implicit operator DiskRedundancyParam(string value)
+            {
+                return Parse(value);
+            }
+
+            /// <summary>
+            /// STANDARD_EDITION
+            /// </summary>
+            public static readonly DiskRedundancyParam HIGH = new DiskRedundancyParam("HIGH");
+
+            /// <summary>
+            /// ENTERPRISE_EDITION
+            /// </summary>
+            public static readonly DiskRedundancyParam NORMAL = new DiskRedundancyParam("NORMAL");
         }
 
         /// <summary>
@@ -197,14 +250,37 @@ namespace OCISDK.Core.src.Database.Model
         /// The default is LICENSE_INCLUDED.
         /// <para>Required: no</para>
         /// </summary>
-        public LicenseModelParam? LicenseModel { get; set; }
-
-        public enum LicenseModelParam
+        public LicenseModelParam LicenseModel { get; set; }
+        
+        /// <summary>
+        /// LicenseModel ExpandableEnum
+        /// </summary>
+        public class LicenseModelParam : ExpandableEnum<LicenseModelParam>
         {
-            [DisplayName("LICENSE_INCLUDED")]
-            LICENSE_INCLUDED,
-            [DisplayName("BRING_YOUR_OWN_LICENSE")]
-            BRING_YOUR_OWN_LICENSE
+            /// <summary>
+            /// LicenseModel ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
+            public LicenseModelParam(string value) : base(value) { }
+
+            /// <summary>
+            /// parase
+            /// </summary>
+            /// <param name="value"></param>
+            public static implicit operator LicenseModelParam(string value)
+            {
+                return Parse(value);
+            }
+
+            /// <summary>
+            /// STANDARD_EDITION
+            /// </summary>
+            public static readonly LicenseModelParam LICENSE_INCLUDED = new LicenseModelParam("LICENSE_INCLUDED");
+
+            /// <summary>
+            /// ENTERPRISE_EDITION
+            /// </summary>
+            public static readonly LicenseModelParam BRING_YOUR_OWN_LICENSE = new LicenseModelParam("BRING_YOUR_OWN_LICENSE");
         }
 
         /// <summary>

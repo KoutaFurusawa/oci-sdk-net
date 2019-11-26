@@ -1,10 +1,4 @@
-﻿/// <summary>
-/// AuditEvent
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using System;
+﻿using System;
 
 namespace OCISDK.Core.src.Audit.Model
 {

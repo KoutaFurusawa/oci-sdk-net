@@ -35,6 +35,10 @@ namespace OCISDK.Core.src.LoadBalancer.Request
         /// </summary>
         public string LoadBalancerId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

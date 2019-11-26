@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// CreateZone Request
+    /// </summary>
     public class CreateZoneRequest
     {
         /// <summary>

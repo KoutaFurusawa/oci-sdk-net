@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Response
 {
+    /// <summary>
+    /// ListZones Response
+    /// </summary>
     public class ListZonesResponse
     {
         /// <summary>

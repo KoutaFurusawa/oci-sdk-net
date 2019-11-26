@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// ChangeSecurityListCompartment Response
+    /// </summary>
     public class ChangeSecurityListCompartmentResponse
     {
         /// <summary>

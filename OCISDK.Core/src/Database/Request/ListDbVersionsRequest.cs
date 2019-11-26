@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// ListDbVersions Request
+    /// </summary>
     public class ListDbVersionsRequest
     {
         /// <summary>
@@ -41,6 +44,10 @@ namespace OCISDK.Core.src.Database.Request
         /// </summary>
         public string DbSystemId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

@@ -1,12 +1,11 @@
-﻿/// <summary>
-/// A bucket is a container for storing objects in a compartment within a namespace.
-/// A bucket is associated with a single compartment. The compartment has policies that indicate what 
-/// actions a user can perform on a bucket and all the objects in the bucket. 
-/// For more information, see Managing Buckets.
-/// </summary>
-
-namespace OCISDK.Core.src.ObjectStorage.Model
+﻿namespace OCISDK.Core.src.ObjectStorage.Model
 {
+    /// <summary>
+    /// A bucket is a container for storing objects in a compartment within a namespace.
+    /// A bucket is associated with a single compartment. The compartment has policies that indicate what 
+    /// actions a user can perform on a bucket and all the objects in the bucket. 
+    /// For more information, see Managing Buckets.
+    /// </summary>s
     public class NamespaceMetadata
     {
         /// <summary>

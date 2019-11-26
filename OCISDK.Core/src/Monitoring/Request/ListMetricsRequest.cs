@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Request
 {
+    /// <summary>
+    /// ListMetrics Request
+    /// </summary>
     public class ListMetricsRequest
     {
         /// <summary>
@@ -52,6 +55,10 @@ namespace OCISDK.Core.src.Monitoring.Request
         /// </summary>
         public ListMetricsDetails ListMetricsDetails { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder($"compartmentId={this.CompartmentId}");

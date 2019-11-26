@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// WorkRequestClientAsync interface
+    /// </summary>
     public interface IWorkRequestClientAsync
     {
         /// <summary>

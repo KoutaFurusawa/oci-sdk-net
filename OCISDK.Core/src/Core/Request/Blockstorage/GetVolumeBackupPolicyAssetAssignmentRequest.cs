@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// GetVolumeBackupPolicyAssetAssignment Request
+    /// </summary>
     public class GetVolumeBackupPolicyAssetAssignmentRequest
     {
         /// <summary>
@@ -28,6 +31,10 @@ namespace OCISDK.Core.src.Core.Request.Blockstorage
         /// </summary>
         public string Page { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

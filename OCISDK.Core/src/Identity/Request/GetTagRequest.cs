@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetTag Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// GetTag Request
+    /// </summary>
     public class GetTagRequest
     {
         /// <summary>

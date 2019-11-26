@@ -9,6 +9,9 @@ namespace OCISDK.Core.src.UnpublishedService.UsageCosts
     /// </summary>
     public class UsageCostsServices
     {
+        /// <summary>
+        /// usagecost
+        /// </summary>
         public readonly static string Usagecost = "usagecost";
     }
 }

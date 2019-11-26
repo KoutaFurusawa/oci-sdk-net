@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OCISDK.Core.src.ObjectStorage.Response
+﻿namespace OCISDK.Core.src.ObjectStorage.Response
 {
+    /// <summary>
+    /// HeadBucket Response
+    /// </summary>
     public class HeadBucketResponse
     {
         /// <summary>

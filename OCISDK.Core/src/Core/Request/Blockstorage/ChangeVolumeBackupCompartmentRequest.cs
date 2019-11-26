@@ -2,6 +2,9 @@
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// ChangeVolumeBackupCompartment Request
+    /// </summary>
     public class ChangeVolumeBackupCompartmentRequest
     {
         /// <summary>

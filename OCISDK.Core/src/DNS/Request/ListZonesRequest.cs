@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// ListZones Request
+    /// </summary>
     public class ListZonesRequest
     {
         /// <summary>
@@ -69,24 +72,50 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public class LifecycleStateParam : ExpandableEnum<LifecycleStateParam>
         {
+            /// <summary>
+            /// LifecycleState ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public LifecycleStateParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator LifecycleStateParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// ACTIVE
+            /// </summary>
             public static readonly LifecycleStateParam ACTIVE = new LifecycleStateParam("ACTIVE");
 
+            /// <summary>
+            /// CREATING
+            /// </summary>
             public static readonly LifecycleStateParam CREATING = new LifecycleStateParam("CREATING");
 
+            /// <summary>
+            /// DELETED
+            /// </summary>
             public static readonly LifecycleStateParam DELETED = new LifecycleStateParam("DELETED");
 
+            /// <summary>
+            /// DELETING
+            /// </summary>
             public static readonly LifecycleStateParam DELETING = new LifecycleStateParam("DELETING");
 
+            /// <summary>
+            /// FAILED
+            /// </summary>
             public static readonly LifecycleStateParam FAILED = new LifecycleStateParam("FAILED");
         }
 
+        /// <summary>
+        /// The field by which to sort zones.
+        /// </summary>
         public SortByParam SortBy { get; set; }
 
         /// <summary>
@@ -94,17 +123,34 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// name
+            /// </summary>
             public static readonly SortByParam Name = new SortByParam("name");
 
+            /// <summary>
+            /// zoneType
+            /// </summary>
             public static readonly SortByParam ZoneType = new SortByParam("zoneType");
 
+            /// <summary>
+            /// timeCreated
+            /// </summary>
             public static readonly SortByParam TimeCreated = new SortByParam("timeCreated");
         }
 
@@ -115,6 +161,10 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public SortOrder SortOrder { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OCISDK.Core.src.Core.Model.Blockstorage
+﻿namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// UpdateBootVolumeKmsKeyDetails
+    /// </summary>
     public class UpdateBootVolumeKmsKeyDetails
     {
         /// <summary>

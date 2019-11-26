@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Audit
 {
+    /// <summary>
+    /// AuditClientAsync interface
+    /// </summary>
     public interface IAuditClientAsync
     {
         /// <summary>

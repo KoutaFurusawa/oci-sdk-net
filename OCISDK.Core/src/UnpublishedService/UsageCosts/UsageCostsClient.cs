@@ -26,16 +26,25 @@ namespace OCISDK.Core.src.UnpublishedService.UsageCosts
             ServiceName = UsageCostsServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public UsageCostsClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = UsageCostsServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public UsageCostsClient(ClientConfigStream config) : base(config)
         {
             ServiceName = UsageCostsServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public UsageCostsClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = UsageCostsServiceName;

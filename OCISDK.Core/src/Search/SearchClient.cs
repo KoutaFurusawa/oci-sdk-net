@@ -9,29 +9,43 @@ using System.Text;
 
 namespace OCISDK.Core.src.Search
 {
+    /// <summary>
+    /// SearchClient
+    /// </summary>
     public class SearchClient : ServiceClient, ISearchClient
     {
+        private readonly string SearchServiceName = "search";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public SearchClient(ClientConfig config) : base(config)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public SearchClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public SearchClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public SearchClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "search";
+            ServiceName = SearchServiceName;
         }
 
         /// <summary>

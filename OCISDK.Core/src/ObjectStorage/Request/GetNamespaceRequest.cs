@@ -1,10 +1,8 @@
-﻿/// <summary>
-/// GetNamespace Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.ObjectStorage.Request
+﻿namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// GetNamespace Request
+    /// </summary>
     public class GetNamespaceRequest
     {
         /// <summary>

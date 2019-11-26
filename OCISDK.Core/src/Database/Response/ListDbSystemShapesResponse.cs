@@ -7,6 +7,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Response
 {
+    /// <summary>
+    /// ListDbSystemShapes Response
+    /// </summary>
     public class ListDbSystemShapesResponse
     {
         /// <summary>

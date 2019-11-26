@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetBootVolumeRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.Blockstorage
+﻿namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// GetBootVolume Request
+    /// </summary>
     public class GetBootVolumeRequest
     {
         /// <summary>

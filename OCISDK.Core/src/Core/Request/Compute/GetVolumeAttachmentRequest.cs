@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// GetVolumeAttachment Request
+    /// </summary>
     public class GetVolumeAttachmentRequest
     {
         /// <summary>

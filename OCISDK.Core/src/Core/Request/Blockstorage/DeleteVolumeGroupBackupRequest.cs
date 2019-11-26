@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// DeleteVolumeGroupBackup Request
+    /// </summary>
     public class DeleteVolumeGroupBackupRequest
     {
         /// <summary>

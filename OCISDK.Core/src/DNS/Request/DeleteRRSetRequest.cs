@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// DeleteRRSet Request
+    /// </summary>
     public class DeleteRRSetRequest
     {
         /// <summary>

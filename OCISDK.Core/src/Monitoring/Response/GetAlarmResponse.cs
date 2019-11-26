@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Response
 {
+    /// <summary>
+    /// GetAlarm Response
+    /// </summary>
     public class GetAlarmResponse
     {
         /// <summary>

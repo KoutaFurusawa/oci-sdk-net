@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.LoadBalancer
 {
+    /// <summary>
+    /// LoadBalancerClientAsync
+    /// </summary>
     public class LoadBalancerClientAsync : ServiceClient, ILoadBalancerClientAsync
     {
         private readonly string DatabaseServiceName = "load_balancing";
@@ -22,16 +25,25 @@ namespace OCISDK.Core.src.LoadBalancer
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public LoadBalancerClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public LoadBalancerClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = DatabaseServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public LoadBalancerClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;

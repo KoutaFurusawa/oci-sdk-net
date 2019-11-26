@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Monitoring.Response
 {
+    /// <summary>
+    /// RemoveAlarmSuppression Response
+    /// </summary>
     public class RemoveAlarmSuppressionResponse
     {
         /// <summary>

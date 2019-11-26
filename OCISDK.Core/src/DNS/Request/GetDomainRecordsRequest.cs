@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Request
 {
+    /// <summary>
+    /// GetDomainRecords Request
+    /// </summary>
     public class GetDomainRecordsRequest
     {
         /// <summary>
@@ -72,15 +75,29 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// rtype
+            /// </summary>
             public static readonly SortByParam RType = new SortByParam("rtype");
 
+            /// <summary>
+            /// ttl
+            /// </summary>
             public static readonly SortByParam TTL = new SortByParam("ttl");
         }
 
@@ -97,6 +114,10 @@ namespace OCISDK.Core.src.DNS.Request
         /// </summary>
         public string CompartmentId { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var sb = new StringBuilder();

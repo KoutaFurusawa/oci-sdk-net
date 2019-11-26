@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListAvailabilityDomains Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// ListAvailabilityDomains Response
+    /// </summary>
     public class ListAvailabilityDomainsResponse
     {
         /// <summary>

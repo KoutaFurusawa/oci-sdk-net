@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// TagSummary Reference
-/// A tag definition that belongs to a specific tag namespace.
-/// 
-/// author: kouta furusawa
-/// </summary>
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// TagSummary Reference
+    /// A tag definition that belongs to a specific tag namespace.
+    /// </summary>
     public class TagSummary
     {
         /// <summary>

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// GetConsoleHistoryContent Response
+    /// </summary>
     public class GetConsoleHistoryContentResponse
     {
         /// <summary>
@@ -16,6 +19,9 @@ namespace OCISDK.Core.src.Core.Response.Compute
         /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// Contents
+        /// </summary>
         public string Contents { get; set; }
     }
 }

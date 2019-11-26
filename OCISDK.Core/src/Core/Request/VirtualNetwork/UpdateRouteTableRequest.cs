@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// UpdateRouteTable Request
+    /// </summary>
     public class UpdateRouteTableRequest
     {
         /// <summary>

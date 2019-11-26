@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// ListDatabases Request
+    /// </summary>
     public class ListDatabasesRequest
     {
         /// <summary>
@@ -49,15 +52,29 @@ namespace OCISDK.Core.src.Database.Request
         /// </summary>
         public class SortByParam : ExpandableEnum<SortByParam>
         {
+            /// <summary>
+            /// SortBy ExpandableEnum
+            /// </summary>
+            /// <param name="value"></param>
             public SortByParam(string value) : base(value) { }
 
+            /// <summary>
+            /// parse
+            /// </summary>
+            /// <param name="value"></param>
             public static implicit operator SortByParam(string value)
             {
                 return Parse(value);
             }
 
+            /// <summary>
+            /// DBNAME
+            /// </summary>
             public static readonly SortByParam DBNAME = new SortByParam("DBNAME");
 
+            /// <summary>
+            /// TIMECREATED
+            /// </summary>
             public static readonly SortByParam TIMECREATED = new SortByParam("TIMECREATED");
         }
 
@@ -80,6 +97,10 @@ namespace OCISDK.Core.src.Database.Request
         /// </summary>
         public string DbName { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             StringBuilder sb = new StringBuilder();

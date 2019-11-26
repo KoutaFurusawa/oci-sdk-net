@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// CreateTag Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 
 namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// CreateTag Response
+    /// </summary>
     public class CreateTagResponse
     {
         /// <summary>

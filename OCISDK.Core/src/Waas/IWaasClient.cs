@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas
 {
+    /// <summary>
+    /// WaasClient interface
+    /// </summary>
     public interface IWaasClient
     {
         /// <summary>
@@ -24,7 +27,7 @@ namespace OCISDK.Core.src.Waas
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         ChangeWaasPolicyCompartmentResponse ChangeWaasPolicyCompartment(ChangeWaasPolicyCompartmentRequest request);
 
@@ -63,9 +66,16 @@ namespace OCISDK.Core.src.Waas
         /// <summary>
         /// Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, sorted by timeObserved in ascending order (starting from oldest data).
         /// </summary>
-        /// <param name="rwquest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        ListWafBlockedRequestsResponse ListWafBlockedRequests(ListWafBlockedRequestsRequest rwquest);
+        ListWafBlockedRequestsResponse ListWafBlockedRequests(ListWafBlockedRequestsRequest request);
+
+        /// <summary>
+        /// Gets structured Web Application Firewall event logs for a WAAS policy. Sorted by the timeObserved in ascending order (starting from the oldest recorded event).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListWafLogsResponse ListWafLogs(ListWafLogsRequest request);
 
         /// <summary>
         /// Gets the details of a WAAS policy.

@@ -15,6 +15,9 @@ namespace OCISDK.Core.src.UnpublishedService.Commercial.Response
         /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// arrary PurchaseEntitlements
+        /// </summary>
         public List<PurchaseEntitlements> Items { get; set; }
     }
 }

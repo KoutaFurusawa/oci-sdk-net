@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas.Model
 {
+    /// <summary>
+    /// AccessRuleCriteria Details
+    /// </summary>
     public class AccessRuleCriteriaDetails
     {
         /// <summary>

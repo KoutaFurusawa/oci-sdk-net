@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// DeletePolicy Request
+    /// </summary>
     public class DeletePolicyRequest
     {
         /// <summary>

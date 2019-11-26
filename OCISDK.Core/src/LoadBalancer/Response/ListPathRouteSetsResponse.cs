@@ -15,6 +15,9 @@ namespace OCISDK.Core.src.LoadBalancer.Response
      /// </summary>
         public string OpcRequestId { get; set; }
 
+        /// <summary>
+        /// arrary PathRouteSetDetails
+        /// </summary>
         public List<PathRouteSetDetails> Items { get; set; }
     }
 }

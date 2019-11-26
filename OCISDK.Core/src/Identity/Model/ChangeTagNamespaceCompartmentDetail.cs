@@ -1,12 +1,9 @@
-﻿/// <summary>
-/// ChangeTagNamespaceCompartmentDetail Reference
-/// Details of the compartment the resource is being moved to.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Model
+﻿namespace OCISDK.Core.src.Identity.Model
 {
+    /// <summary>
+    /// ChangeTagNamespaceCompartmentDetail Reference
+    /// Details of the compartment the resource is being moved to.
+    /// </summary>
     public class ChangeTagNamespaceCompartmentDetail
     {
         /// <summary>

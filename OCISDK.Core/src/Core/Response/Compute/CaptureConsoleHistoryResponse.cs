@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// CaptureConsoleHistory Response
+    /// </summary>
     public class CaptureConsoleHistoryResponse
     {
         /// <summary>

@@ -4,8 +4,16 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Model
 {
+    /// <summary>
+    /// BucketSummary
+    /// </summary>
     public class BucketSummary
     {
+        /// <summary>
+        /// OCID
+        /// </summary>
+        public string Id { get; set; }
+
         /// <summary>
         /// The Object Storage namespace in which the bucket lives.
         /// </summary>

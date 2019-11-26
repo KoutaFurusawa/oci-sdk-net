@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.DNS.Model
 {
+    /// <summary>
+    /// PatchZoneRecordsDetails
+    /// </summary>
     public class PatchZoneRecordsDetails
     {
         /// <summary>

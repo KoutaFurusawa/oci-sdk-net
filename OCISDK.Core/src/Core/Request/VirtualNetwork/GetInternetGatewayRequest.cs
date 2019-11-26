@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetInternetGatewayRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// GetInternetGateway Request
+    /// </summary>
     public class GetInternetGatewayRequest
     {
         /// <summary>

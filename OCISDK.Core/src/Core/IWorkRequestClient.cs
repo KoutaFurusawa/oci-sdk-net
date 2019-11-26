@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core
 {
+    /// <summary>
+    /// WorkRequestClient interface
+    /// </summary>
     public interface IWorkRequestClient
     {
         /// <summary>

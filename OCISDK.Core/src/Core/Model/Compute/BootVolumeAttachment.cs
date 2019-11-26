@@ -1,16 +1,11 @@
-﻿/// <summary>
-/// BootVolumeAttachment Reference
-/// Represents an attachment between a boot volume and an instance.
-/// 
-/// Warning: Oracle recommends that you avoid using any confidential 
-/// information when you supply string values using the API.
-/// 
-/// author: koutaro furusawa
-/// </summary>
-namespace OCISDK.Core.src.Core.Model.Compute
+﻿namespace OCISDK.Core.src.Core.Model.Compute
 {
     /// <summary>
+    /// BootVolumeAttachment Reference
     /// Represents an attachment between a boot volume and an instance.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential 
+    /// information when you supply string values using the API.
     /// </summary>
     public class BootVolumeAttachment
     {

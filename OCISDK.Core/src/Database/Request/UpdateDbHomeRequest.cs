@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// UpdateDbHome Request
+    /// </summary>
     public class UpdateDbHomeRequest
     {
         /// <summary>

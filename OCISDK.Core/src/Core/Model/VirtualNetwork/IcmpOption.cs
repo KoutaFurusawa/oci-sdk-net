@@ -1,11 +1,4 @@
-﻿/// <summary>
-/// IcmpOption Reference
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-
-namespace OCISDK.Core.src.Core.Model.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Model.VirtualNetwork
 {
     /// <summary>
     /// Optional object to specify a particular ICMP type and code.
@@ -18,8 +11,14 @@ namespace OCISDK.Core.src.Core.Model.VirtualNetwork
     /// </summary>
     public class IcmpOption
     {
+        /// <summary>
+        /// The ICMP code (optional).
+        /// </summary>
         public int? Code { get; set; }
-        
+
+        /// <summary>
+        /// The ICMP type.
+        /// </summary>
         public int Type { get; set; }
     }
 }

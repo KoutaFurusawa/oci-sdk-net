@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Database.Request
 {
+    /// <summary>
+    /// UpdateExadataIormConfig Request
+    /// </summary>
     public class UpdateExadataIormConfigRequest
     {
         /// <summary>

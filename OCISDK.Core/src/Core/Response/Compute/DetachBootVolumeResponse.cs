@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DetachBootVolumeResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Response.Compute
+﻿namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// DetachBootVolume Response
+    /// </summary>
     public class DetachBootVolumeResponse
     {
         /// <summary>

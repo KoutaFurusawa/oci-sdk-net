@@ -7,6 +7,9 @@ using OCISDK.Core.src.Database.Response;
 
 namespace OCISDK.Core.src.Database
 {
+    /// <summary>
+    /// IDatabaseClient Async interface
+    /// </summary>
     public interface IDatabaseClientAsync
     {
         /// <summary>
@@ -198,7 +201,7 @@ namespace OCISDK.Core.src.Database
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<DeleteDbHomeRsponse> DeleteDbHome(DeleteDbHomeRequest request);
+        Task<DeleteDbHomeResponse> DeleteDbHome(DeleteDbHomeRequest request);
 
         /// <summary>
         /// Terminates a DB system and permanently deletes it and any databases running on it, and any storage volumes attached to it. 

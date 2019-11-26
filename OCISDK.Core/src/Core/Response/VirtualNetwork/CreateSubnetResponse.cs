@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// CreateSubnetResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+﻿using OCISDK.Core.src.Core.Model.VirtualNetwork;
 
 namespace OCISDK.Core.src.Core.Response.VirtualNetwork
 {
+    /// <summary>
+    /// CreateSubnet Response
+    /// </summary>
     public class CreateSubnetResponse
     {
         /// <summary>

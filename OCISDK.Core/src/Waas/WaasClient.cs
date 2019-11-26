@@ -9,29 +9,43 @@ using System.Text;
 
 namespace OCISDK.Core.src.Waas
 {
+    /// <summary>
+    /// WaasClient
+    /// </summary>
     public class WaasClient : ServiceClient, IWaasClient
     {
+        private readonly string WaasServiceName = "waas";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public WaasClient(ClientConfig config) : base(config)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
+        /// <summary>
+        /// Constructer
+        /// </summary>
         public WaasClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "waas";
+            ServiceName = WaasServiceName;
         }
 
         /// <summary>
@@ -56,7 +70,7 @@ namespace OCISDK.Core.src.Waas
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         public ChangeWaasPolicyCompartmentResponse ChangeWaasPolicyCompartment(ChangeWaasPolicyCompartmentRequest request)
         {
@@ -185,7 +199,7 @@ namespace OCISDK.Core.src.Waas
         /// <summary>
         /// Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, sorted by timeObserved in ascending order (starting from oldest data).
         /// </summary>
-        /// <param name="rwquest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         public ListWafBlockedRequestsResponse ListWafBlockedRequests(ListWafBlockedRequestsRequest request)
         {
@@ -205,6 +219,35 @@ namespace OCISDK.Core.src.Waas
                 return new ListWafBlockedRequestsResponse()
                 {
                     Items = this.JsonSerializer.Deserialize<List<WafBlockedRequest>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets structured Web Application Firewall event logs for a WAAS policy. Sorted by the timeObserved in ascending order (starting from the oldest recorded event).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListWafLogsResponse ListWafLogs(ListWafLogsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/wafLogs?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWafLogsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<WafLogDetails>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-request-id")
                 };

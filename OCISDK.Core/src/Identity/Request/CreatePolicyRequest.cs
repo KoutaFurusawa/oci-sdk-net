@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// CreatePolicy Request
+    /// </summary>
     public class CreatePolicyRequest
     {
         /// <summary>

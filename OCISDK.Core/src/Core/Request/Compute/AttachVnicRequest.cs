@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// AttachVnicRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using OCISDK.Core.src.Core.Model.Compute;
+﻿using OCISDK.Core.src.Core.Model.Compute;
 
 namespace OCISDK.Core.src.Core.Request.Compute
 {
+    /// <summary>
+    /// AttachVnic Request
+    /// </summary>
     public class AttachVnicRequest
     {
         /// <summary>

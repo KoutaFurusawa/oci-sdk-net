@@ -4,6 +4,11 @@ using System.Text;
 
 namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// Specifies a volume group which is a collection of volumes. For more information, see Volume Groups.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// </summary>
     public class VolumeGroup
     {
         /// <summary>

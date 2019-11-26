@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteInternetGatewayRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.VirtualNetwork
+﻿namespace OCISDK.Core.src.Core.Request.VirtualNetwork
 {
+    /// <summary>
+    /// DeleteInternetGateway Request
+    /// </summary>
     public class DeleteInternetGatewayRequest
     {
         /// <summary>

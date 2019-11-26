@@ -15,20 +15,49 @@ namespace OCISDK.Core.src.LoadBalancer.Model
         /// </summary>
         public string Action { get; set; }
 
+        /// <summary>
+        /// A header name that conforms to RFC 7230.
+        /// </summary>
         public string Header { get; set; }
 
+        /// <summary>
+        /// A header value that conforms to RFC 7230.
+        /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// A string to prepend to the header value. The resulting header value must conform to RFC 7230.
+        /// </summary>
         public string Prefix { get; set; }
 
+        /// <summary>
+        /// A string to append to the header value. The resulting header value must conform to RFC 7230.
+        /// </summary>
         public string Suffix { get; set; }
 
+        /// <summary>
+        /// The list of HTTP methods allowed for this listener.
+        /// By default, you can specify only the standard HTTP methods defined in the HTTP Method Registry. 
+        /// You can also see a list of supported standard HTTP methods in the Load Balancing service documentation at Managing Rule Sets.
+        /// Your backend application must be able to handle the methods specified in this list.
+        /// The list of HTTP methods is extensible. If you need to configure custom HTTP methods, contact My Oracle Support to remove the restriction for your tenancy.
+        /// </summary>
         public List<string> AllowedMethods { get; set; }
 
+        /// <summary>
+        /// The HTTP status code to return when the requested HTTP method is not in the list of allowed methods. 
+        /// The associated status line returned with the code is mapped from the standard HTTP specification. The default value is 405 (Method Not Allowed).
+        /// </summary>
         public int? StatusCode { get; set; }
 
+        /// <summary>
+        /// A condition to apply to an access control rule.
+        /// </summary>
         public List<RuleCondition> Conditions { get; set; }
 
+        /// <summary>
+        /// A brief description of the access control rule. Avoid entering confidential information.
+        /// </summary>
         public string Description { get; set; }
     }
 

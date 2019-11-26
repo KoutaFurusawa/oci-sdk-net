@@ -1,12 +1,10 @@
-﻿/// <summary>
-/// ListTagDefaults Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-using System;
+﻿using System;
 
 namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// ListTagDefaults Request
+    /// </summary>
     public class ListTagDefaultsRequest
     {
         /// <summary>
@@ -48,6 +46,10 @@ namespace OCISDK.Core.src.Identity.Request
         /// </summary>
         public int? Limit { get; set; }
 
+        /// <summary>
+        /// option query
+        /// </summary>
+        /// <returns></returns>
         public string GetOptionQuery()
         {
             var options = "";

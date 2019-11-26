@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// GetImageResponse class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Core.Model.Compute;
+﻿using OCISDK.Core.src.Core.Model.Compute;
 
 namespace OCISDK.Core.src.Core.Response.Compute
 {
+    /// <summary>
+    /// GetImage Response
+    /// </summary>
     public class GetImageResponse
     {
         /// <summary>

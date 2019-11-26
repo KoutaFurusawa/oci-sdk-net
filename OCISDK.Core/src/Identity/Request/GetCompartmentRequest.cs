@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// GetCompartment Request
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Identity.Request
+﻿namespace OCISDK.Core.src.Identity.Request
 {
+    /// <summary>
+    /// GetCompartment Request
+    /// </summary>
     public class GetCompartmentRequest
     {
         /// <summary>

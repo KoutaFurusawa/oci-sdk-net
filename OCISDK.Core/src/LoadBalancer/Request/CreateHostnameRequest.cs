@@ -34,6 +34,9 @@ namespace OCISDK.Core.src.LoadBalancer.Request
         /// </summary>
         public string LoadBalancerId { get; set; }
 
+        /// <summary>
+        /// CreateHostnameDetails
+        /// </summary>
         public CreateHostnameDetails CreateHostnameDetails { get; set; }
     }
 }

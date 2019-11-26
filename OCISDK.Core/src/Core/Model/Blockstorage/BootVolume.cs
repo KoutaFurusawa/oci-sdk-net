@@ -1,16 +1,17 @@
-﻿/// <summary>
-/// BootVolume Reference
-/// A detachable boot volume device that contains the image used to boot a Compute instance. 
-/// For more information, see Overview of Boot Volumes.
-/// 
-/// author: koutaro furusawa
-/// </summary>
+﻿
 using OCISDK.Core.src.Core.Model.Compute;
 using System;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Core.Model.Blockstorage
 {
+    /// <summary>
+    /// BootVolume Reference
+    /// A detachable boot volume device that contains the image used to boot a Compute instance. 
+    /// For more information, see Overview of Boot Volumes.
+    /// 
+    /// author: koutaro furusawa
+    /// </summary>
     public class BootVolume
     {
         /// <summary>

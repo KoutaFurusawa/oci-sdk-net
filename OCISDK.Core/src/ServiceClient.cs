@@ -2,11 +2,6 @@
 using OCISDK.Core.src.Common;
 using System;
 using System.IO;
-/// <summary>
-/// Service Client
-/// 
-/// author: koutaro furusawa
-/// </summary>
 namespace OCISDK.Core.src
 {
     /// <summary>
@@ -14,23 +9,48 @@ namespace OCISDK.Core.src
     /// </summary>
     public class ServiceClient
     {
+        /// <summary>
+        /// region name
+        /// </summary>
         public string Region { get; set; }
 
         /// <summary> Core Services Name </summary>
         protected string ServiceName { get; set; }
 
+        /// <summary>
+        /// IOciSigner
+        /// </summary>
         protected IOciSigner Signer { get; set; }
 
+        /// <summary>
+        /// ClientConfigStream
+        /// </summary>
         public ClientConfigStream Config { get; set; }
-        
+
+        /// <summary>
+        /// JsonSerializer interface
+        /// </summary>
         public IJsonSerializer JsonSerializer;
-        
+
+        /// <summary>
+        /// WebRequestPolicy interface
+        /// </summary>
         public IWebRequestPolicy WebRequestPolicy { get; set; }
-        
+
+        /// <summary>
+        /// RestClient interace
+        /// </summary>
         protected IRestClient RestClient { get; set; }
 
+        /// <summary>
+        /// RestClientAsync interface
+        /// </summary>
         protected IRestClientAsync RestClientAsync { get; set; }
 
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
         public ServiceClient(ClientConfig config)
         {
             var streamConfig = new ClientConfigStream
@@ -55,6 +75,11 @@ namespace OCISDK.Core.src
             }
         }
 
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ociSigner"></param>
         public ServiceClient(ClientConfig config, IOciSigner ociSigner)
         {
             var streamConfig = new ClientConfigStream
@@ -79,11 +104,20 @@ namespace OCISDK.Core.src
             }
         }
 
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
         public ServiceClient(ClientConfigStream config)
         {
             Initialize(config);
         }
 
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ociSigner"></param>
         public ServiceClient(ClientConfigStream config, IOciSigner ociSigner)
         {
             Initialize(config, ociSigner);
@@ -105,6 +139,11 @@ namespace OCISDK.Core.src
             Initialize(config, signer);
         }
 
+        /// <summary>
+        /// initialization
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ociSigner"></param>
         public void Initialize(ClientConfigStream config, IOciSigner ociSigner)
         {
             Config = config;
@@ -144,11 +183,21 @@ namespace OCISDK.Core.src
             };
         }
 
+        /// <summary>
+        /// IOciSigner
+        /// </summary>
+        /// <returns></returns>
         protected IOciSigner GetSigner()
         {
             return Signer;
         }
 
+        /// <summary>
+        /// GetEndpoint
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="region"></param>
+        /// <returns></returns>
         public string GetEndPoint(string serviceName, string region)
         {
             return $"https://" +
@@ -157,6 +206,13 @@ namespace OCISDK.Core.src
                 $"{serviceName}";
         }
 
+        /// <summary>
+        /// GetEndpoint
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="region"></param>
+        /// <param name="domain"></param>
+        /// <returns></returns>
         public string GetEndPoint(string serviceName, string region, string domain)
         {
             return $"https://" +
@@ -165,6 +221,12 @@ namespace OCISDK.Core.src
                 $"{serviceName}";
         }
 
+        /// <summary>
+        /// GetEndpoint
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="region"></param>
+        /// <returns></returns>
         public string GetEndPointNoneVersion(string serviceName, string region)
         {
             return $"https://" +
@@ -172,6 +234,12 @@ namespace OCISDK.Core.src
                 $"{serviceName}";
         }
 
+        /// <summary>
+        /// GetEndpoint
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="domainName"></param>
+        /// <returns></returns>
         public string GetEndPointItas(string serviceName, string domainName)
         {
             return $"https://itra.oraclecloud.com/itas/" +

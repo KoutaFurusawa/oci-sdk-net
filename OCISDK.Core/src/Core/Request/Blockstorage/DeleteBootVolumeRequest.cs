@@ -1,11 +1,8 @@
-﻿/// <summary>
-/// DeleteBootVolumeRequest class
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-namespace OCISDK.Core.src.Core.Request.Blockstorage
+﻿namespace OCISDK.Core.src.Core.Request.Blockstorage
 {
+    /// <summary>
+    /// DeleteBootVolume Request
+    /// </summary>
     public class DeleteBootVolumeRequest
     {
         /// <summary>

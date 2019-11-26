@@ -5,6 +5,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Request
 {
+    /// <summary>
+    /// UpdateBucket Request
+    /// </summary>
     public class UpdateBucketRequest
     {
         /// <summary>

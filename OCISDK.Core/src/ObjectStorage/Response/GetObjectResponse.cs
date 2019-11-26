@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace OCISDK.Core.src.ObjectStorage.Response
 {
+    /// <summary>
+    /// GetObject Response
+    /// </summary>
     public class GetObjectResponse
     {
+        /// <summary>
+        /// FileURL
+        /// </summary>
         public string FileURL { get; set; }
 
         /// <summary>

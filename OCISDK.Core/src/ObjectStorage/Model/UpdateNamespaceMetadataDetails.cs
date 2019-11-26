@@ -4,6 +4,9 @@ using System.Text;
 
 namespace OCISDK.Core.src.ObjectStorage.Model
 {
+    /// <summary>
+    /// UpdateNamespaceMetadata Details
+    /// </summary>
     public class UpdateNamespaceMetadataDetails
     {
         /// <summary>

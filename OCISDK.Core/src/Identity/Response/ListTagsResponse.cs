@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// ListTags Response
-/// 
-/// author: koutaro furusawa
-/// </summary>
-
-using OCISDK.Core.src.Identity.Model;
+﻿using OCISDK.Core.src.Identity.Model;
 using System.Collections.Generic;
 
 namespace OCISDK.Core.src.Identity.Response
 {
+    /// <summary>
+    /// ListTags Response
+    /// </summary>
     public class ListTagsResponse
     {
         /// <summary>

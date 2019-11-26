@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace OCISDK.Core.src.Monitoring
 {
+    /// <summary>
+    /// MonitoringClientAsync interface
+    /// </summary>
     public interface IMonitoringClientAsync
     {
         /// <summary>
