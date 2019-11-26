@@ -22,7 +22,7 @@ RCバージョンにはバグが含まれている場合があります。
 
 The RC version may contain bugs.
 Use the official version for important work.</Description>
-    <Version>0.5.8.9-rc</Version>
+    <Version>0.5.9-rc</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -66,16 +66,17 @@ Use the official version for important work.</Description>
      * add WafLog service
      * correction compartment detail model parameter
      * Fixed an issue where comments would be removed when packaged(#15)
-2019/11/27 version 0.5.8.9-rc release
+2019/11/27 version 0.5.9-rc release
      * add VirtualCircut Services
+</PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.8.8</AssemblyVersion>
-    <FileVersion>0.5.8.8</FileVersion>
+    <AssemblyVersion>0.5.9.0</AssemblyVersion>
+    <FileVersion>0.5.9.0</FileVersion>
     <NeutralLanguage></NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
