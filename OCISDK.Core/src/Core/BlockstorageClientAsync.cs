@@ -14,12 +14,14 @@ namespace OCISDK.Core.src.Core
     /// </summary>
     public class BlockstorageClientAsync : ServiceClient, IBlockstorageClientAsync
     {
+        private readonly string BlockstorageServiceName = "core";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public BlockstorageClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
         /// <summary>
@@ -27,7 +29,7 @@ namespace OCISDK.Core.src.Core
         /// </summary>
         public BlockstorageClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace OCISDK.Core.src.Core
         /// </summary>
         public BlockstorageClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace OCISDK.Core.src.Core
         /// </summary>
         public BlockstorageClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = BlockstorageServiceName;
         }
 
         /// <summary>
