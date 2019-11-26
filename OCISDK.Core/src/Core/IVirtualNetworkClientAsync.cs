@@ -83,6 +83,13 @@ namespace OCISDK.Core.src.Core
         Task<ListDrgsResponse> ListDrgs(ListDrgsRequest request);
 
         /// <summary>
+        /// Lists the virtual circuits in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListVirtualCircuitsResponse> ListVirtualCircuits(ListVirtualCircuitsRequest request);
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
         /// <param name="getDhcpRequest"></param>
@@ -138,12 +145,20 @@ namespace OCISDK.Core.src.Core
         /// <param name="request"></param>
         /// <returns></returns>
         Task<GetDrgAttachmentResponse> GetDrgAttachment(GetDrgAttachmentRequest request);
+
         /// <summary>
         /// Gets the specified DRG's information.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<GetDrgResponse> GetDrg(GetDrgRequest request);
+
+        /// <summary>
+        /// Gets the specified virtual circuit's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetVirtualCircuitResponse> GetVirtualCircuit(GetVirtualCircuitRequest request);
 
         /// <summary>
         /// Moves a VCN into a different compartment within the same tenancy. 
@@ -176,6 +191,14 @@ namespace OCISDK.Core.src.Core
         /// <param name="param"></param>
         /// <returns></returns>
         Task<ChangeRouteTableCompartmentResponse> ChangeRouteTableCompartment(ChangeRouteTableCompartmentRequest param);
+
+        /// <summary>
+        /// Moves a virtual circuit into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ChangeVirtualCircuitCompartmentResponse> ChangeVirtualCircuitCompartment(ChangeVirtualCircuitCompartmentRequest request);
 
         /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
@@ -257,6 +280,22 @@ namespace OCISDK.Core.src.Core
         Task<CreateDrgResponse> CreateDrg(CreateDrgRequest request);
 
         /// <summary>
+        /// Creates a new virtual circuit to use with Oracle Cloud Infrastructure FastConnect. For more information, see FastConnect Overview.
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the virtual circuit to reside. 
+        /// If you're not sure which compartment to use, put the virtual circuit in the same compartment with the DRG it's using. 
+        /// For more information about compartments and access control, see Overview of the IAM Service. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You may optionally specify a display name for the virtual circuit. It does not have to be unique, and you can change it. Avoid entering confidential information.
+        /// 
+        /// Important: When creating a virtual circuit, you specify a DRG for the traffic to flow through. Make sure you attach the DRG to your VCN and confirm the VCN's 
+        /// routing sends traffic to the DRG. Otherwise traffic will not flow. For more information, see Route Tables.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreateVirtualCircuitResponse> CreateVirtualCircuit(CreateVirtualCircuitRequest request);
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -324,6 +363,24 @@ namespace OCISDK.Core.src.Core
         Task<UpdateDrgResponse> UpdateDrg(UpdateDrgRequest request);
 
         /// <summary>
+        /// Updates the specified virtual circuit. This can be called by either the customer who owns the virtual circuit, or the provider 
+        /// (when provisioning or de-provisioning the virtual circuit from their end). The documentation for UpdateVirtualCircuitDetails 
+        /// indicates who can update each property of the virtual circuit.
+        /// 
+        /// Important: If the virtual circuit is working and in the PROVISIONED state, updating any of the network-related properties (such as 
+        /// the DRG being used, the BGP ASN, and so on) will cause the virtual circuit's state to switch to PROVISIONING and the related BGP session 
+        /// to go down. After Oracle re-provisions the virtual circuit, its state will return to PROVISIONED. Make sure you confirm that the associated 
+        /// BGP session is back up. For more information about the various states and how to test connectivity, see FastConnect Overview.
+        /// 
+        /// To change the list of public IP prefixes for a public virtual circuit, use BulkAddVirtualCircuitPublicPrefixes and BulkDeleteVirtualCircuitPublicPrefixes. 
+        /// Updating the list of prefixes does NOT cause the BGP session to go down. However, Oracle must verify the customer's ownership of each added prefix before 
+        /// traffic for that prefix will flow across the virtual circuit.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateVirtualCircuitResponse> UpdateVirtualCircuit(UpdateVirtualCircuitRequest request);
+
+        /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.
         /// This is an asynchronous operation.
         /// The VCN's lifecycleState will change to TERMINATING temporarily until the VCN is completely removed.
@@ -381,5 +438,13 @@ namespace OCISDK.Core.src.Core
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DeleteDrgAttachmentResponse> DeleteDrgAttachment(DeleteDrgAttachmentRequest request);
+
+        /// <summary>
+        /// Deletes the specified virtual circuit.
+        /// Important: If you're using FastConnect via a provider, make sure to also terminate the connection with the provider, or else the provider may continue to bill you.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteVirtualCircuitResponse> DeleteVirtualCircuit(DeleteVirtualCircuitRequest request);
     }
 }
