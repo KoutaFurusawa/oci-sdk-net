@@ -22,7 +22,7 @@ RCバージョンにはバグが含まれている場合があります。
 
 The RC version may contain bugs.
 Use the official version for important work.</Description>
-    <Version>0.5.8.7</Version>
+    <Version>0.5.8.9-rc</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -53,7 +53,6 @@ Use the official version for important work.</Description>
      * Test introduction of WaaSClient
 2019/11/7 version 0.5.8.5-rc release
      * instance add systemTags
-
      * Tags type Dictionary to IDictionary
      * Changed to recommended Dotnet project configuration. Endpoint file only.
 2019/11/14 version 0.5.8.6-rc release
@@ -62,20 +61,28 @@ Use the official version for important work.</Description>
      * Correction of missing setting value
 2019/11/15 version 0.5.8.7-rc release
 2019/11/20 version 0.5.8.7 release
-     * unpublished service ListServiceEntitlementRegistrationsResponse</PackageReleaseNotes>
+     * unpublished service ListServiceEntitlementRegistrationsResponse
+2019/11/26 version 0.5.8.8-rc release
+     * add WafLog service
+     * correction compartment detail model parameter
+     * Fixed an issue where comments would be removed when packaged(#15)
+2019/11/27 version 0.5.8.9-rc release
+     * add VirtualCircut Services
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.8.7</AssemblyVersion>
-    <FileVersion>0.5.8.7</FileVersion>
+    <AssemblyVersion>0.5.8.8</AssemblyVersion>
+    <FileVersion>0.5.8.8</FileVersion>
     <NeutralLanguage></NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\k.furusawa\Documents\csp\oci-sdk-net\OCISDK.Core\OCISDK.Core.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
