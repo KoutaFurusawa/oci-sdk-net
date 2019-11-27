@@ -1,9 +1,9 @@
-﻿using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
-using static OCISDK.Core.src.Common.ConfigFileReader;
+using static OCISDK.Core.Common.ConfigFileReader;
 
 namespace OCISDK.Test.Common
 {

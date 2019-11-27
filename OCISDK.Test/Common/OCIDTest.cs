@@ -1,4 +1,4 @@
-﻿using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.Common;
 using Xunit;
 
 namespace OCISDK.Test.Common

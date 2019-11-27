@@ -1,4 +1,4 @@
-﻿using OCISDK.Core.src.Common;
+﻿using OCISDK.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
