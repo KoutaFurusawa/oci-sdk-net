@@ -486,6 +486,34 @@ namespace OCISDK.Core.Identity
         }
 
         /// <summary>
+        /// Lists all the identity providers in your tenancy. You must specify the identity provider type (e.g., SAML2 for identity providers using the SAML2.0 protocol). 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (remember that the tenancy is simply the root compartment). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListIdentityProvidersResponse> ListIdentityProviders(ListIdentityProvidersRequest request)
+        {
+            var uriStr = $"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}?{request.GetOptionQuery()}";
+            var uri = new Uri(uriStr);
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListIdentityProvidersResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<IdentityProvider>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified compartment's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -606,6 +634,31 @@ namespace OCISDK.Core.Identity
                 return new GetUserGroupMembershipResponse()
                 {
                     UserGroupMembership = JsonSerializer.Deserialize<UserGroupMembership>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified identity provider's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetIdentityProviderResponse> GetIdentityProvider(GetIdentityProviderRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}/{request.IdentityProviderId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetIdentityProviderResponse()
+                {
+                    IdentityProvider = JsonSerializer.Deserialize<IdentityProvider>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -760,6 +813,41 @@ namespace OCISDK.Core.Identity
                 return new CreateUserResponse()
                 {
                     User = JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new identity provider in your tenancy. For more information, see Identity Providers and Federation.
+        /// 
+        /// You must specify your tenancy's OCID as the compartment ID in the request object. Remember that the tenancy 
+        /// is simply the root compartment. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must also specify a name for the IdentityProvider, which must be unique across all IdentityProvider objects 
+        /// in your tenancy and cannot be changed.
+        /// 
+        /// You must also specify a description for the IdentityProvider (although it can be an empty string). It does not 
+        /// have to be unique, and you can change it anytime with UpdateIdentityProvider.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, 
+        /// first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        public async Task<CreateIdentityProviderResponse> CreateIdentityProvider(CreateIdentityProviderRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}");
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateIdentityProviderDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateIdentityProviderResponse()
+                {
+                    IdentityProvider = JsonSerializer.Deserialize<IdentityProvider>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("ETag")
                 };
@@ -1035,6 +1123,32 @@ namespace OCISDK.Core.Identity
         }
 
         /// <summary>
+        /// Updates the specified identity provider.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateIdentityProviderResponse> UpdateIdentityProvider(UpdateIdentityProviderRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}/{request.IdentityProviderId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateIdentityProviderDetails, 
+                new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateIdentityProviderResponse()
+                {
+                    IdentityProvider = JsonSerializer.Deserialize<IdentityProvider>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
         /// </summary>
         /// <param name="request"></param>
@@ -1122,6 +1236,29 @@ namespace OCISDK.Core.Identity
                 var response = reader.ReadToEnd();
 
                 return new DeletePolicyResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified identity provider. The identity provider must not have any group mappings (see IdpGroupMapping).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteIdentityProviderResponse> DeleteIdentityProvider(DeleteIdentityProviderRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}/{request.IdentityProviderId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteIdentityProviderResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

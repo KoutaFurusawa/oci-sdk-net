@@ -41,5 +41,9 @@
         /// Policiy
         /// </summary>
         public readonly static string Policiy = "policies";
+        /// <summary>
+        /// identityProviders
+        /// </summary>
+        public readonly static string IdentityProviders = "identityProviders";
     }
 }

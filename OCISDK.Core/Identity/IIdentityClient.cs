@@ -131,6 +131,15 @@ namespace OCISDK.Core.Identity
         ListUserGroupMembershipsResponse ListUserGroupMemberships(ListUserGroupMembershipsRequest request);
 
         /// <summary>
+        /// Lists all the identity providers in your tenancy. You must specify the identity provider type (e.g., SAML2 for identity providers using the SAML2.0 protocol). 
+        /// You must specify your tenancy's OCID as the value for the compartment ID (remember that the tenancy is simply the root compartment). 
+        /// See Where to Get the Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListIdentityProvidersResponse ListIdentityProviders(ListIdentityProvidersRequest request);
+
+        /// <summary>
         /// Gets the specified compartment's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -164,6 +173,13 @@ namespace OCISDK.Core.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         GetUserGroupMembershipResponse GetUserGroupMembership(GetUserGroupMembershipRequest request);
+
+        /// <summary>
+        /// Gets the specified identity provider's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetIdentityProviderResponse GetIdentityProvider(GetIdentityProviderRequest request);
 
         /// <summary>
         /// Creates a new compartment in the specified compartment.
@@ -230,6 +246,23 @@ namespace OCISDK.Core.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         CreateUserResponse CreateUser(CreateUserRequest request);
+
+        /// <summary>
+        /// Creates a new identity provider in your tenancy. For more information, see Identity Providers and Federation.
+        /// 
+        /// You must specify your tenancy's OCID as the compartment ID in the request object. Remember that the tenancy 
+        /// is simply the root compartment. For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must also specify a name for the IdentityProvider, which must be unique across all IdentityProvider objects 
+        /// in your tenancy and cannot be changed.
+        /// 
+        /// You must also specify a description for the IdentityProvider (although it can be an empty string). It does not 
+        /// have to be unique, and you can change it anytime with UpdateIdentityProvider.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, 
+        /// first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        CreateIdentityProviderResponse CreateIdentityProvider(CreateIdentityProviderRequest request);
 
         /// <summary>
         /// Adds the specified user to the specified group and returns a UserGroupMembership object with its own OCID.
@@ -321,6 +354,13 @@ namespace OCISDK.Core.Identity
         UpdatePolicyResponse UpdatePolicy(UpdatePolicyRequest updatePolicyRequest);
 
         /// <summary>
+        /// Updates the specified identity provider.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateIdentityProviderResponse UpdateIdentityProvider(UpdateIdentityProviderRequest request);
+
+        /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
         /// </summary>
         /// <param name="deleteRequest"></param>
@@ -348,5 +388,12 @@ namespace OCISDK.Core.Identity
         /// <param name="deletePolicyRequest"></param>
         /// <returns></returns>
         DeletePolicyResponse DeletePolicy(DeletePolicyRequest deletePolicyRequest);
+
+        /// <summary>
+        /// Deletes the specified identity provider. The identity provider must not have any group mappings (see IdpGroupMapping).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteIdentityProviderResponse DeleteIdentityProvider(DeleteIdentityProviderRequest request);
     }
 }
