@@ -1,14 +1,15 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core;
-using OCISDK.Core.src.Core.Request.Compute;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
-using OCISDK.Core.src.Monitoring;
-using OCISDK.Core.src.Monitoring.Model;
-using OCISDK.Core.src.Monitoring.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Core;
+using OCISDK.Core.Core.Request.Compute;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
+using OCISDK.Core.Monitoring;
+using OCISDK.Core.Monitoring.Model;
+using OCISDK.Core.Monitoring.Request;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace Example
@@ -37,6 +38,10 @@ namespace Example
             Console.WriteLine("* List Instance Metrics------------------------");
             foreach (var compartment in listCompartment)
             {
+                if (!compartment.IsAccessible.HasValue || !compartment.IsAccessible.Value)
+                {
+                    continue;
+                }
                 var listInstanceRequest = new ListInstancesRequest()
                 {
                     CompartmentId = compartment.Id,
@@ -57,7 +62,7 @@ namespace Example
                     var listMetricsRequest = new ListMetricsRequest()
                     {
                         CompartmentId = compartment.Id,
-                        CompartmentIdInSubtree = false,
+                        CompartmentIdInSubtree = compartment.CompartmentId == config.TenancyId,
                         ListMetricsDetails = new ListMetricsDetails()
                         {
                             Namespace = "oci_computeagent",
@@ -68,38 +73,45 @@ namespace Example
                         }
                     };
                     // get Metrics
-                    var listMetrics = monitoringClient.ListMetrics(listMetricsRequest).Items;
-                    foreach (var metrics in listMetrics)
+                    try
                     {
-                        Console.WriteLine($"\t| Mertics: {metrics.Name}");
-                        Console.WriteLine($"\t| NameSpace: {metrics.Namespace}");
-                        // metric dimensions
-                        //Console.WriteLine($"\t| {metrics.Dimensions}".Replace("\n", ""));
-
-                        var summarizeMetricsDataRequest = new SummarizeMetricsDataRequest()
+                        var listMetrics = monitoringClient.ListMetrics(listMetricsRequest).Items;
+                        foreach (var metrics in listMetrics)
                         {
-                            CompartmentId = compartment.Id,
-                            CompartmentIdInSubtree = false,
-                            SummarizeMetricsDataDetails = new SummarizeMetricsDataDetails()
-                            {
-                                Namespace = "oci_computeagent",
-                                Query = metrics.Name + "[1h]{resourceId = \"" + instance.Id + "\"}.mean()",
-                                StartTime = now.ToString("yyyy-MM-ddThh:MM:ssZ"),
-                                EndTime = endTime.ToString("yyyy-MM-ddThh:MM:ssZ")
-                            }
-                        };
+                            Console.WriteLine($"\t| Mertics: {metrics.Name}");
+                            Console.WriteLine($"\t| NameSpace: {metrics.Namespace}");
+                            // metric dimensions
+                            //Console.WriteLine($"\t| {metrics.Dimensions}".Replace("\n", ""));
 
-                        var SummarizeMetricsDatas = monitoringClient.SummarizeMetricsData(summarizeMetricsDataRequest).Items;
-                        foreach (var summaryData in SummarizeMetricsDatas)
-                        {
-                            foreach (var aggregatedDatapoint in summaryData.AggregatedDatapoints)
+                            var summarizeMetricsDataRequest = new SummarizeMetricsDataRequest()
                             {
-                                Console.WriteLine("\t| {");
-                                Console.WriteLine($"\t| \tTimeStamp: {aggregatedDatapoint.Timestamp}");
-                                Console.WriteLine($"\t| \tValue: {aggregatedDatapoint.Value}");
-                                Console.WriteLine("\t| }");
+                                CompartmentId = compartment.Id,
+                                CompartmentIdInSubtree = compartment.CompartmentId == config.TenancyId,
+                                SummarizeMetricsDataDetails = new SummarizeMetricsDataDetails()
+                                {
+                                    Namespace = metrics.Namespace,
+                                    Query = metrics.Name + "[1h]{resourceId = \"" + instance.Id + "\"}.mean()",
+                                    StartTime = now.ToString("yyyy-MM-ddThh:MM:ssZ"),
+                                    EndTime = endTime.ToString("yyyy-MM-ddThh:MM:ssZ")
+                                }
+                            };
+
+                            var SummarizeMetricsDatas = monitoringClient.SummarizeMetricsData(summarizeMetricsDataRequest).Items;
+                            foreach (var summaryData in SummarizeMetricsDatas)
+                            {
+                                foreach (var aggregatedDatapoint in summaryData.AggregatedDatapoints)
+                                {
+                                    Console.WriteLine("\t| {");
+                                    Console.WriteLine($"\t| \tTimeStamp: {aggregatedDatapoint.Timestamp}");
+                                    Console.WriteLine($"\t| \tValue: {aggregatedDatapoint.Value}");
+                                    Console.WriteLine("\t| }");
+                                }
                             }
                         }
+                    }
+                    catch (WebException we)
+                    {
+                        Console.WriteLine($"notfund:{we.Message}");
                     }
                 }
             }
@@ -122,6 +134,19 @@ namespace Example
                         Console.WriteLine($"\tdestinations:{alarm.Destinations}");
                         Console.WriteLine($"\tenable:{alarm.IsEnabled}");
                         Console.WriteLine($"\tstate:{alarm.LifecycleState}");
+
+                        var getAlarmHistoryRequest = new GetAlarmHistoryRequest()
+                        {
+                            AlarmId = alarm.Id,
+                            TimestampGreaterThanOrEqualTo = "2019-11-21T01:00:00.000Z"
+                        };
+                        var history = monitoringClient.GetAlarmHistory(getAlarmHistoryRequest);
+                        foreach (var his in history.AlarmHistoryCollection.Entries)
+                        {
+                            Console.WriteLine($"\t\t|-summary:{his.Summary}");
+                            Console.WriteLine($"\t\t| timestamp:{his.Timestamp}");
+                            Console.WriteLine($"\t\t| timestampTriggered:{his.TimestampTriggered}");
+                        }
                     }
                 }
 

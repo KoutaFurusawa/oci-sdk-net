@@ -1,15 +1,14 @@
 ﻿using OCISDK.Core;
-using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core;
-using OCISDK.Core.src.Core.Request.Compute;
-using OCISDK.Core.src.Core.Request.Blockstorage;
-using OCISDK.Core.src.Core.Request.VirtualNetwork;
+using OCISDK.Core.Common;
+using OCISDK.Core.Core;
+using OCISDK.Core.Core.Request.Compute;
+using OCISDK.Core.Core.Request.Blockstorage;
+using OCISDK.Core.Core.Request.VirtualNetwork;
 using System;
-using OCISDK.Core.src.Core.Model.Compute;
-using OCISDK.Core.src.Identity.Request;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Core.Model.VirtualNetwork;
+using OCISDK.Core.Core.Model.Compute;
+using OCISDK.Core.Identity.Request;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Core.Model.VirtualNetwork;
 
 namespace Example
 {

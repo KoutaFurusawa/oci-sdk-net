@@ -1,20 +1,20 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core;
-using OCISDK.Core.src.Core.Request.Compute;
-using OCISDK.Core.src.Core.Request.VirtualNetwork;
-using OCISDK.Core.src.Core.Request.WorkRequest;
-using OCISDK.Core.src.Core.Response.Compute;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Model;
-using OCISDK.Core.src.Identity.Request;
-using OCISDK.Core.src.Identity.Response;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Core;
+using OCISDK.Core.Core.Request.Compute;
+using OCISDK.Core.Core.Request.VirtualNetwork;
+using OCISDK.Core.Core.Request.WorkRequest;
+using OCISDK.Core.Core.Response.Compute;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Model;
+using OCISDK.Core.Identity.Request;
+using OCISDK.Core.Identity.Response;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using static OCISDK.Core.src.Common.ConfigFileReader;
+using static OCISDK.Core.Common.ConfigFileReader;
 
 namespace Example
 {

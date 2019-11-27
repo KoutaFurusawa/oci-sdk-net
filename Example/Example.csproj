@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <ApplicationIcon />
-    <StartupObject />
+    <StartupObject>Example.Example</StartupObject>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 

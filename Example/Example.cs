@@ -1,11 +1,11 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Search;
-using OCISDK.Core.src.Search.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Search;
+using OCISDK.Core.Search.Request;
 using System;
 using System.IO;
 using System.Text;
-using static OCISDK.Core.src.Common.ConfigFileReader;
+using static OCISDK.Core.Common.ConfigFileReader;
 
 namespace Example
 {
