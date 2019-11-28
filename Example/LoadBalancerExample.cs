@@ -1,10 +1,10 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
-using OCISDK.Core.src.LoadBalancer;
-using OCISDK.Core.src.LoadBalancer.Request;
-using OCISDK.Core.src.LoadBalancer.Response;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
+using OCISDK.Core.LoadBalancer;
+using OCISDK.Core.LoadBalancer.Request;
+using OCISDK.Core.LoadBalancer.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;

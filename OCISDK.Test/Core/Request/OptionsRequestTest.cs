@@ -1,6 +1,6 @@
-﻿using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core.Request.VirtualNetwork;
-using OCISDK.Core.src.Core.Response;
+﻿using OCISDK.Core.Common;
+using OCISDK.Core.Core.Request.VirtualNetwork;
+using OCISDK.Core.Core.Response;
 using Xunit;
 
 namespace OCISDK.Test.Core.Request

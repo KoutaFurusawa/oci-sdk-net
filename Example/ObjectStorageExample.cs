@@ -1,7 +1,7 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.ObjectStorage;
-using OCISDK.Core.src.ObjectStorage.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.ObjectStorage;
+using OCISDK.Core.ObjectStorage.Request;
 using System;
 using System.Collections.Generic;
 using System.IO;

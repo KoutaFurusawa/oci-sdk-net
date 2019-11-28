@@ -1,22 +1,24 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Audit;
-using OCISDK.Core.src.Audit.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Audit;
+using OCISDK.Core.Audit.Request;
 using System;
 using System.Linq;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
-using OCISDK.Core.src.Audit.Response;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
+using OCISDK.Core.Audit.Response;
 using System.Net;
+using System.Threading;
+using Polly.CircuitBreaker;
 
 namespace Example
 {
     class AuditExample
     {
-        public static void AuditDisplay(ClientConfig config)
+        public static async void AuditDisplay(ClientConfig config)
         {
             // create client
-            AuditClient client = new AuditClient(config)
+            AuditClientAsync client = new AuditClientAsync(config)
             {
                 Region = Regions.US_ASHBURN_1
             };
@@ -24,36 +26,62 @@ namespace Example
             {
                 Region = Regions.US_ASHBURN_1
             };
-
-            DateTime now = DateTime.Now;
-            var startDate = now.ToString("yyyy-MM-ddT00:00:00Z");
-            var endDate = now.ToString("yyyy-MM-ddT01:30:00Z");
-
-            // get config
-            GetConfigurationRequest configurationRequest = new GetConfigurationRequest() {
-                CompartmentId = config.TenancyId
-            };
-            var auditConfig = client.GetConfiguration(configurationRequest);
             
-            Console.WriteLine($"startTime:{startDate}, endTime:{endDate}");
-            Console.WriteLine($"retentionPeriodDays:{auditConfig.Configuration.RetentionPeriodDays}");
+            DateTime now = DateTime.Now.AddDays(-1);
+            var startDate = now.ToString("yyyy-MM-ddT00:00:00Z");
+            var endDate = now.ToString("yyyy-MM-ddT10:30:00Z");
+
+            var listCompartmentRequest = new ListCompartmentRequest()
+            {
+                CompartmentId = config.TenancyId,
+                CompartmentIdInSubtree = true,
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
+            };
+            var compartments = identityClinet.ListCompartment(listCompartmentRequest).Items;
 
             // get Audit Events
             Console.WriteLine("* Audit Events-------------------");
-            DisplayAudit(config, client, identityClinet, startDate, endDate, "");
+            foreach (var compartment in compartments)
+            {
+                // get config
+                var configurationRequest = new GetConfigurationRequest()
+                {
+                    CompartmentId = compartment.Id
+                };
+                var auditConfig = await client.GetConfiguration(configurationRequest);
+
+                Console.WriteLine($"compartment<{compartment.Name}>---");
+                Console.WriteLine($"startTime:{startDate}, endTime:{endDate}");
+                Console.WriteLine($"retentionPeriodDays:{auditConfig.Configuration.RetentionPeriodDays}");
+
+                DisplayAudit(config, client, identityClinet, compartment.Id, startDate, endDate, "", "");
+                
+            }
         }
 
-        private static void DisplayAudit(ClientConfig config, AuditClient client, IdentityClient identityClinet, string startDate, string endDate, string pageId)
+        private static async void DisplayAudit(ClientConfig config, AuditClientAsync client, IdentityClient identityClinet, string compartmentId, string startDate, string endDate, string requestId, string pageId)
         {
             // get Audit Events
             var listEventsRequest = new ListEventsRequest()
             {
-                CompartmentId = config.TenancyId,
+                CompartmentId = compartmentId,
                 StartTime = startDate,
                 EndTime = endDate,
+                //Page = pageId
+                //CompartmentId = "ocid1.compartment.oc1..aaaaaaaarj2edeedyk4o7rvcpdh6fckmeevwyog3k7zd4wjlyzcejib53yuq",
+                //StartTime = "2019-10-29T09:33:57Z",
+                //EndTime = "2019-10-29T11:33:57Z",
+                OpcRequestId = requestId,
                 Page = pageId
             };
-            var events = client.ListEvents(listEventsRequest);
+        
+            var events = await client.ListEvents(listEventsRequest);
+
+            if (!string.IsNullOrEmpty(events.OpcNextPage))
+            {
+                DisplayAudit(config, client, identityClinet, compartmentId, startDate, endDate, events.OpcRequestId, events.OpcNextPage);
+            }
+            
             if (events.Items.Count > 0)
             {
                 events.Items.ForEach(e => {
@@ -91,10 +119,6 @@ namespace Example
                         }
                     }
                 });
-            }
-
-            if (!string.IsNullOrEmpty(events.OpcNextPage)) {
-                DisplayAudit(config, client, identityClinet, startDate, endDate, events.OpcNextPage);
             }
         }
     }

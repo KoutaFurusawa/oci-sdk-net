@@ -5,24 +5,25 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Authors>k.furusawa</Authors>
     <Company></Company>
-    <Description>.Net向け非公式Oracle Cloud SDK。
-一部のAPIにのみ対応。
-本SDKは非公式であり、すべてのOCIサービスをサポートするものではありません。また、個人的な研究と限られたプロジェクトでの利用のみを想定しています。
-本SDKを利用したことで発生したいかなる問題に関して作成者は責任を負いかねますのでご了承ください。
-本SDKに対するご意見・ご要望はGitHubまでお願いします。
-
-Unofficial Oracle Cloud SDK for .NET.
+    <Description>Unofficial Oracle Cloud SDK for .NET.
 Supports several APIs.
 This SDK is unofficial and does not support all OCI services. It is also intended for personal research and limited project use only.
 Please be aware that the author is not responsible for any problems that may arise from using this SDK.
 Please send comments and requests for this SDK to GitHub.
 
+The RC version may contain bugs.
+Use the official version for important work.
+
+.Net向け非公式Oracle Cloud SDK。
+一部のAPIにのみ対応。
+本SDKは非公式であり、すべてのOCIサービスをサポートするものではありません。また、個人的な研究と限られたプロジェクトでの利用のみを想定しています。
+本SDKを利用したことで発生したいかなる問題に関して作成者は責任を負いかねますのでご了承ください。
+本SDKに対するご意見・ご要望はGitHubまでお願いします。
+
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
-
-The RC version may contain bugs.
-Use the official version for important work.</Description>
-    <Version>0.5.9-rc</Version>
+</Description>
+    <Version>0.6.0</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -36,38 +37,19 @@ Use the official version for important work.</Description>
 2019/10/10 version 0.5.7.1-rc release
 2019/10/15 version 0.5.8-rc release
 2019/10/24 version 0.5.8 release
-     * add UserAPIs CreateUpdateDelete
-     * add UserGroup APIs
-     * add UIPassword APIs
-     * add DRG APIs
-     * audit version2.0 format(issue #11)
-     * delete method call correction(issue #12)
 2019/10/31 version 0.5.8.1-rc release
-     * Polly setting Externalization
 2019/11/1 version 0.5.8.3-rc release
 2019/11/5 version 0.5.8.3 release
-     * Polly 7.1 support
-     * Changed to Polly alone due to strong dependence on MS.Polly
 2019/11/6 version 0.5.8.4-rc release
-     * Add missing session
-     * Test introduction of WaaSClient
 2019/11/7 version 0.5.8.5-rc release
-     * instance add systemTags
-     * Tags type Dictionary to IDictionary
-     * Changed to recommended Dotnet project configuration. Endpoint file only.
 2019/11/14 version 0.5.8.6-rc release
-     * unpublished service
-     * add WafBlocked
-     * Correction of missing setting value
 2019/11/15 version 0.5.8.7-rc release
 2019/11/20 version 0.5.8.7 release
-     * unpublished service ListServiceEntitlementRegistrationsResponse
 2019/11/26 version 0.5.8.8-rc release
-     * add WafLog service
-     * correction compartment detail model parameter
-     * Fixed an issue where comments would be removed when packaged(#15)
-2019/11/27 version 0.5.9-rc release
-     * add VirtualCircut Services
+2019/11/27 version 0.5.8.9 release
+2019/11/27 version 0.6.0-rc release
+    * Fixed project structure and deleted &lt;src&gt; directory.(issue #6)</PackageReleaseNotes>
+     * unpublished service ListServiceEntitlementRegistrationsResponse
 </PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
@@ -75,8 +57,8 @@ Use the official version for important work.</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.5.9.0</AssemblyVersion>
-    <FileVersion>0.5.9.0</FileVersion>
+    <AssemblyVersion>0.6.0.0</AssemblyVersion>
+    <FileVersion>0.6.0.0</FileVersion>
     <NeutralLanguage></NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

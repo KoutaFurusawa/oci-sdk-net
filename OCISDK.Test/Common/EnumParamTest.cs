@@ -1,5 +1,5 @@
-﻿using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core.Request.Compute;
+﻿using OCISDK.Core.Common;
+using OCISDK.Core.Core.Request.Compute;
 using System;
 using System.Collections.Generic;
 using System.Text;

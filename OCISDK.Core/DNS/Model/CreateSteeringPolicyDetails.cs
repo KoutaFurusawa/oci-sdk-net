@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace OCISDK.Core.DNS.Model
+{
+    /// <summary>
+    /// The body for defining a new steering policy.
+    /// 
+    /// Warning: Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+    /// </summary>
+    public class CreateSteeringPolicyDetails
+    {
+        /// <summary>
+        /// The OCID of the compartment containing the steering policy.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
+        /// </summary>
+        public string CompartmentId { get; set; }
+
+        /// <summary>
+        /// A user-friendly name for the steering policy. Does not have to be unique and can be changed.
+        /// Avoid entering confidential information.
+        /// <para>Required: yes</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
+        /// </summary>
+        public string DisplayName { get; set; }
+
+        /// <summary>
+        /// The Time To Live (TTL) for responses from the steering policy, in seconds. If not specified during creation, a value of 30 seconds will be used.
+        /// <para>Required: no</para>
+        /// <para>Minimum: 1, Maximum: 604800</para>
+        /// <para>Default: 30</para>
+        /// </summary>
+        public int? Ttl { get; set; }
+
+        /// <summary>
+        /// The OCID of the health check monitor providing health data about the answers of the steering policy.
+        /// A steering policy answer with rdata matching a monitored endpoint will use the health data of that endpoint.
+        /// A steering policy answer with rdata not matching any monitored endpoint will be assumed healthy.
+        /// 
+        /// Note: To use the Health Check monitoring feature in a steering policy, a monitor must be created using the Health Checks service first.
+        /// For more information on how to create a monitor, please see Managing Health Checks.
+        /// <para>Required: no</para>
+        /// <para>Min Length: 1, Max Length: 255</para>
+        /// </summary>
+        public string HealthCheckMonitorId { get; set; }
+
+        /// <summary>
+        /// A set of predefined rules based on the desired purpose of the steering policy.
+        /// Each template utilizes Traffic Management's rules in a different order to produce the desired results when answering DNS queries.
+        /// <para>Required: yes</para>
+        /// </summary>
+        public string Template { get; set; }
+
+        /// <summary>
+        /// The set of all answers that can potentially issue from the steering policy.
+        /// <para>Required: no</para>
+        /// </summary>
+        public List<SteeringPolicyAnswer> Answers { get; set; }
+
+        /// <summary>
+        /// The series of rules that will be processed in sequence to reduce the pool of answers to a response for any given request.
+        /// 
+        /// The first rule receives a shuffled list of all answers, and every other rule receives the list of answers emitted by the one preceding it.
+        /// The last rule populates the response.
+        /// <para>Required: no</para>
+        /// <para>Max Items: 10</para>
+        /// </summary>
+        //TODO: Cannot parse JSON with multiple subtype structures.
+        public object Rules { get; set; }
+
+        /// <summary>
+        /// Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. 
+        /// For more information, see Resource Tags.
+        /// <para>Required: no</para>
+        /// </summary>
+        public IDictionary<string, string> FreeformTags { get; set; }
+
+        /// <summary>
+        /// Defined tags for this resource. Each key is predefined and scoped to a namespace. 
+        /// For more information, see Resource Tags.
+        /// <para>Required: no</para>
+        /// </summary>
+        public IDictionary<string, IDictionary<string, string>> DefinedTags { get; set; }
+    }
+}

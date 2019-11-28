@@ -2,7 +2,6 @@ using System;
 using Xunit;
 
 using OCISDK.Core;
-using OCISDK.Core.src;
 
 namespace OCISDK.Test
 {

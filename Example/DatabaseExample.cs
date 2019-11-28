@@ -1,9 +1,9 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Database;
-using OCISDK.Core.src.Database.Request;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Database;
+using OCISDK.Core.Database.Request;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;

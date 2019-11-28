@@ -1,7 +1,7 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Search;
-using OCISDK.Core.src.Search.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Search;
+using OCISDK.Core.Search.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +19,7 @@ namespace Example
 
             var param = new SearchResourcesRequest()
             {
-                SearchDetails = new OCISDK.Core.src.Search.Model.SearchDetails()
+                SearchDetails = new OCISDK.Core.Search.Model.SearchDetails()
                 {
                     Type = "Structured",
                     Query = "query instance resources where lifeCycleState = 'RUNNING'"
@@ -34,7 +34,7 @@ namespace Example
 
             param = new SearchResourcesRequest()
             {
-                SearchDetails = new OCISDK.Core.src.Search.Model.SearchDetails()
+                SearchDetails = new OCISDK.Core.Search.Model.SearchDetails()
                 {
                     Type = "Structured",
                     Query = "query user resources where displayName = 'jone@example.com'"
@@ -49,7 +49,7 @@ namespace Example
 
             param = new SearchResourcesRequest()
             {
-                SearchDetails = new OCISDK.Core.src.Search.Model.SearchDetails()
+                SearchDetails = new OCISDK.Core.Search.Model.SearchDetails()
                 {
                     Type = "FreeText",
                     MatchingContextType = "HIGHLIGHTS",

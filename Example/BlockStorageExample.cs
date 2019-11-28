@@ -1,9 +1,9 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core;
-using OCISDK.Core.src.Core.Request.Blockstorage;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Core;
+using OCISDK.Core.Core.Request.Blockstorage;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
 using System;
 using System.Collections.Generic;
 using System.Net;

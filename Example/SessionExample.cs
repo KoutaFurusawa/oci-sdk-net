@@ -1,14 +1,20 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Core.Request.Compute;
-using OCISDK.Core.src.Core.Request.WorkRequest;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Core.Request.Compute;
+using OCISDK.Core.Core.Request.Blockstorage;
+using OCISDK.Core.Database.Request;
+using OCISDK.Core.DNS.Request;
+using OCISDK.Core.ObjectStorage.Request;
+using OCISDK.Core.Core.Request.WorkRequest;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using static OCISDK.Core.src.Common.ConfigFileReader;
+using static OCISDK.Core.Common.ConfigFileReader;
+using OCISDK.Core.UnpublishedService.Commercial.Request;
+using OCISDK.Core.UnpublishedService.UsageCosts.Request;
 
 namespace Example
 {
@@ -111,6 +117,26 @@ namespace Example
                 session = new OciSession(configSt);
             }
 
+            var comClient = session.GetCommercialClient();
+            var listPurchaseEntitlementsRequest = new ListPurchaseEntitlementsRequest
+            {
+                CompartmentId = configSt.TenancyId
+            };
+            var purchase = comClient.ListPurchaseEntitlements(listPurchaseEntitlementsRequest);
+
+            var getServiceEntitlementRegistrationsRequest = new ListServiceEntitlementRegistrationsRequest()
+            {
+                CompartmentId = configSt.TenancyId
+            };
+            var services = comClient.ListServiceEntitlementRegistrations(getServiceEntitlementRegistrationsRequest);
+
+            var costClient = session.GetUsageCostsClient();
+            var getSubscriptionInfoRequest = new GetSubscriptionInfoRequest
+            {
+                TenancyId = configSt.TenancyId
+            };
+            var subsc = costClient.GetSubscriptionInfo(getSubscriptionInfoRequest);
+
             // get Client
             var identityClient = session.GetIdentityClient();
 
@@ -124,6 +150,27 @@ namespace Example
 
             // get compute
             var computeClient = session.GetComputeClient();
+            
+            IDictionary<string, IDictionary<string, string>> tags = new Dictionary<string, IDictionary<string, string>>();
+
+            tags.Add("CostTracking", new Dictionary<string, string> { { "cost-trakcerA", "aaaa" } });
+            
+            var dbClient = session.GetDatabaseClient();
+            GetDbSystemRequest getDbSystemRequest = new GetDbSystemRequest()
+            {
+                DbSystemId = "ocid1.dbsystem.oc1.iad.abuwcljrbukbjzlameegvsn3u7qb3qcqvtcdvl74jxfth7xjsya7cxkdpibq"
+            };
+            var dbSystem = dbClient.GetDbSystem(getDbSystemRequest);
+
+            UpdateDbSystemRequest updateDbSystemRequest = new UpdateDbSystemRequest()
+            {
+                DbSystemId = "ocid1.dbsystem.oc1.iad.abuwcljrbukbjzlameegvsn3u7qb3qcqvtcdvl74jxfth7xjsya7cxkdpibq",
+                UpdateDbSystemDetails = new OCISDK.Core.Database.Model.UpdateDbSystemDetails()
+                {
+                    DefinedTags = tags
+                }
+            };
+            dbClient.UpdateDbSystem(updateDbSystemRequest);
 
             var listCompartmentRequest = new ListCompartmentRequest()
             {

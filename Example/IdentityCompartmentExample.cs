@@ -1,8 +1,8 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Model;
-using OCISDK.Core.src.Identity.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Model;
+using OCISDK.Core.Identity.Request;
 using System;
 
 namespace Example

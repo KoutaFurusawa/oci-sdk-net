@@ -1,10 +1,10 @@
-﻿using OCISDK.Core.src;
-using OCISDK.Core.src.Common;
-using OCISDK.Core.src.DNS;
-using OCISDK.Core.src.DNS.Model;
-using OCISDK.Core.src.DNS.Request;
-using OCISDK.Core.src.Identity;
-using OCISDK.Core.src.Identity.Request;
+﻿using OCISDK.Core;
+using OCISDK.Core.Common;
+using OCISDK.Core.DNS;
+using OCISDK.Core.DNS.Model;
+using OCISDK.Core.DNS.Request;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
