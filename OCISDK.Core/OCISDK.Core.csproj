@@ -49,6 +49,8 @@ RCバージョンにはバグが含まれている場合があります。
 2019/11/27 version 0.5.8.9 release
 2019/11/27 version 0.6.0-rc release
     * Fixed project structure and deleted &lt;src&gt; directory.(issue #6)</PackageReleaseNotes>
+     * unpublished service ListServiceEntitlementRegistrationsResponse
+</PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
