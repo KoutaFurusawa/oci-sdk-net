@@ -58,6 +58,39 @@ namespace OCISDK.Core.Waas
         Task<UpdateWaasPolicyResponse> UpdateWaasPolicy(UpdateWaasPolicyRequest request);
 
         /// <summary>
+        /// Updates the list of IP addresses that bypass the Web Application Firewall for a WAAS policy. Supports both single IP addresses or subnet masks (CIDR notation).
+        /// 
+        /// This operation can create, delete, update, and/or reorder whitelists depending on the structure of the request body.
+        /// 
+        /// Whitelists can be updated by changing the properties of the whitelist object with the rule's key specified in the key field. Whitelists can be reordered by changing the order of 
+        /// the whitelists in the list of objects when updating.
+        /// 
+        /// Whitelists can be created by adding a new whitelist object to the list without a key property specified. A key will be generated for the new whitelist upon update.
+        /// 
+        /// Whitelists can be deleted by removing the existing whitelist object from the list. Any existing whitelists that are not specified with a key in the list of access rules will be 
+        /// deleted upon update.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateWhitelistsResponse> UpdateWhitelists(UpdateWhitelistsRequest request);
+
+        /// <summary>
+        /// Updates the configuration for each specified caching rule.
+        /// 
+        /// Caching rules WAF policies allow you to selectively cache content on Oracle Cloud Infrastructure's edge servers, such as webpages or certain file types. For more information about 
+        /// caching rules, see Caching Rules.
+        /// 
+        /// This operation can create, delete, update, and/or reorder caching rules depending on the structure of the request body. Caching rules can be updated by changing the properties of 
+        /// the caching rule object with the rule's key specified in the key field. Any existing caching rules that are not specified with a key in the list of access rules will be deleted upon update.
+        /// 
+        /// The order the caching rules are specified in is important. The rules are processed in the order they are specified and the first matching rule will be used when processing a request. 
+        /// Use ListCachingRules to view a list of all available caching rules in a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateCachingRulesResponse> UpdateCachingRules(UpdateCachingRulesRequest request);
+
+        /// <summary>
         /// Gets a list of WAAS policies.
         /// </summary>
         /// <param name="request"></param>
@@ -77,6 +110,28 @@ namespace OCISDK.Core.Waas
         /// <param name="request"></param>
         /// <returns></returns>
         Task<ListWafLogsResponse> ListWafLogs(ListWafLogsRequest request);
+
+        /// <summary>
+        /// Gets the Web Application Firewall traffic data for a WAAS policy. Sorted by timeObserved in ascending order (starting from oldest data).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWafTrafficResponse> ListWafTraffic(ListWafTrafficRequest request);
+
+        /// <summary>
+        /// Gets the list of whitelists defined in the Web Application Firewall configuration for a WAAS policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWhitelistsResponse> ListWhitelists(ListWhitelistsRequest request);
+
+        /// <summary>
+        /// Gets the currently configured caching rules for the Web Application Firewall configuration of a specified WAAS policy. The rules are processed in the order they are 
+        /// specified in and the first matching rule will be used when processing a request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListCachingRulesResponse> ListCachingRules(ListCachingRulesRequest request);
 
         /// <summary>
         /// Gets the details of a WAAS policy.

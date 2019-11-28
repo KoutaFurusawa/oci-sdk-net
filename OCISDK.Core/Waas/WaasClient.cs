@@ -168,6 +168,85 @@ namespace OCISDK.Core.Waas
         }
 
         /// <summary>
+        /// Updates the list of IP addresses that bypass the Web Application Firewall for a WAAS policy. Supports both single IP addresses or subnet masks (CIDR notation).
+        /// 
+        /// This operation can create, delete, update, and/or reorder whitelists depending on the structure of the request body.
+        /// 
+        /// Whitelists can be updated by changing the properties of the whitelist object with the rule's key specified in the key field. Whitelists can be reordered by changing the order of 
+        /// the whitelists in the list of objects when updating.
+        /// 
+        /// Whitelists can be created by adding a new whitelist object to the list without a key property specified. A key will be generated for the new whitelist upon update.
+        /// 
+        /// Whitelists can be deleted by removing the existing whitelist object from the list. Any existing whitelists that are not specified with a key in the list of access rules will be 
+        /// deleted upon update.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateWhitelistsResponse UpdateWhitelists(UpdateWhitelistsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/wafConfig/whitelists");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = this.RestClient.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateWhitelistsResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the configuration for each specified caching rule.
+        /// 
+        /// Caching rules WAF policies allow you to selectively cache content on Oracle Cloud Infrastructure's edge servers, such as webpages or certain file types. For more information about 
+        /// caching rules, see Caching Rules.
+        /// 
+        /// This operation can create, delete, update, and/or reorder caching rules depending on the structure of the request body. Caching rules can be updated by changing the properties of 
+        /// the caching rule object with the rule's key specified in the key field. Any existing caching rules that are not specified with a key in the list of access rules will be deleted upon update.
+        /// 
+        /// The order the caching rules are specified in is important. The rules are processed in the order they are specified and the first matching rule will be used when processing a request. 
+        /// Use ListCachingRules to view a list of all available caching rules in a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UpdateCachingRulesResponse UpdateCachingRules(UpdateCachingRulesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/wafConfig/cachingRules");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = this.RestClient.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateCachingRulesResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets a list of WAAS policies.
         /// </summary>
         /// <param name="request"></param>
@@ -250,6 +329,96 @@ namespace OCISDK.Core.Waas
                     Items = this.JsonSerializer.Deserialize<List<WafLogDetails>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the Web Application Firewall traffic data for a WAAS policy. Sorted by timeObserved in ascending order (starting from oldest data).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListWafTrafficResponse ListWafTraffic(ListWafTrafficRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/reports/waf/traffic?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWafTrafficResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<WafTrafficDatum>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the list of whitelists defined in the Web Application Firewall configuration for a WAAS policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListWhitelistsResponse ListWhitelists(ListWhitelistsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/wafConfig/whitelists?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWhitelistsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<WhitelistDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the currently configured caching rules for the Web Application Firewall configuration of a specified WAAS policy. The rules are processed in the order they are 
+        /// specified in and the first matching rule will be used when processing a request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListCachingRulesResponse ListCachingRules(ListCachingRulesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(WaasServices.WaasPolicies, this.Region)}/{request.WaasPolicyId}/wafConfig/cachingRules?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListCachingRulesResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<CachingRuleSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
                 };
             }
         }
