@@ -54,7 +54,8 @@ RCバージョンにはバグが含まれている場合があります。
     * fixed get ObjectDetails request parameter.
     * add WafTraffic APIs
     * add WhiteList APIs
-    * add ChachingRule Apis</PackageReleaseNotes>
+    * add ChachingRule Apis
+    </PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
