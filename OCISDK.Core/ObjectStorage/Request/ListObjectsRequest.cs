@@ -102,11 +102,15 @@ namespace OCISDK.Core.ObjectStorage.Request
             {
                 sb.Append($"&delimiter={this.Delimiter}");
             }
-            if (Fields != null)
+
+            if (Fields.Count > 0)
             {
-                Fields.ForEach(f => {
-                    sb.Append($"&fields[]={f}");
-                });
+                sb.Append($"&fields=");
+                foreach (var f in Fields)
+                {
+                    sb.Append($"{f},");
+                }
+                sb = sb.Remove(sb.Length - 1, 1);
             }
 
             return sb.ToString();
