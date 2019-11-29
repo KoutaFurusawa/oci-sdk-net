@@ -18,7 +18,7 @@
         /// Size of the object in bytes.
         /// <para>Required: no</para>
         /// </summary>
-        public int? Size { get; set; }
+        public long? Size { get; set; }
 
         /// <summary>
         /// Base64-encoded MD5 hash of the object data.
