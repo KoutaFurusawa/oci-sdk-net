@@ -25,6 +25,10 @@
       "version": "20180115",
       "hosttag": "dns"
     },
+    "filestorage": {
+      "version": "20171215",
+      "hosttag": "filestorage"
+    },
     "identity": {
       "version": "20160918",
       "hosttag": "identity"

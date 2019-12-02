@@ -141,6 +141,24 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Get FileStorageClient
+        /// </summary>
+        /// <returns></returns>
+        public IFileStorageClient GetFileStorageClient()
+        {
+            return new FileStorageClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get FileStorageClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IFileStorageClientAsync GetFileStorageClientAsync()
+        {
+            return new FileStorageClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get VirtualNetworkClient
         /// </summary>
         /// <returns></returns>
