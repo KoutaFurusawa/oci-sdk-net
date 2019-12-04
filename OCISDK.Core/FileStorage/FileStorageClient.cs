@@ -183,6 +183,35 @@ namespace OCISDK.Core.FileStorage
         }
 
         /// <summary>
+        /// Lists the file system resources in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListFileSystemsResponse ListFileSystems(ListFileSystemsRequest request)
+        {
+            var uri = new Uri(GetEndPoint(FileStorageServices.FileSystems, this.Region));
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, headers);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListFileSystemsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<FileSystemSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified file system. Before you delete the file system, verify that no remaining export resources 
         /// still reference it. Deleting a file system also deletes all of its snapshots.
         /// </summary>

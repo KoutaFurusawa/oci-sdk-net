@@ -58,6 +58,13 @@ namespace OCISDK.Core.FileStorage
         Task<GetFileSystemResponse> GetFileSystem(GetFileSystemRequest request);
 
         /// <summary>
+        /// Lists the file system resources in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListFileSystemsResponse> ListFileSystems(ListFileSystemsRequest request);
+
+        /// <summary>
         /// Deletes the specified file system. Before you delete the file system, verify that no remaining export resources 
         /// still reference it. Deleting a file system also deletes all of its snapshots.
         /// </summary>
