@@ -10,20 +10,8 @@ namespace OCISDK.Core.Core
     /// <summary>
     /// BlockstorageClient Async interface
     /// </summary>
-    public interface IBlockstorageClientAsync
+    public interface IBlockstorageClientAsync : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Lists the boot volumes in the specified compartment and availability domain.
         /// </summary>

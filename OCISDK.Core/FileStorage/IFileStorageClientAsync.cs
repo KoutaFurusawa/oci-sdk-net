@@ -10,20 +10,8 @@ namespace OCISDK.Core.FileStorage
     /// <summary>
     /// FileStorageClient interface async
     /// </summary>
-    public interface IFileStorageClientAsync
+    public interface IFileStorageClientAsync : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Moves a file system and its associated snapshots into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment

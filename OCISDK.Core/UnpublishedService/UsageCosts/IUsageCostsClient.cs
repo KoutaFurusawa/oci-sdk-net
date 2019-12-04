@@ -11,7 +11,7 @@ namespace OCISDK.Core.UnpublishedService.UsageCosts
     /// 
     /// In the future, these methods will move or change the namespace.
     /// </summary>
-    public interface IUsageCostsClient
+    public interface IUsageCostsClient : IClientSetting
     {
         /// <summary>
         /// GetSubscriptionInfo

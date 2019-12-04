@@ -1,5 +1,6 @@
 ﻿using OCISDK.Core.Audit.Request;
 using OCISDK.Core.Audit.Response;
+using OCISDK.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,20 +10,8 @@ namespace OCISDK.Core.Audit
     /// <summary>
     /// AuditClient interface
     /// </summary>
-    public interface IAuditClient
+    public interface IAuditClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Returns all the audit events processed for the specified compartment within the specified time range.
         /// </summary>

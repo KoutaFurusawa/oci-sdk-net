@@ -50,25 +50,7 @@ namespace OCISDK.Core.UnpublishedService.Commercial
         {
             ServiceName = CommercialServiceName;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// GetPurchaseEntitlements
         /// </summary>

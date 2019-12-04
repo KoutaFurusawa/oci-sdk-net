@@ -47,24 +47,6 @@ namespace OCISDK.Core.Core
         }
 
         /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
-        /// <summary>
         /// Lists the boot volumes in the specified compartment and availability domain.
         /// </summary>
         /// <param name="listRequest"></param>

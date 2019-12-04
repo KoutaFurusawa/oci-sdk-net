@@ -51,24 +51,6 @@ namespace OCISDK.Core.Monitoring
         }
         
         /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
-        /// <summary>
         /// Returns metric definitions that match the criteria specified in the request. 
         /// Compartment OCID required. For information about metrics, see Metrics Overview. 
         /// For important limits information, see Limits on Monitoring.

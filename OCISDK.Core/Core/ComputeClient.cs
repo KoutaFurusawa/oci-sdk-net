@@ -46,25 +46,7 @@ namespace OCISDK.Core.Core
         {
             ServiceName = Compute;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// Lists the instances in the specified compartment and the specified availability domain.
         /// You can filter the results by specifying an instance name (the list will include all the identically-named

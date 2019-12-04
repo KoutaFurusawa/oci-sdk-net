@@ -9,20 +9,8 @@ namespace OCISDK.Core.UnpublishedService.Commercial
     /// <summary>
     /// In the future, these methods will move or change the namespace.
     /// </summary>
-    public interface ICommercialClient
+    public interface ICommercialClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// GetPurchaseEntitlements
         /// </summary>

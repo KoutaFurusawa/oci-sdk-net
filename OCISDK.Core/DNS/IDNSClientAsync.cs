@@ -10,20 +10,8 @@ namespace OCISDK.Core.DNS
     /// <summary>
     /// DNSClientAsync interface
     /// </summary>
-    public interface IDNSClientAsync
+    public interface IDNSClientAsync : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Gets a list of all zones in the specified compartment. The collection can be filtered by name, time created, and zone type.
         /// </summary>

@@ -123,6 +123,8 @@ namespace OCISDK.Core
             Initialize(config, ociSigner);
         }
 
+
+
         /// <summary>
         /// Initialize Client
         /// </summary>
@@ -190,6 +192,59 @@ namespace OCISDK.Core
         protected IOciSigner GetSigner()
         {
             return Signer;
+        }
+
+        /// <summary>
+        /// setter Region
+        /// </summary>
+        /// <param name="region"></param>
+        public void SetRegion(string region)
+        {
+            Region = region;
+        }
+
+        /// <summary>
+        /// getter region
+        /// </summary>
+        /// <returns></returns>
+        public string GetRegion()
+        {
+            return Region;
+        }
+
+        /// <summary>
+        /// Get WebRequestPolicy
+        /// </summary>
+        /// <returns></returns>
+        public IWebRequestPolicy GetWebRequestPolicy()
+        {
+            return WebRequestPolicy;
+        }
+
+        /// <summary>
+        /// Set WebRequestPolicy
+        /// </summary>
+        /// <param name="webRequestPolicy"></param>
+        public void SetWebRequestPolicy(IWebRequestPolicy webRequestPolicy)
+        {
+            WebRequestPolicy = webRequestPolicy;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public IJsonSerializer GetJsonSerializer()
+        {
+            return JsonSerializer;
+        }
+
+        /// <summary>
+        /// Set JsonSerializer
+        /// </summary>
+        public void SetJsonSerializer(IJsonSerializer jsonSerializer)
+        {
+            JsonSerializer = jsonSerializer;
         }
 
         /// <summary>

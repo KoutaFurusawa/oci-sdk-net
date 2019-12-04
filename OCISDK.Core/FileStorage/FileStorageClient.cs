@@ -47,25 +47,7 @@ namespace OCISDK.Core.FileStorage
         {
             ServiceName = FileStorageServiceName;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// Moves a file system and its associated snapshots into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment
