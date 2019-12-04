@@ -2,6 +2,7 @@
 using OCISDK.Core.Core;
 using OCISDK.Core.Database;
 using OCISDK.Core.DNS;
+using OCISDK.Core.FileStorage;
 using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Monitoring;
