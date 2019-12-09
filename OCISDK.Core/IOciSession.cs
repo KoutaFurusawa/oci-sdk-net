@@ -2,12 +2,14 @@
 using OCISDK.Core.Core;
 using OCISDK.Core.Database;
 using OCISDK.Core.DNS;
+using OCISDK.Core.FileStorage;
 using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Monitoring;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.Search;
 using OCISDK.Core.UnpublishedService.Commercial;
+using OCISDK.Core.UnpublishedService.ConsoleIdcs;
 using OCISDK.Core.UnpublishedService.UsageCosts;
 using OCISDK.Core.Waas;
 using System;
@@ -56,6 +58,18 @@ namespace OCISDK.Core
         /// </summary>
         /// <returns></returns>
         IBlockstorageClientAsync GetBlockstorageClientAsync();
+
+        /// <summary>
+        /// Get FileStorageClient
+        /// </summary>
+        /// <returns></returns>
+        IFileStorageClient GetFileStorageClient();
+
+        /// <summary>
+        /// Get FileStorageClient Async
+        /// </summary>
+        /// <returns></returns>
+        IFileStorageClientAsync GetFileStorageClientAsync();
 
         /// <summary>
         /// Get VirtualNetworkClient

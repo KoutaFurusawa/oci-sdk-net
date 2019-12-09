@@ -6,20 +6,8 @@ namespace OCISDK.Core.Monitoring
     /// <summary>
     /// MonitoringClient interface
     /// </summary>
-    public interface IMonitoringClient
+    public interface IMonitoringClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Returns metric definitions that match the criteria specified in the request. 
         /// Compartment OCID required. For information about metrics, see Metrics Overview. 

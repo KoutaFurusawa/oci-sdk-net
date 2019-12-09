@@ -23,7 +23,7 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.1.1-rc</Version>
+    <Version>0.6.2</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -56,16 +56,20 @@ RCバージョンにはバグが含まれている場合があります。
     * add WhiteList APIs
     * add ChachingRule Apis
 2019/11/29 version 0.6.1.1-rc release
-    * Fixed nuget packaging settings.</PackageReleaseNotes>
+    * Fixed nuget packaging settings.
+2019/12/05 version 0.6.2-rc release
+2019/12/09 version 0.6.2 release
+    * Check client settings so that each setting can be processed even when using sessions.(#21)
+    * add filesystem APIs</PackageReleaseNotes>
     <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.6.1.1</AssemblyVersion>
-    <FileVersion>0.6.1.1</FileVersion>
-    <NeutralLanguage></NeutralLanguage>
+    <AssemblyVersion>0.6.2.0</AssemblyVersion>
+    <FileVersion>0.6.2.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

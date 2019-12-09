@@ -9,20 +9,8 @@ namespace OCISDK.Core.Identity
     /// <summary>
     /// IdentityClient interface
     /// </summary>
-    public interface IIdentityClient
+    public interface IIdentityClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Lists all the regions offered by Oracle Cloud Infrastructure.
         /// </summary>

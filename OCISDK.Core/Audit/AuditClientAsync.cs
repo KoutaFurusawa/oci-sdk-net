@@ -14,12 +14,14 @@ namespace OCISDK.Core.Audit
     /// </summary>
     public class AuditClientAsync : ServiceClient, IAuditClientAsync
     {
+        private readonly string AuditServiceName = "audit";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public AuditClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "audit";
+            ServiceName = AuditServiceName;
         }
 
         /// <summary>
@@ -27,7 +29,7 @@ namespace OCISDK.Core.Audit
         /// </summary>
         public AuditClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "audit";
+            ServiceName = AuditServiceName;
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace OCISDK.Core.Audit
         /// </summary>
         public AuditClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "audit";
+            ServiceName = AuditServiceName;
         }
 
         /// <summary>
@@ -43,27 +45,9 @@ namespace OCISDK.Core.Audit
         /// </summary>
         public AuditClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "audit";
+            ServiceName = AuditServiceName;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// Returns all the audit events processed for the specified compartment within the specified time range.
         /// </summary>

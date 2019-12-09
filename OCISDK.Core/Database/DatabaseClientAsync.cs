@@ -48,25 +48,7 @@ namespace OCISDK.Core.Database
         {
             ServiceName = DatabaseServiceName;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// Gets a list of the databases in the specified database home.
         /// </summary>

@@ -9,7 +9,7 @@ namespace OCISDK.Core.Search
     /// <summary>
     /// SearchClient interface
     /// </summary>
-    public interface ISearchClient
+    public interface ISearchClient : IClientSetting
     {
         /// <summary>
         /// Queries any and all compartments in the tenancy to find resources that match the specified criteria.

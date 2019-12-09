@@ -6,20 +6,8 @@ namespace OCISDK.Core.Core
     /// <summary>
     /// VirtualNetwork Client interface
     /// </summary>
-    public interface IVirtualNetworkClient
+    public interface IVirtualNetworkClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Lists the sets of DHCP options in the specified VCN and specified compartment.
         /// The response includes the default set of options that automatically comes with each VCN,

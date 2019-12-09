@@ -2,6 +2,7 @@
 using OCISDK.Core.Core;
 using OCISDK.Core.Database;
 using OCISDK.Core.DNS;
+using OCISDK.Core.FileStorage;
 using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Monitoring;
@@ -138,6 +139,24 @@ namespace OCISDK.Core
         public IBlockstorageClientAsync GetBlockstorageClientAsync()
         {
             return new BlockstorageClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get FileStorageClient
+        /// </summary>
+        /// <returns></returns>
+        public IFileStorageClient GetFileStorageClient()
+        {
+            return new FileStorageClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get FileStorageClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IFileStorageClientAsync GetFileStorageClientAsync()
+        {
+            return new FileStorageClientAsync(ClientConfigStream, OciSigner);
         }
 
         /// <summary>

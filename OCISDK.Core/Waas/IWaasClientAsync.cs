@@ -10,20 +10,8 @@ namespace OCISDK.Core.Waas
     /// <summary>
     /// IWaasClientAsync interface
     /// </summary>
-    public interface IWaasClientAsync
+    public interface IWaasClientAsync : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.

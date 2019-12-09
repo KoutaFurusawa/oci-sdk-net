@@ -10,20 +10,8 @@ namespace OCISDK.Core.Core
     /// <summary>
     /// WorkRequestClientAsync interface
     /// </summary>
-    public interface IWorkRequestClientAsync
+    public interface IWorkRequestClientAsync : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Lists the work requests in a compartment or for a specified resource.
         /// </summary>

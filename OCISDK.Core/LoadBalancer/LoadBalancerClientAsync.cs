@@ -48,25 +48,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             ServiceName = DatabaseServiceName;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// Lists the backend servers for a given load balancer and backend set.
         /// </summary>

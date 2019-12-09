@@ -47,25 +47,7 @@ namespace OCISDK.Core.ObjectStorage
         {
             ServiceName = ObjectStorageServiceName;
         }
-
-        /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
+        
         /// <summary>
         /// Each Oracle Cloud Infrastructure tenant is assigned one unique and uneditable Object Storage namespace.
         /// The namespace is a system-generated string assigned during account creation. For some older tenancies, 

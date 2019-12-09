@@ -10,20 +10,8 @@ namespace OCISDK.Core.Audit
     /// <summary>
     /// AuditClientAsync interface
     /// </summary>
-    public interface IAuditClientAsync
+    public interface IAuditClientAsync : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Returns all the audit events processed for the specified compartment within the specified time range.
         /// </summary>

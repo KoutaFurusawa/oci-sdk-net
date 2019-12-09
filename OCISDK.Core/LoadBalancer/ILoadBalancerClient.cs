@@ -9,20 +9,8 @@ namespace OCISDK.Core.LoadBalancer
     /// <summary>
     /// LoadBalancer Client interface
     /// </summary>
-    public interface ILoadBalancerClient
+    public interface ILoadBalancerClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Lists the backend servers for a given load balancer and backend set.
         /// </summary>

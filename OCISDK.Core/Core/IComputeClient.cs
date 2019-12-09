@@ -9,20 +9,8 @@ namespace OCISDK.Core.Core
     /// <summary>
     /// ComputeClient interface
     /// </summary>
-    public interface IComputeClient
+    public interface IComputeClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Lists the instances in the specified compartment and the specified availability domain.
         /// You can filter the results by specifying an instance name (the list will include all the identically-named

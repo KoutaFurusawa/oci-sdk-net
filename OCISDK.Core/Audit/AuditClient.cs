@@ -48,24 +48,6 @@ namespace OCISDK.Core.Audit
         }
 
         /// <summary>
-        /// setter Region
-        /// </summary>
-        /// <param name="region"></param>
-        public void SetRegion(string region)
-        {
-            Region = region;
-        }
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        public string GetRegion()
-        {
-            return Region;
-        }
-
-        /// <summary>
         /// Returns all the audit events processed for the specified compartment within the specified time range.
         /// </summary>
         /// <param name="listRequest"></param>

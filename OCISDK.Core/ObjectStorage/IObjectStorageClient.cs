@@ -9,20 +9,8 @@ namespace OCISDK.Core.ObjectStorage
     /// <summary>
     /// ObjectStorageClient interface
     /// </summary>
-    public interface IObjectStorageClient
+    public interface IObjectStorageClient : IClientSetting
     {
-        /// <summary>
-        /// setter region
-        /// </summary>
-        /// <param name="region"></param>
-        void SetRegion(string region);
-
-        /// <summary>
-        /// getter region
-        /// </summary>
-        /// <returns></returns>
-        string GetRegion();
-
         /// <summary>
         /// Each Oracle Cloud Infrastructure tenant is assigned one unique and uneditable Object Storage namespace.
         /// The namespace is a system-generated string assigned during account creation. For some older tenancies, 
