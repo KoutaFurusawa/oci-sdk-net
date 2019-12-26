@@ -10,6 +10,13 @@ namespace OCISDK.Core.Core
     public interface IVirtualNetworkClientAsync : IClientSetting
     {
         /// <summary>
+        /// Lists the customer-premises equipment objects (CPEs) in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListCpesResponse> ListCpes(ListCpesRequest request);
+
+        /// <summary>
         /// Lists the sets of DHCP options in the specified VCN and specified compartment.
         /// The response includes the default set of options that automatically comes with each VCN,
         /// plus any other sets you've created.
@@ -85,6 +92,13 @@ namespace OCISDK.Core.Core
         Task<ListVirtualCircuitBandwidthShapesResponse> ListVirtualCircuitBandwidthShapes(ListVirtualCircuitBandwidthShapesRequest request);
 
         /// <summary>
+        /// Gets the specified CPE's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetCpeResponse> GetCpe(GetCpeRequest request);
+
+        /// <summary>
         /// Gets the specified set of DHCP options.
         /// </summary>
         /// <param name="getDhcpRequest"></param>
@@ -156,6 +170,14 @@ namespace OCISDK.Core.Core
         Task<GetVirtualCircuitResponse> GetVirtualCircuit(GetVirtualCircuitRequest request);
 
         /// <summary>
+        /// Moves a CPE object into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ChangeCpeCompartmentResponse> ChangeCpeCompartment(ChangeCpeCompartmentRequest request);
+
+        /// <summary>
         /// Moves a VCN into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -212,6 +234,23 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         Task<BulkDeleteVirtualCircuitPublicPrefixesResponse> BulkDeleteVirtualCircuitPublicPrefixes(BulkDeleteVirtualCircuitPublicPrefixesRequest request);
+
+        /// <summary>
+        /// Creates a new virtual customer-premises equipment (CPE) object in the specified compartment. For more information, see IPSec VPNs.
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the CPE to reside. Notice that the CPE doesn't 
+        /// have to be in the same compartment as the IPSec connection or other Networking Service components. If you're not sure which compartment to use, 
+        /// put the CPE in the same compartment as the DRG. For more information about compartments and access control, see Overview of the IAM Service. 
+        /// For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must provide the public IP address of your on-premises router. See Configuring Your On-Premises Router for an IPSec VPN.
+        /// 
+        /// You may optionally specify a display name for the CPE, otherwise a default is provided. It does not have to be unique, and you can change it. 
+        /// Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreateCpeResponse> CreateCpe(CreateCpeRequest request);
 
         /// <summary>
         /// Creates a new internet gateway for the specified VCN. For more information, see Access to the Internet.
@@ -309,6 +348,13 @@ namespace OCISDK.Core.Core
         Task<CreateVirtualCircuitResponse> CreateVirtualCircuit(CreateVirtualCircuitRequest request);
 
         /// <summary>
+        /// Updates the specified CPE's display name or tags. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UpdateCpeResponse> UpdateCpe(UpdateCpeRequest request);
+
+        /// <summary>
         /// Updates the specified VCN.
         /// </summary>
         /// <param name="updateRequest"></param>
@@ -392,6 +438,14 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         Task<UpdateVirtualCircuitResponse> UpdateVirtualCircuit(UpdateVirtualCircuitRequest request);
+
+        /// <summary>
+        /// Deletes the specified CPE object. The CPE must not be connected to a DRG. This is an asynchronous operation. The CPE's lifecycleState will change to 
+        /// TERMINATING temporarily until the CPE is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteCpeResponse> DeleteCpe(DeleteCpeRequest request);
 
         /// <summary>
         /// Deletes the specified VCN. The VCN must be empty and have no attached gateways.

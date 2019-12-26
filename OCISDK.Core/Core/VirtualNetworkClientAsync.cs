@@ -16,12 +16,14 @@ namespace OCISDK.Core
     /// </summary>
     public class VirtualNetworkClientAsync : ServiceClient, IVirtualNetworkClientAsync
     {
+        private readonly string VirtualNetworkServiceName = "core";
+
         /// <summary>
         /// Constructer
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = VirtualNetworkServiceName;
         }
 
         /// <summary>
@@ -29,7 +31,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = VirtualNetworkServiceName;
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = VirtualNetworkServiceName;
         }
 
         /// <summary>
@@ -45,9 +47,34 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = VirtualNetworkServiceName;
         }
-        
+
+        /// <summary>
+        /// Lists the customer-premises equipment objects (CPEs) in the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListCpesResponse> ListCpes(ListCpesRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}?{request.GetOptionQuery()}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListCpesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<CpeDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
         /// <summary>
         /// Lists the sets of DHCP options in the specified VCN and specified compartment.
         /// The response includes the default set of options that automatically comes with each VCN,
@@ -302,6 +329,30 @@ namespace OCISDK.Core
             }
         }
 
+        /// <summary>
+        /// Gets the specified CPE's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetCpeResponse> GetCpe(GetCpeRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}");
+
+            var webResponse = await this.RestClientAsync.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetCpeResponse()
+                {
+                    Cpe = JsonSerializer.Deserialize<CpeDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
 
         /// <summary>
         /// Gets the specified set of DHCP options.
@@ -555,6 +606,36 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Moves a CPE object into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ChangeCpeCompartmentResponse> ChangeCpeCompartment(ChangeCpeCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}/actions/changeCompartment");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeCpeCompartmentDetails, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeCpeCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a VCN into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -750,6 +831,41 @@ namespace OCISDK.Core
 
                 return new BulkDeleteVirtualCircuitPublicPrefixesResponse()
                 {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a new virtual customer-premises equipment (CPE) object in the specified compartment. For more information, see IPSec VPNs.
+        /// 
+        /// For the purposes of access control, you must provide the OCID of the compartment where you want the CPE to reside. Notice that the CPE doesn't 
+        /// have to be in the same compartment as the IPSec connection or other Networking Service components. If you're not sure which compartment to use, 
+        /// put the CPE in the same compartment as the DRG. For more information about compartments and access control, see Overview of the IAM Service. 
+        /// For information about OCIDs, see Resource Identifiers.
+        /// 
+        /// You must provide the public IP address of your on-premises router. See Configuring Your On-Premises Router for an IPSec VPN.
+        /// 
+        /// You may optionally specify a display name for the CPE, otherwise a default is provided. It does not have to be unique, and you can change it. 
+        /// Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateCpeResponse> CreateCpe(CreateCpeRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.CPE, this.Region));
+
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateCpeDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateCpeResponse()
+                {
+                    Cpe = JsonSerializer.Deserialize<CpeDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -1008,6 +1124,31 @@ namespace OCISDK.Core
                     VirtualCircuit = JsonSerializer.Deserialize<VirtualCircuit>(response),
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified CPE's display name or tags. Avoid entering confidential information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateCpeResponse> UpdateCpe(UpdateCpeRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}");
+
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateCpeDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateCpeResponse()
+                {
+                    Cpe = JsonSerializer.Deserialize<CpeDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
                 };
             }
         }
@@ -1272,6 +1413,30 @@ namespace OCISDK.Core
                 {
                     VirtualCircuit = JsonSerializer.Deserialize<VirtualCircuit>(response),
                     ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified CPE object. The CPE must not be connected to a DRG. This is an asynchronous operation. The CPE's lifecycleState will change to 
+        /// TERMINATING temporarily until the CPE is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteCpeResponse> DeleteCpe(DeleteCpeRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}");
+
+            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteCpeResponse()
+                {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
