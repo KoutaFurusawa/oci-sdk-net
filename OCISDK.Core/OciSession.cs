@@ -124,6 +124,24 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Get ComputeManagementClient
+        /// </summary>
+        /// <returns></returns>
+        public IComputeManagementClient GetComputeManagementClient()
+        {
+            return new ComputeManagementClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get ComputeManagementClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IComputeManagementClientAsync GetComputeManagementClientAsync()
+        {
+            return new ComputeManagementClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get BlockstorageClient
         /// </summary>
         /// <returns></returns>

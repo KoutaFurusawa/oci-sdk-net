@@ -38,6 +38,10 @@ namespace OCISDK.Core.Core
         /// </summary>
         public readonly static string CPE = "cpes";
         /// <summary>
+        /// ClusterNetworks
+        /// </summary>
+        public readonly static string ClusterNetworks = "clusterNetworks";
+        /// <summary>
         /// CrossConnect
         /// </summary>
         public readonly static string CrossConnect = "crossConnects";

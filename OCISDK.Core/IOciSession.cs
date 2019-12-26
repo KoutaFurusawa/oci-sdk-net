@@ -48,6 +48,18 @@ namespace OCISDK.Core
         IComputeClientAsync GetComputeClientAsync();
 
         /// <summary>
+        /// Get ComputeClient
+        /// </summary>
+        /// <returns></returns>
+        IComputeManagementClient GetComputeManagementClient();
+
+        /// <summary>
+        /// Get ComputeClient Async
+        /// </summary>
+        /// <returns></returns>
+        IComputeManagementClientAsync GetComputeManagementClientAsync();
+
+        /// <summary>
         /// Get BlockstorageClient
         /// </summary>
         /// <returns></returns>

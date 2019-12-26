@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OCISDK.Core.Core.Model.Compute
+namespace OCISDK.Core.Core.Model.ComputeManagement
 {
     /// <summary>
     /// Create new block volumes or attach to an existing volume. Specify either createDetails or volumeId.

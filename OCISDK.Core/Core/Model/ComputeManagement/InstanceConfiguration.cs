@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OCISDK.Core.Core.Model.Compute
+namespace OCISDK.Core.Core.Model.ComputeManagement
 {
     /// <summary>
     /// An instance configuration is a template that defines the settings to use when creating Compute instances. 

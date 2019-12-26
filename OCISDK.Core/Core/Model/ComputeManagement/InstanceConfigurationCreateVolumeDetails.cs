@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OCISDK.Core.Core.Model.Compute
+namespace OCISDK.Core.Core.Model.ComputeManagement
 {
     /// <summary>
     /// Creates a new block volume. Please see CreateVolumeDetails

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OCISDK.Core.Core.Model.Compute
+namespace OCISDK.Core.Core.Model.ComputeManagement
 {
     /// <summary>
     /// Contains the properties of the VNIC for an instance configuration. See CreateVnicDetails and Instance Configurations for more information.
