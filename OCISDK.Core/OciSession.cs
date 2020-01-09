@@ -329,6 +329,26 @@ namespace OCISDK.Core
         {
             return new MonitoringClientAsync(ClientConfigStream, OciSigner);
         }
+
+        /// <summary>
+        /// Get NotificationClient
+        /// </summary>
+        /// <returns></returns>
+        public INotificationClient GetNotificationClient()
+        {
+            return new NotificationClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get NotificationClient Async
+        /// </summary>
+        /// <returns></returns>
+        public INotificationClientAsync GetNotificationClientAsync()
+        {
+            return new NotificationClientAsync(ClientConfigStream, OciSigner);
+        }
+
+
         /// <summary>
         /// Get WaasClient
         /// </summary>

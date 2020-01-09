@@ -174,6 +174,18 @@ namespace OCISDK.Core
         IMonitoringClientAsync GetMonitoringClientAsync();
 
         /// <summary>
+        /// Get NotificationClient
+        /// </summary>
+        /// <returns></returns>
+        INotificationClient GetNotificationClient();
+
+        /// <summary>
+        /// Get NotificationClient Async
+        /// </summary>
+        /// <returns></returns>
+        INotificationClientAsync GetNotificationClientAsync();
+
+        /// <summary>
         /// Get DNSClient
         /// </summary>
         /// <returns></returns>

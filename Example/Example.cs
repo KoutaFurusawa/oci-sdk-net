@@ -112,6 +112,7 @@ namespace Example
                 Console.WriteLine("[b]: DNS Example");
                 Console.WriteLine("[c]: LoadBalancer Example");
                 Console.WriteLine("[d]: Users Example");
+                Console.WriteLine("[e]: Notification Example");
                 Console.WriteLine("[ESC]: Exit Example");
                 Console.WriteLine("");
 
@@ -196,6 +197,12 @@ namespace Example
                 if (mode == '1' || mode == 'd')
                 {
                     IdentityUsersExample.ConsoleDisplay(config);
+                }
+
+                //users
+                if (mode == '1' || mode == 'e')
+                {
+                    NotificationExample.ResourcesExample(config);
                 }
             }
         }

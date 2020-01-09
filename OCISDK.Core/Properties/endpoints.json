@@ -61,6 +61,10 @@
       "version": "20180401",
       "hosttag": "telemetry-ingestion"
     },
+    "notification": {
+      "version": "20181201",
+      "hosttag": "cp.notification"
+    },
     "waas": {
       "version": "20181116",
       "hosttag": "waas"
