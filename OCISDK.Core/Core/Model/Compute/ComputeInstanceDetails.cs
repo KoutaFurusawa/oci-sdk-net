@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OCISDK.Core.Core.Model.ComputeManagement;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
