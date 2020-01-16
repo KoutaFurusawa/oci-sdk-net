@@ -94,6 +94,11 @@ namespace OCISDK.Core.Common
                 request = httpRequestHeaderParam.SetHeader(request);
             }
 
+            if (string.IsNullOrEmpty(request.Headers["x-date"]))
+            {
+                request.Headers["x-date"] = DateTime.UtcNow.ToString("r");
+            }
+
             if (fields != null && fields.Count != 0)
             {
                 var body = JsonSerializer.Serialize(fields);

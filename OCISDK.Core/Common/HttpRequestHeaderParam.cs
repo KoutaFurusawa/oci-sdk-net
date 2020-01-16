@@ -51,6 +51,16 @@ namespace OCISDK.Core.Common
         public string Range { get; set; }
 
         /// <summary>
+        /// Authorization header
+        /// </summary>
+        public string Authorization { get; set; }
+
+        /// <summary>
+        /// x-date header
+        /// </summary>
+        public string XDate { get; set; }
+
+        /// <summary>
         /// HttpWebRequest setting header
         /// </summary>
         /// <param name="httpWebRequest"></param>
@@ -95,6 +105,16 @@ namespace OCISDK.Core.Common
             if (!string.IsNullOrEmpty(Range))
             {
                 httpWebRequest.Headers["range"] = Range;
+            }
+
+            if (!string.IsNullOrEmpty(Authorization))
+            {
+                httpWebRequest.Headers["authorization"] = Authorization;
+            }
+
+            if (!string.IsNullOrEmpty(XDate))
+            {
+                httpWebRequest.Headers["x-date"] = XDate;
             }
 
             return httpWebRequest;
