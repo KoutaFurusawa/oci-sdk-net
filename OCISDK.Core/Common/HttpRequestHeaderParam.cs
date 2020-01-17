@@ -61,6 +61,11 @@ namespace OCISDK.Core.Common
         public string XDate { get; set; }
 
         /// <summary>
+        /// messageType
+        /// </summary>
+        public string MessageType { get; set; }
+
+        /// <summary>
         /// HttpWebRequest setting header
         /// </summary>
         /// <param name="httpWebRequest"></param>
@@ -115,6 +120,11 @@ namespace OCISDK.Core.Common
             if (!string.IsNullOrEmpty(XDate))
             {
                 httpWebRequest.Headers["x-date"] = XDate;
+            }
+
+            if (!string.IsNullOrEmpty(MessageType))
+            {
+                httpWebRequest.Headers["messageType"] = MessageType;
             }
 
             return httpWebRequest;
