@@ -22,6 +22,16 @@ namespace OCISDK.Core.Notification
         ChangeTopicCompartmentResponse ChangeTopicCompartment(ChangeTopicCompartmentRequest request);
 
         /// <summary>
+        /// Moves a subscription into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// 
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ChangeSubscriptionCompartmentResponse ChangeSubscriptionCompartment(ChangeSubscriptionCompartmentRequest request);
+
+        /// <summary>
         /// Creates a topic in the specified compartment. For general information about topics, see Managing Topics and Subscriptions.
         /// For the purposes of access control, you must provide the OCID of the compartment where you want the topic to reside. 
         /// For information about access control and compartments, see Overview of the IAM Service.
@@ -33,6 +43,15 @@ namespace OCISDK.Core.Notification
         /// <param name="request"></param>
         /// <returns></returns>
         CreateTopicResponse CreateTopic(CreateTopicRequest request);
+
+        /// <summary>
+        /// Creates a subscription for the specified topic and sends a subscription confirmation URL to the endpoint. The subscription remains in 
+        /// "Pending" status until it has been confirmed. For information about confirming subscriptions, see To confirm a subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateSubscriptionResponse CreateSubscription(CreateSubscriptionRequest request);
 
         /// <summary>
         /// Publishes a message to the specified topic.
@@ -53,12 +72,28 @@ namespace OCISDK.Core.Notification
         PublishMessageResponse PublishMessage(PublishMessageRequest request);
 
         /// <summary>
+        /// Resends the confirmation details for the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ResendSubscriptionConfirmationResponse ResendSubscriptionConfirmation(ResendSubscriptionConfirmationRequest request);
+
+        /// <summary>
         /// Updates the specified topic's configuration.
         /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         UpdateTopicResponse UpdateTopic(UpdateTopicRequest request);
+
+        /// <summary>
+        /// Updates the specified subscription's configuration.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateSubscriptionResponse UpdateSubscription(UpdateSubscriptionRequest request);
 
         /// <summary>
         /// Lists topics in the specified compartment.
@@ -69,11 +104,43 @@ namespace OCISDK.Core.Notification
         ListTopicsResponse ListTopics(ListTopicsRequest request);
 
         /// <summary>
+        /// Lists the subscriptions in the specified compartment or topic.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListSubscriptionsResponse ListSubscriptions(ListSubscriptionsRequest request);
+
+        /// <summary>
         /// Gets the specified topic's configuration information.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         GetTopicResponse GetTopic(GetTopicRequest request);
+
+        /// <summary>
+        /// Gets the confirmation details for the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetConfirmSubscriptionResponse GetConfirmSubscription(GetConfirmSubscriptionRequest request);
+
+        /// <summary>
+        /// Gets the specified subscription's configuration information.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetSubscriptionResponse GetSubscription(GetSubscriptionRequest request);
+
+        /// <summary>
+        /// Gets the unsubscription details for the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetUnsubscriptionResponse GetUnsubscription(GetUnsubscriptionRequest request);
 
         /// <summary>
         /// Deletes the specified topic.
@@ -82,5 +149,13 @@ namespace OCISDK.Core.Notification
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteTopicResponse DeleteTopic(DeleteTopicRequest request);
+
+        /// <summary>
+        /// Deletes the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteSubscriptionResponse DeleteSubscription(DeleteSubscriptionRequest request);
     }
 }

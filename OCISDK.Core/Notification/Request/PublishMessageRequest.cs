@@ -56,12 +56,12 @@ namespace OCISDK.Core.Notification.Request
             }
 
             /// <summary>
-            /// TIMECREATED
+            /// JSON
             /// </summary>
             public static readonly MessageTypeParam JSON = new MessageTypeParam("JSON");
 
             /// <summary>
-            /// LIFECYCLESTATE
+            /// RAW_TEXT
             /// </summary>
             public static readonly MessageTypeParam RAW_TEXT = new MessageTypeParam("RAW_TEXT");
         }

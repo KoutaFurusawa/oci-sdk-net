@@ -82,6 +82,38 @@ namespace OCISDK.Core.Notification
         }
 
         /// <summary>
+        /// Moves a subscription into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// 
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ChangeSubscriptionCompartmentResponse> ChangeSubscriptionCompartment(ChangeSubscriptionCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.SubscriptionId}/actions/changeCompartment");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeCompartmentDetails, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ChangeSubscriptionCompartmentResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a topic in the specified compartment. For general information about topics, see Managing Topics and Subscriptions.
         /// For the purposes of access control, you must provide the OCID of the compartment where you want the topic to reside. 
         /// For information about access control and compartments, see Overview of the IAM Service.
@@ -113,6 +145,38 @@ namespace OCISDK.Core.Notification
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag"),
                     NotificationTopic = this.JsonSerializer.Deserialize<NotificationTopicDetails>(response)
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a subscription for the specified topic and sends a subscription confirmation URL to the endpoint. The subscription remains in 
+        /// "Pending" status until it has been confirmed. For information about confirming subscriptions, see To confirm a subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateSubscriptionResponse> CreateSubscription(CreateSubscriptionRequest request)
+        {
+            var uri = new Uri(GetEndPoint(NotificationServices.Subscriptions, this.Region));
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateSubscriptionDetails, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateSubscriptionResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag"),
+                    Subscription = this.JsonSerializer.Deserialize<SubscriptionDetails>(response)
                 };
             }
         }
@@ -189,6 +253,37 @@ namespace OCISDK.Core.Notification
         }
 
         /// <summary>
+        /// Updates the specified subscription's configuration.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateSubscriptionResponse> UpdateSubscription(UpdateSubscriptionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.SubscriptionId}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateSubscriptionDetails, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UpdateSubscriptionResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag"),
+                    UpdateSubscriptionDetails = this.JsonSerializer.Deserialize<UpdateSubscriptionDetails>(response)
+                };
+            }
+        }
+
+        /// <summary>
         /// Lists topics in the specified compartment.
         /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 120.
         /// </summary>
@@ -212,6 +307,36 @@ namespace OCISDK.Core.Notification
                 return new ListTopicsResponse()
                 {
                     Items = this.JsonSerializer.Deserialize<List<NotificationTopicSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the subscriptions in the specified compartment or topic.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListSubscriptionsResponse> ListSubscriptions(ListSubscriptionsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListSubscriptionsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<SubscriptionSummary>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcNextPage = webResponse.Headers.Get("opc-request-id")
                 };
@@ -248,6 +373,95 @@ namespace OCISDK.Core.Notification
         }
 
         /// <summary>
+        /// Gets the confirmation details for the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetConfirmSubscriptionResponse> GetConfirmSubscription(GetConfirmSubscriptionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.Id}/confirmation?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetConfirmSubscriptionResponse()
+                {
+                    ConfirmationResult = this.JsonSerializer.Deserialize<ConfirmationResult>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified subscription's configuration information.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetSubscriptionResponse> GetSubscription(GetSubscriptionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.SubscriptionId}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetSubscriptionResponse()
+                {
+                    Subscription = this.JsonSerializer.Deserialize<SubscriptionDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the unsubscription details for the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetUnsubscriptionResponse> GetUnsubscription(GetUnsubscriptionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.Id}/unsubscription?{request.GetOptionQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetUnsubscriptionResponse()
+                {
+                    Body = response,
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified topic.
         /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
         /// </summary>
@@ -270,6 +484,35 @@ namespace OCISDK.Core.Notification
                 var response = reader.ReadToEnd();
 
                 return new DeleteTopicResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteSubscriptionResponse> DeleteSubscription(DeleteSubscriptionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.SubscriptionId}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteSubscriptionResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

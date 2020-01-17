@@ -23,7 +23,6 @@ namespace OCISDK.Core.Notification.Request
         /// </summary>
         public string CompartmentId { get; set; }
 
-
         /// <summary>
         /// A filter to only return resources that match the given id exactly.
         /// <para>Required: no</para>
