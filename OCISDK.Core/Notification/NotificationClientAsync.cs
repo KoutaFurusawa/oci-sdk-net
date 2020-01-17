@@ -222,6 +222,35 @@ namespace OCISDK.Core.Notification
         }
 
         /// <summary>
+        /// Resends the confirmation details for the specified subscription.
+        /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ResendSubscriptionConfirmationResponse> ResendSubscriptionConfirmation(ResendSubscriptionConfirmationRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(NotificationServices.Subscriptions, this.Region)}/{request.Id}/resendConfirmation");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, null, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ResendSubscriptionConfirmationResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    Subscription = this.JsonSerializer.Deserialize<SubscriptionDetails>(response)
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified topic's configuration.
         /// Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
         /// </summary>

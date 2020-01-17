@@ -58,6 +58,31 @@ namespace Example
                     Console.WriteLine($"\t|- TimeCreated:{topic.TimeCreated}");
                 }
             }
+
+            foreach (var com in compartments)
+            {
+                if (com.LifecycleState != "ACTIVE")
+                {
+                    continue;
+                }
+
+                Console.WriteLine($" Compartment<{com.Name}>--------");
+
+                var listSubscriptionsRequest = new ListSubscriptionsRequest()
+                {
+                    CompartmentId = com.Id,
+                    Limit = 10
+                };
+                var subscriptions = client.ListSubscriptions(listSubscriptionsRequest);
+
+                foreach (var subscription in subscriptions.Items)
+                {
+                    Console.WriteLine($"\t|- protocol:{subscription.Protocol}");
+                    Console.WriteLine($"\t|- policy:{subscription.DeliverPolicy}");
+                    Console.WriteLine($"\t|- LifecycleState:{subscription.LifecycleState}");
+                    Console.WriteLine($"\t|- CreatedTime:{subscription.CreatedTime}");
+                }
+            }
         }
     }
 }

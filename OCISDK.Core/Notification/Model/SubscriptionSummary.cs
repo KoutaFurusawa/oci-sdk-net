@@ -51,7 +51,7 @@ namespace OCISDK.Core.Notification.Model
         /// The time when this suscription was created.
         /// <para>Required: no</para>
         /// </summary>
-        public int CreatedTime { get; set; }
+        public long CreatedTime { get; set; }
 
         /// <summary>
         /// The delivery policy of the subscription. Stored as a JSON string.
