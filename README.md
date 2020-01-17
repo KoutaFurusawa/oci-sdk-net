@@ -18,6 +18,10 @@ Please send comments and requests for this SDK to GitHub.
 
 Examples can be found [here](/Example/).
 
+## Correspondence situation
+
+wiki [here](https://github.com/KoutaFurusawa/oci-sdk-net/wiki).
+
 ## Get NuGet
 
 https://www.nuget.org/packages/OCISDK.Core/
