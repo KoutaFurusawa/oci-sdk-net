@@ -1,11 +1,14 @@
 ﻿using OCISDK.Core.Core.Model.Compute;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace OCISDK.Core.Core.Response.Compute
 {
     /// <summary>
-    /// UpdateInstance Response
+    /// InstanceAction response
     /// </summary>
-    public class UpdateInstanceResponse
+    public class InstanceActionResponse
     {
         /// <summary>
         /// For optimistic concurrency control. See if-match.
@@ -13,15 +16,9 @@ namespace OCISDK.Core.Core.Response.Compute
         public string ETag { get; set; }
 
         /// <summary>
-        /// Unique Oracle-assigned identifier for the request. 
-        /// If you need to contact Oracle about a particular request, please provide the request ID.
+        /// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
         /// </summary>
         public string OpcRequestId { get; set; }
-
-        /// <summary>
-        /// The OCID of the work request. Use GetWorkRequest with this ID to track the status of the request.
-        /// </summary>
-        public string OpcWorkRequestId { get; set; }
 
         /// <summary>
         /// The response body will contain a single Instance resource.

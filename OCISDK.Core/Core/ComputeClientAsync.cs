@@ -573,6 +573,48 @@ namespace OCISDK.Core.Core
         }
 
         /// <summary>
+        /// Performs one of the following power actions on the specified instance:
+        ///  * START - Powers on the instance.
+        ///  * STOP - Powers off the instance.
+        ///  * RESET - Powers off the instance and then powers it back on.
+        ///  * SOFTSTOP - Gracefully shuts down the instance by sending a shutdown command to the 
+        ///               operating system. If the applications that run on the instance take a 
+        ///               long time to shut down, they could be improperly stopped, resulting in 
+        ///               data corruption. To avoid this, shut down the instance using the commands 
+        ///               available in the OS before you softstop the instance.
+        /// * SOFTRESET - Gracefully reboots the instance by sending a shutdown command to the 
+        ///               operating system, and then powers the instance back on.
+        ///               
+        /// For more information, see Stopping and Starting an Instance.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<InstanceActionResponse> InstanceAction(InstanceActionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{request.InstanceId}?{request.Action.Value}");
+
+            var headers = new HttpRequestHeaderParam
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                IfMatch = request.IfMatch
+            };
+            var webResponse = await this.RestClientAsync.Post(uri, null, headers);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new InstanceActionResponse()
+                {
+                    Instance = this.JsonSerializer.Deserialize<Instance>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified console history metadata.
         /// </summary>
         /// <param name="param"></param>
