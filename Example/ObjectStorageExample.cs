@@ -1,6 +1,7 @@
 ﻿using OCISDK.Core;
 using OCISDK.Core.Common;
 using OCISDK.Core.ObjectStorage;
+using OCISDK.Core.ObjectStorage.Model;
 using OCISDK.Core.ObjectStorage.Request;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,8 @@ namespace Example
                 ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
                 {
                     NamespaceName = bucketDetail.Bucket.Namespace,
-                    BucketName = bucketDetail.Bucket.Name
+                    BucketName = bucketDetail.Bucket.Name,
+                    Fields=new List<string> { "size", "timeCreated", "md5" }
                 };
                 var Objs = client.ListObjects(listObjectsRequest);
                 Objs.ListObjects.Objects.ForEach(obj => {
@@ -101,23 +103,18 @@ namespace Example
             // endorse group group_name to read objects in tenancy usage-report
             try
             {
-                var listORequest = new ListObjectsRequest()
-                {
-                    NamespaceName = "bling",
-                    BucketName = config.TenancyId
-                };
-                var reports = client.ListObjects(listORequest);
+                var reports = GetUsageReportNames(config, client);
                 Console.WriteLine($"* UsageReport------------------------");
-                reports.ListObjects.Objects.ForEach(r =>
+                reports.ForEach(r =>
                 {
                     Console.WriteLine($"  {r.Name}");
+                    /*
+                    // download object
                     if (!Directory.Exists("./ExampleDownload/report"))
                     {
                         Directory.CreateDirectory("./ExampleDownload/report");
                     }
 
-                    // download object
-                    /*
                     if (!File.Exists($"./ExampleDownload/report/{r.Name.Replace('/', '_')}"))
                     {
                         var getObjectRequest = new GetObjectRequest()
@@ -133,6 +130,29 @@ namespace Example
             {
                 Console.WriteLine($"Does not meet UsageReport usage requirements. message:{e.Message}");
             }
+        }
+
+        public static List<ObjectSummary> GetUsageReportNames(ClientConfig config, ObjectStorageClient client, string startName = "")
+        {
+            List<ObjectSummary> res = new List<ObjectSummary>();
+            client.SetRegion(Regions.US_ASHBURN_1);
+            var listORequest = new ListObjectsRequest()
+            {
+                NamespaceName = "bling",
+                BucketName = config.TenancyId,
+                Fields = new List<string>() { "name" },
+                Start = startName,
+                Limit = 10
+            };
+            var reports = client.ListObjects(listORequest);
+
+            res.AddRange(reports.ListObjects.Objects);
+
+            if (!string.IsNullOrEmpty(reports.ListObjects.NextStartWith)) {
+                res.AddRange(GetUsageReportNames(config, client, reports.ListObjects.NextStartWith));
+            }
+
+            return res;
         }
     }
 }
