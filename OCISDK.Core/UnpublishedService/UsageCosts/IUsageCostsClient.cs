@@ -19,5 +19,12 @@ namespace OCISDK.Core.UnpublishedService.UsageCosts
         /// <param name="request"></param>
         /// <returns></returns>
         GetSubscriptionInfoResponse GetSubscriptionInfo(GetSubscriptionInfoRequest request);
+
+        /// <summary>
+        /// ListUsageCosts
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListUsageCostsResponse ListUsageCosts(ListUsageCostsRequest request);
     }
 }

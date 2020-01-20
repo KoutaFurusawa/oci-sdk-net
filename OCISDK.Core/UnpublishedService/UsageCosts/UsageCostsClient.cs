@@ -77,5 +77,33 @@ namespace OCISDK.Core.UnpublishedService.UsageCosts
                 };
             }
         }
+
+        /// <summary>
+        /// ListUsageCosts
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListUsageCostsResponse ListUsageCosts(ListUsageCostsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(UsageCostsServices.Usagecost, this.Region)}/{request.TenancyId}?{request.GetOptionalQuery()}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListUsageCostsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<UsageCostDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
     }
 }
