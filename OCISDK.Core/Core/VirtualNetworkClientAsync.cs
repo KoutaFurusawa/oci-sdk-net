@@ -16,14 +16,12 @@ namespace OCISDK.Core
     /// </summary>
     public class VirtualNetworkClientAsync : ServiceClient, IVirtualNetworkClientAsync
     {
-        private readonly string VirtualNetworkServiceName = "core";
-
         /// <summary>
         /// Constructer
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = VirtualNetworkServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -31,7 +29,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = VirtualNetworkServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -39,7 +37,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = VirtualNetworkServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -47,7 +45,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = VirtualNetworkServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>

@@ -13,14 +13,12 @@ namespace OCISDK.Core.Core
     /// </summary>
     public class ComputeClient : ServiceClient, IComputeClient
     {
-        private readonly string Compute = "core";
-
         /// <summary>
         /// Constructer
         /// </summary>
         public ComputeClient(ClientConfig config) : base(config)
         {
-            ServiceName = Compute;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public ComputeClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = Compute;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -36,7 +34,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public ComputeClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = Compute;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public ComputeClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = Compute;
+            ServiceName = CoreServices.CoreServiceName;
         }
         
         /// <summary>

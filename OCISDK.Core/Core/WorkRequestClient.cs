@@ -14,14 +14,12 @@ namespace OCISDK.Core.Core
     /// </summary>
     public class WorkRequestClient : ServiceClient, IWorkRequestClient
     {
-        private readonly string WorkRequestServiceName = "core";
-
         /// <summary>
         /// Constructer
         /// </summary>
         public WorkRequestClient(ClientConfig config) : base(config)
         {
-            ServiceName = WorkRequestServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -29,7 +27,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public WorkRequestClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = WorkRequestServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -37,7 +35,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public WorkRequestClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = WorkRequestServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -45,7 +43,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public WorkRequestClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = WorkRequestServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
         
         /// <summary>

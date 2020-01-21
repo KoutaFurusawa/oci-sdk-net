@@ -15,14 +15,12 @@ namespace OCISDK.Core.Core
     /// </summary>
     public class ComputeManagementClientAsync : ServiceClient, IComputeManagementClientAsync
     {
-        private readonly string ComputeManagementServiceName = "core";
-
         /// <summary>
         /// Constructer
         /// </summary>
         public ComputeManagementClientAsync(ClientConfig config) : base(config)
         {
-            ServiceName = ComputeManagementServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -30,7 +28,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public ComputeManagementClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = ComputeManagementServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -38,7 +36,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public ComputeManagementClientAsync(ClientConfigStream config) : base(config)
         {
-            ServiceName = ComputeManagementServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -46,7 +44,7 @@ namespace OCISDK.Core.Core
         /// </summary>
         public ComputeManagementClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = ComputeManagementServiceName;
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClient(ClientConfig config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClient(ClientConfigStream config) : base(config)
         {
-            ServiceName = "core";
+            ServiceName = CoreServices.CoreServiceName;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace OCISDK.Core
         /// </summary>
         public VirtualNetworkClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
-            ServiceName = "core";
+            ServiceName = CoreServices.CoreServiceName;
         }
         
         /// <summary>

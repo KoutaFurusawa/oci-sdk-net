@@ -10,6 +10,11 @@ namespace OCISDK.Core.Core
     public class CoreServices
     {
         /// <summary>
+        /// service name
+        /// </summary>
+        public readonly static string CoreServiceName = "core";
+
+        /// <summary>
         /// VCN
         /// </summary>
         public readonly static string VCN = "vcns";
