@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,12 +23,12 @@ namespace OCISDK.Core
     {
         private static readonly IDictionary<string, List<string>> RequiredHeaders = new Dictionary<string, List<string>>
         {
-            { "GET", new List<string>{ "(request-target)", "host", "date" }},
-            { "HEAD", new List<string>{ "(request-target)", "host", "date" }},
-            { "DELETE", new List<string>{ "(request-target)", "host", "date" }},
-            { "PUT", new List<string>{ "(request-target)", "host", "content-length", "content-type", "x-content-sha256", "date" }},
-            { "POST", new List<string>{ "(request-target)", "host", "content-length", "content-type", "x-content-sha256", "date" }},
-            { "PUT-LESS", new List<string>{ "(request-target)", "host", "date" }}
+            { "GET", new List<string>{"date", "(request-target)", "host" }},
+            { "HEAD", new List<string>{"date", "(request-target)", "host" }},
+            { "DELETE", new List<string>{"date", "(request-target)", "host" }},
+            { "PUT", new List<string>{"date", "(request-target)", "host", "content-length", "content-type", "x-content-sha256" }},
+            { "POST", new List<string>{"date", "(request-target)", "host", "content-length", "content-type", "x-content-sha256" }},
+            { "PUT-LESS", new List<string>{"date", "(request-target)", "host" }}
         };
 
         private readonly string KeyId;
@@ -73,6 +72,9 @@ namespace OCISDK.Core
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
+            // By default, request.Date is DateTime.MinValue, so override to DateTime.UtcNow, but preserve the value if caller has already set the Date
+            if (request.Date == DateTime.MinValue) { request.Date = DateTime.UtcNow; }
+
             var requestMethodUpper = request.Method.ToUpperInvariant();
             var requestMethodKey = useLessHeadersForPut ? requestMethodUpper + "-LESS" : requestMethodUpper;
 
@@ -80,22 +82,6 @@ namespace OCISDK.Core
             if (!RequiredHeaders.TryGetValue(requestMethodKey, out headers))
             {
                 throw new ArgumentException($"Don't know how to sign method: {request.Method}");
-            }
-
-            if (!string.IsNullOrEmpty(request.Headers["x-date"]) && !headers.Any(h => h == "x-date"))
-            {
-                headers.Add("x-date");
-            }
-
-            if (string.IsNullOrEmpty(request.Headers["x-date"]))
-            {
-                headers.Remove("x-date");
-            }
-
-            // By default, request.Date is DateTime.MinValue, so override to DateTime.UtcNow, but preserve the value if caller has already set the Date
-            if (request.Date == DateTime.MinValue) 
-            { 
-                request.Date = DateTime.UtcNow;
             }
 
             // for PUT and POST, if the body is empty we still must explicitly set content-length = 0 and x-content-sha256
