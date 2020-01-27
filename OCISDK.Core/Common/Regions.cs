@@ -22,6 +22,10 @@
         /// </summary>
         public static readonly string AP_TOKYO_1 = "ap-tokyo-1";
         /// <summary>
+        /// ap-osaka-1	
+        /// </summary>
+        public static readonly string AP_OSAKA_1 = "ap-osaka-1	";
+        /// <summary>
         /// ca-toronto-1
         /// </summary>
         public static readonly string CA_TORONTO_1 = "ca-toronto-1";
