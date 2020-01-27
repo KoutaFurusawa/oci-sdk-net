@@ -28,7 +28,7 @@ https://www.nuget.org/packages/OCISDK.Core/
 
 ## License
 
-Copyright (c) 2019, k.furusawa
+Copyright (c) 2019-2020, k.furusawa
 
 Released under the MIT license
 
