@@ -51,6 +51,11 @@ namespace OCISDK.Core.Common
         public string Range { get; set; }
 
         /// <summary>
+        /// MessageType
+        /// </summary>
+        public string MessageType { get; set; }
+
+        /// <summary>
         /// HttpWebRequest setting header
         /// </summary>
         /// <param name="httpWebRequest"></param>
@@ -95,6 +100,11 @@ namespace OCISDK.Core.Common
             if (!string.IsNullOrEmpty(Range))
             {
                 httpWebRequest.Headers["range"] = Range;
+            }
+
+            if (!string.IsNullOrEmpty(MessageType))
+            {
+                httpWebRequest.Headers["messageType"] = MessageType;
             }
 
             return httpWebRequest;

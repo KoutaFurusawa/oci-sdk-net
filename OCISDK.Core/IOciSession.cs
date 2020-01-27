@@ -48,6 +48,18 @@ namespace OCISDK.Core
         IComputeClientAsync GetComputeClientAsync();
 
         /// <summary>
+        /// Get ComputeClient
+        /// </summary>
+        /// <returns></returns>
+        IComputeManagementClient GetComputeManagementClient();
+
+        /// <summary>
+        /// Get ComputeClient Async
+        /// </summary>
+        /// <returns></returns>
+        IComputeManagementClientAsync GetComputeManagementClientAsync();
+
+        /// <summary>
         /// Get BlockstorageClient
         /// </summary>
         /// <returns></returns>
@@ -160,6 +172,18 @@ namespace OCISDK.Core
         /// </summary>
         /// <returns></returns>
         IMonitoringClientAsync GetMonitoringClientAsync();
+
+        /// <summary>
+        /// Get NotificationClient
+        /// </summary>
+        /// <returns></returns>
+        INotificationClient GetNotificationClient();
+
+        /// <summary>
+        /// Get NotificationClient Async
+        /// </summary>
+        /// <returns></returns>
+        INotificationClientAsync GetNotificationClientAsync();
 
         /// <summary>
         /// Get DNSClient

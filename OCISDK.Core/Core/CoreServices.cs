@@ -10,6 +10,11 @@ namespace OCISDK.Core.Core
     public class CoreServices
     {
         /// <summary>
+        /// service name
+        /// </summary>
+        public readonly static string CoreServiceName = "core";
+
+        /// <summary>
         /// VCN
         /// </summary>
         public readonly static string VCN = "vcns";
@@ -37,6 +42,10 @@ namespace OCISDK.Core.Core
         /// CPE
         /// </summary>
         public readonly static string CPE = "cpes";
+        /// <summary>
+        /// ClusterNetworks
+        /// </summary>
+        public readonly static string ClusterNetworks = "clusterNetworks";
         /// <summary>
         /// CrossConnect
         /// </summary>

@@ -118,11 +118,32 @@ namespace Example
             Console.WriteLine("* List compartment Alarms------------------------");
             foreach (var compartment in listCompartment)
             {
+                Console.WriteLine("  Alarm status------------------------");
+                var listAlarmsStatusRequest = new ListAlarmsStatusRequest()
+                {
+                    CompartmentId = compartment.Id,
+                    Limit = 1000
+                };
+                var alarmStatus = monitoringClient.ListAlarmsStatus(listAlarmsStatusRequest);
+                if (alarmStatus.Items.Count > 0)
+                {
+                    Console.WriteLine($" |-{compartment.Name}------------");
+
+                    foreach (var alarm in alarmStatus.Items)
+                    {
+                        Console.WriteLine($"\tid:{alarm.Id}");
+                        Console.WriteLine($"\tname:{alarm.DisplayName}");
+                        Console.WriteLine($"\tstatus:{alarm.Status}");
+                        Console.WriteLine($"\tseverity:{alarm.Severity}");
+                    }
+                }
+                
                 var listAlarmsRequest = new ListAlarmsRequest() {
                     CompartmentId = compartment.Id,
                     Limit = 10
                 };
 
+                Console.WriteLine("  Alarm logs------------------------");
                 var listAlarms = monitoringClient.ListAlarms(listAlarmsRequest);
                 if (listAlarms.Items.Count > 0)
                 {
@@ -130,6 +151,7 @@ namespace Example
 
                     foreach (var alarm in listAlarms.Items)
                     {
+                        Console.WriteLine($"\tid:{alarm.Id}");
                         Console.WriteLine($"\tname:{alarm.DisplayName}");
                         Console.WriteLine($"\tdestinations:{alarm.Destinations}");
                         Console.WriteLine($"\tenable:{alarm.IsEnabled}");
@@ -138,7 +160,7 @@ namespace Example
                         var getAlarmHistoryRequest = new GetAlarmHistoryRequest()
                         {
                             AlarmId = alarm.Id,
-                            TimestampGreaterThanOrEqualTo = "2019-11-21T01:00:00.000Z"
+                            TimestampGreaterThanOrEqualTo = DateTime.UtcNow.ToString()
                         };
                         var history = monitoringClient.GetAlarmHistory(getAlarmHistoryRequest);
                         foreach (var his in history.AlarmHistoryCollection.Entries)
@@ -151,7 +173,7 @@ namespace Example
                 }
 
                 // Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
-                System.Threading.Thread.Sleep(1000); ;
+                System.Threading.Thread.Sleep(1000);
             }
         }
 

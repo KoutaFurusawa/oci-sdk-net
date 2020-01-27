@@ -124,6 +124,24 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Get ComputeManagementClient
+        /// </summary>
+        /// <returns></returns>
+        public IComputeManagementClient GetComputeManagementClient()
+        {
+            return new ComputeManagementClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get ComputeManagementClient Async
+        /// </summary>
+        /// <returns></returns>
+        public IComputeManagementClientAsync GetComputeManagementClientAsync()
+        {
+            return new ComputeManagementClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get BlockstorageClient
         /// </summary>
         /// <returns></returns>
@@ -311,6 +329,26 @@ namespace OCISDK.Core
         {
             return new MonitoringClientAsync(ClientConfigStream, OciSigner);
         }
+
+        /// <summary>
+        /// Get NotificationClient
+        /// </summary>
+        /// <returns></returns>
+        public INotificationClient GetNotificationClient()
+        {
+            return new NotificationClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get NotificationClient Async
+        /// </summary>
+        /// <returns></returns>
+        public INotificationClientAsync GetNotificationClientAsync()
+        {
+            return new NotificationClientAsync(ClientConfigStream, OciSigner);
+        }
+
+
         /// <summary>
         /// Get WaasClient
         /// </summary>

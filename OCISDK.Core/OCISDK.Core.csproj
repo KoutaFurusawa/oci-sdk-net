@@ -23,52 +23,34 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.2</Version>
+    <Version>0.6.3</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
-2019/06/11 version 0.5.1 release
-2019/06/11 version 0.5.2 release
-2019/08/09 version 0.5.5-rc release
-2019/08/19 version 0.5.5 release
-2019/09/01 version 0.5.6-rc release
-2019/09/10 version 0.5.6 release
-2019/10/10 version 0.5.7-rc release
-2019/10/10 version 0.5.7.1-rc release
-2019/10/15 version 0.5.8-rc release
-2019/10/24 version 0.5.8 release
-2019/10/31 version 0.5.8.1-rc release
-2019/11/1 version 0.5.8.3-rc release
-2019/11/5 version 0.5.8.3 release
-2019/11/6 version 0.5.8.4-rc release
-2019/11/7 version 0.5.8.5-rc release
-2019/11/14 version 0.5.8.6-rc release
-2019/11/15 version 0.5.8.7-rc release
-2019/11/20 version 0.5.8.7 release
-2019/11/26 version 0.5.8.8-rc release
-2019/11/27 version 0.5.8.9 release
+----
 2019/11/27 version 0.6.0-rc release
-    * Fixed project structure and deleted &lt;src&gt; directory.(issue #6)
-    * unpublished service ListServiceEntitlementRegistrationsResponse
 2019/11/27 version 0.6.1-rc release
-    * fixed get ObjectDetails request parameter.
-    * add WafTraffic APIs
-    * add WhiteList APIs
-    * add ChachingRule Apis
 2019/11/29 version 0.6.1.1-rc release
-    * Fixed nuget packaging settings.
 2019/12/05 version 0.6.2-rc release
 2019/12/09 version 0.6.2 release
     * Check client settings so that each setting can be processed even when using sessions.(#21)
-    * add filesystem APIs</PackageReleaseNotes>
-    <Copyright>Copyright (c) 2019, k.furusawa. Released under the MIT license</Copyright>
+    * add filesystem APIs
+2020/01/27 version 0.6.3 release
+    * Add Osaka regions
+    * Add ClusterNetwork APIs
+    * Add Cpe Service APIs
+    * add Notification APIs
+    * Add InstanceAction API
+
+    * Update UpdateInstance API</PackageReleaseNotes>
+    <Copyright>Copyright (c) 2020, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.6.2.0</AssemblyVersion>
-    <FileVersion>0.6.2.0</FileVersion>
+    <AssemblyVersion>0.6.3.0</AssemblyVersion>
+    <FileVersion>0.6.3.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
