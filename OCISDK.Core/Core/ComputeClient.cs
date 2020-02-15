@@ -258,6 +258,30 @@ namespace OCISDK.Core.Core
         }
 
         /// <summary>
+        ///  Gets the default credentials of the specified instance
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        public GetInstanceDefaultCredentialsResponse GetInstanceDefaultCredentials(GetInstanceDefaultCredentialsRequest getRequest)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{getRequest.InstanceId}/defaultCredentials");
+            
+            var webResponse = this.RestClient.Get(uri);
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetInstanceDefaultCredentialsResponse()
+                {
+                    InstanceCredentialsDetails = this.JsonSerializer.Deserialize<InstanceCredentialsDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified image.
         /// </summary>
         /// <param name="getRequest"></param>
