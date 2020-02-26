@@ -45,6 +45,10 @@
       "version": "20190901",
       "hosttag": "audit"
     },
+    "budgets": {
+      "version": "20190111",
+      "hosttag": "usage"
+    },
     "object_storage": {
       "version": "20160918",
       "hosttag": "objectstorage"

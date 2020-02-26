@@ -1,4 +1,5 @@
 ﻿using OCISDK.Core.Audit;
+using OCISDK.Core.Budgets;
 using OCISDK.Core.Core;
 using OCISDK.Core.Database;
 using OCISDK.Core.DNS;
@@ -6,6 +7,7 @@ using OCISDK.Core.FileStorage;
 using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Monitoring;
+using OCISDK.Core.Notification;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.Search;
 using OCISDK.Core.UnpublishedService.Commercial;
@@ -102,10 +104,22 @@ namespace OCISDK.Core
         IAuditClient GetAuditClient();
 
         /// <summary>
+        /// Get BudgetsClient 
+        /// </summary>
+        /// <returns></returns>
+        IBudgetsClient GetBudgetsClient();
+
+        /// <summary>
         /// Get AuditClient Async
         /// </summary>
         /// <returns></returns>
         IAuditClientAsync GetAuditClientAsync();
+
+        /// <summary>
+        /// Get BudgetsClient 
+        /// </summary>
+        /// <returns></returns>
+        IBudgetsClientAsync GetBudgetsClientAsync();
 
         /// <summary>
         /// Get ObjectStorageClient

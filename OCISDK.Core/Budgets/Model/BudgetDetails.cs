@@ -43,7 +43,7 @@ namespace OCISDK.Core.Budgets.Model
         /// The amount of the budget expressed in the currency of the customer's rate card.
         /// <para>Required: yes</para>
         /// </summary>
-        public string Amount { get; set; }
+        public double? Amount { get; set; }
 
         /// <summary>
         /// The reset period for the budget.

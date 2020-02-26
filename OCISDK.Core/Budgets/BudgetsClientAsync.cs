@@ -6,20 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OCISDK.Core.Budgets
 {
     /// <summary>
     /// Budgets Client
     /// </summary>
-    public class BudgetsClient : ServiceClient, IBudgetsClient
+    public class BudgetsClientAsync : ServiceClient, IBudgetsClientAsync
     {
         private readonly string BudgetsServiceName = "budgets";
 
         /// <summary>
         /// Constructer
         /// </summary>
-        public BudgetsClient(ClientConfig config) : base(config)
+        public BudgetsClientAsync(ClientConfig config) : base(config)
         {
             ServiceName = BudgetsServiceName;
         }
@@ -27,7 +28,7 @@ namespace OCISDK.Core.Budgets
         /// <summary>
         /// Constructer
         /// </summary>
-        public BudgetsClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public BudgetsClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = BudgetsServiceName;
         }
@@ -35,7 +36,7 @@ namespace OCISDK.Core.Budgets
         /// <summary>
         /// Constructer
         /// </summary>
-        public BudgetsClient(ClientConfigStream config) : base(config)
+        public BudgetsClientAsync(ClientConfigStream config) : base(config)
         {
             ServiceName = BudgetsServiceName;
         }
@@ -43,7 +44,7 @@ namespace OCISDK.Core.Budgets
         /// <summary>
         /// Constructer
         /// </summary>
-        public BudgetsClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public BudgetsClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = BudgetsServiceName;
         }
@@ -53,7 +54,7 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public CreateAlertRuleResponse CreateAlertRule(CreateAlertRuleRequest request)
+        public async Task<CreateAlertRuleResponse> CreateAlertRule(CreateAlertRuleRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules");
 
@@ -62,7 +63,7 @@ namespace OCISDK.Core.Budgets
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateAlertRuleDetails, httpRequestHeaderParam);
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateAlertRuleDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -83,7 +84,7 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public CreateBudgetResponse CreateBudget(CreateBudgetRequest request)
+        public async Task<CreateBudgetResponse> CreateBudget(CreateBudgetRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}");
 
@@ -92,7 +93,7 @@ namespace OCISDK.Core.Budgets
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateBudgetDetails, httpRequestHeaderParam);
+            var webResponse = await this.RestClientAsync.Post(uri, request.CreateBudgetDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -113,7 +114,7 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public DeleteAlertRuleResponse DeleteAlertRule(DeleteAlertRuleRequest request)
+        public async Task<DeleteAlertRuleResponse> DeleteAlertRule(DeleteAlertRuleRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules/{request.AlertRuleId}");
 
@@ -122,7 +123,7 @@ namespace OCISDK.Core.Budgets
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
+            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -141,7 +142,7 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public DeleteBudgetResponse DeleteBudget(DeleteBudgetRequest request)
+        public async Task<DeleteBudgetResponse> DeleteBudget(DeleteBudgetRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}");
 
@@ -150,7 +151,7 @@ namespace OCISDK.Core.Budgets
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
+            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -169,11 +170,11 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public GetAlertRuleResponse GetAlertRule(GetAlertRuleRequest request)
+        public async Task<GetAlertRuleResponse> GetAlertRule(GetAlertRuleRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules/{request.AlertRuleId}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
+            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -193,7 +194,7 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public UpdateAlertRuleResponse UpdateAlertRule(UpdateAlertRuleRequest request)
+        public async Task<UpdateAlertRuleResponse> UpdateAlertRule(UpdateAlertRuleRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules/{request.AlertRuleId}");
 
@@ -202,7 +203,7 @@ namespace OCISDK.Core.Budgets
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateAlertRuleDetails, httpRequestHeaderParam);
+            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateAlertRuleDetails, httpRequestHeaderParam);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -223,11 +224,11 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ListAlertRulesResponse ListAlertRules(ListAlertRulesRequest request)
+        public async Task<ListAlertRulesResponse> ListAlertRules(ListAlertRulesRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -248,11 +249,11 @@ namespace OCISDK.Core.Budgets
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public ListBudgetsResponse ListBudgets(ListBudgetsRequest request)
+        public async Task<ListBudgetsResponse> ListBudgets(ListBudgetsRequest request)
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            var webResponse = await this.RestClientAsync.Get(uri);
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))

@@ -43,7 +43,7 @@ namespace OCISDK.Core.Budgets.Model
         /// The amount of the budget expressed in the currency of the customer's rate card.
         /// <para>Required: yes</para>
         /// </summary>
-        public string Amount { get; set; }
+        public double? Amount { get; set; }
 
         /// <summary>
         /// The reset period for the budget.
@@ -67,19 +67,19 @@ namespace OCISDK.Core.Budgets.Model
         /// Version of the budget. Starts from 1 and increments by 1.
         /// <para>Required: no</para>
         /// </summary>
-        public int Version { get; set; }
+        public int? Version { get; set; }
 
         /// <summary>
         /// The actual spend in currency for the current budget cycle
         /// <para>Required: no</para>
         /// </summary>
-        public double ActualSpend { get; set; }
+        public double? ActualSpend { get; set; }
 
         /// <summary>
         /// The forecasted spend in currency by the end of the current budget cycle
         /// <para>Required: no</para>
         /// </summary>
-        public double ForecastedSpend { get; set; }
+        public double? ForecastedSpend { get; set; }
 
         /// <summary>
         /// The time that the budget spend was last computed
