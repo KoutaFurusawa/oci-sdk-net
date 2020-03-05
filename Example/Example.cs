@@ -113,6 +113,7 @@ namespace Example
                 Console.WriteLine("[c]: LoadBalancer Example");
                 Console.WriteLine("[d]: Users Example");
                 Console.WriteLine("[e]: Notification Example");
+                Console.WriteLine("[f]: Budgets Example");
                 Console.WriteLine("[ESC]: Exit Example");
                 Console.WriteLine("");
 
@@ -203,6 +204,12 @@ namespace Example
                 if (mode == '1' || mode == 'e')
                 {
                     NotificationExample.ResourcesExample(config);
+                }
+
+                //budget
+                if (mode == '1' || mode == 'f')
+                {
+                    BudgetsExample.ConsoleDisplay(config);
                 }
             }
         }

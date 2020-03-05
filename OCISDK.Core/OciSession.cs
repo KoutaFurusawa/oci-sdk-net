@@ -1,4 +1,5 @@
 ﻿using OCISDK.Core.Audit;
+using OCISDK.Core.Budgets;
 using OCISDK.Core.Core;
 using OCISDK.Core.Database;
 using OCISDK.Core.DNS;
@@ -7,9 +8,11 @@ using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Notification;
 using OCISDK.Core.Monitoring;
+using OCISDK.Core.Notification;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.Search;
 using OCISDK.Core.UnpublishedService.Commercial;
+using OCISDK.Core.UnpublishedService.ConsoleIdcs;
 using OCISDK.Core.UnpublishedService.UsageCosts;
 using OCISDK.Core.Waas;
 using System;
@@ -206,12 +209,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Get BudgetsClient 
+        /// </summary>
+        /// <returns></returns>
+        public IBudgetsClient GetBudgetsClient()
+        {
+            return new BudgetsClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
         /// Get AuditClient Async
         /// </summary>
         /// <returns></returns>
         public IAuditClientAsync GetAuditClientAsync()
         {
             return new AuditClientAsync(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get BudgetsClient 
+        /// </summary>
+        /// <returns></returns>
+        public IBudgetsClientAsync GetBudgetsClientAsync()
+        {
+            return new BudgetsClientAsync(ClientConfigStream, OciSigner);
         }
 
         /// <summary>
@@ -388,6 +409,15 @@ namespace OCISDK.Core
         public IUsageCostsClient GetUsageCostsClient()
         {
             return new UsageCostsClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get ConsoleIdcsClient
+        /// </summary>
+        /// <returns></returns>
+        public IConsoleIdcsClient GetConsoleIdcsClient()
+        {
+            return new ConsoleIdcsClient(ClientConfigStream, OciSigner);
         }
     }
 }
