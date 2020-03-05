@@ -238,5 +238,11 @@ namespace OCISDK.Core
         /// </summary>
         /// <returns></returns>
         IUsageCostsClient GetUsageCostsClient();
+
+        /// <summary>
+        /// GetConsoleIdcsClient
+        /// </summary>
+        /// <returns></returns>
+        IConsoleIdcsClient GetConsoleIdcsClient();
     }
 }

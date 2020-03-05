@@ -11,6 +11,7 @@ using OCISDK.Core.Notification;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.Search;
 using OCISDK.Core.UnpublishedService.Commercial;
+using OCISDK.Core.UnpublishedService.ConsoleIdcs;
 using OCISDK.Core.UnpublishedService.UsageCosts;
 using OCISDK.Core.Waas;
 using System;
@@ -407,6 +408,15 @@ namespace OCISDK.Core
         public IUsageCostsClient GetUsageCostsClient()
         {
             return new UsageCostsClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get ConsoleIdcsClient
+        /// </summary>
+        /// <returns></returns>
+        public IConsoleIdcsClient GetConsoleIdcsClient()
+        {
+            return new ConsoleIdcsClient(ClientConfigStream, OciSigner);
         }
     }
 }
