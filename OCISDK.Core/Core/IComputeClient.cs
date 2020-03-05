@@ -80,6 +80,13 @@ namespace OCISDK.Core.Core
         GetInstanceResponse GetInstance(GetInstanceRequest getRequest);
 
         /// <summary>
+        /// Gets the default credentials of the specified instance
+        /// </summary>
+        /// <param name="getRequest"></param>
+        /// <returns></returns>
+        GetInstanceDefaultCredentialsResponse GetInstanceDefaultCredentials(GetInstanceDefaultCredentialsRequest getRequest);
+
+        /// <summary>
         /// Gets the specified image.
         /// </summary>
         /// <param name="getRequest"></param>
