@@ -56,6 +56,51 @@ namespace OCISDK.Core.Common
         public string MessageType { get; set; }
 
         /// <summary>
+        /// Expect
+        /// </summary>
+        public string Expect { get; set; }
+
+        /// <summary>
+        /// Content-Length
+        /// </summary>
+        public long? ContentLength { get; set; }
+
+        /// <summary>
+        /// Content-MD5
+        /// </summary>
+        public string ContentMD5 { get; set; }
+
+        /// <summary>
+        /// Content-Type
+        /// </summary>
+        public string ContentType { get; set; }
+
+        /// <summary>
+        /// Content-Language
+        /// </summary>
+        public string ContentLanguage { get; set; }
+
+        /// <summary>
+        /// Content-Encoding
+        /// </summary>
+        public string ContentEncoding { get; set; }
+
+        /// <summary>
+        /// Content-Disposition
+        /// </summary>
+        public string ContentDisposition { get; set; }
+
+        /// <summary>
+        /// Cache-Control
+        /// </summary>
+        public string CacheControl { get; set; }
+
+        /// <summary>
+        /// opc-meta-*
+        /// </summary>
+        public Dictionary<string, string> OpcMeta { get; set; }
+
+        /// <summary>
         /// HttpWebRequest setting header
         /// </summary>
         /// <param name="httpWebRequest"></param>
@@ -105,6 +150,54 @@ namespace OCISDK.Core.Common
             if (!string.IsNullOrEmpty(MessageType))
             {
                 httpWebRequest.Headers["messageType"] = MessageType;
+            }
+
+            if (!string.IsNullOrEmpty(Expect))
+            {
+                httpWebRequest.Headers["Expect"] = Expect;
+            }
+
+            if (ContentLength.HasValue)
+            {
+                httpWebRequest.Headers["Content-Length"] = ContentLength.Value.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(ContentMD5))
+            {
+                httpWebRequest.Headers["Content-MD5"] = ContentMD5;
+            }
+
+            if (!string.IsNullOrEmpty(ContentType))
+            {
+                httpWebRequest.Headers["Content-Type"] = ContentType;
+            }
+
+            if (!string.IsNullOrEmpty(ContentLanguage))
+            {
+                httpWebRequest.Headers["Content-Language"] = ContentLanguage;
+            }
+
+            if (!string.IsNullOrEmpty(ContentEncoding))
+            {
+                httpWebRequest.Headers["Content-Encoding"] = ContentEncoding;
+            }
+
+            if(!string.IsNullOrEmpty(ContentDisposition))
+            {
+                httpWebRequest.Headers["Content-Disposition"] = ContentDisposition;
+            }
+
+            if(!string.IsNullOrEmpty(CacheControl))
+            {
+                httpWebRequest.Headers["Cache-Control"] = CacheControl;
+            }
+
+            if(OpcMeta != null)
+            {
+                foreach (var key in OpcMeta.Keys)
+                {
+                    httpWebRequest.Headers[$"opc-meta-{key}"] = OpcMeta[key];
+                }
             }
 
             return httpWebRequest;
