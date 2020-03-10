@@ -23,7 +23,7 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.4.1-rc</Version>
+    <Version>0.6.4.2</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -42,7 +42,7 @@ RCバージョンにはバグが含まれている場合があります。
     * Add Notification APIs
     * Add InstanceAction API
     * Update UpdateInstance API
-2020/03/05 version 0.6.4-rc release
+2020/03/10 version 0.6.4.2 release
     * Add Budget Service APIs
     * Add InstanceDefaultCredentials API(External cooperation)
 </PackageReleaseNotes>
@@ -52,8 +52,8 @@ RCバージョンにはバグが含まれている場合があります。
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.6.4.1</AssemblyVersion>
-    <FileVersion>0.6.4.1</FileVersion>
+    <AssemblyVersion>0.6.4.2</AssemblyVersion>
+    <FileVersion>0.6.4.2</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
