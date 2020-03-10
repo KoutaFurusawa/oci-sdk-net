@@ -962,5 +962,149 @@ namespace OCISDK.Core.ObjectStorage
                 };
             }
         }
+
+        /// <summary>
+        /// Gets the status of the work request for the given ID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetWorkRequestResponse GetWorkRequest(GetWorkRequestRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion("workRequests", this.Region)}/{request.WorkRequestId}");
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcClientRequestId = request.OpcClientRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetWorkRequestResponse()
+                {
+                    WorkRequest = JsonSerializer.Deserialize<WorkRequestDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    RetryAfter = webResponse.Headers.Get("retry-after")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the work requests in a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListWorkRequestsResponse ListWorkRequests(ListWorkRequestsRequest request)
+        {
+            var uriStr = $"{GetEndPointNoneVersion("workRequests", this.Region)}?{request.GetOptionQuery()}";
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcClientRequestId = request.OpcClientRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWorkRequestsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<WorkRequestSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Cancels a work request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CancelWorkRequestResponse CancelWorkRequest(CancelWorkRequestRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion("workRequests", this.Region)}/{request.WorkRequestId}");
+
+            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcClientRequestId = request.OpcClientRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CancelWorkRequestResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the errors of the work request with the given ID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListWorkRequestErrorsResponse ListWorkRequestErrors(ListWorkRequestErrorsRequest request)
+        {
+            var uriStr = $"{GetEndPointNoneVersion("workRequests", this.Region)}/{request.WorkRequestId}/errors";
+            var optional = request.GetOptionQuery();
+            if (!string.IsNullOrEmpty(optional))
+            {
+                uriStr = $"{uriStr}?{optional}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcClientRequestId = request.OpcClientRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWorkRequestErrorsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<WorkRequestError>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the logs of the work request with the given ID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListWorkRequestLogsResponse ListWorkRequestLogs(ListWorkRequestLogsRequest request)
+        {
+            var uriStr = $"{GetEndPointNoneVersion("workRequests", this.Region)}/{request.WorkRequestId}/logs";
+            var optional = request.GetOptionQuery();
+            if (!string.IsNullOrEmpty(optional))
+            {
+                uriStr = $"{uriStr}?{optional}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcClientRequestId = request.OpcClientRequestId });
+
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListWorkRequestLogsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<WorkRequestLogEntry>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
     }
 }

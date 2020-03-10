@@ -195,7 +195,7 @@ namespace Example
 
 
                     var workReqestClient = session.GetWorkRequestClient();
-                    var listWorkRequestsRequest = new ListWorkRequestsRequest()
+                    var listWorkRequestsRequest = new OCISDK.Core.Core.Request.WorkRequest.ListWorkRequestsRequest()
                     {
                         CompartmentId = ins.CompartmentId,
                         ResourceId = ins.Id
@@ -206,14 +206,14 @@ namespace Example
                     {
                         Console.WriteLine($"\tWorkRequest: {wq.OperationType}, state:{wq.Status}");
 
-                        var getWorkRequestRequest = new GetWorkRequestRequest()
+                        var getWorkRequestRequest = new OCISDK.Core.Core.Request.WorkRequest.GetWorkRequestRequest()
                         {
                             WorkRequestId = wq.Id
                         };
                         var gw = workReqestClient.GetWorkRequest(getWorkRequestRequest);
                         Console.WriteLine($"\taccepted:{gw.WorkRequest.TimeAccepted}, finished:{gw.WorkRequest.TimeFinished}");
 
-                        var listWorkRequestErrorsRequest = new ListWorkRequestErrorsRequest()
+                        var listWorkRequestErrorsRequest = new OCISDK.Core.Core.Request.WorkRequest.ListWorkRequestErrorsRequest()
                         {
                             WorkRequestId = wq.Id,
                             Limit = 100,
@@ -225,7 +225,7 @@ namespace Example
                             Console.WriteLine($"\tErrorCode: {error.Code}, ErrorMessage:{error.Message}, ErrorTimeStamp:{error.Timestamp}");
                         }
 
-                        var listWorkRequestLogsRequest = new ListWorkRequestLogsRequest()
+                        var listWorkRequestLogsRequest = new OCISDK.Core.Core.Request.WorkRequest.ListWorkRequestLogsRequest()
                         {
                             WorkRequestId = wq.Id,
                             Limit = 100,

@@ -1,5 +1,7 @@
 ﻿using OCISDK.Core;
 using OCISDK.Core.Common;
+using OCISDK.Core.Identity;
+using OCISDK.Core.Identity.Request;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.ObjectStorage.Model;
 using OCISDK.Core.ObjectStorage.Request;
@@ -17,6 +19,11 @@ namespace Example
         public static void DisplayObjectStorage(ClientConfig config)
         {
             var client = new ObjectStorageClient(config)
+            {
+                Region = Regions.US_ASHBURN_1
+            };
+
+            var identityClient = new IdentityClient(config)
             {
                 Region = Regions.US_ASHBURN_1
             };
@@ -59,7 +66,7 @@ namespace Example
 
             if (mode == 1)
             {
-                DisplayBucketAndObject(config, namespaceName, client);
+                DisplayBucketAndObject(config, namespaceName, client, identityClient);
             }
             else if (mode == 2)
             {
@@ -125,69 +132,104 @@ namespace Example
             var deleteRes = client.DeleteObject(deleteObjectRequest);
         }
 
-        public static void DisplayBucketAndObject(ClientConfig config, string namespaceName, ObjectStorageClient client)
+        public static void DisplayBucketAndObject(ClientConfig config, string namespaceName, ObjectStorageClient client, IdentityClient identityClient)
         {
-            // list bucket
-            ListBucketsRequest listBucketsRequest = new ListBucketsRequest()
+            // Compartment required only to get a bucket
+            var listCompartmentRequest = new ListCompartmentRequest()
             {
-                NamespaceName = namespaceName,
-                CompartmentId = config.TenancyId
+                CompartmentId = config.TenancyId,
+                CompartmentIdInSubtree = true,
+                AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
             };
-            var listBucket = client.ListBuckets(listBucketsRequest);
-            Console.WriteLine($"* Bucket------------------------");
-            Console.WriteLine($" namespace : {namespaceName}");
-            Console.WriteLine($" comaprtment : {config.TenancyId}");
+            var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
+            // root(tenant) add
+            compartments.Add(new OCISDK.Core.Identity.Model.Compartment { Id = config.TenancyId, Name = "root" });
 
-            listBucket.Items.ForEach(bucket => {
-                HeadBucketRequest headBucketRequest = new HeadBucketRequest()
+            foreach (var compartment in compartments)
+            {
+                Console.WriteLine($"## Compartment<{compartment.Name}>--------");
+
+                // list bucket
+                ListBucketsRequest listBucketsRequest = new ListBucketsRequest()
                 {
-                    NamespaceName = bucket.Namespace,
-                    BucketName = bucket.Name
+                    NamespaceName = namespaceName,
+                    CompartmentId = compartment.Id
                 };
-                var buckethead = client.HeadBucket(headBucketRequest);
+                var listBucket = client.ListBuckets(listBucketsRequest);
+                Console.WriteLine($"* Bucket------------------------");
+                Console.WriteLine($" namespace : {namespaceName}");
+                Console.WriteLine($" comaprtment : {config.TenancyId}");
 
-                // get bucket details
-                GetBucketRequest getBucketRequest = new GetBucketRequest()
+                listBucket.Items.ForEach(bucket =>
                 {
-                    NamespaceName = bucket.Namespace,
-                    BucketName = bucket.Name,
-                    IfMatch = buckethead.ETag
-                };
-                var bucketDetail = client.GetBucket(getBucketRequest);
-                Console.WriteLine($"\t|- name : {bucketDetail.Bucket.Name}");
-                Console.WriteLine($"\t|  timeCreated : {bucketDetail.Bucket.TimeCreated}");
+                    HeadBucketRequest headBucketRequest = new HeadBucketRequest()
+                    {
+                        NamespaceName = bucket.Namespace,
+                        BucketName = bucket.Name
+                    };
+                    var buckethead = client.HeadBucket(headBucketRequest);
 
-                Console.WriteLine($"\t|* Object------------------------");
-                ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
-                {
-                    NamespaceName = bucketDetail.Bucket.Namespace,
-                    BucketName = bucketDetail.Bucket.Name,
-                    Fields = new List<string> { "size", "timeCreated", "md5" }
-                };
-                var Objs = client.ListObjects(listObjectsRequest);
-                Objs.ListObjects.Objects.ForEach(obj => {
-                    Console.WriteLine($"\t|\t|- name : {obj.Name}");
+                    // get bucket details
+                    GetBucketRequest getBucketRequest = new GetBucketRequest()
+                    {
+                        NamespaceName = bucket.Namespace,
+                        BucketName = bucket.Name,
+                        IfMatch = buckethead.ETag
+                    };
+                    var bucketDetail = client.GetBucket(getBucketRequest);
+                    Console.WriteLine($"\t|- * name : {bucketDetail.Bucket.Name}");
+                    Console.WriteLine($"\t|    timeCreated : {bucketDetail.Bucket.TimeCreated}");
 
-                    GetObjectRequest getObjectRequest = new GetObjectRequest()
+                    // Bucket workrequests
+                    ListWorkRequestsRequest listWorkRequestsRequest = new ListWorkRequestsRequest
+                    {
+                        CompartmentId = bucketDetail.Bucket.CompartmentId,
+                        BucketName = bucket.Name
+                    };
+                    var wrs = client.ListWorkRequests(listWorkRequestsRequest);
+                    Console.WriteLine($"\t|* WorkRequest------------------------");
+                    foreach (var wr in wrs.Items)
+                    {
+                        Console.WriteLine($"\t|\t|- name : {wr.OperationType}");
+                        Console.WriteLine($"\t|\t|- status : {wr.Status}");
+                        Console.WriteLine($"\t|\t|- start : {wr.TimeStarted}");
+                        Console.WriteLine($"\t|\t|- finish : {wr.TimeFinished}");
+                    }
+
+                    // objects
+                    Console.WriteLine($"\t|* Object------------------------");
+                    ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
                     {
                         NamespaceName = bucketDetail.Bucket.Namespace,
                         BucketName = bucketDetail.Bucket.Name,
-                        ObjectName = obj.Name,
+                        Fields = new List<string> { "size", "timeCreated", "md5" }
                     };
-                    var ObjDetails = client.GetObject(getObjectRequest);
-                    Console.WriteLine($"\t|\t|- contentLength : {ObjDetails.ContentLength}");
+                    var Objs = client.ListObjects(listObjectsRequest);
+                    Objs.ListObjects.Objects.ForEach(obj =>
+                    {
+                        Console.WriteLine($"\t|\t|- name : {obj.Name}");
 
-                    // download
-                    /*if (!Directory.Exists("./ExampleDownload"))
-                    {
-                        Directory.CreateDirectory("./ExampleDownload");
-                    }
-                    if (!File.Exists($"./ExampleDownload/{obj.Name.Replace('/', '_')}"))
-                    {
-                        client.DownloadObject(getObjectRequest, "./ExampleDownload/", obj.Name.Replace('/', '_'));
-                    }*/
+                        GetObjectRequest getObjectRequest = new GetObjectRequest()
+                        {
+                            NamespaceName = bucketDetail.Bucket.Namespace,
+                            BucketName = bucketDetail.Bucket.Name,
+                            ObjectName = obj.Name,
+                        };
+                        var ObjDetails = client.GetObject(getObjectRequest);
+                        Console.WriteLine($"\t|\t|- contentLength : {ObjDetails.ContentLength}");
+
+                        // download
+                        /*if (!Directory.Exists("./ExampleDownload"))
+                        {
+                            Directory.CreateDirectory("./ExampleDownload");
+                        }
+                        if (!File.Exists($"./ExampleDownload/{obj.Name.Replace('/', '_')}"))
+                        {
+                            client.DownloadObject(getObjectRequest, "./ExampleDownload/", obj.Name.Replace('/', '_'));
+                        }*/
+                    });
                 });
-            });
+            }
         }
 
         public static void DisplayUsageReport(ClientConfig config, ObjectStorageClient client)

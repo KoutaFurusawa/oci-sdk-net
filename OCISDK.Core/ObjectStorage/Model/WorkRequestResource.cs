@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OCISDK.Core.Core.Model.WorkRequest
+namespace OCISDK.Core.ObjectStorage.Model
 {
     /// <summary>
-    /// WorkRequestResource
+    /// WorkRequestResource Reference
     /// </summary>
     public class WorkRequestResource
     {
         /// <summary>
-        /// The way in which this resource was affected by the operation that spawned the work request.
-        /// <para>Required: yes</para>
+        /// The status of the work request.
+        /// <para>Required: no</para>
         /// </summary>
         public string ActionType { get; set; }
 
         /// <summary>
         /// The resource type the work request affects.
-        /// <para>Required: yes</para>
+        /// <para>Required: no</para>
         /// </summary>
         public string EntityType { get; set; }
 
         /// <summary>
-        /// An OCID or other unique identifier for the resource.
-        /// <para>Required: yes</para>
+        /// The resource type identifier.
+        /// <para>Required: no</para>
         /// </summary>
         public string Identifier { get; set; }
 

@@ -251,5 +251,40 @@ namespace OCISDK.Core.ObjectStorage
         /// <param name="request"></param>
         /// <returns></returns>
         Task<AbortMultipartUploadResponse> AbortMultipartUpload(AbortMultipartUploadRequest request);
+
+        /// <summary>
+        /// Gets the status of the work request for the given ID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetWorkRequestResponse> GetWorkRequest(GetWorkRequestRequest request);
+
+        /// <summary>
+        /// Lists the work requests in a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWorkRequestsResponse> ListWorkRequests(ListWorkRequestsRequest request);
+
+        /// <summary>
+        /// Cancels a work request.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CancelWorkRequestResponse> CancelWorkRequest(CancelWorkRequestRequest request);
+
+        /// <summary>
+        /// Lists the errors of the work request with the given ID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWorkRequestErrorsResponse> ListWorkRequestErrors(ListWorkRequestErrorsRequest request);
+
+        /// <summary>
+        /// Lists the logs of the work request with the given ID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListWorkRequestLogsResponse> ListWorkRequestLogs(ListWorkRequestLogsRequest request);
     }
 }
