@@ -8,7 +8,6 @@ using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Notification;
 using OCISDK.Core.Monitoring;
-using OCISDK.Core.Notification;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.Search;
 using OCISDK.Core.UnpublishedService.Commercial;
@@ -17,6 +16,7 @@ using OCISDK.Core.Waas;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using OCISDK.Core.UnpublishedService.ConsoleIdcs;
 
 namespace OCISDK.Core
 {
