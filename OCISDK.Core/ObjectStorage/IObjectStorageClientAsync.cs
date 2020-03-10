@@ -54,6 +54,20 @@ namespace OCISDK.Core.ObjectStorage
         Task<GetObjectResponse> GetObject(GetObjectRequest request);
 
         /// <summary>
+        /// Gets the object lifecycle policy for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetObjectLifecyclePolicyResponse> GetObjectLifecyclePolicy(GetObjectLifecyclePolicyRequest request);
+
+        /// <summary>
+        /// Gets the pre-authenticated request for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetPreauthenticatedRequestResponse> GetPreauthenticatedRequest(GetPreauthenticatedRequestRequest request);
+
+        /// <summary>
         /// Download Object
         /// </summary>
         /// <param name="request"></param>
@@ -80,11 +94,46 @@ namespace OCISDK.Core.ObjectStorage
         Task<ListObjectsResponse> ListObjects(ListObjectsRequest request);
 
         /// <summary>
+        /// Lists the parts of an in-progress multipart upload.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListMultipartUploadPartsResponse> ListMultipartUploadParts(ListMultipartUploadPartsRequest request);
+
+        /// <summary>
+        /// Lists all of the in-progress multipart uploads for the given bucket in the given Object Storage namespace.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListMultipartUploadsResponse> ListMultipartUploads(ListMultipartUploadsRequest request);
+
+        /// <summary>
+        /// Lists pre-authenticated requests for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListPreauthenticatedRequestsResponse> ListPreauthenticatedRequests(ListPreauthenticatedRequestsRequest request);
+
+        /// <summary>
         /// Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential information in bucket names.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<CreateBucketResponse> CreateBucket(CreateBucketRequest request);
+
+        /// <summary>
+        /// Rename an object in the given Object Storage namespace.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<RenameObjectResponse> RenameObject(RenameObjectRequest request);
+
+        /// <summary>
+        /// Restores one or more objects specified by the objectName parameter. By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<RestoreObjectsResponse> RestoreObjects(RestoreObjectsRequest request);
 
         /// <summary>
         /// By default, buckets created using the Amazon S3 Compatibility API or the Swift API are created in the root compartment of the Oracle Cloud Infrastructure tenancy.
@@ -109,6 +158,64 @@ namespace OCISDK.Core.ObjectStorage
         Task<UpdateBucketResponse> UpdateBucket(UpdateBucketRequest request);
 
         /// <summary>
+        /// Creates a new object or overwrites an existing object with the same name. The maximum object size allowed by PutObject is 50 GiB.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<PutObjectResponse> PutObject(PutObjectRequest request);
+
+        /// <summary>
+        /// Uploads a single part of a multipart upload.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UploadPartResponse> UploadPart(UploadPartRequest request);
+
+        /// <summary>
+        /// Creates or replaces the object lifecycle policy for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<PutObjectLifecyclePolicyResponse> PutObjectLifecyclePolicy(PutObjectLifecyclePolicyRequest request);
+
+        /// <summary>
+        /// Re-encrypts the unique data encryption key that encrypts each object written to the bucket by using the most recent version of the master encryption key assigned to the bucket.
+        /// (All data encryption keys are encrypted by a master encryption key. Master encryption keys are assigned to buckets and managed by Oracle by default, but you can assign a key that 
+        /// you created and control through the Oracle Cloud Infrastructure Key Management service.) The kmsKeyId property of the bucket determines which master encryption key is assigned to the 
+        /// bucket. If you assigned a different Key Management master encryption key to the bucket, you can call this API to re-encrypt all data encryption keys with the newly assigned key. 
+        /// Similarly, you might want to re-encrypt all data encryption keys if the assigned key has been rotated to a new key version since objects were last added to the bucket. If you call this 
+        /// API and there is no kmsKeyId associated with the bucket, the call will fail.
+        /// 
+        /// Calling this API starts a work request task to re-encrypt the data encryption key of all objects in the bucket. Only objects created before the time of the API call will be re-encrypted. 
+        /// The call can take a long time, depending on how many objects are in the bucket and how big they are. This API returns a work request ID that you can use to retrieve the status of the 
+        /// work request task.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ReencryptBucketResponse> ReencryptBucket(ReencryptBucketRequest request);
+
+        /// <summary>
+        /// Starts a new multipart upload to a specific object in the given bucket in the given namespace.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreateMultipartUploadResponse> CreateMultipartUpload(CreateMultipartUploadRequest request);
+
+        /// <summary>
+        /// Commits a multipart upload, which involves checking part numbers and entity tags (ETags) of the parts, to create an aggregate object.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CommitMultipartUploadResponse> CommitMultipartUpload(CommitMultipartUploadRequest request);
+
+        /// <summary>
+        /// Creates a pre-authenticated request specific to the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<CreatePreauthenticatedRequestResponse> CreatePreauthenticatedRequest(CreatePreauthenticatedRequestRequest request);
+
+        /// <summary>
         /// Deletes a bucket if the bucket is already empty. 
         /// If the bucket is not empty, use DeleteObject first. 
         /// In addition, you cannot delete a bucket that has a multipart upload in progress or a pre-authenticated request associated with that bucket.
@@ -116,5 +223,33 @@ namespace OCISDK.Core.ObjectStorage
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DeleteBucketResponse> DeleteBucket(DeleteBucketRequest request);
+
+        /// <summary>
+        /// Deletes an object.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteObjectResponse> DeleteObject(DeleteObjectRequest request);
+
+        /// <summary>
+        /// Deletes the object lifecycle policy for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteObjectLifecyclePolicyResponse> DeleteObjectLifecyclePolicy(DeleteObjectLifecyclePolicyRequest request);
+
+        /// <summary>
+        /// Deletes the pre-authenticated request for the bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeletePreauthenticatedRequestResponse> DeletePreauthenticatedRequest(DeletePreauthenticatedRequestRequest request);
+
+        /// <summary>
+        /// Aborts an in-progress multipart upload and deletes all parts that have been uploaded.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<AbortMultipartUploadResponse> AbortMultipartUpload(AbortMultipartUploadRequest request);
     }
 }

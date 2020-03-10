@@ -42,7 +42,7 @@ RCバージョンにはバグが含まれている場合があります。
     * Add Notification APIs
     * Add InstanceAction API
     * Update UpdateInstance API
-2020/01/27 version 0.6.4-rc release
+2020/03/05 version 0.6.4-rc release
     * Add Budget Service APIs
     * Add InstanceDefaultCredentials API(External cooperation)
 </PackageReleaseNotes>

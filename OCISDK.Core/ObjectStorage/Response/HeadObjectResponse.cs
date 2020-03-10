@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace OCISDK.Core.ObjectStorage.Response
 {
     /// <summary>
-    /// GetObject Response
+    /// HeadObject response
     /// </summary>
-    public class GetObjectResponse
+    public class HeadObjectResponse
     {
-        /// <summary>
-        /// FileURL
-        /// </summary>
-        public string FileURL { get; set; }
-
         /// <summary>
         /// Echoes back the value passed in the opc-client-request-id header, for use by clients when debugging.
         /// </summary>
         public string OpcClientRequestId { get; set; }
 
         /// <summary>
-        /// Unique Oracle-assigned identifier for the request. 
-        /// If you need to contact Oracle about a particular request, provide this request ID.
+        /// Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, provide this request ID.
         /// </summary>
         public string OpcRequestId { get; set; }
 
@@ -38,11 +33,6 @@ namespace OCISDK.Core.ObjectStorage.Response
         /// The object size in bytes.
         /// </summary>
         public long? ContentLength { get; set; }
-
-        /// <summary>
-        /// Content-Range header for range requests, per [RFC 7233](https://tools.ietf.org/rfc/rfc7233), section 4.2.
-        /// </summary>
-        public Object ContentRange { get; set; }
 
         /// <summary>
         /// Content-MD5 header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.15.
@@ -74,6 +64,16 @@ namespace OCISDK.Core.ObjectStorage.Response
         public string ContentEncoding { get; set; }
 
         /// <summary>
+        /// Cache-Control header, as described in RFC 2616.
+        /// </summary>
+        public string CacheControl { get; set; }
+
+        /// <summary>
+        /// Content-Disposition header, as described in RFC 2616.
+        /// </summary>
+        public string ContentDisposition { get; set; }
+
+        /// <summary>
         /// The object modification time, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
         /// </summary>
         public string LastModified { get; set; }
@@ -87,6 +87,5 @@ namespace OCISDK.Core.ObjectStorage.Response
         /// The returned java.io.InputStream instance, or null if {@link #isNotModified()} is true.
         /// </summary>
         public string TimeOfArchival { get; set; }
-
     }
 }

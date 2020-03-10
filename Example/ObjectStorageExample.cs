@@ -3,6 +3,7 @@ using OCISDK.Core.Common;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.ObjectStorage.Model;
 using OCISDK.Core.ObjectStorage.Request;
+using OCISDK.Core.ObjectStorage.Response;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ namespace Example
             {
                 Region = Regions.US_ASHBURN_1
             };
-            
+
             // get namespace
             GetNamespaceRequest getNamespaceRequest = new GetNamespaceRequest();
             var namespaceName = client.GetNamespace(getNamespaceRequest);
@@ -35,6 +36,97 @@ namespace Example
             Console.WriteLine($" defaultS3CompartmentId : {namespaceMetadata.DefaultS3CompartmentId}");
             Console.WriteLine($" defaultSwiftCompartmentId : {namespaceMetadata.DefaultSwiftCompartmentId}");
 
+            Console.WriteLine();
+            Console.WriteLine("ObjectStorage Example Menu");
+            Console.WriteLine("[1]: Display List");
+            Console.WriteLine("[2]: Upload Example");
+            Console.WriteLine("[3]: UsageReport Example");
+            Console.WriteLine("[ESC] or [E(e)] : Back Example Menu");
+            Console.WriteLine();
+
+            var presskey = Console.ReadKey(true);
+            if (presskey.Key == ConsoleKey.Escape || presskey.KeyChar == 'E' || presskey.KeyChar == 'e')
+            {
+                Console.WriteLine("Back Example Menu");
+                return;
+            }
+            var select = presskey.KeyChar;
+            if (!int.TryParse(select.ToString(), out int mode))
+            {
+                Console.WriteLine("Incorrect input...");
+                return;
+            }
+
+            if (mode == 1)
+            {
+                DisplayBucketAndObject(config, namespaceName, client);
+            }
+            else if (mode == 2)
+            {
+                PutObject(config, namespaceName, client);
+            }
+            else if (mode == 3)
+            {
+                DisplayUsageReport(config, client);
+            }
+            else
+            {
+                Console.WriteLine("Incorrect input...");
+                return;
+            }
+        }
+
+        public static void PutObject(ClientConfig config, string namespaceName, ObjectStorageClient client)
+        {
+            string targetBucketName = "TestBucket";
+            string fileName = "HelloWorld.txt";
+
+            // Test file create
+            using (var streamWriter = new StreamWriter(fileName))
+            {
+                streamWriter.WriteLine("hello world");
+            }
+
+            // put
+            PutObjectRequest putObjectRequest = new PutObjectRequest
+            {
+                NamespaceName = namespaceName,
+                BucketName = targetBucketName,
+                ObjectName = fileName
+            };
+            PutObjectResponse updateRes;
+            using (FileStream stream = new FileStream(fileName, FileMode.Open))
+            {
+                putObjectRequest.UploadPartBody = stream;
+
+                updateRes = client.PutObject(putObjectRequest);
+            }
+
+            // rename
+            RenameObjectRequest renameObjectRequest = new RenameObjectRequest
+            {
+                NamespaceName = namespaceName,
+                BucketName = targetBucketName,
+                RenameObjectDetails = new RenameObjectDetails { 
+                    SourceName = fileName,
+                    NewName = "NewName.txt"
+                }
+            };
+            var renameRes = client.RenameObject(renameObjectRequest);
+
+            // delete
+            DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest
+            {
+                NamespaceName = namespaceName,
+                BucketName = targetBucketName,
+                ObjectName = "NewName.txt",
+                IfMatch = renameRes.ETag
+            };
+            var deleteRes = client.DeleteObject(deleteObjectRequest);
+        }
+
+        public static void DisplayBucketAndObject(ClientConfig config, string namespaceName, ObjectStorageClient client)
+        {
             // list bucket
             ListBucketsRequest listBucketsRequest = new ListBucketsRequest()
             {
@@ -46,7 +138,7 @@ namespace Example
             Console.WriteLine($" namespace : {namespaceName}");
             Console.WriteLine($" comaprtment : {config.TenancyId}");
 
-            listBucket.Items.ForEach(bucket=> {
+            listBucket.Items.ForEach(bucket => {
                 HeadBucketRequest headBucketRequest = new HeadBucketRequest()
                 {
                     NamespaceName = bucket.Namespace,
@@ -64,13 +156,13 @@ namespace Example
                 var bucketDetail = client.GetBucket(getBucketRequest);
                 Console.WriteLine($"\t|- name : {bucketDetail.Bucket.Name}");
                 Console.WriteLine($"\t|  timeCreated : {bucketDetail.Bucket.TimeCreated}");
-                
+
                 Console.WriteLine($"\t|* Object------------------------");
                 ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
                 {
                     NamespaceName = bucketDetail.Bucket.Namespace,
                     BucketName = bucketDetail.Bucket.Name,
-                    Fields=new List<string> { "size", "timeCreated", "md5" }
+                    Fields = new List<string> { "size", "timeCreated", "md5" }
                 };
                 var Objs = client.ListObjects(listObjectsRequest);
                 Objs.ListObjects.Objects.ForEach(obj => {
@@ -86,17 +178,20 @@ namespace Example
                     Console.WriteLine($"\t|\t|- contentLength : {ObjDetails.ContentLength}");
 
                     // download
-                    if (!Directory.Exists("./ExampleDownload"))
+                    /*if (!Directory.Exists("./ExampleDownload"))
                     {
                         Directory.CreateDirectory("./ExampleDownload");
                     }
                     if (!File.Exists($"./ExampleDownload/{obj.Name.Replace('/', '_')}"))
                     {
                         client.DownloadObject(getObjectRequest, "./ExampleDownload/", obj.Name.Replace('/', '_'));
-                    }
+                    }*/
                 });
             });
+        }
 
+        public static void DisplayUsageReport(ClientConfig config, ObjectStorageClient client)
+        {
             // UsageReport
             // Example policy:
             // define tenancy usage-report as ocid1.tenancy.oc1..aaaaaaaaned4fkpkisbwjlr56u7cj63lf3wffbilvqknstgtvzub7vhqkggq
@@ -126,7 +221,8 @@ namespace Example
                         client.DownloadObject(getObjectRequest, "./ExampleDownload/report/", r.Name.Replace('/', '_'));
                     }*/
                 });
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine($"Does not meet UsageReport usage requirements. message:{e.Message}");
             }

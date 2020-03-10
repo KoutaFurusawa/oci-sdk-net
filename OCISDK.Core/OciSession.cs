@@ -8,7 +8,6 @@ using OCISDK.Core.Identity;
 using OCISDK.Core.LoadBalancer;
 using OCISDK.Core.Notification;
 using OCISDK.Core.Monitoring;
-using OCISDK.Core.Notification;
 using OCISDK.Core.ObjectStorage;
 using OCISDK.Core.Search;
 using OCISDK.Core.UnpublishedService.Commercial;
