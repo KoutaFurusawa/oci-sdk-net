@@ -1,10 +1,12 @@
 ﻿using OCISDK.Core.Common;
+using OCISDK.Core.ObjectStorage.IO;
 using OCISDK.Core.ObjectStorage.Model;
 using OCISDK.Core.ObjectStorage.Request;
 using OCISDK.Core.ObjectStorage.Response;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -269,10 +271,33 @@ namespace OCISDK.Core.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
-        /// <param name="filename"></param>
-        public async Task DownloadObject(GetObjectRequest request, string savePath, string filename)
+        public async Task<bool?> DownloadObject(GetObjectRequest request, string savePath)
         {
-            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
+            savePath = ObjectStorageHelper.EncodeKey(savePath);
+
+            var dirs = savePath.Split('/');
+
+            string fileName = dirs[dirs.Length - 1];
+            string newPath = "";
+            for (var i = 0; i < dirs.Length - 1; i++)
+            {
+                newPath = $"{newPath}{dirs[i]}/";
+            }
+
+            return await DownloadObject(request, newPath, fileName);
+        }
+
+        /// <summary>
+        /// Download Object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="savePath"></param>
+        /// <param name="filename"></param>
+        public async Task<bool?> DownloadObject(GetObjectRequest request, string savePath, string filename)
+        {
+            savePath = ObjectStorageHelper.EncodeKey(savePath);
+
+            Uri uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
 
             var httpRequestHeaderParam = new HttpRequestHeaderParam()
             {
@@ -281,10 +306,54 @@ namespace OCISDK.Core.ObjectStorage
                 OpcClientRequestId = request.OpcClientRequestId,
                 Range = request.Range
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+
+            WebResponse webResponse;
+            try
+            {
+                webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            }
+            catch (WebException we)
+            {
+                if (we.Status.Equals(WebExceptionStatus.ProtocolError) && ((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+
+            string path = savePath;
+            if (path[path.Length - 1] != '/')
+            {
+                path = $"{path}/";
+            }
+
+            if (!string.IsNullOrEmpty(filename))
+            {
+                path = $"{path}{filename}";
+            }
+            else
+            {
+                if (request.ObjectName.IndexOf('/') != -1)
+                {
+                    var strs = request.ObjectName.Split('/');
+                    path = $"{path}{strs[strs.Length - 1]}";
+                }
+                else
+                {
+                    path = $"{path}{request.ObjectName}";
+                }
+            }
 
             using (var stream = webResponse.GetResponseStream())
-            using (var fs = new FileStream($"{savePath}/{filename}", FileMode.Create, FileAccess.Write))
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 byte[] readData = new byte[1024];
                 while (true)
@@ -297,6 +366,8 @@ namespace OCISDK.Core.ObjectStorage
                     fs.Write(readData, 0, readSize);
                 }
             }
+
+            return true;
         }
 
         /// <summary>

@@ -72,8 +72,15 @@ namespace OCISDK.Core.ObjectStorage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="savePath"></param>
+        Task<bool?> DownloadObject(GetObjectRequest request, string savePath);
+
+        /// <summary>
+        /// Download Object
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="savePath"></param>
         /// <param name="filename"></param>
-        Task DownloadObject(GetObjectRequest request, string savePath, string filename);
+        Task<bool?> DownloadObject(GetObjectRequest request, string savePath, string filename);
 
         /// <summary>
         /// Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket and does not 
