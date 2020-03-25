@@ -691,7 +691,7 @@ namespace OCISDK.Core.ObjectStorage.IO
 
             if (String.IsNullOrEmpty(key) && Exists)
             {
-                var request = new DeleteBucketRequest { BucketName = bucket };
+                var request = new DeleteBucketRequest { NamespaceName = namespaceName, BucketName = bucket };
                 client.DeleteBucket(request);
             }
             else
@@ -708,47 +708,6 @@ namespace OCISDK.Core.ObjectStorage.IO
                     client.DeleteObject(request);
                 }
             }
-        }
-
-        /// <summary>
-        /// Creating and deleting buckets can sometimes take a little bit of time.  To make sure
-        /// users of this API do not experience the side effects of the eventual consistency
-        /// we block until the state change has happened.
-        /// </summary>
-        /// <param name="exists"></param>
-        private async Task WaitTillBucketStateIsConsistent(bool exists)
-        {
-            int success = 0;
-            bool currentState = false;
-            DateTime start = DateTime.UtcNow;
-
-            ListBucketsRequest listBucketsRequest = new ListBucketsRequest
-            {
-                NamespaceName = namespaceName,
-                CompartmentId = client.GetTenancyId()
-            };
-            do
-            {
-                List<BucketSummary> buckets = (await clientAsync.ListBuckets(listBucketsRequest)).Items;
-                currentState = buckets.FirstOrDefault(x => string.Equals(x.Name, bucket)) != null;
-
-                if (currentState == exists)
-                {
-                    success++;
-
-                    if (success == EVENTUAL_CONSISTENCY_SUCCESS_IN_ROW)
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    success = 0;
-                }
-
-                Thread.Sleep(EVENTUAL_CONSISTENCY_POLLING_PERIOD);
-
-            } while ((DateTime.UtcNow - start).TotalMilliseconds < EVENTUAL_CONSISTENCY_MAX_WAIT);
         }
 
         static string WildcardToRegex(string pattern)
