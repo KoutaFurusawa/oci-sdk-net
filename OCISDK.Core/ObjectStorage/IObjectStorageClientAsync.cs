@@ -239,6 +239,13 @@ namespace OCISDK.Core.ObjectStorage
         Task<DeleteObjectResponse> DeleteObject(DeleteObjectRequest request);
 
         /// <summary>
+        /// Deletes an objects.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteObjectsResponse> DeleteObjects(DeleteObjectsRequest request);
+
+        /// <summary>
         /// Deletes the object lifecycle policy for the bucket.
         /// </summary>
         /// <param name="request"></param>

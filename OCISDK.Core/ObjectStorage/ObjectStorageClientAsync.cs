@@ -953,6 +953,102 @@ namespace OCISDK.Core.ObjectStorage
         }
 
         /// <summary>
+        /// Deletes an objects.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteObjectsResponse> DeleteObjects(DeleteObjectsRequest request)
+        {
+            string uriStr = $"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/";
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+
+            bool quiet = false;
+            if (request.Quiet.HasValue && request.Quiet.Value)
+            {
+                quiet = true;
+            }
+
+            var result = await Task.Run<DeleteObjectsResponse>(() => ExecuteDeleteObjects(uriStr, headers, quiet, request.Objects));
+
+
+            return result;
+        }
+
+        /// <summary>
+        /// execute delete objects.
+        /// </summary>
+        /// <param name="uriStr"></param>
+        /// <param name="headers"></param>
+        /// <param name="quiet"></param>
+        /// <param name="objects"></param>
+        /// <returns></returns>
+        private DeleteObjectsResponse ExecuteDeleteObjects(string uriStr, HttpRequestHeaderParam headers, bool quiet, List<TargetDelete> objects)
+        {
+            DeleteObjectsResponse deleteObjectsResponse = new DeleteObjectsResponse
+            {
+                DeletedObjects = new List<DeletedObject>()
+            };
+
+            foreach (var obj in objects)
+            {
+                var uri = new Uri($"{uriStr}{obj.ObjectName}");
+
+                if (!string.IsNullOrEmpty(obj.IfMatch))
+                {
+                    headers.IfMatch = obj.IfMatch;
+                }
+
+                try
+                {
+                    var webResponse = this.RestClient.Delete(uri, headers);
+
+                    using (var stream = webResponse.GetResponseStream())
+                    using (var reader = new StreamReader(stream))
+                    {
+                        var response = reader.ReadToEnd();
+
+                        if (!quiet)
+                        {
+                            DeletedObject deletedObject = new DeletedObject
+                            {
+                                Name = obj.ObjectName,
+                                Message = "",
+                                Code = (int)webResponse.StatusCode,
+                                OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                                OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                                LastModified = webResponse.Headers.Get("last-modified")
+                            };
+                            deleteObjectsResponse.DeletedObjects.Add(deletedObject);
+                        }
+                    }
+                }
+                catch (WebException we)
+                {
+                    if (we.Status.Equals(WebExceptionStatus.ProtocolError))
+                    {
+                        DeletedObject deletedObject = new DeletedObject
+                        {
+                            Name = obj.ObjectName,
+                            Message = we.Message,
+                            Code = (int)((HttpWebResponse)we.Response).StatusCode
+                        };
+                        deleteObjectsResponse.DeletedObjects.Add(deletedObject);
+                    }
+                    else
+                    {
+                        throw we;
+                    }
+                }
+            }
+
+            return deleteObjectsResponse;
+        }
+
+        /// <summary>
         /// Deletes the object lifecycle policy for the bucket.
         /// </summary>
         /// <param name="request"></param>
