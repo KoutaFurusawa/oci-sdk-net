@@ -26,106 +26,60 @@ namespace OCISDK.Core.ObjectStorage.IO
     /// </summary>
     public class ObjectStorageDirectoryInfo : IObjectStorageFileSystemInfo
     {
-        private const int EVENTUAL_CONSISTENCY_SUCCESS_IN_ROW = 10;
-        private const int EVENTUAL_CONSISTENCY_POLLING_PERIOD = 1000;
-        private const long EVENTUAL_CONSISTENCY_MAX_WAIT = 30000;
         private const int MULTIPLE_OBJECT_DELETE_LIMIT = 1000;
 
-        private IObjectStorageClient client;
-        private IObjectStorageClientAsync clientAsync;
-        private string namespaceName;
-        private string tenantId;
-        private string bucket;
-        private string key;
+        internal IObjectStorageClient Client { get; }
 
-        internal IObjectStorageClient Client
-        {
-            get
-            {
-                return client;
-            }
-        }
+        internal IObjectStorageClientAsync ClientAsync { get; }
 
-        internal IObjectStorageClientAsync ClientAsync
-        {
-            get
-            {
-                return clientAsync;
-            }
-        }
+        internal string NamespaceName { get; }
 
-        internal string NamespaceName
-        {
-            get
-            {
-                return namespaceName;
-            }
-        }
+        internal string TenantId { get; }
 
-        internal string TenantId
-        {
-            get
-            {
-                return tenantId;
-            }
-        }
+        internal string BucketName { get; }
 
-        internal string BucketName
-        {
-            get
-            {
-                return bucket;
-            }
-        }
-
-        internal string ObjectKey
-        {
-            get
-            {
-                return key;
-            }
-        }
+        internal string ObjectKey { get; }
 
         /// <summary>
-        /// コンストラクタ
+        /// constructor
         /// </summary>
-        /// <param name="clinet">クライアント</param>
-        /// <param name="namespaceName">ネームスペース</param>
-        /// <param name="bucket">バケット名</param>
+        /// <param name="clinet">client</param>
+        /// <param name="namespaceName">namespace name</param>
+        /// <param name="bucket">bucket name</param>
         public ObjectStorageDirectoryInfo(IObjectStorageClient clinet, string namespaceName, string bucket)
             : this(clinet, namespaceName, bucket, null)
         {
         }
 
         /// <summary>
-        /// コンストラクタ
+        /// constructor
         /// </summary>
-        /// <param name="client">クライアント</param>
-        /// <param name="namespaceName">ネームスペース</param>
-        /// <param name="bucket">バケット名</param>
+        /// <param name="client">client</param>
+        /// <param name="namespaceName">namespace name</param>
+        /// <param name="bucket">bucket name</param>
         /// <param name="key"></param>
         public ObjectStorageDirectoryInfo(IObjectStorageClient client, string namespaceName, string bucket, string key)
         {
-            this.client = client ?? throw new ArgumentNullException("client");
+            Client = client ?? throw new ArgumentNullException("client");
 
             if (String.IsNullOrEmpty(bucket) && !String.IsNullOrEmpty(key))
             {
                 throw new ArgumentException("key cannot be specified if bucket isn't");
             }
 
-            this.namespaceName = namespaceName;
-            this.bucket = bucket ?? String.Empty;
-            this.key = key ?? String.Empty;
+            NamespaceName = namespaceName ?? throw new ArgumentNullException("namespaceName");
+            BucketName = bucket ?? String.Empty;
+            ObjectKey = key ?? String.Empty;
         }
 
         /// <summary>
-        /// The ObjectStorageDirectoryInfo for the root of the S3 bucket.
+        /// The ObjectStorageDirectoryInfo for the root of the bucket.
         /// </summary>
         public ObjectStorageDirectoryInfo Bucket
         {
             get
             {
-                return new ObjectStorageDirectoryInfo(client, bucket, "");
+                return new ObjectStorageDirectoryInfo(Client, BucketName, "");
             }
         }
 
@@ -146,21 +100,21 @@ namespace OCISDK.Core.ObjectStorage.IO
             bucketExists = true;
             try
             {
-                if (String.IsNullOrEmpty(bucket))
+                if (String.IsNullOrEmpty(BucketName))
                 {
                     return true;
                 }
-                else if (String.IsNullOrEmpty(key))
+                else if (String.IsNullOrEmpty(ObjectKey))
                 {
                     var getBucketRequest = new GetBucketRequest
                     {
-                        NamespaceName = this.namespaceName,
-                        BucketName = this.bucket
+                        NamespaceName = NamespaceName,
+                        BucketName = BucketName
                     };
 
                     try
                     {
-                        client.GetBucket(getBucketRequest);
+                        Client.GetBucket(getBucketRequest);
                         return true;
                     }
                     catch (WebException we)
@@ -176,13 +130,13 @@ namespace OCISDK.Core.ObjectStorage.IO
                 {
                     var request = new ListObjectsRequest()
                     {
-                        NamespaceName = this.namespaceName,
-                        BucketName = this.bucket,
+                        NamespaceName = NamespaceName,
+                        BucketName = BucketName,
                         Delimiter = "/",
-                        Prefix = ObjectStorageHelper.EncodeKey(key),
+                        Prefix = ObjectStorageHelper.EncodeKey(ObjectKey),
                         Limit = 1
                     };
-                    var response = client.ListObjects(request);
+                    var response = Client.ListObjects(request);
                     return response.ListObjects.Objects.Count > 0 || response.ListObjects.Prefixes.Count > 0;
                 }
             }
@@ -228,7 +182,7 @@ namespace OCISDK.Core.ObjectStorage.IO
         {
             get
             {
-                return string.Format(CultureInfo.InvariantCulture, "{0}:\\{1}", bucket, key);
+                return string.Format(CultureInfo.InvariantCulture, "{0}:\\{1}", BucketName, ObjectKey);
             }
         }
 
@@ -240,17 +194,17 @@ namespace OCISDK.Core.ObjectStorage.IO
             get
             {
                 string ret = String.Empty;
-                if (!String.IsNullOrEmpty(bucket))
+                if (!String.IsNullOrEmpty(BucketName))
                 {
-                    if (String.IsNullOrEmpty(key))
+                    if (String.IsNullOrEmpty(ObjectKey))
                     {
-                        ret = bucket;
+                        ret = BucketName;
                     }
                     else
                     {
-                        int end = key.LastIndexOf('\\');
-                        int start = key.LastIndexOf('\\', end - 1);
-                        return key.Substring(start + 1, end - start - 1);
+                        int end = ObjectKey.LastIndexOf('\\');
+                        int start = ObjectKey.LastIndexOf('\\', end - 1);
+                        return ObjectKey.Substring(start + 1, end - start - 1);
                     }
                 }
                 return ret;
@@ -258,25 +212,25 @@ namespace OCISDK.Core.ObjectStorage.IO
         }
 
         /// <summary>
-        /// Return the S3DirectoryInfo of the parent directory.
+        /// Return the ObjectStorageDirectoryInfo of the parent directory.
         /// </summary>
         public ObjectStorageDirectoryInfo Parent
         {
             get
             {
                 ObjectStorageDirectoryInfo ret = null;
-                if (!String.IsNullOrEmpty(bucket) && !String.IsNullOrEmpty(key))
+                if (!String.IsNullOrEmpty(BucketName) && !String.IsNullOrEmpty(ObjectKey))
                 {
-                    int last = key.LastIndexOf('\\');
-                    int secondlast = key.LastIndexOf('\\', last - 1);
+                    int last = ObjectKey.LastIndexOf('\\');
+                    int secondlast = ObjectKey.LastIndexOf('\\', last - 1);
                     if (secondlast == -1)
                     {
                         ret = Bucket;
                     }
                     else
                     {
-                        var bucketName = key.Substring(0, secondlast);
-                        ret = new ObjectStorageDirectoryInfo(Client, bucket, bucketName);
+                        var bucketName = ObjectKey.Substring(0, secondlast);
+                        ret = new ObjectStorageDirectoryInfo(Client, BucketName, bucketName);
                     }
                 }
                 if (ret == null)
@@ -288,7 +242,7 @@ namespace OCISDK.Core.ObjectStorage.IO
         }
 
         /// <summary>
-        /// Returns the S3DirectroyInfo for the S3 account.
+        /// Returns the ObjectStorageDirectroyInfo for the account.
         /// </summary>
         public ObjectStorageDirectoryInfo Root
         {
@@ -316,12 +270,12 @@ namespace OCISDK.Core.ObjectStorage.IO
         {
             get
             {
-                return ObjectStorageHelper.EncodeKey(key);
+                return ObjectStorageHelper.EncodeKey(ObjectKey);
             }
         }
 
         /// <summary>
-        /// Enumerate the files of this directory.
+        /// Returns the files in the directory.
         /// </summary>
         /// <exception cref="T:System.Net.WebException"></exception>
         /// <returns>An enumerable collection of files.</returns>
@@ -331,40 +285,36 @@ namespace OCISDK.Core.ObjectStorage.IO
         }
 
         /// <summary>
-        /// Enumerate the sub directories of this directory.
+        /// returns files in a directory according to the specified search pattern
         /// </summary>
-        /// <param name="searchPattern">The search string. The default pattern is "*", which returns all files.</param>
-        /// <exception cref="T:System.Net.WebException"></exception>
-        /// <returns>An enumerable collection of files that matches searchPattern.</returns>
+        /// <param name="searchPattern"></param>
+        /// <returns></returns>
         public IEnumerable<ObjectStorageFileInfo> EnumerateFiles(string searchPattern)
         {
             return EnumerateFiles(searchPattern, SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
-        /// Enumerate the files of this directory.
+        /// returns files in a directory according to the specified search pattern
         /// </summary>
-        /// <param name="searchPattern">The search string. The default pattern is "*", which returns all files.</param>
-        /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or all subdirectories. The default value is TopDirectoryOnly.</param>
-        /// <exception cref="T:System.Net.WebException"></exception>
-        /// <returns>An enumerable collection of files that matches searchPattern and searchOption.</returns>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchOption"></param>
+        /// <returns></returns>
         public IEnumerable<ObjectStorageFileInfo> EnumerateFiles(string searchPattern, SearchOption searchOption)
         {
             IEnumerable<ObjectStorageFileInfo> files = null;
-            if (String.IsNullOrEmpty(bucket))
+            if (String.IsNullOrEmpty(BucketName))
             {
                 files = new List<ObjectStorageFileInfo>();
             }
             else
             {
-                var metaFiles = GetOciObjects(key, searchOption);
+                var metaFiles = GetOciObjects(ObjectKey, searchOption);
 
                 files = new EnumerableConverter<ObjectSummary, ObjectStorageFileInfo>
-                    (metaFiles,
-                    o => new ObjectStorageFileInfo(client, namespaceName, bucket, ObjectStorageHelper.DecodeKey(o.Name)));
+                    (metaFiles, o => new ObjectStorageFileInfo(Client, NamespaceName, BucketName, ObjectStorageHelper.DecodeKey(o.Name)));
             }
 
-            //filter based on search pattern
             var regEx = WildcardToRegex(searchPattern);
             files = files.Where(o => Regex.IsMatch(o.Name, regEx, RegexOptions.IgnoreCase));
             return files;
@@ -447,40 +397,34 @@ namespace OCISDK.Core.ObjectStorage.IO
         }
 
         /// <summary>
-        /// Enumerate the sub directories of this directory.
+        /// Returns the directory in the bucket.
         /// </summary>
-        /// <exception cref="T:System.Net.WebException"></exception>
-        /// <exception cref="T:Amazon.S3.AmazonS3Exception"></exception>
-        /// <returns>An enumerable collection of directories.</returns>
+        /// <returns></returns>
         public IEnumerable<ObjectStorageDirectoryInfo> EnumerateDirectories()
         {
             return EnumerateDirectories("*", SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
-        /// Enumerate the sub directories of this directory.
+        /// Returns the directory in the s-bucket to the specified pattern
         /// </summary>
-        /// <param name="searchPattern">The search string. The default pattern is "*", which returns all directories.</param>
-        /// <exception cref="T:System.Net.WebException"></exception>
-        /// <exception cref="T:Amazon.S3.AmazonS3Exception"></exception>
-        /// <returns>An enumerable collection of directories that matches searchPattern.</returns>
+        /// <param name="searchPattern"></param>
+        /// <returns></returns>
         public IEnumerable<ObjectStorageDirectoryInfo> EnumerateDirectories(string searchPattern)
         {
             return EnumerateDirectories(searchPattern, SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
-        /// Enumerate the sub directories of this directory.
+        /// Returns the directory in the s-bucket to the specified pattern
         /// </summary>
-        /// <param name="searchPattern">The search string. The default pattern is "*", which returns all directories.</param>
-        /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or all subdirectories. The default value is TopDirectoryOnly.</param>
-        /// <exception cref="T:System.Net.WebException"></exception>
-        /// <exception cref="T:Amazon.S3.AmazonS3Exception"></exception>
-        /// <returns>An enumerable collection of directories that matches searchPattern and searchOption.</returns>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchOption"></param>
+        /// <returns></returns>
         public IEnumerable<ObjectStorageDirectoryInfo> EnumerateDirectories(string searchPattern, SearchOption searchOption)
         {
             IEnumerable<ObjectStorageDirectoryInfo> folders = null;
-            if (String.IsNullOrEmpty(bucket))
+            if (String.IsNullOrEmpty(BucketName))
             {
                 var request = new ListBucketsRequest();
                 folders = Client.ListBuckets(request).Items
@@ -488,10 +432,10 @@ namespace OCISDK.Core.ObjectStorage.IO
             }
             else
             {
-                var prefixs = GetOciPrefixs(key, searchOption);
+                var prefixs = GetOciPrefixs(ObjectKey, searchOption);
 
                 folders = prefixs
-                    .ConvertAll(f => new ObjectStorageDirectoryInfo(Client, NamespaceName, bucket, ObjectStorageHelper.DecodeKey(f)));
+                    .ConvertAll(f => new ObjectStorageDirectoryInfo(Client, NamespaceName, BucketName, ObjectStorageHelper.DecodeKey(f)));
             }
 
             //filter based on search pattern
@@ -503,7 +447,7 @@ namespace OCISDK.Core.ObjectStorage.IO
         /// <summary>
         /// Enumerate the files of this directory.
         /// </summary>
-        /// <exception cref="T:System.Net.WebException"></exception>
+        /// <returns></returns>
         public IEnumerable<IObjectStorageFileSystemInfo> EnumerateFileSystemInfos()
         {
             return EnumerateFileSystemInfos("*", SearchOption.TopDirectoryOnly);
@@ -512,8 +456,8 @@ namespace OCISDK.Core.ObjectStorage.IO
         /// <summary>
         /// Enumerate the files of this directory.
         /// </summary>
-        /// <param name="searchPattern">The search string. The default pattern is "*", which returns all files.</param>
-        /// <exception cref="T:System.Net.WebException"></exception>
+        /// <param name="searchPattern"></param>
+        /// <returns></returns>
         public IEnumerable<IObjectStorageFileSystemInfo> EnumerateFileSystemInfos(string searchPattern)
         {
             return EnumerateFileSystemInfos(searchPattern, SearchOption.TopDirectoryOnly);
@@ -522,9 +466,9 @@ namespace OCISDK.Core.ObjectStorage.IO
         /// <summary>
         /// Enumerate the files of this directory.
         /// </summary>
-        /// <param name="searchPattern">The search string. The default pattern is "*", which returns all files.</param>
-        /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or all subdirectories. The default value is TopDirectoryOnly.</param>
-        /// <exception cref="T:System.Net.WebException"></exception>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchOption"></param>
+        /// <returns></returns>
         public IEnumerable<IObjectStorageFileSystemInfo> EnumerateFileSystemInfos(string searchPattern, SearchOption searchOption)
         {
             IEnumerable<IObjectStorageFileSystemInfo> files = EnumerateFiles(searchPattern, searchOption).Cast<IObjectStorageFileSystemInfo>();
@@ -534,7 +478,7 @@ namespace OCISDK.Core.ObjectStorage.IO
         }
 
         /// <summary>
-        /// バケット内のオブジェクトを得る
+        /// Get the object in the bucket.
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="searchOption"></param>
@@ -546,8 +490,8 @@ namespace OCISDK.Core.ObjectStorage.IO
 
             var listObjectsRequest = new ListObjectsRequest()
             {
-                NamespaceName = namespaceName,
-                BucketName = bucket,
+                NamespaceName = NamespaceName,
+                BucketName = BucketName,
                 Start = nextStartWith,
                 Delimiter = "/",
                 Prefix = ObjectStorageHelper.EncodeKey(prefix),
@@ -586,8 +530,8 @@ namespace OCISDK.Core.ObjectStorage.IO
 
             var listObjectsRequest = new ListObjectsRequest()
             {
-                NamespaceName = namespaceName,
-                BucketName = bucket,
+                NamespaceName = NamespaceName,
+                BucketName = BucketName,
                 Start = nextStartWith,
                 Delimiter = "/",
                 Prefix = ObjectStorageHelper.EncodeKey(prefix),
@@ -599,13 +543,11 @@ namespace OCISDK.Core.ObjectStorage.IO
 
             res.AddRange(objects.ListObjects.Prefixes);
 
-            // next check
             if (!string.IsNullOrEmpty(objects.ListObjects.NextStartWith))
             {
                 res.AddRange(GetOciPrefixs(ObjectStorageHelper.DecodeKey(prefix), searchOption, objects.ListObjects.NextStartWith));
             }
 
-            // all sub prefix
             if (searchOption == SearchOption.AllDirectories)
             {
                 if (objects.ListObjects.Prefixes.Count > 0)
@@ -636,38 +578,38 @@ namespace OCISDK.Core.ObjectStorage.IO
         /// <exception cref="T:System.Net.WebException"></exception>
         public void Delete(bool recursive)
         {
-            if (String.IsNullOrEmpty(bucket))
+            if (String.IsNullOrEmpty(BucketName))
             {
-                throw new NotSupportedException();
+                throw new Exception("The name of the bucket is unknown. Please check your settings.");
             }
 
             if (recursive)
             {
                 ListObjectsRequest listRequest = new ListObjectsRequest
                 {
-                    NamespaceName = namespaceName,
-                    BucketName = bucket,
-                    Prefix = ObjectStorageHelper.EncodeKey(this.key)
+                    NamespaceName = NamespaceName,
+                    BucketName = BucketName,
+                    Prefix = ObjectStorageHelper.EncodeKey(ObjectKey)
                 };
 
                 DeleteObjectsRequest deleteRequest = new DeleteObjectsRequest
                 {
-                    NamespaceName = namespaceName,
-                    BucketName = bucket,
+                    NamespaceName = NamespaceName,
+                    BucketName = BucketName,
                     Objects = new List<TargetDelete>()
                 };
 
                 ListObjectsResponse listResponse;
                 do
                 {
-                    listResponse = client.ListObjects(listRequest);
+                    listResponse = Client.ListObjects(listRequest);
 
                     foreach (var obj in listResponse.ListObjects.Objects)
                     {
                         deleteRequest.Objects.Add(new TargetDelete { ObjectName = obj.Name });
                         if (deleteRequest.Objects.Count >= MULTIPLE_OBJECT_DELETE_LIMIT)
                         {
-                            client.DeleteObjects(deleteRequest);
+                            Client.DeleteObjects(deleteRequest);
                             deleteRequest.Objects.Clear();
                         }
                     }
@@ -685,14 +627,14 @@ namespace OCISDK.Core.ObjectStorage.IO
 
                 if (deleteRequest.Objects.Count > 0)
                 {
-                    client.DeleteObjects(deleteRequest);
+                    Client.DeleteObjects(deleteRequest);
                 }
             }
 
-            if (String.IsNullOrEmpty(key) && Exists)
+            if (String.IsNullOrEmpty(ObjectKey) && Exists)
             {
-                var request = new DeleteBucketRequest { NamespaceName = namespaceName, BucketName = bucket };
-                client.DeleteBucket(request);
+                var request = new DeleteBucketRequest { NamespaceName = NamespaceName, BucketName = BucketName };
+                Client.DeleteBucket(request);
             }
             else
             {
@@ -700,12 +642,12 @@ namespace OCISDK.Core.ObjectStorage.IO
                 {
                     var request = new DeleteObjectRequest
                     {
-                        NamespaceName = namespaceName,
-                        BucketName = bucket,
-                        ObjectName = ObjectStorageHelper.EncodeKey(key)
+                        NamespaceName = NamespaceName,
+                        BucketName = BucketName,
+                        ObjectName = ObjectStorageHelper.EncodeKey(ObjectKey)
                     };
 
-                    client.DeleteObject(request);
+                    Client.DeleteObject(request);
                 }
             }
         }
