@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -488,20 +488,48 @@ namespace OCISDK.Core.ObjectStorage.IO
         {
             var res = new List<ObjectSummary>();
 
+            string delimiter = "";
+            var prefixReg = ObjectStorageHelper.EncodeKey(prefix);
+            if (prefixReg.Contains("/"))
+            {
+                delimiter = "/";
+            }
+
             var listObjectsRequest = new ListObjectsRequest()
             {
                 NamespaceName = NamespaceName,
                 BucketName = BucketName,
                 Start = nextStartWith,
-                Delimiter = "/",
-                Prefix = ObjectStorageHelper.EncodeKey(prefix),
+                Delimiter = delimiter,
+                Prefix = prefixReg,
                 Fields = new List<string> { "name", "size", "timeCreated", "md5" },
                 Limit = 1000
             };
 
             var objects = Client.ListObjects(listObjectsRequest);
 
-            res.AddRange(objects.ListObjects.Objects);
+            if (searchOption == SearchOption.TopDirectoryOnly)
+            {
+                foreach (var o in objects.ListObjects.Objects)
+                {
+                    if (o.Name.IndexOf('/') < 0)
+                    {
+                        res.Add(o);
+                    }
+                    else if (!string.IsNullOrEmpty(prefix))
+                    {
+                        var length = o.Name.Split('/').Length;
+                        if (length == 0 || length == 2)
+                        {
+                            res.Add(o);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                res.AddRange(objects.ListObjects.Objects);
+            }
 
             // next check
             if (!string.IsNullOrEmpty(objects.ListObjects.NextStartWith))
@@ -512,7 +540,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             // all sub prefix
             if (searchOption == SearchOption.AllDirectories)
             {
-                if (objects.ListObjects.Prefixes.Count > 0)
+                if (objects.ListObjects.Prefixes != null && objects.ListObjects.Prefixes.Count > 0)
                 {
                     foreach (var pre in objects.ListObjects.Prefixes)
                     {
@@ -580,7 +608,7 @@ namespace OCISDK.Core.ObjectStorage.IO
         {
             if (String.IsNullOrEmpty(BucketName))
             {
-                throw new Exception("The name of the bucket is unknown. Please check your settings.");
+                throw new NotSupportedException();
             }
 
             if (recursive)

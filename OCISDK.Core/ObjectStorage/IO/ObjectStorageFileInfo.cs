@@ -30,19 +30,17 @@ namespace OCISDK.Core.ObjectStorage.IO
         /// <param name="key"></param>
         public ObjectStorageFileInfo(IObjectStorageClient client, string namespaceName, string bucket, string key)
         {
-            if (client == null)
-            {
-                throw new ArgumentNullException("client");
-            }
-            if (String.IsNullOrEmpty(namespaceName))
+            this.client = client ?? throw new ArgumentNullException("client");
+
+            if (string.IsNullOrEmpty(namespaceName))
             {
                 throw new ArgumentNullException("namespaceName");
             }
-            if (String.IsNullOrEmpty(bucket))
+            if (string.IsNullOrEmpty(bucket))
             {
                 throw new ArgumentNullException("bucket");
             }
-            if (String.IsNullOrEmpty(key) || String.Equals(key, "\\"))
+            if (string.IsNullOrEmpty(key) || string.Equals(key, "\\"))
             {
                 throw new ArgumentNullException("key");
             }
@@ -52,7 +50,6 @@ namespace OCISDK.Core.ObjectStorage.IO
                 throw new ArgumentException("key is a directory name");
             }
 
-            this.client = client;
             this.namespaceName = namespaceName;
             this.bucket = bucket;
             this.key = key;
@@ -92,8 +89,7 @@ namespace OCISDK.Core.ObjectStorage.IO
         {
             get
             {
-                bool bucketExists;
-                return ExistsWithBucketCheck(out bucketExists);
+                return ExistsWithBucketCheck(out _);
             }
         }
 
@@ -397,9 +393,6 @@ namespace OCISDK.Core.ObjectStorage.IO
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string OriginalKey
         {
             get
