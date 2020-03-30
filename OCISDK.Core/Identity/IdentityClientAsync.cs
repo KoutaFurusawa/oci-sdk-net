@@ -27,7 +27,7 @@ namespace OCISDK.Core.Identity
         /// <summary>
         /// Constructer
         /// </summary>
-        public IdentityClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public IdentityClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = identityServiceName;
         }
@@ -43,7 +43,7 @@ namespace OCISDK.Core.Identity
         /// <summary>
         /// Constructer
         /// </summary>
-        public IdentityClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public IdentityClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = identityServiceName;
         }

@@ -28,7 +28,7 @@ namespace OCISDK.Core.Search
         /// <summary>
         /// Constructer
         /// </summary>
-        public SearchClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public SearchClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = SearchServiceName;
         }
@@ -44,7 +44,7 @@ namespace OCISDK.Core.Search
         /// <summary>
         /// Constructer
         /// </summary>
-        public SearchClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public SearchClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = SearchServiceName;
         }

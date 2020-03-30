@@ -26,7 +26,7 @@ namespace OCISDK.Core.Audit
         /// <summary>
         /// Constructer
         /// </summary>
-        public AuditClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public AuditClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = AuditServiceName;
         }
@@ -42,7 +42,7 @@ namespace OCISDK.Core.Audit
         /// <summary>
         /// Constructer
         /// </summary>
-        public AuditClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public AuditClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = AuditServiceName;
         }

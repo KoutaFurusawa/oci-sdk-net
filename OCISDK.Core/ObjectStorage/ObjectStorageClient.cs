@@ -29,7 +29,7 @@ namespace OCISDK.Core.ObjectStorage
         /// <summary>
         /// Constructer
         /// </summary>
-        public ObjectStorageClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public ObjectStorageClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = ObjectStorageServiceName;
         }
@@ -45,7 +45,7 @@ namespace OCISDK.Core.ObjectStorage
         /// <summary>
         /// Constructer
         /// </summary>
-        public ObjectStorageClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public ObjectStorageClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = ObjectStorageServiceName;
         }

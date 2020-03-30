@@ -29,7 +29,7 @@ namespace OCISDK.Core
         /// <summary>
         /// OciSigner
         /// </summary>
-        public readonly OciSigner OciSigner;
+        public readonly IOciSigner OciSigner;
 
         /// <summary>
         /// ClientConfigStream
@@ -86,6 +86,18 @@ namespace OCISDK.Core
                 config.PrivateKey,
                 config.PrivateKeyPassphrase
             );
+
+            ClientConfigStream = config;
+        }
+
+        /// <summary>
+        /// constructer
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="ociSigner"></param>
+        public OciSession(ClientConfigStream config, IOciSigner ociSigner)
+        {
+            OciSigner = ociSigner;
 
             ClientConfigStream = config;
         }

@@ -34,7 +34,7 @@ namespace OCISDK.Core.GeneralElement
         /// <summary>
         /// Constructer
         /// </summary>
-        public GeneralElemenClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public GeneralElemenClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             IdentityClient = new IdentityClient(config, ociSigner);
 
@@ -54,7 +54,7 @@ namespace OCISDK.Core.GeneralElement
         /// <summary>
         /// Constructer
         /// </summary>
-        public GeneralElemenClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public GeneralElemenClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             IdentityClient = new IdentityClient(config, ociSigner);
 

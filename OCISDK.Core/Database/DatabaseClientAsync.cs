@@ -28,7 +28,7 @@ namespace OCISDK.Core.Database
         /// <summary>
         /// Constructer
         /// </summary>
-        public DatabaseClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public DatabaseClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }
@@ -44,7 +44,7 @@ namespace OCISDK.Core.Database
         /// <summary>
         /// Constructer
         /// </summary>
-        public DatabaseClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public DatabaseClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }

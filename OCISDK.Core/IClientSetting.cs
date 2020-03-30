@@ -44,5 +44,11 @@ namespace OCISDK.Core
         /// Set JsonSerializer
         /// </summary>
         void SetJsonSerializer(IJsonSerializer jsonSerializer);
+
+        /// <summary>
+        /// get TenancyId
+        /// </summary>
+        /// <returns></returns>
+        string GetTenancyId();
     }
 }

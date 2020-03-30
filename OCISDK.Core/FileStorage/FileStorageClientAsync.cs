@@ -28,7 +28,7 @@ namespace OCISDK.Core.FileStorage
         /// <summary>
         /// Constructer
         /// </summary>
-        public FileStorageClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public FileStorageClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = FileStorageServiceName;
         }
@@ -44,7 +44,7 @@ namespace OCISDK.Core.FileStorage
         /// <summary>
         /// Constructer
         /// </summary>
-        public FileStorageClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public FileStorageClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = FileStorageServiceName;
         }

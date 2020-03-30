@@ -29,7 +29,7 @@ namespace OCISDK.Core.UnpublishedService.UsageCosts
         /// <summary>
         /// Constructer
         /// </summary>
-        public UsageCostsClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public UsageCostsClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = UsageCostsServiceName;
         }
@@ -45,7 +45,7 @@ namespace OCISDK.Core.UnpublishedService.UsageCosts
         /// <summary>
         /// Constructer
         /// </summary>
-        public UsageCostsClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public UsageCostsClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = UsageCostsServiceName;
         }

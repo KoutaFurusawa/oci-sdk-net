@@ -248,6 +248,15 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// get TenancyId
+        /// </summary>
+        /// <returns></returns>
+        public string GetTenancyId()
+        {
+            return Config.TenancyId;
+        }
+
+        /// <summary>
         /// GetEndpoint
         /// </summary>
         /// <param name="serviceName"></param>

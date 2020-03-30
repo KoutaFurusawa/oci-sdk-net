@@ -25,7 +25,7 @@ namespace OCISDK.Core.Core
         /// <summary>
         /// Constructer
         /// </summary>
-        public BlockstorageClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public BlockstorageClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CoreServices.CoreServiceName;
         }
@@ -41,7 +41,7 @@ namespace OCISDK.Core.Core
         /// <summary>
         /// Constructer
         /// </summary>
-        public BlockstorageClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public BlockstorageClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CoreServices.CoreServiceName;
         }

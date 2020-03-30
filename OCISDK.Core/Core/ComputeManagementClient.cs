@@ -25,7 +25,7 @@ namespace OCISDK.Core.Core
         /// <summary>
         /// Constructer
         /// </summary>
-        public ComputeManagementClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public ComputeManagementClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CoreServices.CoreServiceName;
         }
@@ -41,7 +41,7 @@ namespace OCISDK.Core.Core
         /// <summary>
         /// Constructer
         /// </summary>
-        public ComputeManagementClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public ComputeManagementClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CoreServices.CoreServiceName;
         }

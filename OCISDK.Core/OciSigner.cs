@@ -31,9 +31,40 @@ namespace OCISDK.Core
             { "PUT-LESS", new List<string>{"date", "(request-target)", "host" }}
         };
 
-        private readonly string KeyId;
-        private readonly ISigner SignerService;
-        
+        private string KeyId;
+        private ISigner SignerService;
+
+        /// <summary>
+        /// generation OciSigner
+        /// </summary>
+        /// <param name="config"></param>
+        public OciSigner(ClientConfig config)
+        {
+            using (var fileStream = File.OpenText(config.PrivateKey))
+            {
+                GenerateSigner(config.TenancyId, config.UserId, config.Fingerprint, fileStream, config.PrivateKeyPassphrase);
+            }
+        }
+
+        /// <summary>
+        /// generation OciSigner
+        /// </summary>
+        public OciSigner(ClientConfigStream config)
+        {
+            GenerateSigner(config.TenancyId, config.UserId, config.Fingerprint, config.PrivateKey, config.PrivateKeyPassphrase);
+        }
+
+        /// <summary>
+        /// generation OciSigner
+        /// </summary>
+        public OciSigner(string tenancyId, string userId, string fingerprint, string keyPath, string privateKeyPassphrase = "")
+        {
+            using (var fileStream = File.OpenText(keyPath))
+            {
+                GenerateSigner(tenancyId, userId, fingerprint, fileStream, privateKeyPassphrase);
+            }
+        }
+
         /// <summary>
         /// Adds the necessary authorization header for signed requests to Oracle Cloud Infrastructure services.
         /// Documentation for request signatures can be found here: https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/signingrequests.htm
@@ -45,8 +76,26 @@ namespace OCISDK.Core
         /// <param name="privateKeyPassphrase">An optional passphrase for the private key</param>
         public OciSigner(string tenancyId, string userId, string fingerprint, StreamReader fileStream, string privateKeyPassphrase = "")
         {
+            GenerateSigner(tenancyId, userId, fingerprint, fileStream, privateKeyPassphrase);
+        }
+
+        /// <summary>
+        /// generate signer.
+        /// </summary>
+        /// <param name="tenancyId"></param>
+        /// <param name="userId"></param>
+        /// <param name="fingerprint"></param>
+        /// <param name="fileStream"></param>
+        /// <param name="privateKeyPassphrase"></param>
+        private void GenerateSigner(string tenancyId, string userId, string fingerprint, StreamReader fileStream, string privateKeyPassphrase = "")
+        {
             // This is the keyId for a key uploaded through the console
             KeyId = $"{tenancyId}/{userId}/{fingerprint}";
+
+            if (string.IsNullOrEmpty(privateKeyPassphrase))
+            {
+                privateKeyPassphrase = "";
+            }
 
             AsymmetricCipherKeyPair keyPair;
             try
@@ -59,6 +108,7 @@ namespace OCISDK.Core
             }
 
             RsaKeyParameters privateKeyParams = (RsaKeyParameters)keyPair.Private;
+
             SignerService = SignerUtilities.GetSigner("SHA-256withRSA");
             SignerService.Init(true, privateKeyParams);
         }
@@ -84,8 +134,6 @@ namespace OCISDK.Core
                 throw new ArgumentException($"Don't know how to sign method: {request.Method}");
             }
 
-            // for PUT and POST, if the body is empty we still must explicitly set content-length = 0 and x-content-sha256
-            // the caller may already do this, but we shouldn't require it since we can determine it here
             if (request.ContentLength <= 0 && (string.Equals(requestMethodUpper, "POST") || string.Equals(requestMethodUpper, "PUT")))
             {
                 request.ContentLength = 0;
@@ -120,6 +168,7 @@ namespace OCISDK.Core
 
             // generate signature using the private key
             var bytes = Encoding.UTF8.GetBytes(signingStringBuilder.ToString());
+
             SignerService.BlockUpdate(bytes, 0, bytes.Length);
             var signature = Convert.ToBase64String(SignerService.GenerateSignature());
             var authorization = $@"Signature version=""1"",headers=""{string.Join(" ", headers)}"",keyId=""{KeyId}"",algorithm=""rsa-sha256"",signature=""{signature}""";

@@ -27,7 +27,7 @@ namespace OCISDK.Core.UnpublishedService.ConsoleIdcs
         /// <summary>
         /// Constructer
         /// </summary>
-        public ConsoleIdcsClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public ConsoleIdcsClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = UsageCostsServiceName;
         }
@@ -43,7 +43,7 @@ namespace OCISDK.Core.UnpublishedService.ConsoleIdcs
         /// <summary>
         /// Constructer
         /// </summary>
-        public ConsoleIdcsClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public ConsoleIdcsClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = UsageCostsServiceName;
         }
