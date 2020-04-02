@@ -518,8 +518,8 @@ namespace OCISDK.Core.ObjectStorage.IO
                     }
                     else if (!string.IsNullOrEmpty(prefix))
                     {
-                        var length = o.Name.Split('/').Length;
-                        if (length == 0 || length == 2)
+                        var length = o.Name.Replace(prefixReg, "").Split('/').Length;
+                        if (length >= 0 && length <= 2)
                         {
                             res.Add(o);
                         }
@@ -537,14 +537,25 @@ namespace OCISDK.Core.ObjectStorage.IO
                 res.AddRange(GetOciObjects(ObjectStorageHelper.DecodeKey(prefix), searchOption, objects.ListObjects.NextStartWith));
             }
 
-            // all sub prefix
-            if (searchOption == SearchOption.AllDirectories)
+            if (objects.ListObjects.Prefixes != null && objects.ListObjects.Prefixes.Count > 0)
             {
-                if (objects.ListObjects.Prefixes != null && objects.ListObjects.Prefixes.Count > 0)
+                // all sub prefix
+                if (searchOption == SearchOption.AllDirectories)
                 {
                     foreach (var pre in objects.ListObjects.Prefixes)
                     {
                         res.AddRange(GetOciObjects(pre, searchOption));
+                    }
+                }
+                else
+                {
+                    var newPrefix = objects.ListObjects.Prefixes.Where(p => p == prefixReg + "/");
+                    if (newPrefix != null && newPrefix.Count() > 0)
+                    {
+                        foreach (var pre in newPrefix)
+                        {
+                            res.AddRange(GetOciObjects(pre, searchOption));
+                        }
                     }
                 }
             }
@@ -576,13 +587,25 @@ namespace OCISDK.Core.ObjectStorage.IO
                 res.AddRange(GetOciPrefixs(ObjectStorageHelper.DecodeKey(prefix), searchOption, objects.ListObjects.NextStartWith));
             }
 
-            if (searchOption == SearchOption.AllDirectories)
+            if (objects.ListObjects.Prefixes != null && objects.ListObjects.Prefixes.Count > 0)
             {
-                if (objects.ListObjects.Prefixes.Count > 0)
+                // all sub prefix
+                if (searchOption == SearchOption.AllDirectories)
                 {
                     foreach (var pre in objects.ListObjects.Prefixes)
                     {
                         res.AddRange(GetOciPrefixs(pre, searchOption));
+                    }
+                }
+                else
+                {
+                    var newPrefix = objects.ListObjects.Prefixes.Where(p => p == ObjectStorageHelper.EncodeKey(prefix) + "/");
+                    if (newPrefix != null && newPrefix.Count() > 0)
+                    {
+                        foreach (var pre in newPrefix)
+                        {
+                            res.AddRange(GetOciPrefixs(pre, searchOption));
+                        }
                     }
                 }
             }
