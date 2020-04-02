@@ -393,6 +393,9 @@ namespace OCISDK.Core.ObjectStorage.IO
             }
         }
 
+        /// <summary>
+        /// Original key string
+        /// </summary>
         public string OriginalKey
         {
             get

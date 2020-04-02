@@ -65,5 +65,10 @@ namespace OCISDK.Core.ObjectStorage.IO
         {
             get;
         }
+
+        /// <summary>
+        /// Deletes this item.
+        /// </summary>
+        void Delete();
     }
 }
