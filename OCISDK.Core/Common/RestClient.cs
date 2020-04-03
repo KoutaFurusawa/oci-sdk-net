@@ -36,7 +36,16 @@ namespace OCISDK.Core.Common
         /// rest option
         /// </summary>
         public RestOption Option { get; set; }
-        
+
+        /// <summary>
+        /// request option parameters setting
+        /// </summary>
+        /// <param name="restOption"></param>
+        public void SetOption(RestOption option)
+        {
+            Option = option;
+        }
+
         /// <summary>
         /// Get
         /// </summary>

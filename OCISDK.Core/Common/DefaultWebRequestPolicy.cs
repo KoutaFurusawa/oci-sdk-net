@@ -31,7 +31,14 @@ namespace OCISDK.Core.Common
         {
             var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
             return Policy<HttpWebResponse>
-                .Handle<WebException>(r => r.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)r.Response).StatusCode >= HttpStatusCode.InternalServerError)
+                .Handle<WebException>(r => {
+                    bool b = false;
+                    if (r.Response != null)
+                        b = (r.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)r.Response).StatusCode >= HttpStatusCode.InternalServerError);
+                    else
+                        b = true;
+                    return b;
+                })
                 .OrResult(r => r.StatusCode >= HttpStatusCode.InternalServerError)
                 .WaitAndRetry(option.RetryCount, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(option.SleepDurationSeconds, retryAttempt)) + jitter);
@@ -45,7 +52,7 @@ namespace OCISDK.Core.Common
         public Policy<HttpWebResponse> GetCircuitBreakerPolicy(RestOption option)
         {
             return Policy<HttpWebResponse>
-                .Handle<WebException>(r => r.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)r.Response).StatusCode >= HttpStatusCode.InternalServerError)
+                .Handle<WebException>(r => r.Status == WebExceptionStatus.ProtocolError && r.Response != null && ((HttpWebResponse)r.Response).StatusCode >= HttpStatusCode.InternalServerError)
                 .OrResult(r => r.StatusCode >= HttpStatusCode.InternalServerError)
                 .CircuitBreaker(option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(option.DurationOfBreakSeconds));
         }
@@ -57,7 +64,7 @@ namespace OCISDK.Core.Common
         public Policy<HttpWebResponse> GetFallbackPolicy()
         {
             return Policy<HttpWebResponse>
-                .Handle<WebException>(r => r.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)r.Response).StatusCode >= HttpStatusCode.InternalServerError)
+                .Handle<WebException>(r => r.Status == WebExceptionStatus.ProtocolError && r.Response != null && ((HttpWebResponse)r.Response).StatusCode >= HttpStatusCode.InternalServerError)
                 .OrResult(r => r.StatusCode >= HttpStatusCode.InternalServerError)
                 .Fallback(new HttpWebResponse());
         }
@@ -81,7 +88,15 @@ namespace OCISDK.Core.Common
         {
             var jitter = TimeSpan.FromMilliseconds(RandomProvider.GetThreadRandom().Next(0, 100));
             return Policy<WebResponse>
-                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
+                .Handle<WebException>(ex => {
+                    bool b = false;
+                    if (ex.Response != null)
+                        b = ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError;
+                    else
+                        b = true;
+                    return b;
+                }
+                )
                 .WaitAndRetryAsync(option.RetryCount, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(option.SleepDurationSeconds, retryAttempt)) + jitter);
         }
@@ -94,7 +109,7 @@ namespace OCISDK.Core.Common
         public IAsyncPolicy<WebResponse> GetCircuitBreakerPolicyAsync(RestOption option)
         {
             return Policy<WebResponse>
-                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
+                .Handle<WebException>(ex => ex.Response != null && ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
                 .CircuitBreakerAsync(option.HandledEventsAllowedBeforeBreaking, TimeSpan.FromSeconds(option.DurationOfBreakSeconds));
         }
 
@@ -105,7 +120,7 @@ namespace OCISDK.Core.Common
         public IAsyncPolicy<WebResponse> GetFallbackPolicyAsync()
         {
             return Policy<WebResponse>
-                .Handle<WebException>(ex => ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
+                .Handle<WebException>(ex => ex.Response != null && ((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.InternalServerError)
                 .FallbackAsync(new HttpWebResponse());
         }
     }

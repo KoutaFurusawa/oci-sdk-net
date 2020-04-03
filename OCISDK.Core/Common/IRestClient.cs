@@ -12,6 +12,12 @@ namespace OCISDK.Core.Common
     public interface IRestClient
     {
         /// <summary>
+        /// request option parameters setting
+        /// </summary>
+        /// <param name="option"></param>
+        void SetOption(RestOption option);
+
+        /// <summary>
         /// Get
         /// </summary>
         /// <param name="request"></param>
