@@ -327,7 +327,17 @@ namespace OCISDK.Core.ObjectStorage.IO
                     BucketName = bucket,
                     ObjectName = ObjectStorageHelper.EncodeKey(key)
                 };
-                client.DeleteObject(deleteObjectRequest);
+                try
+                {
+                    client.DeleteObject(deleteObjectRequest);
+                }
+                catch (WebException we)
+                {
+                    if (!(we.Status.Equals(WebExceptionStatus.ProtocolError) && ((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.NotFound))
+                    {
+                        throw;
+                    }
+                }
             }
         }
 
