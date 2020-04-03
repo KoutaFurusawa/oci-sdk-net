@@ -114,6 +114,7 @@ namespace Example
                 Console.WriteLine("[d]: Users Example");
                 Console.WriteLine("[e]: Notification Example");
                 Console.WriteLine("[f]: Budgets Example");
+                Console.WriteLine("[g]: ObjectStorageDirectoryInfo Example");
                 Console.WriteLine("[ESC]: Exit Example");
                 Console.WriteLine("");
 
@@ -210,6 +211,12 @@ namespace Example
                 if (mode == '1' || mode == 'f')
                 {
                     BudgetsExample.ConsoleDisplay(config);
+                }
+
+                //budget
+                if (mode == '1' || mode == 'g')
+                {
+                    ObjectStorageDirectoryInfoExample.Example(config);
                 }
             }
         }
