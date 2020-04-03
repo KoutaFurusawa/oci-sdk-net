@@ -27,7 +27,7 @@ namespace OCISDK.Core.Budgets
         /// <summary>
         /// Constructer
         /// </summary>
-        public BudgetsClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public BudgetsClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = BudgetsServiceName;
         }
@@ -43,7 +43,7 @@ namespace OCISDK.Core.Budgets
         /// <summary>
         /// Constructer
         /// </summary>
-        public BudgetsClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public BudgetsClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = BudgetsServiceName;
         }

@@ -27,7 +27,7 @@ namespace OCISDK.Core.DNS
         /// <summary>
         /// Constructer
         /// </summary>
-        public DNSClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public DNSClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DNSServiceName;
         }
@@ -43,7 +43,7 @@ namespace OCISDK.Core.DNS
         /// <summary>
         /// Constructer
         /// </summary>
-        public DNSClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public DNSClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DNSServiceName;
         }

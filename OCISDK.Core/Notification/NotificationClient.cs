@@ -27,7 +27,7 @@ namespace OCISDK.Core.Notification
         /// <summary>
         /// Constructer
         /// </summary>
-        public NotificationClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public NotificationClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = NotificationServiceName;
         }
@@ -43,7 +43,7 @@ namespace OCISDK.Core.Notification
         /// <summary>
         /// Constructer
         /// </summary>
-        public NotificationClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public NotificationClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = NotificationServiceName;
         }

@@ -37,7 +37,16 @@ namespace OCISDK.Core.Common
         /// rest option
         /// </summary>
         public RestOption Option { get; set; }
-        
+
+        /// <summary>
+        /// request option parameters setting
+        /// </summary>
+        /// <param name="option"></param>
+        public void SetOption(RestOption option)
+        {
+            Option = option;
+        }
+
         /// <summary>
         /// get
         /// </summary>
@@ -147,13 +156,26 @@ namespace OCISDK.Core.Common
         }
 
         /// <summary>
-        /// Post a request object to the endpoint represented by the web target and get the response.
+        /// Request a resource asynchronously.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
         /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
+        {
+            return await Post(targetUri, requestBody, httpRequestHeaderParam, true);
+        }
+
+        /// <summary>
+        /// Post a request object to the endpoint represented by the web target and get the response.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        public async Task<WebResponse> Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Post.Method;
@@ -168,17 +190,7 @@ namespace OCISDK.Core.Common
 
             if (requestBody != null)
             {
-                var body = JsonSerializer.Serialize(requestBody);
-
-                var bytes = Encoding.UTF8.GetBytes(body);
-
-                request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
-                request.ContentLength = bytes.Length;
-
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(bytes, 0, bytes.Length);
-                }
+                request = SetBody(request, requestBody, bodyJsonSerialize);
             }
 
             if (Signer != null)
@@ -218,13 +230,26 @@ namespace OCISDK.Core.Common
         }
 
         /// <summary>
-        /// Put a request object to the endpoint represented by the web target and get the response.
+        /// Request a resource asynchronously.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
         /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
+        {
+            return await Put(targetUri, requestBody, httpRequestHeaderParam, true);
+        }
+
+        /// <summary>
+        /// Put a request object to the endpoint represented by the web target and get the response.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        public async Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Put.Method;
@@ -239,17 +264,7 @@ namespace OCISDK.Core.Common
 
             if (requestBody != null)
             {
-                var body = JsonSerializer.Serialize(requestBody);
-
-                var bytes = Encoding.UTF8.GetBytes(body);
-
-                request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
-                request.ContentLength = bytes.Length;
-
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(bytes, 0, bytes.Length);
-                }
+                request = SetBody(request, requestBody, bodyJsonSerialize);
             }
 
             if (Signer != null)
@@ -289,13 +304,26 @@ namespace OCISDK.Core.Common
         }
 
         /// <summary>
-        /// Patch a request object to the endpoint represented by the web target and get the response.
+        /// Request a resource asynchronously.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
         /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         public async Task<WebResponse> Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam)
+        {
+            return await Patch(targetUri, requestBody, httpRequestHeaderParam, true);
+        }
+
+        /// <summary>
+        /// Patch a request object to the endpoint represented by the web target and get the response.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        public async Task<WebResponse> Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Patch.Method;
@@ -310,17 +338,7 @@ namespace OCISDK.Core.Common
 
             if (requestBody != null)
             {
-                var body = JsonSerializer.Serialize(requestBody);
-
-                var bytes = Encoding.UTF8.GetBytes(body);
-
-                request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
-                request.ContentLength = bytes.Length;
-
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(bytes, 0, bytes.Length);
-                }
+                request = SetBody(request, requestBody, bodyJsonSerialize);
             }
 
             if (Signer != null)
@@ -336,6 +354,48 @@ namespace OCISDK.Core.Common
             }
 
             return res.Result;
+        }
+
+        private HttpWebRequest SetBody(HttpWebRequest request, object requestBody, bool bodyJsonSerialize)
+        {
+            string body = "";
+            byte[] bytes;
+            if (requestBody is Stream)
+            {
+                bytes = GetByteArrayFromStream(requestBody as Stream);
+            }
+            else
+            {
+                if (bodyJsonSerialize)
+                {
+                    body = JsonSerializer.Serialize(requestBody);
+                }
+                else
+                {
+                    body = requestBody as string;
+                }
+
+                bytes = Encoding.UTF8.GetBytes(body);
+            }
+
+            request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
+            request.ContentLength = bytes.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
+
+            return request;
+        }
+
+        private static byte[] GetByteArrayFromStream(Stream sm)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                sm.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
 
         /// <summary>

@@ -39,26 +39,31 @@ namespace OCISDK.Core.Common
     {
         /// <summary>
         /// TimeoutSeconds
+        /// <para>default:100</para>
         /// </summary>
         public int TimeoutSeconds { get; set; } = 100;
 
         /// <summary>
         /// RetryCount
+        /// <para>default:3</para>
         /// </summary>
         public int RetryCount { get; set; } = 3;
 
         /// <summary>
         /// SleepDurationSeconds
+        /// <para>default:2</para>
         /// </summary>
         public int SleepDurationSeconds { get; set; } = 2;
 
         /// <summary>
         /// HandledEventsAllowedBeforeBreaking
+        /// <para>default:10</para>
         /// </summary>
         public int HandledEventsAllowedBeforeBreaking { get; set; } = 10;
 
         /// <summary>
         /// DurationOfBreakSeconds
+        /// <para>default:60</para>
         /// </summary>
         public int DurationOfBreakSeconds { get; set; } = 60;
     }

@@ -32,5 +32,11 @@ namespace OCISDK.Core.Core.Model.WorkRequest
         /// <para>Required: no</para>
         /// </summary>
         public string EntityUri { get; set; }
+
+        /// <summary>
+        /// The metadata of the resource.
+        /// <para>Required: no</para>
+        /// </summary>
+        public object Metadata { get; set; }
     }
 }

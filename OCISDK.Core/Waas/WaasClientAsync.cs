@@ -28,7 +28,7 @@ namespace OCISDK.Core.Waas
         /// <summary>
         /// Constructer
         /// </summary>
-        public WaasClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public WaasClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = WaasServiceName;
         }
@@ -44,7 +44,7 @@ namespace OCISDK.Core.Waas
         /// <summary>
         /// Constructer
         /// </summary>
-        public WaasClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public WaasClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = WaasServiceName;
         }

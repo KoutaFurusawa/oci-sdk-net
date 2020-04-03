@@ -42,6 +42,7 @@ namespace OCISDK.Core.ObjectStorage.Model
         /// When ObjectReadWithoutList is enabled on the bucket, 
         /// public access is allowed for the GetObject and HeadObject operations.
         /// <para>Required: no</para>
+        /// <para>Allowed values are: NoPublicAccess, ObjectRead, ObjectReadWithoutList</para>
         /// </summary>
         public string PublicAccessType { get; set; }
 

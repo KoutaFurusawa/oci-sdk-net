@@ -48,6 +48,11 @@ namespace OCISDK.Core
         protected IRestClientAsync RestClientAsync { get; set; }
 
         /// <summary>
+        /// rest option prameters.
+        /// </summary>
+        private RestOption RestOption { get; set; }
+
+        /// <summary>
         /// constructer
         /// </summary>
         /// <param name="config"></param>
@@ -168,21 +173,45 @@ namespace OCISDK.Core
                 Region = config.HomeRegion;
             }
 
-            this.RestClient = new RestClient()
+            RestOption = new RestOption();
+
+            RestClient = new RestClient()
             {
                 Signer = this.Signer,
                 JsonSerializer = JsonSerializer,
                 WebRequestPolicy = WebRequestPolicy,
-                Option = new RestOption()
+                Option = RestOption
             };
 
-            this.RestClientAsync = new RestClientAsync()
+            RestClientAsync = new RestClientAsync()
             {
                 Signer = this.Signer,
                 JsonSerializer = JsonSerializer,
                 WebRequestPolicy = WebRequestPolicy,
-                Option = new RestOption()
+                Option = RestOption
             };
+        }
+
+        /// <summary>
+        /// request option parameters setting.
+        /// </summary>
+        /// <param name="restOption"></param>
+        public void SetRestOption(RestOption restOption)
+        {
+            RestOption = restOption;
+
+            RestClient.SetOption(restOption);
+
+            RestClientAsync.SetOption(restOption);
+        }
+
+        /// <summary>
+        /// get request option parameters.
+        /// </summary>
+        /// <returns></returns>
+        public RestOption GetRestOption()
+        {
+            return RestOption;
         }
 
         /// <summary>
@@ -245,6 +274,15 @@ namespace OCISDK.Core
         public void SetJsonSerializer(IJsonSerializer jsonSerializer)
         {
             JsonSerializer = jsonSerializer;
+        }
+
+        /// <summary>
+        /// get TenancyId
+        /// </summary>
+        /// <returns></returns>
+        public string GetTenancyId()
+        {
+            return Config.TenancyId;
         }
 
         /// <summary>

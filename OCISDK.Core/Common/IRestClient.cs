@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Text;
 
@@ -10,6 +11,12 @@ namespace OCISDK.Core.Common
     /// </summary>
     public interface IRestClient
     {
+        /// <summary>
+        /// request option parameters setting
+        /// </summary>
+        /// <param name="option"></param>
+        void SetOption(RestOption option);
+
         /// <summary>
         /// Get
         /// </summary>
@@ -61,6 +68,16 @@ namespace OCISDK.Core.Common
         HttpWebResponse Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
 
         /// <summary>
+        /// Post
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        HttpWebResponse Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
+
+        /// <summary>
         /// Put
         /// </summary>
         /// <param name="targetUri"></param>
@@ -83,6 +100,18 @@ namespace OCISDK.Core.Common
         HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
 
         /// <summary>
+        /// Put
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
+
+        //HttpWebResponse Put(Uri targetUri, Stream requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+
+        /// <summary>
         /// Patch
         /// </summary>
         /// <param name="targetUri"></param>
@@ -103,6 +132,16 @@ namespace OCISDK.Core.Common
         /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         HttpWebResponse Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
+
+        /// <summary>
+        /// Patch
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        HttpWebResponse Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
 
         /// <summary>
         /// Delete

@@ -25,7 +25,7 @@ namespace OCISDK.Core.Core
         /// <summary>
         /// Constructer
         /// </summary>
-        public WorkRequestClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public WorkRequestClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CoreServices.CoreServiceName;
         }
@@ -41,7 +41,7 @@ namespace OCISDK.Core.Core
         /// <summary>
         /// Constructer
         /// </summary>
-        public WorkRequestClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public WorkRequestClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CoreServices.CoreServiceName;
         }

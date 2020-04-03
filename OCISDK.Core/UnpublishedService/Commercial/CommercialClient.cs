@@ -30,7 +30,7 @@ namespace OCISDK.Core.UnpublishedService.Commercial
         /// <summary>
         /// Constructer
         /// </summary>
-        public CommercialClient(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public CommercialClient(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CommercialServiceName;
         }
@@ -46,7 +46,7 @@ namespace OCISDK.Core.UnpublishedService.Commercial
         /// <summary>
         /// Constructer
         /// </summary>
-        public CommercialClient(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public CommercialClient(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = CommercialServiceName;
         }

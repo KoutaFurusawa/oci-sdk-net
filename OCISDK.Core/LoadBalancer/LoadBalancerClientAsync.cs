@@ -28,7 +28,7 @@ namespace OCISDK.Core.LoadBalancer
         /// <summary>
         /// Constructer
         /// </summary>
-        public LoadBalancerClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public LoadBalancerClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }
@@ -44,7 +44,7 @@ namespace OCISDK.Core.LoadBalancer
         /// <summary>
         /// Constructer
         /// </summary>
-        public LoadBalancerClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public LoadBalancerClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = DatabaseServiceName;
         }

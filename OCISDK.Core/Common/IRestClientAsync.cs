@@ -12,17 +12,25 @@ namespace OCISDK.Core.Common
     public interface IRestClientAsync
     {
         /// <summary>
+        /// request option parameters setting
+        /// </summary>
+        /// <param name="option"></param>
+        void SetOption(RestOption option);
+
+        /// <summary>
         /// get
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<WebResponse> Get(HttpWebRequest request);
+
         /// <summary>
         /// get
         /// </summary>
         /// <param name="targetUri"></param>
         /// <returns></returns>
         Task<WebResponse> Get(Uri targetUri);
+
         /// <summary>
         /// get
         /// </summary>
@@ -30,6 +38,7 @@ namespace OCISDK.Core.Common
         /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         Task<WebResponse> Get(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam);
+
         /// <summary>
         /// get
         /// </summary>
@@ -45,6 +54,7 @@ namespace OCISDK.Core.Common
         /// <param name="targetUri"></param>
         /// <returns></returns>
         Task<WebResponse> Post(Uri targetUri);
+
         /// <summary>
         /// post
         /// </summary>
@@ -52,6 +62,7 @@ namespace OCISDK.Core.Common
         /// <param name="requestBody"></param>
         /// <returns></returns>
         Task<WebResponse> Post(Uri targetUri, object requestBody);
+
         /// <summary>
         /// post
         /// </summary>
@@ -62,11 +73,22 @@ namespace OCISDK.Core.Common
         Task<WebResponse> Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
 
         /// <summary>
+        /// post
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        Task<WebResponse> Post(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
+
+        /// <summary>
         /// put
         /// </summary>
         /// <param name="targetUri"></param>
         /// <returns></returns>
         Task<WebResponse> Put(Uri targetUri);
+
         /// <summary>
         /// put
         /// </summary>
@@ -74,6 +96,7 @@ namespace OCISDK.Core.Common
         /// <param name="requestBody"></param>
         /// <returns></returns>
         Task<WebResponse> Put(Uri targetUri, object requestBody);
+
         /// <summary>
         /// put
         /// </summary>
@@ -84,11 +107,22 @@ namespace OCISDK.Core.Common
         Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
 
         /// <summary>
+        /// put
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
+
+        /// <summary>
         /// Patch
         /// </summary>
         /// <param name="targetUri"></param>
         /// <returns></returns>
         Task<WebResponse> Patch(Uri targetUri);
+
         /// <summary>
         /// Patch
         /// </summary>
@@ -96,6 +130,7 @@ namespace OCISDK.Core.Common
         /// <param name="requestBody"></param>
         /// <returns></returns>
         Task<WebResponse> Patch(Uri targetUri, object requestBody);
+
         /// <summary>
         /// Patch
         /// </summary>
@@ -106,11 +141,22 @@ namespace OCISDK.Core.Common
         Task<WebResponse> Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam);
 
         /// <summary>
+        /// Patch
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <returns></returns>
+        Task<WebResponse> Patch(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
+
+        /// <summary>
         /// Delete
         /// </summary>
         /// <param name="targetUri"></param>
         /// <returns></returns>
         Task<WebResponse> Delete(Uri targetUri);
+
         /// <summary>
         /// Delete
         /// </summary>
@@ -118,6 +164,7 @@ namespace OCISDK.Core.Common
         /// <param name="httpRequestHeaderParam"></param>
         /// <returns></returns>
         Task<WebResponse> Delete(Uri targetUri, HttpRequestHeaderParam httpRequestHeaderParam);
+
         /// <summary>
         /// Delete
         /// </summary>
@@ -133,6 +180,7 @@ namespace OCISDK.Core.Common
         /// <param name="targetUri"></param>
         /// <returns></returns>
         Task<WebResponse> Head(Uri targetUri);
+
         /// <summary>
         /// Head
         /// </summary>

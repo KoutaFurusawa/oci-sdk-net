@@ -29,7 +29,7 @@ namespace OCISDK.Core.Monitoring
         /// <summary>
         /// Constructer
         /// </summary>
-        public MonitoringClientAsync(ClientConfig config, OciSigner ociSigner) : base(config, ociSigner)
+        public MonitoringClientAsync(ClientConfig config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = monitaringServiceName;
         }
@@ -45,7 +45,7 @@ namespace OCISDK.Core.Monitoring
         /// <summary>
         /// Constructer
         /// </summary>
-        public MonitoringClientAsync(ClientConfigStream config, OciSigner ociSigner) : base(config, ociSigner)
+        public MonitoringClientAsync(ClientConfigStream config, IOciSigner ociSigner) : base(config, ociSigner)
         {
             ServiceName = monitaringServiceName;
         }

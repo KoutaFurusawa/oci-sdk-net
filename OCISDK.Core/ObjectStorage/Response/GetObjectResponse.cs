@@ -32,23 +32,23 @@ namespace OCISDK.Core.ObjectStorage.Response
         /// <summary>
         /// The user-defined metadata for the object.
         /// </summary>
-        public IDictionary<string, string> OpcMeta;
+        public IDictionary<string, string> OpcMeta { get; set; }
 
         /// <summary>
         /// The object size in bytes.
         /// </summary>
-        public long? ContentLength;
+        public long? ContentLength { get; set; }
 
         /// <summary>
         /// Content-Range header for range requests, per [RFC 7233](https://tools.ietf.org/rfc/rfc7233), section 4.2.
         /// </summary>
-        public Object ContentRange;
+        public Object ContentRange { get; set; }
 
         /// <summary>
         /// Content-MD5 header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.15.
         /// Unavailable for objects uploaded using multipart upload.
         /// </summary>
-        public string ContentMd5;
+        public string ContentMd5 { get; set; }
 
         /// <summary>
         /// Only applicable to objects uploaded using multipart upload. 
@@ -56,37 +56,37 @@ namespace OCISDK.Core.ObjectStorage.Response
         /// taking the MD5 hashes of the parts, concatenating the binary representation of those hashes in order of 
         /// their part numbers, and then calculating the MD5 hash of the concatenated values.
         /// </summary>
-        public string OpcMultipartMd5;
+        public string OpcMultipartMd5 { get; set; }
 
         /// <summary>
         /// Content-Type header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.17.
         /// </summary>
-        public string ContentType;
+        public string ContentType { get; set; }
 
         /// <summary>
         /// Content-Language header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.12.
         /// </summary>
-        public string ContentLanguage;
+        public string ContentLanguage { get; set; }
 
         /// <summary>
         /// Content-Encoding header, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.11.
         /// </summary>
-        public string ContentEncoding;
+        public string ContentEncoding { get; set; }
 
         /// <summary>
         /// The object modification time, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
         /// </summary>
-        public string LastModified;
+        public string LastModified { get; set; }
 
         /// <summary>
         /// The current state of the object.
         /// </summary>
-        public string ArchivalState;
+        public string ArchivalState { get; set; }
 
         /// <summary>
         /// The returned java.io.InputStream instance, or null if {@link #isNotModified()} is true.
         /// </summary>
-        public string TimeOfArchival;
-        
+        public string TimeOfArchival { get; set; }
+
     }
 }

@@ -10,27 +10,34 @@ using OCISDK.Core.Audit.Response;
 using System.Net;
 using System.Threading;
 using Polly.CircuitBreaker;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using OCISDK.Core.Identity.Model;
 
 namespace Example
 {
     class AuditExample
     {
-        public static async void AuditDisplay(ClientConfig config)
-        {
-            // create client
-            AuditClientAsync client = new AuditClientAsync(config)
-            {
-                Region = Regions.US_ASHBURN_1
-            };
-            IdentityClient identityClinet = new IdentityClient(config)
-            {
-                Region = Regions.US_ASHBURN_1
-            };
-            
-            DateTime now = DateTime.Now.AddDays(-1);
-            var startDate = now.ToString("yyyy-MM-ddT00:00:00Z");
-            var endDate = now.ToString("yyyy-MM-ddT10:30:00Z");
+        private static List<Task> Tasks = new List<Task>();
 
+        public static void AuditDisplay(ClientConfig config)
+        {
+            ThreadSafeSigner threadSafeSigner = new ThreadSafeSigner(new OciSigner(config));
+            // create client
+            IdentityClient identityClinet = new IdentityClient(config, threadSafeSigner)
+            {
+                Region = Regions.US_ASHBURN_1
+            };
+
+            var executeStart = DateTime.Now;
+
+            var listRegionSubscriptionsRequest = new ListRegionSubscriptionsRequest()
+            {
+                TenancyId = config.TenancyId
+            };
+            var regions = identityClinet.ListRegionSubscriptions(listRegionSubscriptionsRequest).Items.Where(r => r.Status.Equals("READY"));
+
+            // get compartment
             var listCompartmentRequest = new ListCompartmentRequest()
             {
                 CompartmentId = config.TenancyId,
@@ -41,84 +48,133 @@ namespace Example
 
             // get Audit Events
             Console.WriteLine("* Audit Events-------------------");
-            foreach (var compartment in compartments)
+
+            var acquisitionMaxRange = 12;
+
+            // 長時間化を見込んで時間を分割しながら取得する
+            var endDate = new DateTime(2020, 3, 11);
+            var startDate = new DateTime(2020, 3, 9);
+            var client = new AuditClientAsync(config, threadSafeSigner);
+            var option = client.GetRestOption();
+            option.TimeoutSeconds = 200;
+            client.SetRestOption(option);
+
+            foreach (var region in regions)
             {
-                // get config
-                var configurationRequest = new GetConfigurationRequest()
+                client.SetRegion(region.RegionName);
+
+                while (startDate < endDate)
                 {
-                    CompartmentId = compartment.Id
-                };
-                var auditConfig = await client.GetConfiguration(configurationRequest);
+                    var valiableDay = startDate.AddDays(1);
 
-                Console.WriteLine($"compartment<{compartment.Name}>---");
-                Console.WriteLine($"startTime:{startDate}, endTime:{endDate}");
-                Console.WriteLine($"retentionPeriodDays:{auditConfig.Configuration.RetentionPeriodDays}");
+                    var start = startDate;
+                    bool finished = false;
+                    while (!finished)
+                    {
+                        var progressEndDate = start.AddHours(acquisitionMaxRange);
+                        if (progressEndDate > valiableDay)
+                        {
+                            progressEndDate = valiableDay;
+                            finished = true;
+                        }
 
-                DisplayAudit(config, client, identityClinet, compartment.Id, startDate, endDate, "", "");
-                
+                        if (start == progressEndDate)
+                        {
+                            continue;
+                        }
+
+                        foreach (var compartment in compartments)
+                        {
+                            if (!compartment.LifecycleState.Equals("ACTIVE", StringComparison.OrdinalIgnoreCase))
+                                continue;
+                            Console.WriteLine($"region:{region.RegionName}, compartment:{compartment.Name}");
+                            AddTasks(DisplayAudit(client, identityClinet, compartment, start.ToString("yyyy-MM-ddTHH:mm:ssZ"), progressEndDate.ToString("yyyy-MM-ddTHH:mm:ssZ")));
+                        }
+                        start = progressEndDate;
+                    }
+
+                    ExecuteTasks();
+
+                    startDate = valiableDay;
+                }
+            }
+            ExecuteTasks();
+            
+            Console.WriteLine($"Count:{Count}");
+
+            var executeEnd = DateTime.Now;
+
+            var saDate = executeEnd - executeStart;
+
+            Console.WriteLine($"{saDate.Hours}:{saDate.Minutes}:{saDate.Seconds}");
+
+            Console.WriteLine("******************************************");
+            Console.WriteLine("******** All Audit Task Completed ********");
+            Console.WriteLine("******************************************");
+        }
+
+        private static void ExecuteTasks()
+        {
+            try
+            {
+                //t.Wait();
+                Task.WaitAll(Tasks.ToArray());
+            }
+            catch (WebException we)
+            {
+                if (!(we.Status.Equals(WebExceptionStatus.ProtocolError) && ((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.NotFound))
+                {
+                    Console.WriteLine(we.Message);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                Tasks.Clear();
             }
         }
 
-        private static async void DisplayAudit(ClientConfig config, AuditClientAsync client, IdentityClient identityClinet, string compartmentId, string startDate, string endDate, string requestId, string pageId)
+        static int Count = 0;
+        private static async Task DisplayAudit(
+            AuditClientAsync client, IdentityClient identityClinet, 
+            Compartment compartment, string startDate, string endDate, 
+            string requestId="", string pageId="")
         {
             // get Audit Events
             var listEventsRequest = new ListEventsRequest()
             {
-                CompartmentId = compartmentId,
+                CompartmentId = compartment.Id,
                 StartTime = startDate,
                 EndTime = endDate,
-                //Page = pageId
-                //CompartmentId = "ocid1.compartment.oc1..aaaaaaaarj2edeedyk4o7rvcpdh6fckmeevwyog3k7zd4wjlyzcejib53yuq",
-                //StartTime = "2019-10-29T09:33:57Z",
-                //EndTime = "2019-10-29T11:33:57Z",
-                OpcRequestId = requestId,
                 Page = pageId
             };
-        
+
             var events = await client.ListEvents(listEventsRequest);
 
             if (!string.IsNullOrEmpty(events.OpcNextPage))
             {
-                DisplayAudit(config, client, identityClinet, compartmentId, startDate, endDate, events.OpcRequestId, events.OpcNextPage);
+                await DisplayAudit(client, identityClinet, compartment, startDate, endDate, events.OpcRequestId, events.OpcNextPage);
             }
-            
+
             if (events.Items.Count > 0)
             {
-                events.Items.ForEach(e => {
-                    Console.WriteLine($"* eventName:{e.Data.EventName}");
-                    Console.WriteLine($"\t id:{e.EventId}");
-                    Console.WriteLine($"\t type:{e.EventType}");
-                    Console.WriteLine($"\t source:{e.Source}");
-                    Console.WriteLine($"\t time:{e.EventTime}");
-                    Console.WriteLine($"\t resourceName:{e.Data.ResourceName}");
-                    if (e.Data.Identity != null)
-                    {
-                        Console.WriteLine($"\t principal:{e.Data.Identity.PrincipalId}");
+                Count += events.Items.Count;
+                Console.WriteLine($"enventset: com={compartment.Name}, start={startDate}, end={endDate}, events.Items:{events.Items.Count}");
+            }
+        }
 
-                        try
-                        {
-                            var getUserRequest = new GetUserRequest()
-                            {
-                                UserId = e.Data.Identity.PrincipalId
-                            };
-                            var user = identityClinet.GetUser(getUserRequest);
-                            Console.WriteLine($"\t user:{user.User.Name}");
-                        }
-                        catch (WebException we)
-                        {
-                            if (we.Status.Equals(WebExceptionStatus.ProtocolError))
-                            {
-                                var code = ((HttpWebResponse)we.Response).StatusCode;
-                                if (code == HttpStatusCode.NotFound)
-                                {
-                                    // エラーだけ残す
-                                    Console.WriteLine($"\t user not found");
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                });
+        private static void AddTasks(Task task)
+        {
+            Tasks.Add(task);
+
+            Console.WriteLine("Task count:" + Tasks.Count);
+
+            if (Tasks.Count > 50)
+            {
+                ExecuteTasks();
             }
         }
     }

@@ -31,5 +31,11 @@
         /// <para>Required: no</para>
         /// </summary>
         public string TimeCreated { get; set; }
+
+        /// <summary>
+        /// The current entity tag (ETag) for the object.
+        /// <para>Required: no</para>
+        /// </summary>
+        public string Etag { get; set; }
     }
 }
