@@ -23,7 +23,7 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.5-rc</Version>
+    <Version>0.6.5</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -34,20 +34,13 @@ RCバージョンにはバグが含まれている場合があります。
 2019/12/05 version 0.6.2-rc release
 2019/12/09 version 0.6.2 release
 2020/01/27 version 0.6.3 release
-    * Add Osaka regions
-    * Add ClusterNetwork APIs
-    * Add Cpe Service APIs
-    * Add Notification APIs
-    * Add InstanceAction API
-    * Update UpdateInstance API
 2020/03/10 version 0.6.4.2 release
     * Add Budget Service APIs
     * Add InstanceDefaultCredentials API(External cooperation)
-2020/04/06 version 0.6.5-rc release
+2020/04/08 version 0.6.5 release
     * Threadsafe Signer is added to support each client.
     * Add ObjectStorage full APis
-    * ObjectStorage APIs Update
-        * Add class equivalent to S3DirectoryInfo.</PackageReleaseNotes>
+    * Add class equivalent to S3DirectoryInfo.</PackageReleaseNotes>
     <Copyright>Copyright (c) 2020, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
