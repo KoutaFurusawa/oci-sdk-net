@@ -40,7 +40,7 @@ namespace OCISDK.Core.Common
         /// <summary>
         /// request option parameters setting
         /// </summary>
-        /// <param name="restOption"></param>
+        /// <param name="option"></param>
         public void SetOption(RestOption option)
         {
             Option = option;
