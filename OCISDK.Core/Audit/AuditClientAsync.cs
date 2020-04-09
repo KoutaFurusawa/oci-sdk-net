@@ -56,9 +56,8 @@ namespace OCISDK.Core.Audit
         public async Task<ListEventsResponse> ListEvents(ListEventsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(AuditServices.EVENT, this.Region)}?{listRequest.GetOptionQuery()}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = listRequest.OpcRequestId });
 
+            using (var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = listRequest.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -80,9 +79,8 @@ namespace OCISDK.Core.Audit
         public async Task<GetConfigurationResponse> GetConfiguration(GetConfigurationRequest request)
         {
             var uri = new Uri($"{GetEndPoint(AuditServices.CONFIGURATION, this.Region)}?compartmentId={request.CompartmentId}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -103,9 +101,8 @@ namespace OCISDK.Core.Audit
         public async Task<UpdateConfigurationResponse> UpdateConfiguration(UpdateConfigurationRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(AuditServices.CONFIGURATION, this.Region)}?compartmentId={updateRequest.CompartmentId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.updateConfigurationDetails);
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.updateConfigurationDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

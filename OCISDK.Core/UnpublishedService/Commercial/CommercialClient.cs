@@ -64,8 +64,7 @@ namespace OCISDK.Core.UnpublishedService.Commercial
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -92,8 +91,7 @@ namespace OCISDK.Core.UnpublishedService.Commercial
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

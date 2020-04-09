@@ -57,8 +57,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -84,8 +83,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -111,8 +109,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -136,8 +133,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -161,8 +157,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -186,8 +181,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -211,8 +205,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}?{listRequest.GetOptionQuery()}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -236,8 +229,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -261,8 +253,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using(var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -286,7 +277,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -311,7 +302,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuitBandwidthShape, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -336,7 +327,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -361,7 +352,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{getDhcpRequest.DhcpId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -386,7 +377,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{getRtRequest.RtId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -411,7 +402,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{getRequest.IgId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -436,7 +427,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{getSecurityListRequest.SecurityListId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -461,7 +452,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{getVcnRequest.VcnId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -487,7 +478,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{getVcnRequest.VnicId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -512,7 +503,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{getRequest.SubnetId}");
             
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -537,7 +528,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -562,7 +553,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -587,7 +578,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam { IfMatch = request.IfMatch });
+            using(var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam { IfMatch = request.IfMatch }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -618,7 +609,7 @@ namespace OCISDK.Core
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeCpeCompartmentDetails, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Post(uri, request.ChangeCpeCompartmentDetails, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -647,8 +638,7 @@ namespace OCISDK.Core
                 OpcRetryToken = param.OpcRetryToken,
                 OpcRequestId = param.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVcnCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.ChangeVcnCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -678,8 +668,7 @@ namespace OCISDK.Core
                 OpcRetryToken = param.OpcRetryToken,
                 OpcRequestId = param.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSubnetCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSubnetCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -709,8 +698,7 @@ namespace OCISDK.Core
                 OpcRetryToken = param.OpcRetryToken,
                 OpcRequestId = param.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSecurityListCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.ChangeSecurityListCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -739,8 +727,7 @@ namespace OCISDK.Core
                 OpcRetryToken = param.OpcRetryToken,
                 OpcRequestId = param.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeRouteTableCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.ChangeRouteTableCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -769,8 +756,7 @@ namespace OCISDK.Core
                 OpcRequestId = request.OpcRequestId,
                 OpcRetryToken = request.OpcRetryToken
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeVirtualCircuitCompartmentDetails, headers);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.ChangeVirtualCircuitCompartmentDetails, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -795,8 +781,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/bulkAddPublicPrefixes");
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.BulkAddVirtualCircuitPublicPrefixesDetails);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.BulkAddVirtualCircuitPublicPrefixesDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -820,8 +805,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}/actions/bulkDeletePublicPrefixes");
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.BulkDeleteVirtualCircuitPublicPrefixesDetails);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.BulkDeleteVirtualCircuitPublicPrefixesDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -853,8 +837,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.CPE, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateCpeDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateCpeDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -877,9 +860,8 @@ namespace OCISDK.Core
         public async Task<CreateInternetGatewayResponse> CreateInternetGateway(CreateInternetGatewayRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.InternetGateway, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateInternetGatewayDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateInternetGatewayDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -902,9 +884,8 @@ namespace OCISDK.Core
         public async Task<CreateDhcpOptionsResponse> CreateDhcpOptions(CreateDhcpOptionsRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.DHCP, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateDhcpDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateDhcpDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -929,9 +910,8 @@ namespace OCISDK.Core
         public async Task<CreateSecurityListResponse> CreateSecurityList(CreateSecurityListRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.SecurityList, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateSecurityListDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateSecurityListDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -954,9 +934,8 @@ namespace OCISDK.Core
         public async Task<CreateVcnResponse> CreateVcn(CreateVcnRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.VCN, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateVcnDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateVcnDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -982,9 +961,8 @@ namespace OCISDK.Core
         public async Task<CreateSubnetResponse> CreateSubnet(CreateSubnetRequest createRequest)
         {
             var uri = new Uri(GetEndPoint(CoreServices.Subnet, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateSubnetDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateSubnetDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1010,8 +988,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.RouteTable, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateRouteTableDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, createRequest.CreateRouteTableDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1042,8 +1019,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.DRGAttachment, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateDrgAttachmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateDrgAttachmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1076,8 +1052,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.DRG, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateDrgDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateDrgDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1110,8 +1085,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.VirtualCircuit, this.Region));
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateVirtualCircuitDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateVirtualCircuitDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1135,8 +1109,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateCpeDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateCpeDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1159,9 +1132,8 @@ namespace OCISDK.Core
         public async Task<UpdateVcnResponse> UpdateVcn(UpdateVcnRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{updateRequest.VcnId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateVcnDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateVcnDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1184,9 +1156,8 @@ namespace OCISDK.Core
         public async Task<UpdateVnicResponse> UpdateVnic(UpdateVnicRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNIC, this.Region)}/{updateRequest.VnicId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateVnicDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateVnicDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1211,9 +1182,8 @@ namespace OCISDK.Core
         public async Task<UpdateInternetGatewayResponse> UpdateInternetGateway(UpdateInternetGatewayRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{updateRequest.IgId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateInternetGatewayDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateInternetGatewayDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1237,9 +1207,8 @@ namespace OCISDK.Core
         public async Task<UpdateDhcpOptionsResponse> UpdateDhcpOptions(UpdateDhcpOptionsRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{updateRequest.DhcpId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateDhcpDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateDhcpDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1262,9 +1231,8 @@ namespace OCISDK.Core
         public async Task<UpdateSecurityListResponse> UpdateSecurityList(UpdateSecurityListRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{updateRequest.SecurityListId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateSecurityListDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateSecurityListDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1287,9 +1255,8 @@ namespace OCISDK.Core
         public async Task<UpdateSubnetResponse> UpdateSubnet(UpdateSubnetRequest updateRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{updateRequest.SubnetId}");
-            
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateSubnetDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateSubnetDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1314,8 +1281,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{updateRequest.RtId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateRouteTableDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateRouteTableDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1339,8 +1305,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDrgAttachmentDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDrgAttachmentDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1364,8 +1329,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRG, this.Region)}/{request.DrgId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDrgDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDrgDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1400,8 +1364,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateVirtualCircuitDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateVirtualCircuitDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1426,8 +1389,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.CPE, this.Region)}/{request.CpeId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1450,9 +1412,8 @@ namespace OCISDK.Core
         public async Task<DeleteVcnResponse> DeleteVcn(DeleteVcnRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VCN, this.Region)}/{request.VcnId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1474,9 +1435,8 @@ namespace OCISDK.Core
         public async Task<DeleteInternetGatewayResponse> DeleteInternetGateway(DeleteInternetGatewayRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InternetGateway, this.Region)}/{request.IgId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1498,9 +1458,8 @@ namespace OCISDK.Core
         public async Task<DeleteDhcpOptionsResponse> DeleteDhcpOptions(DeleteDhcpOptionsRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DHCP, this.Region)}/{request.DhcpId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1522,9 +1481,8 @@ namespace OCISDK.Core
         public async Task<DeleteSecurityListResponse> DeleteSecurityList(DeleteSecurityListRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.SecurityList, this.Region)}/{request.SecurityListId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1548,9 +1506,8 @@ namespace OCISDK.Core
         public async Task<DeleteSubnetResponse> DeleteSubnet(DeleteSubnetRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Subnet, this.Region)}/{request.SubnetId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1573,8 +1530,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.RouteTable, this.Region)}/{request.RtId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1597,8 +1553,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.DRGAttachment, this.Region)}/{request.DrgAttachmentId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1621,8 +1576,7 @@ namespace OCISDK.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VirtualCircuit, this.Region)}/{request.VirtualCircuitId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

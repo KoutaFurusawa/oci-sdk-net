@@ -64,8 +64,7 @@ namespace OCISDK.Core.Core
                 OpcRequestId = request.OpcRequestId,
                 OpcRetryToken = request.OpcRetryToken
             };
-            var webResponse = this.RestClient.Post(uri, request.ChangeClusterNetworkCompartmentDetails, headers);
-
+            using (var webResponse = this.RestClient.Post(uri, request.ChangeClusterNetworkCompartmentDetails, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -88,8 +87,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri(GetEndPoint(CoreServices.ClusterNetworks, this.Region));
 
-            var webResponse = this.RestClient.Post(uri, request.CreateClusterNetworkDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateClusterNetworkDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -118,8 +116,7 @@ namespace OCISDK.Core.Core
                 IfMatch = request.IfMatch,
                 OpcRetryToken = request.OpcRetryToken
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateClusterNetworkDetails, headers);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateClusterNetworkDetails, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -143,7 +140,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.ClusterNetworks, this.Region)}/{request.ClusterNetworkId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -168,7 +165,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.ClusterNetworks, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -193,7 +190,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.ClusterNetworks, this.Region)}/{request.ClusterNetworkId}/instances?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -220,8 +217,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.ClusterNetworks, this.Region)}/{request.ClusterNetworkId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

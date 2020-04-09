@@ -63,8 +63,7 @@ namespace OCISDK.Core.FileStorage
                 IfMatch = request.FileSystemId,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.ChangeFileSystemCompartmentDetails, headers);
-
+            using (var webResponse = this.RestClient.Post(uri, request.ChangeFileSystemCompartmentDetails, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -107,8 +106,7 @@ namespace OCISDK.Core.FileStorage
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateFileSystemDetails, headers);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateFileSystemDetails, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -137,8 +135,7 @@ namespace OCISDK.Core.FileStorage
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateFileSystemDetails, headers);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateFileSystemDetails, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -166,8 +163,7 @@ namespace OCISDK.Core.FileStorage
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Get(uri, headers);
-
+            using (var webResponse = this.RestClient.Get(uri, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -195,8 +191,7 @@ namespace OCISDK.Core.FileStorage
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Get(uri, headers);
-
+            using (var webResponse = this.RestClient.Get(uri, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -228,8 +223,7 @@ namespace OCISDK.Core.FileStorage
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

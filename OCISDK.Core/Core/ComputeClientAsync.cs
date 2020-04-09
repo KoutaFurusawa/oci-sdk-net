@@ -56,9 +56,8 @@ namespace OCISDK.Core.Core
         public async Task<ListInstancesResponse> ListInstances(ListInstancesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}?{listRequest.GetOptionQuery()}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -86,15 +85,14 @@ namespace OCISDK.Core.Core
         public async Task<ListImagesResponse> ListImages(ListImagesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}?{listRequest.GetOptionQuery()}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
                 var response = reader.ReadToEnd();
 
-                return  new ListImagesResponse()
+                return new ListImagesResponse()
                 {
                     Items = this.JsonSerializer.Deserialize<List<Image>>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
@@ -113,9 +111,8 @@ namespace OCISDK.Core.Core
         public async Task<ListBootVolumeAttachmentsResponse> ListBootVolumeAttachments(ListBootVolumeAttachmentsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}?{listRequest.GetOptionQuery()}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -139,9 +136,8 @@ namespace OCISDK.Core.Core
         public async Task<ListShapesResponse> ListShapes(ListShapesRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Shape, this.Region)}?{listRequest.GetOptionQuery()}");
-            
-            var webResponse =  await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -166,9 +162,8 @@ namespace OCISDK.Core.Core
         public async Task<ListVnicAttachmentsResponse> ListVnicAttachments(ListVnicAttachmentsRequest listRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNICAttachment, this.Region)}?{listRequest.GetOptionQuery()}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -192,8 +187,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -216,9 +210,8 @@ namespace OCISDK.Core.Core
         public async Task<GetInstanceResponse> GetInstance(GetInstanceRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{getRequest.InstanceId}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -241,9 +234,8 @@ namespace OCISDK.Core.Core
         public async Task<GetInstanceDefaultCredentialsResponse> GetInstanceDefaultCredentials(GetInstanceDefaultCredentialsRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{getRequest.InstanceId}/defaultCredentials");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -265,9 +257,8 @@ namespace OCISDK.Core.Core
         public async Task<GetImageResponse> GetImage(GetImageRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Image, this.Region)}/{getRequest.ImageId}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -290,9 +281,8 @@ namespace OCISDK.Core.Core
         public async Task<GetBootVolumeAttachmentResponse> GetBootVolumeAttachment(GetBootVolumeAttachmentRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{getRequest.BootVolumeAttachmentId}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -315,9 +305,8 @@ namespace OCISDK.Core.Core
         public async Task<GetVnicAttachmentResponse> GetVnicAttachment(GetVnicAttachmentRequest getRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.VNICAttachment, this.Region)}/{getRequest.VnicAttachmentId}");
-            
-            var webResponse = await this.RestClientAsync.Get(uri);
 
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -341,8 +330,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -366,8 +354,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}/data?{param.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -390,9 +377,8 @@ namespace OCISDK.Core.Core
         public async Task<AttachBootVolumeResponse> AttachBootVolume(AttachBootVolumeRequest request)
         {
             var uri = new Uri(GetEndPoint(CoreServices.BootVolumeAttachment, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, request.AttachBootVolumeDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.AttachBootVolumeDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -416,9 +402,8 @@ namespace OCISDK.Core.Core
         public async Task<AttachVnicResponse> AttachVnic(AttachVnicRequest request)
         {
             var uri = new Uri(GetEndPoint(CoreServices.VNICAttachment, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, request.AttachVnicDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.AttachVnicDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -450,8 +435,7 @@ namespace OCISDK.Core.Core
                 OpcRequestId = param.OpcRequestId,
                 IfMatch = param.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeInstanceCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.ChangeInstanceCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -481,8 +465,7 @@ namespace OCISDK.Core.Core
                 OpcRequestId = param.OpcRequestId,
                 IfMatch = param.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Post(uri, param.ChangeImageCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.ChangeImageCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -515,9 +498,8 @@ namespace OCISDK.Core.Core
         public async Task<LaunchInstanceResponse> LaunchInstance(LaunchInstanceRequest request)
         {
             var uri = new Uri(GetEndPoint(CoreServices.Instance, this.Region));
-            
-            var webResponse = await this.RestClientAsync.Post(uri, request.LaunchInstanceDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
 
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.LaunchInstanceDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -548,8 +530,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, param.CaptureConsoleHistoryDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, param.CaptureConsoleHistoryDetails, new HttpRequestHeaderParam() { OpcRetryToken = param.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -580,8 +561,7 @@ namespace OCISDK.Core.Core
                 OpcRetryToken = updateRequest.OpcRetryToken,
                 IfMatch = updateRequest.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateInstanceDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, updateRequest.UpdateInstanceDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -622,8 +602,7 @@ namespace OCISDK.Core.Core
                 OpcRetryToken = request.OpcRetryToken,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Post(uri, null, headers);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, null, headers))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -647,8 +626,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
 
-            var webResponse = await this.RestClientAsync.Put(uri, param.UpdateConsoleHistoryDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, param.UpdateConsoleHistoryDetails, new HttpRequestHeaderParam() { IfMatch = param.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -676,9 +654,8 @@ namespace OCISDK.Core.Core
         public async Task<TerminateInstanceResponse> TerminateInstance(TerminateInstanceRequest deleteRequest)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.Instance, this.Region)}/{deleteRequest.InstanceId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch }, deleteRequest.PreserveBootVolume);
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deleteRequest.IfMatch }, deleteRequest.PreserveBootVolume))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -701,9 +678,8 @@ namespace OCISDK.Core.Core
         public async Task<DetachBootVolumeResponse> DetachBootVolume(DetachBootVolumeRequest request)
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.BootVolumeAttachment, this.Region)}/{request.BootVolumeAttachmentId}");
-            
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
 
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -725,8 +701,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.InstanceConsoleHistory, this.Region)}/{param.InstanceConsoleHistoryId}");
 
-            var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch });
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = param.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

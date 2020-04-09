@@ -57,8 +57,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.Databases, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
-
+            using(var webResponse = this.RestClient.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -83,7 +82,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -108,7 +107,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbNodes, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -134,7 +133,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -159,7 +158,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbVersions, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -185,7 +184,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystemShapes, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -210,7 +209,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.Databases, this.Region)}/{request.DatabaseId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -235,7 +234,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}/{request.DbHomeId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -260,7 +259,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbNodes, this.Region)}/{request.DbNodeId}");
             
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -285,7 +284,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}/{request.DbSystemId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -310,8 +309,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}/{request.DbSystemId}/ExadataIormConfig");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -340,8 +338,7 @@ namespace OCISDK.Core.Database
                 OpcRetryToken = request.OpcRetryToken,
                 IfMatch = request.IfMatch
             };
-            var webResponse = this.RestClient.Post(uri, request.ChangeCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.ChangeCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -365,8 +362,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.Databases, this.Region)}/{request.DatabaseId}/actions/resto");
 
-            var webResponse = this.RestClient.Post(uri, request.RestoreDatabaseDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Post(uri, request.RestoreDatabaseDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -390,8 +386,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.CreateDbHomeWithDbSystemIdDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateDbHomeWithDbSystemIdDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -415,8 +410,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.CreateDbHomeWithDbSystemIdFromBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateDbHomeWithDbSystemIdFromBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -449,8 +443,7 @@ namespace OCISDK.Core.Database
                 OpcRetryToken = request.OpcRetryToken,
                 IfMatch = request.IfMatch
             };
-            var webResponse = this.RestClient.Post(uri, null, headParam);
-
+            using (var webResponse = this.RestClient.Post(uri, null, headParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -478,8 +471,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.LaunchDbSystemDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.LaunchDbSystemDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -507,8 +499,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.LaunchDbSystemFromBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.LaunchDbSystemFromBackupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -532,8 +523,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.Databases, this.Region)}/{request.DatabaseId}");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateDatabaseDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateDatabaseDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -557,8 +547,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}/{request.DbHomeId}");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateDbHomeDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateDbHomeDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -582,8 +571,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}/{request.DbSystemId}");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateDbSystemDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateDbSystemDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -611,8 +599,7 @@ namespace OCISDK.Core.Database
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.ExadataIormConfigUpdateDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.ExadataIormConfigUpdateDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -637,8 +624,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbHomes, this.Region)}/{request.DbHomeId}?performFinalBackup={request.PerformFinalBackup}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -662,8 +648,7 @@ namespace OCISDK.Core.Database
         {
             var uri = new Uri($"{GetEndPoint(DatabaseServices.DbSystems, this.Region)}/{request.DbSystemId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
