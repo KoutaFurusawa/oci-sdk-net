@@ -23,7 +23,7 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.5.1-rc</Version>
+    <Version>0.6.5.1</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
