@@ -63,8 +63,7 @@ namespace OCISDK.Core.Budgets
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateAlertRuleDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateAlertRuleDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -93,8 +92,7 @@ namespace OCISDK.Core.Budgets
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateBudgetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateBudgetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -123,8 +121,7 @@ namespace OCISDK.Core.Budgets
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -151,8 +148,7 @@ namespace OCISDK.Core.Budgets
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -174,8 +170,7 @@ namespace OCISDK.Core.Budgets
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules/{request.AlertRuleId}");
 
-            var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -203,8 +198,7 @@ namespace OCISDK.Core.Budgets
                 IfMatch = request.IfMatch,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateAlertRuleDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateAlertRuleDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -228,8 +222,7 @@ namespace OCISDK.Core.Budgets
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}/{request.BudgetId}/alertRules?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -253,8 +246,7 @@ namespace OCISDK.Core.Budgets
         {
             var uri = new Uri($"{GetEndPoint(BudgetsServices.Budgets, this.Region, "oci.oraclecloud.com")}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

@@ -69,6 +69,10 @@
       "version": "20180401",
       "hosttag": "telemetry-ingestion"
     },
+    "nosql": {
+      "version": "20190828",
+      "hosttag": "nosql"
+    },
     "notification": {
       "version": "20181201",
       "hosttag": "cp.notification"

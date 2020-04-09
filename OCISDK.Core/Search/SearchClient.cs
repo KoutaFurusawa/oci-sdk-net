@@ -59,8 +59,7 @@ namespace OCISDK.Core.Search
         {
             var uri = new Uri(GetEndPoint(SearchServices.RESOURCES, this.Region));
 
-            var webResponse = this.RestClient.Post(uri, searchResourcesRequest.SearchDetails, new HttpRequestHeaderParam() { OpcRequestId = searchResourcesRequest.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Post(uri, searchResourcesRequest.SearchDetails, new HttpRequestHeaderParam() { OpcRequestId = searchResourcesRequest.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

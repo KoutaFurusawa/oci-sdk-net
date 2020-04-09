@@ -58,8 +58,7 @@ namespace OCISDK.Core.DNS
         {
             var uri = new Uri($"{GetEndPoint(DNSServices.Zones, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -84,7 +83,7 @@ namespace OCISDK.Core.DNS
         {
             var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -110,7 +109,7 @@ namespace OCISDK.Core.DNS
         {
             var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}?{request.GetOptionQuery()}");
 
-            var webResponse = await this.RestClientAsync.Get(uri);
+            using(var webResponse = await this.RestClientAsync.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -147,7 +146,7 @@ namespace OCISDK.Core.DNS
                 IfNoneMatch = request.IfNoneMatch,
                 IfModifiedSince = request.IfModifiedSince
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -187,7 +186,7 @@ namespace OCISDK.Core.DNS
                 IfNoneMatch = request.IfNoneMatch,
                 IfModifiedSince = request.IfModifiedSince
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -229,7 +228,7 @@ namespace OCISDK.Core.DNS
                 IfNoneMatch = request.IfNoneMatch,
                 IfModifiedSince = request.IfModifiedSince
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -270,7 +269,7 @@ namespace OCISDK.Core.DNS
                 IfNoneMatch = request.IfNoneMatch,
                 IfModifiedSince = request.IfModifiedSince
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -304,7 +303,7 @@ namespace OCISDK.Core.DNS
                 IfNoneMatch = request.IfNoneMatch,
                 IfModifiedSince = request.IfModifiedSince
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -336,7 +335,7 @@ namespace OCISDK.Core.DNS
                 IfNoneMatch = request.IfNoneMatch,
                 IfModifiedSince = request.IfModifiedSince
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
+            using(var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -366,8 +365,7 @@ namespace OCISDK.Core.DNS
                 OpcRetryToken = request.OpcRetryToken,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeZoneCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.ChangeZoneCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -394,8 +392,7 @@ namespace OCISDK.Core.DNS
                 OpcRetryToken = request.OpcRetryToken,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeSteeringPolicyCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.ChangeSteeringPolicyCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -418,8 +415,7 @@ namespace OCISDK.Core.DNS
         {
             var uri = new Uri($"{GetEndPoint(DNSServices.Zones, this.Region)}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateZoneDetails);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateZoneDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -444,8 +440,7 @@ namespace OCISDK.Core.DNS
         {
             var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicies, this.Region)}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateSteeringPolicyDetails, new HttpRequestHeaderParam() { OpcRetryToken= request.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateSteeringPolicyDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -472,8 +467,7 @@ namespace OCISDK.Core.DNS
         {
             var uri = new Uri($"{GetEndPoint(DNSServices.SteeringPolicyAttachments, this.Region)}");
 
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateSteeringPolicyAttachmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateSteeringPolicyAttachmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -509,8 +503,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateZoneDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateZoneDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -548,8 +541,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateZoneRecordsDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateZoneRecordsDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -589,8 +581,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDomainRecordsDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateDomainRecordsDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -628,8 +619,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateRRSetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateRRSetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -662,8 +652,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateSteeringPolicyDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateSteeringPolicyDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -694,8 +683,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateSteeringPolicyAttachmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateSteeringPolicyAttachmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -732,8 +720,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Patch(uri, request.PatchZoneRecordsDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Patch(uri, request.PatchZoneRecordsDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -773,8 +760,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Patch(uri, request.PatchDomainRecordsDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Patch(uri, request.PatchDomainRecordsDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -812,8 +798,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Patch(uri, request.PatchRRSetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Patch(uri, request.PatchRRSetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -851,8 +836,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -886,8 +870,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -921,8 +904,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -952,8 +934,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -982,8 +963,7 @@ namespace OCISDK.Core.DNS
                 IfMatch = request.IfMatch,
                 IfUnmodifiedSince = request.IfUnmodifiedSince
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

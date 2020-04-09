@@ -55,8 +55,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -80,8 +79,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{param.WorkRequestId}/errors?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -105,8 +103,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{param.WorkRequestId}/logs?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = param.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -130,8 +127,7 @@ namespace OCISDK.Core.Core
         {
             var uri = new Uri($"{GetEndPoint(CoreServices.WorkRequests, this.Region)}/{getRequest.WorkRequestId}");
 
-            var webResponse = this.RestClient.Get(uri);
-
+            using(var webResponse = this.RestClient.Get(uri))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

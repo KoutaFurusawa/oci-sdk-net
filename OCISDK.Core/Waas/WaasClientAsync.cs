@@ -64,8 +64,7 @@ namespace OCISDK.Core.Waas
                 OpcRequestId = request.OpcRequestId,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.ChangeWaasPolicyCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.ChangeWaasPolicyCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -99,8 +98,7 @@ namespace OCISDK.Core.Waas
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Post(uri, request.CreateWaasPolicyDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateWaasPolicyDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -135,8 +133,7 @@ namespace OCISDK.Core.Waas
                 OpcRequestId = request.OpcRequestId,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -176,8 +173,7 @@ namespace OCISDK.Core.Waas
                 OpcRequestId = request.OpcRequestId,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -215,8 +211,7 @@ namespace OCISDK.Core.Waas
                 OpcRequestId = request.OpcRequestId,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateWaasPolicyDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -243,8 +238,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -272,8 +266,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -301,8 +294,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -330,8 +322,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -359,8 +350,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -390,8 +380,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -420,8 +409,7 @@ namespace OCISDK.Core.Waas
             {
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -451,8 +439,7 @@ namespace OCISDK.Core.Waas
                 OpcRetryToken = request.OpcRetryToken,
                 IfMatch = request.IfMatch
             };
-            var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam);
-
+            using (var webResponse = await this.RestClientAsync.Delete(uri, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

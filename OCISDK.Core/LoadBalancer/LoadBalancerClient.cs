@@ -57,8 +57,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets/{request.BackendSetName}/backends");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -81,8 +80,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -105,7 +103,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/certificates");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -129,7 +127,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/hostnames");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -153,7 +151,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/listeners/{request.ListenerName}/rules");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -184,7 +182,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
             
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -216,7 +214,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
             
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -248,7 +246,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -280,7 +278,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
             
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -312,7 +310,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -337,7 +335,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/pathRouteSets");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -361,7 +359,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancerShapes, this.Region)}/{request.LoadBalancerId}/ruleSets");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -391,7 +389,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -416,7 +414,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets/{request.BackendSetName}/backends/{request.BackendName}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -440,7 +438,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets/{request.BackendSetName}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -464,7 +462,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets/{request.BackendSetName}/health");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -488,7 +486,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets/{request.BackendSetName}/backends/{request.BackendName}/health");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -512,7 +510,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/backendSets/{request.BackendSetName}/healthChecker");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -536,7 +534,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/hostnames/{request.Name}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -560,7 +558,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -584,7 +582,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/health");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -608,7 +606,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancerWorkRequests, this.Region)}/{request.WorkRequestId}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -637,8 +635,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateBackendDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateBackendDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -661,8 +658,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/pathRouteSets/{request.PathRouteSetName}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
-
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -685,7 +681,7 @@ namespace OCISDK.Core.LoadBalancer
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/ruleSets/{request.RuleSetName}");
 
-            var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId });
+            using(var webResponse = this.RestClient.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -714,8 +710,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateBackendSetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateBackendSetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -743,8 +738,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateCertificateDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateCertificateDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -772,8 +766,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateHostnameDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateHostnameDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -801,8 +794,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateListenerDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateListenerDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -836,8 +828,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreateLoadBalancerDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateLoadBalancerDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -865,8 +856,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Post(uri, request.CreatePathRouteSetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreatePathRouteSetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -888,9 +878,8 @@ namespace OCISDK.Core.LoadBalancer
         public CreateRuleSetResponse CreateRuleSet(CreateRuleSetRequest request)
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/ruleSets");
-            
-            var webResponse = this.RestClient.Post(uri, request.CreateRuleSetDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
+            using (var webResponse = this.RestClient.Post(uri, request.CreateRuleSetDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -918,8 +907,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateBackendDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateBackendDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -947,8 +935,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateBackendSetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateBackendSetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -976,8 +963,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateHealthCheckerDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateHealthCheckerDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -999,9 +985,8 @@ namespace OCISDK.Core.LoadBalancer
         public UpdateHostnameResponse UpdateHostname(UpdateHostnameRequest request)
         {
             var uri = new Uri($"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/hostnames/{request.Name}");
-            
-            var webResponse = this.RestClient.Put(uri, request.UpdateHostnameDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateHostnameDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1029,8 +1014,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateListenerDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateListenerDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1060,8 +1044,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateLoadBalancerDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateLoadBalancerDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1091,8 +1074,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdateNetworkSecurityGroupsDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateNetworkSecurityGroupsDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1125,8 +1107,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRetryToken = request.OpcRetryToken,
                 OpcRequestId = request.OpcRequestId
             };
-            var webResponse = this.RestClient.Put(uri, request.UpdatePathRouteSetDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdatePathRouteSetDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1152,9 +1133,8 @@ namespace OCISDK.Core.LoadBalancer
             var uriStr = $"{GetEndPoint(LoadBalancerServices.LoadBalancers, this.Region)}/{request.LoadBalancerId}/ruleSets/{request.RuleSetName}";
 
             var uri = new Uri(uriStr);
-            
-            var webResponse = this.RestClient.Put(uri, request.UpdateRuleSetDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
 
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateRuleSetDetails, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1184,8 +1164,7 @@ namespace OCISDK.Core.LoadBalancer
                 OpcRequestId = request.OpcRequestId,
                 IfMatch = request.IfMatch
             };
-            var webResponse = this.RestClient.Post(uri, request.ChangeLoadBalancerCompartmentDetails, httpRequestHeaderParam);
-
+            using (var webResponse = this.RestClient.Post(uri, request.ChangeLoadBalancerCompartmentDetails, httpRequestHeaderParam))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1210,8 +1189,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1238,8 +1216,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1264,8 +1241,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1290,8 +1266,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1316,8 +1291,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1342,8 +1316,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1370,8 +1343,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1397,8 +1369,7 @@ namespace OCISDK.Core.LoadBalancer
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { OpcRequestId = request.OpcRequestId }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {

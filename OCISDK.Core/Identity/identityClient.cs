@@ -55,7 +55,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Region, this.Region)}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -79,7 +79,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Tenancy, this.Region)}/{param.TenancyId}/regionSubscriptions");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -103,7 +103,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}?{param.GetOptionQuery()}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -128,7 +128,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Tenancy, this.Region)}/{getRequest.TenancyId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -153,7 +153,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{getRequest.TagNamespaceId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -177,7 +177,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{param.PolicyId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -211,7 +211,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -249,7 +249,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -282,7 +282,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -316,7 +316,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -348,7 +348,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -381,7 +381,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -414,7 +414,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -448,7 +448,7 @@ namespace OCISDK.Core.Identity
 
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -476,7 +476,7 @@ namespace OCISDK.Core.Identity
             var uriStr = $"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}?{request.GetOptionQuery()}";
             var uri = new Uri(uriStr);
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -501,7 +501,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{getRequest.CompartmentId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -528,7 +528,7 @@ namespace OCISDK.Core.Identity
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/" +
                 $"{getRequest.TagNamespaceId}/tags/{getRequest.TagName}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -552,7 +552,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagDefault, this.Region)}/{getRequest.TagDefaultId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -577,7 +577,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -602,7 +602,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -627,7 +627,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}/{request.IdentityProviderId}");
 
-            var webResponse = this.RestClient.Get(uri);
+            using(var webResponse = this.RestClient.Get(uri))
 
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -652,8 +652,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri(GetEndPoint(IdentityServices.Compartment, this.Region));
 
-            var webResponse = this.RestClient.Post(uri, createRequest.CreateCompartmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, createRequest.CreateCompartmentDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -678,8 +677,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri(GetEndPoint(IdentityServices.TagNamespaces, this.Region));
 
-            var webResponse = this.RestClient.Post(uri, createRequest.CreateTagNamespaceDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, createRequest.CreateTagNamespaceDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -710,8 +708,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{createRequest.TagNamespaceId}/tags");
 
-            var webResponse = this.RestClient.Post(uri, createRequest.CreateTagDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, createRequest.CreateTagDetails, new HttpRequestHeaderParam() { OpcRetryToken = createRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -741,8 +738,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/uiPassword");
 
-            var webResponse = this.RestClient.Post(uri, null, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, null, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -781,8 +777,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.CreateUserDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateUserDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -816,8 +811,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.CreateIdentityProviderDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.CreateIdentityProviderDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -844,8 +838,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}");
 
-            var webResponse = this.RestClient.Post(uri, request.AddUserToGroupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.AddUserToGroupDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -871,8 +864,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/");
 
-            var webResponse = this.RestClient.Post(uri, createPolicyRequest.CreatePolicyDetails, new HttpRequestHeaderParam() { OpcRetryToken = createPolicyRequest.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, createPolicyRequest.CreatePolicyDetails, new HttpRequestHeaderParam() { OpcRetryToken = createPolicyRequest.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -901,8 +893,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/actions/changeCompartment");
 
-            var webResponse = this.RestClient.Post(uri, request.ChangeTagNamespaceCompartmentDetail, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken });
-
+            using (var webResponse = this.RestClient.Post(uri, request.ChangeTagNamespaceCompartmentDetail, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -924,8 +915,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{updateRequest.CompartmentId}");
 
-            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateCompartmentDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, updateRequest.UpdateCompartmentDetails, new HttpRequestHeaderParam() { IfMatch = updateRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -957,8 +947,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{updateRequest.TagNamespaceId}");
 
-            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagNamespaceDetails);
-
+            using (var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagNamespaceDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -983,8 +972,7 @@ namespace OCISDK.Core.Identity
                 $"{GetEndPoint(IdentityServices.TagNamespaces, this.Region)}/{updateRequest.TagNamespaceId}/tags/" +
                 $"{updateRequest.TagName}");
 
-            var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagDetails);
-
+            using (var webResponse = this.RestClient.Put(uri, updateRequest.UpdateTagDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1007,8 +995,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateUserDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateUserDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1032,8 +1019,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/capabilities/");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateUserCapabilitiesDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateUserCapabilitiesDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1057,8 +1043,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/state/");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateStateDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateStateDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1083,8 +1068,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{updatePolicyRequest.PolicyId}");
 
-            var webResponse = this.RestClient.Put(uri, updatePolicyRequest.UpdatePolicyDetails);
-
+            using (var webResponse = this.RestClient.Put(uri, updatePolicyRequest.UpdatePolicyDetails))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1108,9 +1092,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}/{request.IdentityProviderId}");
 
-            var webResponse = this.RestClient.Put(uri, request.UpdateIdentityProviderDetails, 
-                new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Put(uri, request.UpdateIdentityProviderDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1134,8 +1116,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Compartment, this.Region)}/{request.CompartmentId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1158,8 +1139,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1181,8 +1161,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.UserGroupMemberships, this.Region)}/{request.UserGroupMembershipId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1205,8 +1184,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.Policiy, this.Region)}/{deletePolicyRequest.PolicyId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deletePolicyRequest.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = deletePolicyRequest.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
@@ -1228,8 +1206,7 @@ namespace OCISDK.Core.Identity
         {
             var uri = new Uri($"{GetEndPoint(IdentityServices.IdentityProviders, this.Region)}/{request.IdentityProviderId}");
 
-            var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch });
-
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
