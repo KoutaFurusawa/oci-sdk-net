@@ -98,7 +98,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             bucketExists = true;
             try
             {
-                var request = new GetObjectRequest
+                var request = new HeadObjectRequest
                 {
                     NamespaceName = namespaceName,
                     BucketName = bucket,
@@ -106,7 +106,7 @@ namespace OCISDK.Core.ObjectStorage.IO
                 };
 
                 // If the object doesn't exist then a "NotFound" will be thrown
-                client.GetObject(request);
+                client.HeadObject(request);
                 return true;
             }
             catch (WebException we)

@@ -157,6 +157,45 @@ namespace OCISDK.Core.ObjectStorage
         }
 
         /// <summary>
+        /// Gets the user-defined metadata and entity tag (ETag) for an object.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public HeadObjectResponse HeadObject(HeadObjectRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/{request.ObjectName}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch = request.IfMatch,
+                IfNoneMatch = request.IfNoneMatch,
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+            using (var webResponse = this.RestClient.Head(uri, httpRequestHeaderParam))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                return new HeadObjectResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    ArchivalState = webResponse.Headers.Get("archival-state"),
+                    ContentType = webResponse.Headers.Get("content-type"),
+                    ContentLanguage = webResponse.Headers.Get("content-language"),
+                    ContentEncoding = webResponse.Headers.Get("content-encoding"),
+                    ContentLength = long.Parse(webResponse.Headers.Get("content-length")),
+                    ContentMd5 = webResponse.Headers.Get("content-md5"),
+                    LastModified = webResponse.Headers.Get("last-modified"),
+                    OpcMultipartMd5 = webResponse.Headers.Get("opc-multipart-md5"),
+                    TimeOfArchival = webResponse.Headers.Get("time-of-archival"),
+                    CacheControl = webResponse.Headers.Get("cache-control"),
+                    ContentDisposition = webResponse.Headers.Get("content-disposition")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the metadata and body of an object.
         /// </summary>
         /// <param name="request"></param>

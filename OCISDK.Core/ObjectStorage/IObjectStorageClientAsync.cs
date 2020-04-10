@@ -47,6 +47,13 @@ namespace OCISDK.Core.ObjectStorage
         Task<HeadBucketResponse> HeadBucket(HeadBucketRequest request);
 
         /// <summary>
+        /// Gets the user-defined metadata and entity tag (ETag) for an object.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<HeadObjectResponse> HeadObject(HeadObjectRequest request);
+
+        /// <summary>
         /// Gets the metadata and body of an object.
         /// </summary>
         /// <param name="request"></param>
