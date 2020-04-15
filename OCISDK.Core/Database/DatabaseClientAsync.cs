@@ -62,7 +62,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDatabasesResponse()
                 {
@@ -87,7 +87,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDbHomesResponse()
                 {
@@ -111,7 +111,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDbNodesResponse()
                 {
@@ -136,7 +136,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDbSystemsResponse()
                 {
@@ -160,7 +160,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDbVersionsResponse()
                 {
@@ -185,7 +185,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDbSystemShapesResponse()
                 {
@@ -209,7 +209,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDatabaseResponse()
                 {
@@ -233,7 +233,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDbHomeResponse()
                 {
@@ -257,7 +257,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDbNodeResponse()
                 {
@@ -281,7 +281,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDbSystemResponse()
                 {
@@ -305,7 +305,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetExadataIormConfigResponse()
                 {
@@ -334,7 +334,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeDbSystemCompartmentResponse()
                 {
@@ -358,7 +358,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new RestoreDatabaseResponse()
                 {
@@ -382,7 +382,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateDbHomeWithDbSystemIdResponse()
                 {
@@ -406,7 +406,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateDbHomeWithDbSystemIdResponse()
                 {
@@ -440,7 +440,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DbNodeActionResponse()
                 {
@@ -468,7 +468,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new LaunchDbSystemResponse()
                 {
@@ -496,7 +496,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new LaunchDbSystemResponse()
                 {
@@ -520,7 +520,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDatabaseResponse()
                 {
@@ -544,7 +544,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDbHomeResponse()
                 {
@@ -568,7 +568,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDbSystemResponse()
                 {
@@ -596,7 +596,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateExadataIormConfigResponse()
                 {
@@ -621,7 +621,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteDbHomeResponse()
                 {
@@ -645,7 +645,7 @@ namespace OCISDK.Core.Database
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new TerminateDbSystemResponse()
                 {

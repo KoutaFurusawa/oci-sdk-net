@@ -61,7 +61,7 @@ namespace OCISDK.Core.Audit
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
                 return new ListEventsResponse()
                 {
                     Items = JsonSerializer.Deserialize<List<AuditEvent>>(response),
@@ -84,7 +84,7 @@ namespace OCISDK.Core.Audit
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetConfigurationResponse()
                 {
@@ -106,7 +106,7 @@ namespace OCISDK.Core.Audit
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateConfigurationResponse()
                 {

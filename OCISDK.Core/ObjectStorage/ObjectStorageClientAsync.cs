@@ -67,7 +67,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return JsonSerializer.Deserialize<string>(response);
             }
@@ -89,7 +89,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetNamespaceMetadataResponse()
                 {
@@ -118,7 +118,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBucketResponse()
                 {
@@ -258,7 +258,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetObjectLifecyclePolicyResponse()
                 {
@@ -287,7 +287,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetPreauthenticatedRequestResponse()
                 {
@@ -416,7 +416,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBucketsResponse()
                 {
@@ -441,7 +441,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListObjectsResponse()
                 {
@@ -465,7 +465,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListMultipartUploadPartsResponse()
                 {
@@ -497,7 +497,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListMultipartUploadsResponse()
                 {
@@ -529,7 +529,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListPreauthenticatedRequestsResponse()
                 {
@@ -554,7 +554,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateBucketResponse()
                 {
@@ -580,7 +580,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new RenameObjectResponse()
                 {
@@ -605,7 +605,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new RestoreObjectsResponse()
                 {
@@ -632,7 +632,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateNamespaceMetadataResponse()
                 {
@@ -665,7 +665,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateBucketResponse()
                 {
@@ -705,7 +705,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PutObjectResponse()
                 {
@@ -738,7 +738,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UploadPartResponse()
                 {
@@ -770,7 +770,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PutObjectLifecyclePolicyResponse()
                 {
@@ -807,7 +807,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ReencryptBucketResponse()
                 {
@@ -837,7 +837,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateMultipartUploadResponse()
                 {
@@ -867,7 +867,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CommitMultipartUploadResponse()
                 {
@@ -897,7 +897,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreatePreauthenticatedRequestResponse()
                 {
@@ -923,7 +923,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBucketResponse()
                 {
@@ -952,7 +952,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteObjectResponse()
                 {
@@ -983,7 +983,7 @@ namespace OCISDK.Core.ObjectStorage
                 quiet = true;
             }
 
-            var result = await Task.Run<DeleteObjectsResponse>(() => ExecuteDeleteObjects(uriStr, headers, quiet, request.Objects));
+            var result = await ExecuteDeleteObjects(uriStr, headers, quiet, request.Objects);
 
 
             return result;
@@ -997,7 +997,7 @@ namespace OCISDK.Core.ObjectStorage
         /// <param name="quiet"></param>
         /// <param name="objects"></param>
         /// <returns></returns>
-        private DeleteObjectsResponse ExecuteDeleteObjects(string uriStr, HttpRequestHeaderParam headers, bool quiet, List<TargetDelete> objects)
+        private async Task<DeleteObjectsResponse> ExecuteDeleteObjects(string uriStr, HttpRequestHeaderParam headers, bool quiet, List<TargetDelete> objects)
         {
             DeleteObjectsResponse deleteObjectsResponse = new DeleteObjectsResponse
             {
@@ -1019,7 +1019,7 @@ namespace OCISDK.Core.ObjectStorage
                     using (var stream = webResponse.GetResponseStream())
                     using (var reader = new StreamReader(stream))
                     {
-                        var response = reader.ReadToEnd();
+                        var response = await reader.ReadToEndAsync();
 
                         if (!quiet)
                         {
@@ -1077,7 +1077,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteObjectLifecyclePolicyResponse()
                 {
@@ -1105,7 +1105,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeletePreauthenticatedRequestResponse()
                 {
@@ -1128,7 +1128,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new AbortMultipartUploadResponse()
                 {
@@ -1151,7 +1151,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetWorkRequestResponse()
                 {
@@ -1178,7 +1178,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestsResponse()
                 {
@@ -1203,7 +1203,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CancelWorkRequestResponse()
                 {
@@ -1233,7 +1233,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestErrorsResponse()
                 {
@@ -1265,7 +1265,7 @@ namespace OCISDK.Core.ObjectStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestLogsResponse()
                 {

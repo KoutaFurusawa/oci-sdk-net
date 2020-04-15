@@ -67,7 +67,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateAlertRuleResponse()
                 {
@@ -96,7 +96,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateBudgetResponse()
                 {
@@ -125,7 +125,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteAlertRuleResponse()
                 {
@@ -152,7 +152,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBudgetResponse()
                 {
@@ -174,7 +174,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetAlertRuleResponse()
                 {
@@ -202,7 +202,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateAlertRuleResponse()
                 {
@@ -226,7 +226,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListAlertRulesResponse()
                 {
@@ -250,7 +250,7 @@ namespace OCISDK.Core.Budgets
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBudgetsResponse()
                 {

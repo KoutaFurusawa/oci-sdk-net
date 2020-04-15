@@ -62,7 +62,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListZonesResponse()
                 {
@@ -88,7 +88,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListSteeringPoliciesResponse()
                 {
@@ -114,7 +114,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListSteeringPolicyAttachmentsResponse()
                 {
@@ -151,7 +151,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetZoneResponse()
                 {
@@ -191,7 +191,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetZoneRecordsResponse()
                 {
@@ -233,7 +233,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDomainRecordsResponse()
                 {
@@ -274,7 +274,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetRRSetResponse()
                 {
@@ -308,7 +308,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetSteeringPolicyResponse()
                 {
@@ -340,7 +340,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetSteeringPolicyAttachmentResponse()
                 {
@@ -369,7 +369,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeZoneCompartmentResponse()
                 {
@@ -396,7 +396,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeSteeringPolicyCompartmentResponse()
                 {
@@ -419,7 +419,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateZoneResponse()
                 {
@@ -444,7 +444,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateSteeringPolicyResponse()
                 {
@@ -471,7 +471,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateSteeringPolicyAttachmentResponse()
                 {
@@ -507,7 +507,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateZoneResponse()
                 {
@@ -545,7 +545,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateZoneRecordsResponse()
                 {
@@ -585,7 +585,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDomainRecordsResponse()
                 {
@@ -623,7 +623,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateRRSetResponse()
                 {
@@ -656,7 +656,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateSteeringPolicyResponse()
                 {
@@ -687,7 +687,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateSteeringPolicyAttachmentResponse()
                 {
@@ -724,7 +724,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PatchZoneRecordsResponse()
                 {
@@ -764,7 +764,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PatchDomainRecordsResponse()
                 {
@@ -802,7 +802,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PatchRRSetResponse()
                 {
@@ -840,7 +840,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteZoneResponse()
                 {
@@ -874,7 +874,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteDomainRecordsResponse()
                 {
@@ -908,7 +908,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteRRSetResponse()
                 {
@@ -938,7 +938,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteSteeringPolicyResponse()
                 {
@@ -967,7 +967,7 @@ namespace OCISDK.Core.DNS
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteSteeringPolicyAttachmentResponse()
                 {

@@ -69,7 +69,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeClusterNetworkCompartmentResponse()
                 {
@@ -92,7 +92,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateClusterNetworkResponse()
                 {
@@ -122,7 +122,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateClusterNetworkResponse()
                 {
@@ -146,7 +146,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetClusterNetworkResponse()
                 {
@@ -170,7 +170,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListClusterNetworksResponse()
                 {
@@ -194,7 +194,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListClusterNetworkInstancesResponse()
                 {
@@ -220,7 +220,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new TerminateClusterNetworkResponse()
                 {

@@ -60,7 +60,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListRegionsResponse()
                 {
@@ -83,7 +83,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListRegionSubscriptionsResponse()
                 {
@@ -106,7 +106,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListPoliciesResponse()
                 {
@@ -130,7 +130,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetTenancyResponse()
                 {
@@ -154,7 +154,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetTagNamespaceResponse()
                 {
@@ -177,7 +177,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetPolicyResponse()
                 {
@@ -210,7 +210,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListCompartmentResponse()
                 {
@@ -247,7 +247,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListAvailabilityDomainsResponse()
                 {
@@ -279,7 +279,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListTagNamespacesResponse()
                 {
@@ -312,7 +312,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListCostTrackingTagsResponse()
                 {
@@ -343,7 +343,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListTagsResponse()
                 {
@@ -375,7 +375,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListTagDefaultsResponse()
                 {
@@ -409,7 +409,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListUsersResponse()
                 {
@@ -442,7 +442,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListUserGroupMembershipsResponse()
                 {
@@ -469,7 +469,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListIdentityProvidersResponse()
                 {
@@ -493,7 +493,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetCompartmentResponse()
                 {
@@ -519,7 +519,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetTagResponse()
                 {
@@ -543,7 +543,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetTagDefaultResponse()
                 {
@@ -567,7 +567,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetUserResponse()
                 {
@@ -591,7 +591,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetUserGroupMembershipResponse()
                 {
@@ -615,7 +615,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetIdentityProviderResponse()
                 {
@@ -639,7 +639,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateCompartmentResponse()
                 {
@@ -664,7 +664,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateTagNamespaceResponse()
                 {
@@ -695,7 +695,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateTagResponse()
                 {
@@ -725,7 +725,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateOrResetUIPasswordResponse()
                 {
@@ -764,7 +764,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateUserResponse()
                 {
@@ -798,7 +798,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateIdentityProviderResponse()
                 {
@@ -825,7 +825,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new AddUserToGroupResponse()
                 {
@@ -851,7 +851,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreatePolicyResponse()
                 {
@@ -880,7 +880,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeTagNamespaceCompartmentResponse()
                 {
@@ -902,7 +902,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateCompartmentResponse()
                 {
@@ -934,7 +934,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateTagNamespaceResponse()
                 {
@@ -959,7 +959,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateTagResponse()
                 {
@@ -982,7 +982,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateUserResponse()
                 {
@@ -1006,7 +1006,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateUserCapabilitiesResponse()
                 {
@@ -1030,7 +1030,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateUserStateResponse()
                 {
@@ -1056,7 +1056,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdatePolicyResponse()
                 {
@@ -1080,7 +1080,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateIdentityProviderResponse()
                 {
@@ -1104,7 +1104,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteCompartmentResponse()
                 {
@@ -1127,7 +1127,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteUserResponse()
                 {
@@ -1149,7 +1149,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new RemoveUserFromGroupResponse()
                 {
@@ -1172,7 +1172,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeletePolicyResponse()
                 {
@@ -1194,7 +1194,7 @@ namespace OCISDK.Core.Identity
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteIdentityProviderResponse()
                 {

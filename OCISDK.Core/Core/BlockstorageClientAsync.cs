@@ -59,7 +59,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBootVolumesResponse()
                 {
@@ -83,7 +83,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBootVolumeBackupsResponse()
                 {
@@ -107,7 +107,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVolumeBackupsResponse()
                 {
@@ -131,7 +131,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVolumesResponse()
                 {
@@ -155,7 +155,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVolumeBackupPoliciesResponse()
                 {
@@ -179,7 +179,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVolumeGroupsResponse()
                 {
@@ -203,7 +203,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVolumeGroupBackupsResponse()
                 {
@@ -229,7 +229,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeBackupPolicyAssetAssignmentResponse()
                 {
@@ -253,7 +253,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBootVolumeResponse()
                 {
@@ -277,7 +277,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBootVolumeBackupResponse()
                 {
@@ -301,7 +301,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBootVolumeKmsKeyResponse()
                 {
@@ -325,7 +325,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeResponse()
                 {
@@ -349,7 +349,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeBackupResponse()
                 {
@@ -373,7 +373,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeBackupPolicyResponse()
                 {
@@ -397,7 +397,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeBackupPolicyAssignmentResponse()
                 {
@@ -421,7 +421,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeGroupResponse()
                 {
@@ -445,7 +445,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeGroupBackupResponse()
                 {
@@ -469,7 +469,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVolumeKmsKeyResponse()
                 {
@@ -494,7 +494,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeBootVolumeCompartmentResponse()
                 {
@@ -518,7 +518,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeVolumeCompartmentResponse()
                 {
@@ -542,7 +542,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeVolumeBackupCompartmentResponse()
                 {
@@ -566,7 +566,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeVolumeGroupCompartmentResponse()
                 {
@@ -590,7 +590,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeVolumeGroupBackupCompartmentResponse()
                 {
@@ -614,7 +614,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeBootVolumeBackupCompartmentResponse()
                 {
@@ -640,7 +640,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateBootVolumeResponse()
                 {
@@ -668,7 +668,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateBootVolumeBackupResponse()
                 {
@@ -702,7 +702,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVolumeResponse()
                 {
@@ -729,7 +729,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVolumeBackupResponse()
                 {
@@ -755,7 +755,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVolumeBackupPolicyAssignmentResponse()
                 {
@@ -782,7 +782,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVolumeGroupResponse()
                 {
@@ -806,7 +806,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVolumeGroupBackupResponse()
                 {
@@ -830,7 +830,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateBootVolumeResponse()
                 {
@@ -854,7 +854,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateBootVolumeBackupResponse()
                 {
@@ -878,7 +878,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateBootVolumeKmsKeyResponse()
                 {
@@ -902,7 +902,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVolumeResponse()
                 {
@@ -926,7 +926,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVolumeBackupResponse()
                 {
@@ -954,7 +954,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVolumeGroupResponse()
                 {
@@ -978,7 +978,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVolumeGroupBackupResponse()
                 {
@@ -1001,7 +1001,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVolumeKmsKeyResponse()
                 {
@@ -1026,7 +1026,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBootVolumeResponse()
                 {
@@ -1048,7 +1048,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBootVolumeBackupResponse()
                 {
@@ -1070,7 +1070,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBootVolumeKmsKeyResponse()
                 {
@@ -1094,7 +1094,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVolumeResponse()
                 {
@@ -1116,7 +1116,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVolumeBackupResponse()
                 {
@@ -1138,7 +1138,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVolumeBackupPolicyAssignmentResponse()
                 {
@@ -1160,7 +1160,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVolumeGroupBackupResponse()
                 {
@@ -1182,7 +1182,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVolumeKmsKeyResponse()
                 {
@@ -1208,7 +1208,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CopyVolumeBackupResponse()
                 {

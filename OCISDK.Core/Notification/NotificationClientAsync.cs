@@ -71,7 +71,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeTopicCompartmentResponse()
                 {
@@ -102,7 +102,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeSubscriptionCompartmentResponse()
                 {
@@ -135,7 +135,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateTopicResponse()
                 {
@@ -166,7 +166,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateSubscriptionResponse()
                 {
@@ -206,7 +206,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PublishMessageResponse()
                 {
@@ -234,7 +234,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ResendSubscriptionConfirmationResponse()
                 {
@@ -263,7 +263,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateTopicResponse()
                 {
@@ -293,7 +293,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateSubscriptionResponse()
                 {
@@ -322,7 +322,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListTopicsResponse()
                 {
@@ -351,7 +351,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListSubscriptionsResponse()
                 {
@@ -379,7 +379,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetTopicResponse()
                 {
@@ -408,7 +408,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetConfirmSubscriptionResponse()
                 {
@@ -437,7 +437,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetSubscriptionResponse()
                 {
@@ -466,7 +466,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetUnsubscriptionResponse()
                 {
@@ -495,7 +495,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteTopicResponse()
                 {
@@ -523,7 +523,7 @@ namespace OCISDK.Core.Notification
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteSubscriptionResponse()
                 {

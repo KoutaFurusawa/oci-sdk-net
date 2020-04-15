@@ -60,7 +60,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestsResponse()
                 {
@@ -84,7 +84,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestErrorsResponse()
                 {
@@ -108,7 +108,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestLogsResponse()
                 {
@@ -132,7 +132,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetWorkRequestResponse()
                 {
