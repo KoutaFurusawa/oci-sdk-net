@@ -63,7 +63,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBackendsResponse()
                 {
@@ -87,7 +87,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBackendSetsResponse()
                 {
@@ -111,7 +111,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListCertificatesResponse()
                 {
@@ -135,7 +135,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListHostnamesResponse()
                 {
@@ -159,7 +159,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListListenerRulesResponse()
                 {
@@ -190,7 +190,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListLoadBalancersResponse()
                 {
@@ -222,7 +222,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListLoadBalancerHealthsResponse()
                 {
@@ -254,7 +254,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListLoadBalancerPoliciesResponse()
                 {
@@ -286,7 +286,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListLoadBalancerProtocolsResponse()
                 {
@@ -318,7 +318,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListLoadBalancerShapesResponse()
                 {
@@ -343,7 +343,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListPathRouteSetsResponse()
                 {
@@ -367,7 +367,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListRuleSetsResponse()
                 {
@@ -397,7 +397,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWorkRequestsResponse()
                 {
@@ -422,7 +422,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBackendResponse()
                 {
@@ -446,7 +446,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBackendSetResponse()
                 {
@@ -470,7 +470,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBackendSetHealthResponse()
                 {
@@ -494,7 +494,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBackendHealthResponse()
                 {
@@ -518,7 +518,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetHealthCheckerResponse()
                 {
@@ -542,7 +542,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetHostnameResponse()
                 {
@@ -566,7 +566,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetLoadBalancerResponse()
                 {
@@ -590,7 +590,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetLoadBalancerHealthResponse()
                 {
@@ -614,7 +614,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetWorkRequestResponse()
                 {
@@ -643,7 +643,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateBackendResponse()
                 {
@@ -667,7 +667,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetPathRouteSetResponse()
                 {
@@ -691,7 +691,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetRuleSetResponse()
                 {
@@ -720,7 +720,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateBackendSetResponse()
                 {
@@ -749,7 +749,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateCertificateResponse()
                 {
@@ -778,7 +778,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateHostnameResponse()
                 {
@@ -807,7 +807,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateListenerResponse()
                 {
@@ -842,7 +842,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateLoadBalancerResponse()
                 {
@@ -871,7 +871,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreatePathRouteSetResponse()
                 {
@@ -895,7 +895,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateRuleSetResponse()
                 {
@@ -924,7 +924,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateBackendResponse()
                 {
@@ -953,7 +953,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateBackendSetResponse()
                 {
@@ -982,7 +982,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateHealthCheckerResponse()
                 {
@@ -1006,7 +1006,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateHostnameResponse()
                 {
@@ -1035,7 +1035,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateListenerResponse()
                 {
@@ -1066,7 +1066,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateLoadBalancerResponse()
                 {
@@ -1097,7 +1097,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateNetworkSecurityGroupsResponse()
                 {
@@ -1131,7 +1131,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdatePathRouteSetResponse()
                 {
@@ -1159,7 +1159,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateRuleSetResponse()
                 {
@@ -1190,7 +1190,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeLoadBalancerCompartmentResponse()
                 {
@@ -1216,7 +1216,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBackendResponse()
                 {
@@ -1244,7 +1244,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteBackendSetResponse()
                 {
@@ -1270,7 +1270,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteCertificateResponse()
                 {
@@ -1296,7 +1296,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteHostnameResponse()
                 {
@@ -1322,7 +1322,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteListenerResponse()
                 {
@@ -1348,7 +1348,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteLoadBalancerResponse()
                 {
@@ -1376,7 +1376,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeletePathRouteSetResponse()
                 {
@@ -1403,7 +1403,7 @@ namespace OCISDK.Core.LoadBalancer
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteRuleSetResponse()
                 {

@@ -106,7 +106,7 @@ namespace OCISDK.Core.ObjectStorage.IO
                 }
                 else if (String.IsNullOrEmpty(ObjectKey))
                 {
-                    var getBucketRequest = new GetBucketRequest
+                    var getBucketRequest = new HeadBucketRequest
                     {
                         NamespaceName = NamespaceName,
                         BucketName = BucketName
@@ -114,7 +114,7 @@ namespace OCISDK.Core.ObjectStorage.IO
 
                     try
                     {
-                        Client.GetBucket(getBucketRequest);
+                        Client.HeadBucket(getBucketRequest);
                         return true;
                     }
                     catch (WebException we)

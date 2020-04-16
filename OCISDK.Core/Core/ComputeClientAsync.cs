@@ -61,7 +61,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListInstancesResponse()
                 {
@@ -90,7 +90,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListImagesResponse()
                 {
@@ -116,7 +116,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListBootVolumeAttachmentsResponse()
                 {
@@ -141,7 +141,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListShapesResponse()
                 {
@@ -167,7 +167,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVnicAttachmentsResponse()
                 {
@@ -191,7 +191,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListConsoleHistoriesResponse()
                 {
@@ -215,7 +215,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetInstanceResponse()
                 {
@@ -239,7 +239,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetInstanceDefaultCredentialsResponse()
                 {
@@ -262,7 +262,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetImageResponse()
                 {
@@ -286,7 +286,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetBootVolumeAttachmentResponse()
                 {
@@ -310,7 +310,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVnicAttachmentResponse()
                 {
@@ -334,7 +334,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetConsoleHistoryResponse()
                 {
@@ -358,7 +358,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetConsoleHistoryContentResponse()
                 {
@@ -382,7 +382,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new AttachBootVolumeResponse()
                 {
@@ -407,7 +407,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new AttachVnicResponse()
                 {
@@ -439,7 +439,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeInstanceCompartmentResponse()
                 {
@@ -469,7 +469,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeImageCompartmentResponse()
                 {
@@ -503,7 +503,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new LaunchInstanceResponse()
                 {
@@ -534,7 +534,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CaptureConsoleHistoryResponse()
                 {
@@ -565,7 +565,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateInstanceResponse()
                 {
@@ -606,7 +606,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new InstanceActionResponse()
                 {
@@ -630,7 +630,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateConsoleHistoryResponse()
                 {
@@ -659,7 +659,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new TerminateInstanceResponse()
                 {
@@ -683,7 +683,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DetachBootVolumeResponse()
                 {
@@ -705,7 +705,7 @@ namespace OCISDK.Core.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteConsoleHistoryResponse()
                 {

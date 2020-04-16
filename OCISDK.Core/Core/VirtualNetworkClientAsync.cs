@@ -61,7 +61,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListCpesResponse()
                 {
@@ -87,7 +87,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDhcpResponse()
                 {
@@ -113,7 +113,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListRouteTableResponse()
                 {
@@ -137,7 +137,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListInternetGatewaysResponse()
                 {
@@ -161,7 +161,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListSecurityListsResponse()
                 {
@@ -185,7 +185,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVcnResponse()
                 {
@@ -209,7 +209,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListSubnetsResponse()
                 {
@@ -233,7 +233,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDrgAttachmentsResponse()
                 {
@@ -257,7 +257,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListDrgsResponse()
                 {
@@ -282,7 +282,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVirtualCircuitsResponse()
                 {
@@ -307,7 +307,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListVirtualCircuitBandwidthShapesResponse()
                 {
@@ -332,7 +332,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetCpeResponse()
                 {
@@ -357,7 +357,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDhcpResponse()
                 {
@@ -382,7 +382,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetRouteTableResponse()
                 {
@@ -407,7 +407,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetInternetGatewayResponse()
                 {
@@ -432,7 +432,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetSecurityListRespons()
                 {
@@ -457,7 +457,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVcnResponse()
                 {
@@ -483,7 +483,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVnicResponse()
                 {
@@ -508,7 +508,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetSubnetResponse()
                 {
@@ -533,7 +533,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDrgAttachmentResponse()
                 {
@@ -558,7 +558,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetDrgResponse()
                 {
@@ -583,7 +583,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetVirtualCircuitResponse()
                 {
@@ -614,7 +614,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeCpeCompartmentResponse()
                 {
@@ -642,7 +642,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeVcnCompartmentResponse()
                 {
@@ -672,7 +672,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeSubnetCompartmentResponse()
                 {
@@ -702,7 +702,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeSecurityListCompartmentResponse()
                 {
@@ -731,7 +731,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeRouteTableCompartmentResponse()
                 {
@@ -760,7 +760,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeVirtualCircuitCompartmentResponse()
                 {
@@ -785,7 +785,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new BulkAddVirtualCircuitPublicPrefixesResponse()
                 {
@@ -809,7 +809,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new BulkDeleteVirtualCircuitPublicPrefixesResponse()
                 {
@@ -841,7 +841,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateCpeResponse()
                 {
@@ -865,7 +865,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateInternetGatewayResponse()
                 {
@@ -889,7 +889,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateDhcpOptionsResponse()
                 {
@@ -915,7 +915,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateSecurityListResponse()
                 {
@@ -939,7 +939,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVcnResponse()
                 {
@@ -966,7 +966,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateSubnetResponse()
                 {
@@ -992,7 +992,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateRouteTableResponse()
                 {
@@ -1023,7 +1023,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateDrgAttachmentResponse()
                 {
@@ -1056,7 +1056,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateDrgResponse()
                 {
@@ -1089,7 +1089,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateVirtualCircuitResponse()
                 {
@@ -1113,7 +1113,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateCpeResponse()
                 {
@@ -1137,7 +1137,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVcnResponse()
                 {
@@ -1161,7 +1161,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVnicResponse()
                 {
@@ -1187,7 +1187,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateInternetGatewayResponse()
                 {
@@ -1212,7 +1212,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDhcpOptionsResponse()
                 {
@@ -1236,7 +1236,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateSecurityListResponse()
                 {
@@ -1260,7 +1260,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateSubnetResponse()
                 {
@@ -1285,7 +1285,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateRouteTableResponse()
                 {
@@ -1309,7 +1309,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDrgAttachmentResponse()
                 {
@@ -1333,7 +1333,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateDrgResponse()
                 {
@@ -1368,7 +1368,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateVirtualCircuitResponse()
                 {
@@ -1393,7 +1393,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteCpeResponse()
                 {
@@ -1417,7 +1417,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVcnResponse()
                 {
@@ -1440,7 +1440,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteInternetGatewayResponse()
                 {
@@ -1463,7 +1463,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteDhcpOptionsResponse()
                 {
@@ -1486,7 +1486,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteSecurityListResponse()
                 {
@@ -1511,7 +1511,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteSubnetResponse()
                 {
@@ -1534,7 +1534,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteRouteTableResponse()
                 {
@@ -1557,7 +1557,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteDrgAttachmentResponse()
                 {
@@ -1580,7 +1580,7 @@ namespace OCISDK.Core
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteVirtualCircuitResponse()
                 {

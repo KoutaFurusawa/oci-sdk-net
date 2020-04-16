@@ -64,7 +64,7 @@ namespace OCISDK.Core.Search
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new SearchResourcesResponse()
                 {

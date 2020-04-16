@@ -66,7 +66,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListMetricsResponse()
                 {
@@ -94,7 +94,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new SummarizeMetricsDataResponse()
                 {
@@ -134,7 +134,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new PostMetricDataResponse()
                 {
@@ -158,7 +158,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListAlarmsResponse()
                 {
@@ -184,7 +184,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListAlarmsStatusResponse()
                 {
@@ -209,7 +209,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetAlarmHistoryResponse()
                 {
@@ -235,7 +235,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetAlarmResponse()
                 {
@@ -263,7 +263,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateAlarmResponse()
                 {
@@ -293,7 +293,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateAlarmResponse()
                 {
@@ -324,7 +324,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeAlarmCompartmentResponse()
                 {
@@ -352,7 +352,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteAlarmResponse()
                 {
@@ -380,7 +380,7 @@ namespace OCISDK.Core.Monitoring
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new RemoveAlarmSuppressionResponse()
                 {

@@ -68,7 +68,7 @@ namespace OCISDK.Core.FileStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeFileSystemCompartmentResponse()
                 {
@@ -112,7 +112,7 @@ namespace OCISDK.Core.FileStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateFileSystemResponse()
                 {
@@ -141,7 +141,7 @@ namespace OCISDK.Core.FileStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateFileSystemResponse()
                 {
@@ -169,7 +169,7 @@ namespace OCISDK.Core.FileStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetFileSystemResponse()
                 {
@@ -197,7 +197,7 @@ namespace OCISDK.Core.FileStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListFileSystemsResponse()
                 {
@@ -229,7 +229,7 @@ namespace OCISDK.Core.FileStorage
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteFileSystemResponse()
                 {

@@ -68,7 +68,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ChangeWaasPolicyCompartmentResponse()
                 {
@@ -102,7 +102,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new CreateWaasPolicyResponse()
                 {
@@ -137,7 +137,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateWaasPolicyResponse()
                 {
@@ -177,7 +177,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateWhitelistsResponse()
                 {
@@ -215,7 +215,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new UpdateCachingRulesResponse()
                 {
@@ -242,7 +242,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWaasPoliciesResponse()
                 {
@@ -270,7 +270,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWafBlockedRequestsResponse()
                 {
@@ -298,7 +298,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWafLogsResponse()
                 {
@@ -326,7 +326,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWafTrafficResponse()
                 {
@@ -354,7 +354,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListWhitelistsResponse()
                 {
@@ -384,7 +384,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new ListCachingRulesResponse()
                 {
@@ -413,7 +413,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new GetWaasPolicyResponse()
                 {
@@ -443,7 +443,7 @@ namespace OCISDK.Core.Waas
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
-                var response = reader.ReadToEnd();
+                var response = await reader.ReadToEndAsync();
 
                 return new DeleteWaasPolicyResponse()
                 {
