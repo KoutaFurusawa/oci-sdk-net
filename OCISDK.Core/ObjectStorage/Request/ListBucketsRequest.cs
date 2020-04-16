@@ -57,7 +57,7 @@ namespace OCISDK.Core.ObjectStorage.Request
         {
             StringBuilder sb = new StringBuilder();
             
-            sb.Append($"&compartmentId={this.CompartmentId}");
+            sb.Append($"compartmentId={this.CompartmentId}");
 
             if (this.Limit.HasValue)
             {
