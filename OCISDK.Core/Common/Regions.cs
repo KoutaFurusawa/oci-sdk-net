@@ -38,7 +38,7 @@
         /// <summary>
         /// ap-osaka-1	
         /// </summary>
-        public static readonly string AP_OSAKA_1 = "ap-osaka-1	";
+        public static readonly string AP_OSAKA_1 = "ap-osaka-1";
 
         /// <summary>
         /// ap-tokyo-1

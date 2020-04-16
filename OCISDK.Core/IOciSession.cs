@@ -26,6 +26,12 @@ namespace OCISDK.Core
     public interface IOciSession
     {
         /// <summary>
+        /// Get OciSigner
+        /// </summary>
+        /// <returns></returns>
+        IOciSigner GetSigner();
+
+        /// <summary>
         /// Get IdentityClinet
         /// </summary>
         /// <returns></returns>
