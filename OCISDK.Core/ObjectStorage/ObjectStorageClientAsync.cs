@@ -401,6 +401,64 @@ namespace OCISDK.Core.ObjectStorage
         }
 
         /// <summary>
+        /// Get the replication policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetReplicationPolicyResponse> GetReplicationPolicy(GetReplicationPolicyRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}/replicationPolicies/{request.ReplicationId}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new GetReplicationPolicyResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    ReplicationPolicy = JsonSerializer.Deserialize<ReplicationPolicy>(response)
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get the specified retention rule.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetRetentionRuleResponse> GetRetentionRule(GetRetentionRuleRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}/retentionRules/{request.RetentionRuleId}");
+
+            var httpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+            using (var webResponse = await this.RestClientAsync.Get(uri, httpRequestHeaderParam))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new GetRetentionRuleResponse()
+                {
+                    Etag = webResponse.Headers.Get("etag"),
+                    LastModified = webResponse.Headers.Get("last-modified"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    RetentionRule = JsonSerializer.Deserialize<RetentionRule>(response)
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket and does not 
         /// contain fields like the user-defined metadata.
         /// To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized, talk to an administrator. 
@@ -542,6 +600,70 @@ namespace OCISDK.Core.ObjectStorage
         }
 
         /// <summary>
+        /// List the replication policies associated with a bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListReplicationPoliciesResponse> ListReplicationPolicies(ListReplicationPoliciesRequest request)
+        {
+            var uriStr = $"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/replicationPolicies";
+            var optional = request.GetOptionQuery();
+            if (!string.IsNullOrEmpty(optional))
+            {
+                uriStr = $"{uriStr}?{optional}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            using (var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam { OpcClientRequestId = request.OpcClientRequestId }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ListReplicationPoliciesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<ReplicationPolicySummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// List the replication sources of a destination bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListReplicationSourcesResponse> ListReplicationSources(ListReplicationSourcesRequest request)
+        {
+            var uriStr = $"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/replicationSources";
+            var optional = request.GetOptionQuery();
+            if (!string.IsNullOrEmpty(optional))
+            {
+                uriStr = $"{uriStr}?{optional}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            using (var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam { OpcClientRequestId = request.OpcClientRequestId }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ListReplicationSourcesResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<ReplicationSource>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential information in bucket names.
         /// </summary>
         /// <param name="request"></param>
@@ -563,6 +685,31 @@ namespace OCISDK.Core.ObjectStorage
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
                     Location = webResponse.Headers.Get("Location")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Stops replication to the destination bucket and removes the replication policy. When the replication policy was created, this destination bucket became read-only except for 
+        /// new and changed objects replicated automatically from the source bucket. MakeBucketWritable removes the replication policy. This bucket is no longer the target for replication 
+        /// and is now writable, allowing users to make changes to bucket contents.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<MakeBucketWritableResponse> MakeBucketWritable(MakeBucketWritableRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName), this.Region)}/actions/makeBucketWritable");
+
+            using (var webResponse = await this.RestClientAsync.Post(uri, new HttpRequestHeaderParam() { OpcClientRequestId = request.OpcClientRequestId }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new MakeBucketWritableResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
                 };
             }
         }
@@ -751,6 +898,36 @@ namespace OCISDK.Core.ObjectStorage
         }
 
         /// <summary>
+        /// Updates the specified retention rule. Rule changes take effect typically within 30 seconds.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateRetentionRuleResponse> UpdateRetentionRule(UpdateRetentionRuleRequest request)
+        {
+            var uri = new Uri(
+                $"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}/retentionRules/{request.RetentionRuleId}");
+
+            HttpRequestHeaderParam HttpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                IfMatch = request.IfMatch,
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateRetentionRuleDetails, HttpRequestHeaderParam))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new UpdateRetentionRuleResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates or replaces the object lifecycle policy for the bucket.
         /// </summary>
         /// <param name="request"></param>
@@ -902,6 +1079,34 @@ namespace OCISDK.Core.ObjectStorage
                 return new CreatePreauthenticatedRequestResponse()
                 {
                     PreauthenticatedRequest = JsonSerializer.Deserialize<PreauthenticatedRequestDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Creates a replication policy for the specified bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateReplicationPolicyResponse> CreateReplicationPolicy(CreateReplicationPolicyRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}/replicationPolicies");
+
+            HttpRequestHeaderParam HttpRequestHeaderParam = new HttpRequestHeaderParam()
+            {
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateReplicationPolicyDetails, HttpRequestHeaderParam))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new CreateReplicationPolicyResponse()
+                {
+                    ReplicationPolicy = JsonSerializer.Deserialize<ReplicationPolicy>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
                 };
@@ -1108,6 +1313,63 @@ namespace OCISDK.Core.ObjectStorage
                 var response = await reader.ReadToEndAsync();
 
                 return new DeletePreauthenticatedRequestResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the replication policy associated with the source bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteReplicationPolicyResponse> DeleteReplicationPolicy(DeleteReplicationPolicyRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}/replicationPolicies/{request.ReplicationId}");
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                OpcClientRequestId = request.OpcClientRequestId
+            };
+
+            using (var webResponse = await this.RestClientAsync.Delete(uri, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new DeleteReplicationPolicyResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified rule. The deletion takes effect typically within 30 seconds.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteRetentionRuleResponse> DeleteRetentionRule(DeleteRetentionRuleRequest request)
+        {
+            var uri = new Uri($"{GetEndPointNoneVersion(ObjectStorageServices.Bucket(request.NamespaceName, request.BucketName), this.Region)}/retentionRules/{request.RetentionRuleId}");
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                OpcClientRequestId = request.OpcClientRequestId,
+                IfMatch = request.IfMatch
+            };
+
+            using (var webResponse = await this.RestClientAsync.Delete(uri, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new DeleteRetentionRuleResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id")
