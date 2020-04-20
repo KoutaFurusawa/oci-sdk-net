@@ -664,6 +664,37 @@ namespace OCISDK.Core.ObjectStorage
         }
 
         /// <summary>
+        /// The summary of a retention rule.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListRetentionRulesResponse> ListRetentionRules(ListRetentionRulesRequest request)
+        {
+            var uriStr = $"{GetEndPointNoneVersion(ObjectStorageServices.Object(request.NamespaceName, request.BucketName), this.Region)}/retentionRules";
+            if (!string.IsNullOrEmpty(request.Page))
+            {
+                uriStr = $"{uriStr}?page={request.Page}";
+            }
+
+            var uri = new Uri(uriStr);
+
+            using (var webResponse = await this.RestClientAsync.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ListRetentionRulesResponse()
+                {
+                    RetentionRuleCollection = JsonSerializer.Deserialize<RetentionRuleCollection>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcClientRequestId = webResponse.Headers.Get("opc-client-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential information in bucket names.
         /// </summary>
         /// <param name="request"></param>
