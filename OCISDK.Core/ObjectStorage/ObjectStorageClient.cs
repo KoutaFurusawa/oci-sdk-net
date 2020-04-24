@@ -877,7 +877,7 @@ namespace OCISDK.Core.ObjectStorage
                 CacheControl = request.CacheControl,
                 OpcMeta = request.OpcMeta
             };
-            using (var webResponse = this.RestClient.Put(uri, request.UploadPartBody, HttpRequestHeaderParam, false))
+            using (var webResponse = this.RestClient.Put(uri, request.UploadPartBody, HttpRequestHeaderParam, false, false))
             using (var stream = webResponse.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
