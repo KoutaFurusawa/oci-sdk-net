@@ -241,7 +241,7 @@ namespace OCISDK.Core.Common
         }
 
         /// <summary>
-        /// Put a request object to the endpoint represented by the web target and get the response.
+        /// Request a resource asynchronously.
         /// </summary>
         /// <param name="targetUri"></param>
         /// <param name="requestBody"></param>
@@ -249,6 +249,20 @@ namespace OCISDK.Core.Common
         /// <param name="bodyJsonSerialize"></param>
         /// <returns></returns>
         public HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize)
+        {
+            return Put(targetUri, requestBody, httpRequestHeaderParam, bodyJsonSerialize);
+        }
+
+        /// <summary>
+        /// Put a request object to the endpoint represented by the web target and get the response.
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <param name="sha256"></param>
+        /// <returns></returns>
+        public HttpWebResponse Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize, bool sha256)
         {
             var request = (HttpWebRequest)WebRequest.Create(targetUri);
             request.Method = HttpMethod.Put.Method;
@@ -263,7 +277,7 @@ namespace OCISDK.Core.Common
 
             if (requestBody != null)
             {
-                request = SetBody(request, requestBody, bodyJsonSerialize);
+                request = SetBody(request, requestBody, bodyJsonSerialize, sha256);
             }
 
             if (Signer != null)
@@ -361,8 +375,9 @@ namespace OCISDK.Core.Common
         /// <param name="request"></param>
         /// <param name="requestBody"></param>
         /// <param name="bodyJsonSerialize"></param>
+        /// <param name="sha256"></param>
         /// <returns></returns>
-        private HttpWebRequest SetBody(HttpWebRequest request, object requestBody, bool bodyJsonSerialize)
+        private HttpWebRequest SetBody(HttpWebRequest request, object requestBody, bool bodyJsonSerialize, bool sha256 = true)
         {
             string body = "";
             byte[] bytes;
@@ -384,7 +399,10 @@ namespace OCISDK.Core.Common
                 bytes = Encoding.UTF8.GetBytes(body);
             }
 
-            request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
+            if (sha256)
+            {
+                request.Headers["x-content-sha256"] = Convert.ToBase64String(SHA256.Create().ComputeHash(bytes));
+            }
             request.ContentLength = bytes.Length;
 
             using (var stream = request.GetRequestStream())

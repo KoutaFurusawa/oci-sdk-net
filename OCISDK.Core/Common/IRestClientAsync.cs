@@ -117,6 +117,17 @@ namespace OCISDK.Core.Common
         Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize);
 
         /// <summary>
+        /// Put
+        /// </summary>
+        /// <param name="targetUri"></param>
+        /// <param name="requestBody"></param>
+        /// <param name="httpRequestHeaderParam"></param>
+        /// <param name="bodyJsonSerialize"></param>
+        /// <param name="sha256"></param>
+        /// <returns></returns>
+        Task<WebResponse> Put(Uri targetUri, object requestBody, HttpRequestHeaderParam httpRequestHeaderParam, bool bodyJsonSerialize, bool sha256);
+
+        /// <summary>
         /// Patch
         /// </summary>
         /// <param name="targetUri"></param>
