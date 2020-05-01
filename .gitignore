@@ -23,3 +23,7 @@ Example/bin/
 /OCISDK.Example/OCISDK.Example/bin
 /OCISDK.Example/OCISDK.Example/obj
 Example/obj/
+OCISDK.Core0
+OCISDK.Core/.vs/OCISDK.Core/v16/.suo
+OCISDK.Core/.vs/slnx.sqlite
+OCISDK.Core/.vs/VSWorkspaceState.json

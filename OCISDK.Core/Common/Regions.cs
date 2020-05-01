@@ -31,6 +31,11 @@
         public static readonly string EU_FRANKFURT_1 = "eu-frankfurt-1";
 
         /// <summary>
+        /// ap-hyderabad-1
+        /// </summary>
+        public static readonly string AP_HYDERABAD_1 = "ap-hyderabad-1";
+
+        /// <summary>
         /// ap-mumbai-1
         /// </summary>
         public static readonly string AP_MUMBAI_1 = "ap-mumbai-1";
