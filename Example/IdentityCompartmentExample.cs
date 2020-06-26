@@ -13,7 +13,7 @@ namespace Example
         {
             IdentityClient identityClient = new IdentityClient(config)
             {
-                Region = Regions.US_ASHBURN_1
+                Region = config.HomeRegion
             };
 
             Console.WriteLine("* GetTenacy------------------------");

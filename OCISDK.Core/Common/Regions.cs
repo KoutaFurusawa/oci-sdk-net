@@ -21,6 +21,11 @@
         public static readonly string SA_SAOPAULO_1 = "sa-saopaulo-1";
 
         /// <summary>
+        /// ca-montreal-1
+        /// </summary>
+        public static readonly string CA_MONTREAL_1 = "ca-montreal-1";
+
+        /// <summary>
         /// ca-toronto-1
         /// </summary>
         public static readonly string CA_TORONTO_1 = "ca-toronto-1";
