@@ -319,6 +319,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Lists the NAT gateways in the specified compartment. You may optionally specify a VCN OCID to filter the results by VCN.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListNatGatewaysResponse> ListNatGateways(ListNatGatewaysRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.NatGateway, this.Region)}?{request.GetOptionQuery()}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ListNatGatewaysResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<NatGateway>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified CPE's information.
         /// </summary>
         /// <param name="request"></param>
@@ -595,6 +619,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Gets the specified NAT gateway's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetNatGatewayResponse> GetNatGateway(GetNatGatewayRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.NatGateway, this.Region)}/{request.NatGatewayId}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new GetNatGatewayResponse()
+                {
+                    NatGateway = JsonSerializer.Deserialize<NatGateway>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a CPE object into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -763,6 +811,35 @@ namespace OCISDK.Core
                 var response = await reader.ReadToEndAsync();
 
                 return new ChangeVirtualCircuitCompartmentResponse()
+                {
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a NAT gateway into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ChangeNatGatewayCompartmentResponse> ChangeNatGatewayCompartment(ChangeNatGatewayCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.NatGateway, this.Region)}/{request.NatGatewayId}/actions/changeCompartment");
+
+            var headers = new HttpRequestHeaderParam
+            {
+                OpcRequestId = request.OpcRequestId,
+                OpcRetryToken = request.OpcRetryToken
+            };
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.ChangeNatGatewayCompartmentDetails, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ChangeNatGatewayCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
@@ -1101,6 +1178,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Creates a new NAT gateway for the specified VCN. You must also set up a route rule with the NAT gateway as the rule's target. See Route Table.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateNatGatewayResponse> CreateNatGateway(CreateNatGatewayRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.NatGateway, this.Region));
+
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateNatGatewayDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new CreateNatGatewayResponse()
+                {
+                    NatGateway = JsonSerializer.Deserialize<NatGateway>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified CPE's display name or tags. Avoid entering confidential information.
         /// </summary>
         /// <param name="request"></param>
@@ -1380,6 +1481,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Updates the specified NAT gateway.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateNatGatewayResponse> UpdateNatGateway(UpdateNatGatewayRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.NatGateway, this.Region)}/{request.NatGatewayId}");
+
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateNatGatewayDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new UpdateNatGatewayResponse()
+                {
+                    NatGateway = JsonSerializer.Deserialize<NatGateway>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified CPE object. The CPE must not be connected to a DRG. This is an asynchronous operation. The CPE's lifecycleState will change to 
         /// TERMINATING temporarily until the CPE is completely removed.
         /// </summary>
@@ -1583,6 +1708,32 @@ namespace OCISDK.Core
                 var response = await reader.ReadToEndAsync();
 
                 return new DeleteVirtualCircuitResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified NAT gateway. The NAT gateway does not have to be disabled, but there must not be a route rule 
+        /// that lists the NAT gateway as a target.
+        /// 
+        /// This is an asynchronous operation. The NAT gateway's lifecycleState will change to TERMINATING temporarily until 
+        /// the NAT gateway is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteNatGatewayResponse> DeleteNatGateway(DeleteNatGatewayRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.NatGateway, this.Region)}/{request.NatGatewayId}");
+
+            using (var webResponse = await this.RestClientAsync.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new DeleteNatGatewayResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

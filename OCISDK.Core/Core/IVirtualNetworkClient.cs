@@ -90,6 +90,13 @@ namespace OCISDK.Core.Core
         ListVirtualCircuitBandwidthShapesResponse ListVirtualCircuitBandwidthShapes(ListVirtualCircuitBandwidthShapesRequest request);
 
         /// <summary>
+        /// Lists the NAT gateways in the specified compartment. You may optionally specify a VCN OCID to filter the results by VCN.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListNatGatewaysResponse ListNatGateways(ListNatGatewaysRequest request);
+
+        /// <summary>
         /// Gets the specified CPE's information.
         /// </summary>
         /// <param name="request"></param>
@@ -168,6 +175,13 @@ namespace OCISDK.Core.Core
         GetVirtualCircuitResponse GetVirtualCircuit(GetVirtualCircuitRequest request);
 
         /// <summary>
+        /// Gets the specified NAT gateway's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetNatGatewayResponse GetNatGateway(GetNatGatewayRequest request);
+
+        /// <summary>
         /// Moves a CPE object into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -214,6 +228,14 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         ChangeVirtualCircuitCompartmentResponse ChangeVirtualCircuitCompartment(ChangeVirtualCircuitCompartmentRequest request);
+
+        /// <summary>
+        /// Moves a NAT gateway into a different compartment within the same tenancy. 
+        /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ChangeNatGatewayCompartmentResponse ChangeNatGatewayCompartment(ChangeNatGatewayCompartmentRequest request);
 
         /// <summary>
         /// Adds one or more customer public IP prefixes to the specified public virtual circuit. Use this operation 
@@ -346,6 +368,13 @@ namespace OCISDK.Core.Core
         CreateVirtualCircuitResponse CreateVirtualCircuit(CreateVirtualCircuitRequest request);
 
         /// <summary>
+        /// Creates a new NAT gateway for the specified VCN. You must also set up a route rule with the NAT gateway as the rule's target. See Route Table.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateNatGatewayResponse CreateNatGateway(CreateNatGatewayRequest request);
+
+        /// <summary>
         /// Updates the specified CPE's display name or tags. Avoid entering confidential information.
         /// </summary>
         /// <param name="request"></param>
@@ -438,6 +467,13 @@ namespace OCISDK.Core.Core
         UpdateVirtualCircuitResponse UpdateVirtualCircuit(UpdateVirtualCircuitRequest request);
 
         /// <summary>
+        /// Updates the specified NAT gateway.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateNatGatewayResponse UpdateNatGateway(UpdateNatGatewayRequest request);
+
+        /// <summary>
         /// Deletes the specified CPE object. The CPE must not be connected to a DRG. This is an asynchronous operation. The CPE's lifecycleState will change to 
         /// TERMINATING temporarily until the CPE is completely removed.
         /// </summary>
@@ -520,5 +556,16 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteVirtualCircuitResponse DeleteVirtualCircuit(DeleteVirtualCircuitRequest request);
+
+        /// <summary>
+        /// Deletes the specified NAT gateway. The NAT gateway does not have to be disabled, but there must not be a route rule 
+        /// that lists the NAT gateway as a target.
+        /// 
+        /// This is an asynchronous operation. The NAT gateway's lifecycleState will change to TERMINATING temporarily until 
+        /// the NAT gateway is completely removed.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteNatGatewayResponse DeleteNatGateway(DeleteNatGatewayRequest request);
     }
 }
