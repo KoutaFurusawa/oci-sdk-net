@@ -526,7 +526,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             {
                 foreach (var o in objects.ListObjects.Objects)
                 {
-                    if (CheckAddObject(o, prefixReg))
+                    if (CheckAddObject(o, prefixReg, searchOption))
                     {
                         res.Add(o);
                     }
@@ -536,7 +536,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             {
                 foreach (var o in objects.ListObjects.Objects)
                 {
-                    if (CheckAddObject(o, prefixReg))
+                    if (CheckAddObject(o, prefixReg, searchOption))
                     {
                         res.Add(o);
                     }
@@ -575,7 +575,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             return res;
         }
 
-        private bool CheckAddObject(ObjectSummary o, string prefix)
+        private bool CheckAddObject(ObjectSummary o, string prefix, SearchOption searchOption)
         {
             // file
             if (!o.Name.Contains('/'))
@@ -592,10 +592,19 @@ namespace OCISDK.Core.ObjectStorage.IO
                 }
                 if (o.Name.Contains(dirPrefix))
                 {
-                    var length = o.Name.Replace(dirPrefix, "").Split('/').Length;
-                    if (length >= 0 && length <= 1)
+                    int length = o.Name.Replace(dirPrefix, "").Split('/').Length;
+                    if (searchOption == SearchOption.AllDirectories)
                     {
-                        return true;
+                        if (length >= 0)
+                        {
+                            return true;
+                        }
+                    } else
+                    {
+                        if (length >= 0 && length <= 1)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
