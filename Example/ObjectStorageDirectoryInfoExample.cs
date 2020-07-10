@@ -36,12 +36,11 @@ namespace Example
                 CompartmentIdInSubtree = true,
                 AccessLevel = ListCompartmentRequest.AccessLevels.ACCESSIBLE
             };
-            /*var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
+            
+            var compartments = identityClient.ListCompartment(listCompartmentRequest).Items;
             // root(tenant) add
-            compartments.Add(new OCISDK.Core.Identity.Model.Compartment { Id = config.TenancyId, Name = "root" });*/
-            List<Compartment> compartments = new List<Compartment>();
-            compartments.Add(identityClient.GetCompartment(new GetCompartmentRequest { CompartmentId = "ocid1.compartment.oc1..aaaaaaaaibq365qp5tws2vhuvd3vhzwphtwx4zlhybjrrvwarjrmeud4jiya" }).Compartment);
-
+            compartments.Add(new OCISDK.Core.Identity.Model.Compartment { Id = config.TenancyId, Name = "root" });
+            
             foreach (var compartment in compartments)
             {
                 ListBucketsRequest listBucketsRequest = new ListBucketsRequest
