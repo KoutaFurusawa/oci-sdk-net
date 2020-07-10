@@ -87,6 +87,10 @@
       "version": "20180827",
       "hosttag": "commercial"
     },
+    "usageapi": {
+      "version": "20200107",
+      "hosttag": "usageapi"
+    },
     "usagecost": {
       "version": "20190111",
       "hosttag": "identity"

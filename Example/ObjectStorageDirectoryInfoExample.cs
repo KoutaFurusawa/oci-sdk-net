@@ -97,13 +97,27 @@ namespace Example
                     foreach (var dir in topDirs)
                     {
                         // prefix directories
-                        Console.WriteLine("prefix-----[" + dir.Name + "]");
+                        Console.WriteLine("TopDirectoryOnly prefix-----[" + dir.Name + "]");
                         var preDir = new ObjectStorageDirectoryInfo(client, nameSpaceName, bukcet.Name, dir.Name);
                         var preFiles = preDir.EnumerateFiles("*", System.IO.SearchOption.TopDirectoryOnly);
 
                         foreach (var file in preFiles)
                         {
-                            Console.WriteLine($"\t|- {file.Name}");
+                            Console.WriteLine($"\t|- {file.FullName}");
+                        }
+                    }
+
+
+                    foreach (var dir in topDirs)
+                    {
+                        // prefix directories
+                        Console.WriteLine("AllDirectories prefix-----[" + dir.Name + "]");
+                        var preDir = new ObjectStorageDirectoryInfo(client, nameSpaceName, bukcet.Name, dir.Name);
+                        var preFiles = preDir.EnumerateFiles("*", System.IO.SearchOption.AllDirectories);
+
+                        foreach (var file in preFiles)
+                        {
+                            Console.WriteLine($"\t|- {file.FullName}");
                         }
                     }
                 }
