@@ -23,7 +23,7 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.5.1</Version>
+    <Version>0.6.6</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -35,22 +35,25 @@ RCバージョンにはバグが含まれている場合があります。
 2019/12/09 version 0.6.2 release
 2020/01/27 version 0.6.3 release
 2020/03/10 version 0.6.4.2 release
-    * Add Budget Service APIs
-    * Add InstanceDefaultCredentials API(External cooperation)
 2020/04/08 version 0.6.5 release
-    * Threadsafe Signer is added to support each client.
-    * Add ObjectStorage full APis
-    * Add class equivalent to S3DirectoryInfo.
 2020/04/09 version 0.6.5.1 release
-    * Bug that forgets to Dispose when weResponse is processed. issue #28</PackageReleaseNotes>
+2020/07/10 version 0.6.6 release
+    * add usage apis
+    * add ListRetentionRules API
+    * add NoSQL APIs
+    * add natgateway apis
+    * Update ObjectStorage APIs
+    * new region ap-hyderabad-1
+    * osaka region fix
+</PackageReleaseNotes>
     <Copyright>Copyright (c) 2020, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
     <PackageTags>OracleCloud OracleCloudInfrastructure dotnet-core</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.6.5.1</AssemblyVersion>
-    <FileVersion>0.6.5.1</FileVersion>
+    <AssemblyVersion>0.6.6.0</AssemblyVersion>
+    <FileVersion>0.6.6.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

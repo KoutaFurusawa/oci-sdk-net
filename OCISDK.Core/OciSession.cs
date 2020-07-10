@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using OCISDK.Core.Usage;
 
 namespace OCISDK.Core
 {
@@ -418,6 +419,15 @@ namespace OCISDK.Core
         public ICommercialClient GetCommercialClient()
         {
             return new CommercialClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// Get UsageCostsClient
+        /// </summary>
+        /// <returns></returns>
+        public IUsageClient GetUsageClient()
+        {
+            return new UsageClient(ClientConfigStream, OciSigner);
         }
 
         /// <summary>
