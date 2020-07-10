@@ -92,7 +92,8 @@ namespace Example
                 UserId = configReader.Get("user"),
                 Fingerprint = configReader.Get("fingerprint"),
                 PrivateKey = configReader.Get("key_file"),
-                PrivateKeyPassphrase = configReader.Get("pass_phrase")
+                PrivateKeyPassphrase = configReader.Get("pass_phrase"),
+                HomeRegion = configReader.Get("home_region"),
             };
 
             while (true)
@@ -115,6 +116,7 @@ namespace Example
                 Console.WriteLine("[e]: Notification Example");
                 Console.WriteLine("[f]: Budgets Example");
                 Console.WriteLine("[g]: ObjectStorageDirectoryInfo Example");
+                Console.WriteLine("[h]: Usage Example");
                 Console.WriteLine("[ESC]: Exit Example");
                 Console.WriteLine("");
 
@@ -213,10 +215,15 @@ namespace Example
                     BudgetsExample.ConsoleDisplay(config);
                 }
 
-                //budget
+                //objectstorage directory info
                 if (mode == '1' || mode == 'g')
                 {
                     ObjectStorageDirectoryInfoExample.Example(config);
+                }
+
+                if (mode == '1' || mode == 'h')
+                {
+                    UsageExample.Example(config);
                 }
             }
         }
