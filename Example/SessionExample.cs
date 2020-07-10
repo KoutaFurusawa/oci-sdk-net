@@ -54,7 +54,7 @@ namespace Example
                 profile = Console.ReadLine();
                 if (string.IsNullOrEmpty(profile))
                 {
-                    profile = "Cloudii";
+                    profile = "DEFAULT";
                 }
 
                 // load connection file
@@ -107,9 +107,8 @@ namespace Example
                     PrivateKey = st,
                     PrivateKeyPassphrase = configReader.Get("pass_phrase"),
                     AccountId = configReader.Get("accountId"),
-                    DomainName = configReader.Get("domain_name"),
-                    IdentityDomain = configReader.Get("identity_domain"),
-                    UserName = configReader.Get("user_name"),
+                    IdentityDomain = configReader.Get("domain"),
+                    UserName = configReader.Get("user"),
                     Password = configReader.Get("password"),
                     HomeRegion = configReader.Get("home_region")
                 };

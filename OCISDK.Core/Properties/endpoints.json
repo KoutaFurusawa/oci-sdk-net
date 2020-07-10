@@ -3,8 +3,10 @@
     "syd": "ap-sydney-1",
     "mel": "ap-melbourne-1",
     "gru": "sa-saopaulo-1",
+    "yul": "ca-montreal-1",
     "yyz": "ca-toronto-1",
     "fra": "eu-frankfurt-1",
+    "hyd": "ap-hyderabad-1",
     "bom": "ap-mumbai-1",
     "kix": "ap-osaka-1",
     "nrt": "ap-tokyo-1",
@@ -84,6 +86,10 @@
     "commercial": {
       "version": "20180827",
       "hosttag": "commercial"
+    },
+    "usageapi": {
+      "version": "20200107",
+      "hosttag": "usageapi"
     },
     "usagecost": {
       "version": "20190111",

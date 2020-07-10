@@ -74,6 +74,20 @@ namespace OCISDK.Core.ObjectStorage
         GetPreauthenticatedRequestResponse GetPreauthenticatedRequest(GetPreauthenticatedRequestRequest request);
 
         /// <summary>
+        /// Get the replication policy.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetReplicationPolicyResponse GetReplicationPolicy(GetReplicationPolicyRequest request);
+
+        /// <summary>
+        /// Get the specified retention rule.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetRetentionRuleResponse GetRetentionRule(GetRetentionRuleRequest request);
+
+        /// <summary>
         /// Download Object
         /// </summary>
         /// <param name="request"></param>
@@ -128,11 +142,41 @@ namespace OCISDK.Core.ObjectStorage
         ListPreauthenticatedRequestsResponse ListPreauthenticatedRequests(ListPreauthenticatedRequestsRequest request);
 
         /// <summary>
+        /// List the replication sources of a destination bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListReplicationSourcesResponse ListReplicationSources(ListReplicationSourcesRequest request);
+
+        /// <summary>
+        /// List the replication policies associated with a bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListReplicationPoliciesResponse ListReplicationPolicies(ListReplicationPoliciesRequest request);
+
+        /// <summary>
+        /// The summary of a retention rule.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListRetentionRulesResponse ListRetentionRules(ListRetentionRulesRequest request);
+
+        /// <summary>
         /// Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential information in bucket names.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         CreateBucketResponse CreateBucket(CreateBucketRequest request);
+
+        /// <summary>
+        /// Stops replication to the destination bucket and removes the replication policy. When the replication policy was created, this destination bucket became read-only except for 
+        /// new and changed objects replicated automatically from the source bucket. MakeBucketWritable removes the replication policy. This bucket is no longer the target for replication 
+        /// and is now writable, allowing users to make changes to bucket contents.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        MakeBucketWritableResponse MakeBucketWritable(MakeBucketWritableRequest request);
 
         /// <summary>
         /// Rename an object in the given Object Storage namespace.
@@ -185,6 +229,13 @@ namespace OCISDK.Core.ObjectStorage
         UploadPartResponse UploadPart(UploadPartRequest request);
 
         /// <summary>
+        /// Updates the specified retention rule. Rule changes take effect typically within 30 seconds.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateRetentionRuleResponse UpdateRetentionRule(UpdateRetentionRuleRequest request);
+
+        /// <summary>
         /// Creates or replaces the object lifecycle policy for the bucket.
         /// </summary>
         /// <param name="request"></param>
@@ -229,6 +280,13 @@ namespace OCISDK.Core.ObjectStorage
         CreatePreauthenticatedRequestResponse CreatePreauthenticatedRequest(CreatePreauthenticatedRequestRequest request);
 
         /// <summary>
+        /// Creates a replication policy for the specified bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateReplicationPolicyResponse CreateReplicationPolicy(CreateReplicationPolicyRequest request);
+
+        /// <summary>
         /// Deletes a bucket if the bucket is already empty. 
         /// If the bucket is not empty, use DeleteObject first. 
         /// In addition, you cannot delete a bucket that has a multipart upload in progress or a pre-authenticated request associated with that bucket.
@@ -264,6 +322,20 @@ namespace OCISDK.Core.ObjectStorage
         /// <param name="request"></param>
         /// <returns></returns>
         DeletePreauthenticatedRequestResponse DeletePreauthenticatedRequest(DeletePreauthenticatedRequestRequest request);
+
+        /// <summary>
+        /// Deletes the replication policy associated with the source bucket.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteReplicationPolicyResponse DeleteReplicationPolicy(DeleteReplicationPolicyRequest request);
+
+        /// <summary>
+        /// Deletes the specified rule. The deletion takes effect typically within 30 seconds.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteRetentionRuleResponse DeleteRetentionRule(DeleteRetentionRuleRequest request);
 
         /// <summary>
         /// Aborts an in-progress multipart upload and deletes all parts that have been uploaded.

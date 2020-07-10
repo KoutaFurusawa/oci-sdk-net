@@ -70,6 +70,20 @@ namespace OCISDK.Core.ObjectStorage.IO
             NamespaceName = namespaceName ?? throw new ArgumentNullException("namespaceName");
             BucketName = bucket ?? String.Empty;
             ObjectKey = key ?? String.Empty;
+
+            if (string.IsNullOrEmpty(key))
+            {
+                ObjectKey = string.Empty;
+            }
+            else
+            {
+                var searchKey = key;
+                if (searchKey[0] == '/')
+                {
+                    searchKey = searchKey.Remove(0, 1);
+                }
+                ObjectKey = searchKey;
+            }
         }
 
         /// <summary>
@@ -512,23 +526,21 @@ namespace OCISDK.Core.ObjectStorage.IO
             {
                 foreach (var o in objects.ListObjects.Objects)
                 {
-                    if (o.Name.IndexOf('/') < 0)
+                    if (CheckAddObject(o, prefixReg, searchOption))
                     {
                         res.Add(o);
-                    }
-                    else if (!string.IsNullOrEmpty(prefix))
-                    {
-                        var length = o.Name.Replace(prefixReg, "").Split('/').Length;
-                        if (length >= 0 && length <= 2)
-                        {
-                            res.Add(o);
-                        }
                     }
                 }
             }
             else
             {
-                res.AddRange(objects.ListObjects.Objects);
+                foreach (var o in objects.ListObjects.Objects)
+                {
+                    if (CheckAddObject(o, prefixReg, searchOption))
+                    {
+                        res.Add(o);
+                    }
+                }
             }
 
             // next check
@@ -561,6 +573,42 @@ namespace OCISDK.Core.ObjectStorage.IO
             }
 
             return res;
+        }
+
+        private bool CheckAddObject(ObjectSummary o, string prefix, SearchOption searchOption)
+        {
+            // file
+            if (!o.Name.Contains('/'))
+            {
+                return true;
+            }
+            else if (!string.IsNullOrEmpty(prefix))
+            {
+                // directory
+                var dirPrefix = prefix;
+                if (!dirPrefix.Contains("/"))
+                {
+                    dirPrefix += "/";
+                }
+                if (o.Name.Contains(dirPrefix))
+                {
+                    int length = o.Name.Replace(dirPrefix, "").Split('/').Length;
+                    if (searchOption == SearchOption.AllDirectories)
+                    {
+                        if (length >= 0)
+                        {
+                            return true;
+                        }
+                    } else
+                    {
+                        if (length >= 0 && length <= 1)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         private List<string> GetOciPrefixs(string prefix, SearchOption searchOption, string nextStartWith = "")

@@ -103,6 +103,15 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Get OciSigner
+        /// </summary>
+        /// <returns></returns>
+        public IOciSigner GetSigner()
+        {
+            return OciSigner;
+        }
+
+        /// <summary>
         /// Get IdentityClinet
         /// </summary>
         /// <returns></returns>

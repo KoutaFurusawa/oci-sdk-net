@@ -13,5 +13,20 @@ namespace OCISDK.Core.NoSQL
         /// tables
         /// </summary>
         public readonly static string Tables = "tables";
+
+        /// <summary>
+        /// prepare
+        /// </summary>
+        public readonly static string Prepare = "prepare";
+
+        /// <summary>
+        /// query
+        /// </summary>
+        public readonly static string Query = "query";
+
+        /// <summary>
+        /// summarize
+        /// </summary>
+        public readonly static string Summarize = "summarize";
     }
 }

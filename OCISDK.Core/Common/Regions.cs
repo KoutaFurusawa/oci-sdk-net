@@ -21,6 +21,11 @@
         public static readonly string SA_SAOPAULO_1 = "sa-saopaulo-1";
 
         /// <summary>
+        /// ca-montreal-1
+        /// </summary>
+        public static readonly string CA_MONTREAL_1 = "ca-montreal-1";
+
+        /// <summary>
         /// ca-toronto-1
         /// </summary>
         public static readonly string CA_TORONTO_1 = "ca-toronto-1";
@@ -31,6 +36,11 @@
         public static readonly string EU_FRANKFURT_1 = "eu-frankfurt-1";
 
         /// <summary>
+        /// ap-hyderabad-1
+        /// </summary>
+        public static readonly string AP_HYDERABAD_1 = "ap-hyderabad-1";
+
+        /// <summary>
         /// ap-mumbai-1
         /// </summary>
         public static readonly string AP_MUMBAI_1 = "ap-mumbai-1";
@@ -38,7 +48,7 @@
         /// <summary>
         /// ap-osaka-1	
         /// </summary>
-        public static readonly string AP_OSAKA_1 = "ap-osaka-1	";
+        public static readonly string AP_OSAKA_1 = "ap-osaka-1";
 
         /// <summary>
         /// ap-tokyo-1
