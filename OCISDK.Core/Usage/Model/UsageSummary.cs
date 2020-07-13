@@ -37,13 +37,13 @@ namespace OCISDK.Core.Usage.Model
         /// The computed cost.
         /// <para>Required: no</para>
         /// </summary>
-        public string ComputedAmount { get; set; }
+        public decimal? ComputedAmount { get; set; }
 
         /// <summary>
         /// The usage number.
         /// <para>Required: no</para>
         /// </summary>
-        public double? ComputedQuantity { get; set; }
+        public decimal? ComputedQuantity { get; set; }
 
         /// <summary>
         /// The price currency.
@@ -55,13 +55,13 @@ namespace OCISDK.Core.Usage.Model
         /// The discretionary discount applied to the SKU.
         /// <para>Required: no</para>
         /// </summary>
-        public double? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         /// <summary>
         /// The SKU list rate (not discount).
         /// <para>Required: no</para>
         /// </summary>
-        public double? ListRate { get; set; }
+        public decimal? ListRate { get; set; }
 
         /// <summary>
         /// The overage usage.
@@ -157,12 +157,12 @@ namespace OCISDK.Core.Usage.Model
         /// The price per unit.
         /// <para>Required: no</para>
         /// </summary>
-        public double? UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
 
         /// <summary>
         /// The resource size being metered.
         /// <para>Required: no</para>
         /// </summary>
-        public double? Weight { get; set; }
+        public decimal? Weight { get; set; }
     }
 }

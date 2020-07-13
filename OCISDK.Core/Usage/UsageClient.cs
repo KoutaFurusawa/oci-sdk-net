@@ -56,7 +56,7 @@ namespace OCISDK.Core.Usage
         /// <returns></returns>
         public RequestSummarizedConfigurationsResponse RequestSummarizedConfigurations(RequestSummarizedConfigurationsRequest request)
         {
-            var uriStr = $"{GetEndPoint(UsageServices.Configuration, this.Region)}?{request.TenantId}";
+            var uriStr = $"{GetEndPoint(UsageServices.Configuration, this.Region, "oci.oraclecloud.com")}?tenantId={request.TenantId}";
             var uri = new Uri(uriStr);
 
             var httpRequestHeaderParam = new HttpRequestHeaderParam()
@@ -84,7 +84,7 @@ namespace OCISDK.Core.Usage
         /// <returns></returns>
         public async Task<RequestSummarizedConfigurationsResponse> RequestSummarizedConfigurationsAsync(RequestSummarizedConfigurationsRequest request)
         {
-            var uriStr = $"{GetEndPoint(UsageServices.Configuration, this.Region)}?{request.TenantId}";
+            var uriStr = $"{GetEndPoint(UsageServices.Configuration, this.Region, "oci.oraclecloud.com")}?{request.TenantId}";
             var uri = new Uri(uriStr);
 
             var httpRequestHeaderParam = new HttpRequestHeaderParam()
@@ -112,7 +112,7 @@ namespace OCISDK.Core.Usage
         /// <returns></returns>
         public RequestSummarizedUsagesResponse RequestSummarizedUsages(RequestSummarizedUsagesRequest request)
         {
-            var uriStr = $"{GetEndPoint(UsageServices.Usage, this.Region)}";
+            var uriStr = $"{GetEndPoint(UsageServices.Usage, this.Region, "oci.oraclecloud.com")}";
             var options = request.GetOptions();
             if (!string.IsNullOrEmpty(options))
             {
@@ -147,7 +147,7 @@ namespace OCISDK.Core.Usage
         /// <returns></returns>
         public async Task<RequestSummarizedUsagesResponse> RequestSummarizedUsagesAsync(RequestSummarizedUsagesRequest request)
         {
-            var uriStr = $"{GetEndPoint(UsageServices.Usage, this.Region)}";
+            var uriStr = $"{GetEndPoint(UsageServices.Usage, this.Region, "oci.oraclecloud.com")}";
             var options = request.GetOptions();
             if (!string.IsNullOrEmpty(options))
             {
