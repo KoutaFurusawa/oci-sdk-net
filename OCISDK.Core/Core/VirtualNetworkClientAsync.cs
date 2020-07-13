@@ -343,6 +343,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Lists the VLANs in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListVlansResponse> ListVlans(ListVlansRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Vlans, this.Region)}?{request.GetOptionQuery()}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ListVlansResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<VlanDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the specified CPE's information.
         /// </summary>
         /// <param name="request"></param>
@@ -643,6 +667,30 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Gets the specified VLAN's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetVlanResponse> GetVlan(GetVlanRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Vlans, this.Region)}/{request.VlanId}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri, new HttpRequestHeaderParam { OpcRequestId = request.OpcRequestId }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new GetVlanResponse()
+                {
+                    Vlan = JsonSerializer.Deserialize<VlanDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Moves a CPE object into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -842,6 +890,36 @@ namespace OCISDK.Core
                 return new ChangeNatGatewayCompartmentResponse()
                 {
                     ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Moves a VLAN into a different compartment within the same tenancy. For information about moving resources between compartments, 
+        /// see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ChangeVlanCompartmentResponse> ChangeVlanCompartment(ChangeVlanCompartmentRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Vlans, this.Region)}/{request.VlanId}/actions/changeCompartment");
+
+            var headers = new HttpRequestHeaderParam
+            {
+                IfMatch = request.IfMatch,
+                OpcRequestId = request.OpcRequestId,
+                OpcRetryToken = request.OpcRetryToken
+            };
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.ChangeVlanCompartmentDetails, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ChangeVlanCompartmentResponse()
+                {
+                    OpcWorkRequestId = webResponse.Headers.Get("opc-work-request-id"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
@@ -1202,6 +1280,35 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Creates a VLAN in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<CreateVlanResponse> CreateVlan(CreateVlanRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.Vlans, this.Region));
+
+            var headers = new HttpRequestHeaderParam
+            {
+                OpcRequestId = request.OpcRequestId,
+                OpcRetryToken = request.OpcRetryToken
+            };
+            using (var webResponse = await this.RestClientAsync.Post(uri, request.CreateVlanDetails, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new CreateVlanResponse()
+                {
+                    Vlan = JsonSerializer.Deserialize<VlanDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Updates the specified CPE's display name or tags. Avoid entering confidential information.
         /// </summary>
         /// <param name="request"></param>
@@ -1505,6 +1612,36 @@ namespace OCISDK.Core
         }
 
         /// <summary>
+        /// Updates the specified VLAN. This could result in changes to all the VNICs in the VLAN, which can take time. During that transition period, the 
+        /// VLAN will be in the UPDATING state.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateVlanResponse> UpdateVlan(UpdateVlanRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Vlans, this.Region)}/{request.VlanId}");
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                IfMatch = request.IfMatch,
+                OpcRequestId = request.OpcRequestId
+            };
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateVlanDetails, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new UpdateVlanResponse()
+                {
+                    Vlan = JsonSerializer.Deserialize<VlanDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Deletes the specified CPE object. The CPE must not be connected to a DRG. This is an asynchronous operation. The CPE's lifecycleState will change to 
         /// TERMINATING temporarily until the CPE is completely removed.
         /// </summary>
@@ -1734,6 +1871,33 @@ namespace OCISDK.Core
                 var response = await reader.ReadToEndAsync();
 
                 return new DeleteNatGatewayResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified VLAN, but only if there are no VNICs in the VLAN.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteVlanResponse> DeleteVlan(DeleteVlanRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.Vlans, this.Region)}/{request.VlanId}");
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                IfMatch = request.IfMatch,
+                OpcRequestId = request.OpcRequestId
+            };
+            using (var webResponse = await RestClientAsync.Delete(uri, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new DeleteVlanResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

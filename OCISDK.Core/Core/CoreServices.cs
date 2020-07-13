@@ -115,6 +115,10 @@ namespace OCISDK.Core.Core
         /// </summary>
         public readonly static string NatGateway = "natGateways";
         /// <summary>
+        /// vlans
+        /// </summary>
+        public readonly static string Vlans = "vlans";
+        /// <summary>
         /// AllowedPeerRegionsForRemotePeering
         /// </summary>
         public readonly static string AllowedPeerRegionsForRemotePeering = "allowedPeerRegionsForRemotePeering";

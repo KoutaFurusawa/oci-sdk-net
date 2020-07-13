@@ -182,6 +182,13 @@ namespace OCISDK.Core.Core
         GetNatGatewayResponse GetNatGateway(GetNatGatewayRequest request);
 
         /// <summary>
+        /// Gets the specified VLAN's information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetVlanResponse GetVlan(GetVlanRequest request);
+
+        /// <summary>
         /// Moves a CPE object into a different compartment within the same tenancy. 
         /// For information about moving resources between compartments, see Moving Resources to a Different Compartment.
         /// </summary>
@@ -236,6 +243,14 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         ChangeNatGatewayCompartmentResponse ChangeNatGatewayCompartment(ChangeNatGatewayCompartmentRequest request);
+
+        /// <summary>
+        /// Moves a VLAN into a different compartment within the same tenancy. For information about moving resources between compartments, 
+        /// see Moving Resources to a Different Compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ChangeVlanCompartmentResponse ChangeVlanCompartment(ChangeVlanCompartmentRequest request);
 
         /// <summary>
         /// Adds one or more customer public IP prefixes to the specified public virtual circuit. Use this operation 
@@ -375,6 +390,13 @@ namespace OCISDK.Core.Core
         CreateNatGatewayResponse CreateNatGateway(CreateNatGatewayRequest request);
 
         /// <summary>
+        /// Creates a VLAN in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateVlanResponse CreateVlan(CreateVlanRequest request);
+
+        /// <summary>
         /// Updates the specified CPE's display name or tags. Avoid entering confidential information.
         /// </summary>
         /// <param name="request"></param>
@@ -474,6 +496,14 @@ namespace OCISDK.Core.Core
         UpdateNatGatewayResponse UpdateNatGateway(UpdateNatGatewayRequest request);
 
         /// <summary>
+        /// Updates the specified VLAN. This could result in changes to all the VNICs in the VLAN, which can take time. During that transition period, the 
+        /// VLAN will be in the UPDATING state.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateVlanResponse UpdateVlan(UpdateVlanRequest request);
+
+        /// <summary>
         /// Deletes the specified CPE object. The CPE must not be connected to a DRG. This is an asynchronous operation. The CPE's lifecycleState will change to 
         /// TERMINATING temporarily until the CPE is completely removed.
         /// </summary>
@@ -567,5 +597,12 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         DeleteNatGatewayResponse DeleteNatGateway(DeleteNatGatewayRequest request);
+
+        /// <summary>
+        /// Deletes the specified VLAN, but only if there are no VNICs in the VLAN.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteVlanResponse DeleteVlan(DeleteVlanRequest request);
     }
 }
