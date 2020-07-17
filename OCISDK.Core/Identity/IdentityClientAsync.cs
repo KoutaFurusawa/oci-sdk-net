@@ -145,6 +145,31 @@ namespace OCISDK.Core.Identity
         }
 
         /// <summary>
+        /// Gets the authentication policy for the given tenancy. You must specify your tenant’s OCID as the value for the 
+        /// compartment ID (remember that the tenancy is simply the root compartment).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetAuthenticationPolicyResponse> GetAuthenticationPolicy(GetAuthenticationPolicyRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.AuthenticationPolicies, this.Region)}/{request.CompartmentId}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new GetAuthenticationPolicyResponse()
+                {
+                    AuthenticationPolicy = JsonSerializer.Deserialize<AuthenticationPolicy>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -948,6 +973,30 @@ namespace OCISDK.Core.Identity
                 return new ChangeTagNamespaceCompartmentResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Updates authentication policy for the specified tenancy
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<UpdateAuthenticationPolicyResponse> UpdateAuthenticationPolicy(UpdateAuthenticationPolicyRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.AuthenticationPolicies, this.Region)}/{request.CompartmentId}");
+
+            using (var webResponse = await this.RestClientAsync.Put(uri, request.UpdateAuthenticationPolicyDetails, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new UpdateAuthenticationPolicyResponse()
+                {
+                    AuthenticationPolicy = JsonSerializer.Deserialize<AuthenticationPolicy>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("etag")
                 };
             }
         }

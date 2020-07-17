@@ -6,6 +6,10 @@
     public class IdentityServices
     {
         /// <summary>
+        /// authenticationPolicies
+        /// </summary>
+        public readonly static string AuthenticationPolicies = "authenticationPolicies";
+        /// <summary>
         /// Users
         /// </summary>
         public readonly static string Users = "users";

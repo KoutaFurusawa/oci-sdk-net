@@ -43,6 +43,14 @@ namespace OCISDK.Core.Identity
         ListPoliciesResponse ListPolicies(ListPoliciesRequest param);
 
         /// <summary>
+        /// Gets the authentication policy for the given tenancy. You must specify your tenant’s OCID as the value for the 
+        /// compartment ID (remember that the tenancy is simply the root compartment).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetAuthenticationPolicyResponse GetAuthenticationPolicy(GetAuthenticationPolicyRequest request);
+
+        /// <summary>
         /// Get the specified tenancy's information.
         /// </summary>
         /// <param name="getRequest"></param>
@@ -311,6 +319,13 @@ namespace OCISDK.Core.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         ChangeTagNamespaceCompartmentResponse ChangeTagNamespaceCompartment(ChangeTagNamespaceCompartmentRequest request);
+
+        /// <summary>
+        /// Updates authentication policy for the specified tenancy
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        UpdateAuthenticationPolicyResponse UpdateAuthenticationPolicy(UpdateAuthenticationPolicyRequest request);
 
         /// <summary>
         /// Updates the specified compartment's description or name. You can't update the root compartment.
