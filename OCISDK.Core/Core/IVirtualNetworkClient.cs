@@ -97,6 +97,13 @@ namespace OCISDK.Core.Core
         ListNatGatewaysResponse ListNatGateways(ListNatGatewaysRequest request);
 
         /// <summary>
+        /// Lists the VLANs in the specified VCN and the specified compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListVlansResponse ListVlans(ListVlansRequest request);
+
+        /// <summary>
         /// Gets the specified CPE's information.
         /// </summary>
         /// <param name="request"></param>
