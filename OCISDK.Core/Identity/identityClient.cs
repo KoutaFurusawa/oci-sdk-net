@@ -46,7 +46,34 @@ namespace OCISDK.Core.Identity
         {
             ServiceName = identityServiceName;
         }
-        
+
+        /// <summary>
+        /// Lists the API signing keys for the specified user. A user can have a maximum of three keys.
+        /// 
+        /// Every user has permission to use this API call for their own user ID. An administrator in your organization does not 
+        /// need to write a policy to give users this ability.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListApiKeysResponse ListApiKeys(ListApiKeysRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/apiKeys");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListApiKeysResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<ApiKeyDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
         /// <summary>
         /// Lists all the regions offered by Oracle Cloud Infrastructure.
         /// </summary>
@@ -644,6 +671,42 @@ namespace OCISDK.Core.Identity
         }
 
         /// <summary>
+        /// Uploads an API signing key for the specified user.
+        /// 
+        /// Every user has permission to use this operation to upload a key for their own user ID. An administrator in your 
+        /// organization does not need to write a policy to give users this ability. To compare, administrators who have 
+        /// permission to the tenancy can use this operation to upload a key for any user, including themselves.
+        /// 
+        /// Important: Even though you have permission to upload an API key, you might not yet have permission to do much 
+        /// else. If you try calling an operation unrelated to your own credential management (e.g., ListUsers, LaunchInstance) 
+        /// and receive an "unauthorized" error, check with an administrator to confirm which IAM Service group(s) you're in and 
+        /// what access you have. Also confirm you're working in the correct compartment.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, 
+        /// first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public UploadApiKeyResponse UploadApiKey(UploadApiKeyRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/apiKeys");
+
+            using (var webResponse = this.RestClient.Post(uri, request.CreateApiKeyDetails, new HttpRequestHeaderParam() { OpcRetryToken = request.OpcRetryToken }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new UploadApiKeyResponse()
+                {
+                    ApiKey = JsonSerializer.Deserialize<ApiKeyDetails>(response),
+                    ETag = webResponse.Headers.Get("ETag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new compartment in the specified compartment.
         /// </summary>
         /// <param name="createRequest"></param>
@@ -1103,6 +1166,32 @@ namespace OCISDK.Core.Identity
                     IdentityProvider = JsonSerializer.Deserialize<IdentityProvider>(response),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id"),
                     ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified API signing key for the specified user.
+        /// 
+        /// Every user has permission to use this operation to delete a key for their own user ID. An administrator in your 
+        /// organization does not need to write a policy to give users this ability. To compare, administrators who have 
+        /// permission to the tenancy can use this operation to delete a key for any user, including themselves.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteApiKeyResponse DeleteApiKey(DeleteApiKeyRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.Users, this.Region)}/{request.UserId}/apiKeys/{request.Fingerprint}");
+
+            using (var webResponse = this.RestClient.Delete(uri, new HttpRequestHeaderParam() { IfMatch = request.IfMatch }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteApiKeyResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
             }
         }

@@ -13,6 +13,16 @@ namespace OCISDK.Core.Identity
     public interface IIdentityClientAsync : IClientSetting
     {
         /// <summary>
+        /// Lists the API signing keys for the specified user. A user can have a maximum of three keys.
+        /// 
+        /// Every user has permission to use this API call for their own user ID. An administrator in your organization does not 
+        /// need to write a policy to give users this ability.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListApiKeysResponse> ListApiKeys(ListApiKeysRequest request);
+
+        /// <summary>
         /// Lists all the regions offered by Oracle Cloud Infrastructure.
         /// </summary>
         /// <returns></returns>
@@ -170,6 +180,25 @@ namespace OCISDK.Core.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         Task<GetIdentityProviderResponse> GetIdentityProvider(GetIdentityProviderRequest request);
+
+        /// <summary>
+        /// Uploads an API signing key for the specified user.
+        /// 
+        /// Every user has permission to use this operation to upload a key for their own user ID. An administrator in your 
+        /// organization does not need to write a policy to give users this ability. To compare, administrators who have 
+        /// permission to the tenancy can use this operation to upload a key for any user, including themselves.
+        /// 
+        /// Important: Even though you have permission to upload an API key, you might not yet have permission to do much 
+        /// else. If you try calling an operation unrelated to your own credential management (e.g., ListUsers, LaunchInstance) 
+        /// and receive an "unauthorized" error, check with an administrator to confirm which IAM Service group(s) you're in and 
+        /// what access you have. Also confirm you're working in the correct compartment.
+        /// 
+        /// After you send your request, the new object's lifecycleState will temporarily be CREATING. Before using the object, 
+        /// first make sure its lifecycleState has changed to ACTIVE.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<UploadApiKeyResponse> UploadApiKey(UploadApiKeyRequest request);
 
         /// <summary>
         /// Creates a new compartment in the specified compartment.
@@ -349,6 +378,17 @@ namespace OCISDK.Core.Identity
         /// <param name="request"></param>
         /// <returns></returns>
         Task<UpdateIdentityProviderResponse> UpdateIdentityProvider(UpdateIdentityProviderRequest request);
+
+        /// <summary>
+        /// Deletes the specified API signing key for the specified user.
+        /// 
+        /// Every user has permission to use this operation to delete a key for their own user ID. An administrator in your 
+        /// organization does not need to write a policy to give users this ability. To compare, administrators who have 
+        /// permission to the tenancy can use this operation to delete a key for any user, including themselves.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DeleteApiKeyResponse> DeleteApiKey(DeleteApiKeyRequest request);
 
         /// <summary>
         /// Deletes the specified compartment. The compartment must be empty.
