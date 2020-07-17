@@ -23,6 +23,15 @@ namespace OCISDK.Core.Identity
         Task<ListApiKeysResponse> ListApiKeys(ListApiKeysRequest request);
 
         /// <summary>
+        /// Lists the Fault Domains in your tenancy. Specify the OCID of either the tenancy or another of your compartments as 
+        /// the value for the compartment ID (remember that the tenancy is simply the root compartment). See Where to Get the 
+        /// Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListFaultDomainsResponse> ListFaultDomains(ListFaultDomainsRequest request);
+
+        /// <summary>
         /// Lists all the regions offered by Oracle Cloud Infrastructure.
         /// </summary>
         /// <returns></returns>

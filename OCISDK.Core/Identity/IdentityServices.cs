@@ -26,6 +26,10 @@
         /// </summary>
         public readonly static string AvailabilityDomain = "availabilityDomains";
         /// <summary>
+        /// faultDomains
+        /// </summary>
+        public readonly static string FaultDomains = "faultDomains";
+        /// <summary>
         /// Compartment
         /// </summary>
         public readonly static string Compartment = "compartments";

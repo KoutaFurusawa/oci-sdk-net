@@ -76,6 +76,31 @@ namespace OCISDK.Core.Identity
         }
 
         /// <summary>
+        /// Lists the Fault Domains in your tenancy. Specify the OCID of either the tenancy or another of your compartments as 
+        /// the value for the compartment ID (remember that the tenancy is simply the root compartment). See Where to Get the 
+        /// Tenancy's OCID and User's OCID.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ListFaultDomainsResponse> ListFaultDomains(ListFaultDomainsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(IdentityServices.FaultDomains, this.Region)}?compartmentId={request.CompartmentId}&availabilityDomain={request.AvailabilityDomain}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new ListFaultDomainsResponse()
+                {
+                    Items = JsonSerializer.Deserialize<List<FaultDomainDetails>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Lists all the regions offered by Oracle Cloud Infrastructure.
         /// </summary>
         /// <returns></returns>
