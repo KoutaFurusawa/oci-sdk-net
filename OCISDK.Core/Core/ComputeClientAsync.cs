@@ -227,6 +227,30 @@ namespace OCISDK.Core.Core
         }
 
         /// <summary>
+        /// Gets the specified listing resource version.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<GetAppCatalogListingResourceVersionResponse> GetAppCatalogListingResourceVersion(GetAppCatalogListingResourceVersionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogListings, this.Region)}/{request.ListingId}/resourceVersions/{request.ResourceVersion}");
+
+            using (var webResponse = await this.RestClientAsync.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = await reader.ReadToEndAsync();
+
+                return new GetAppCatalogListingResourceVersionResponse()
+                {
+                    AppCatalogListingResourceVersion = this.JsonSerializer.Deserialize<AppCatalogListingResourceVersion>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>

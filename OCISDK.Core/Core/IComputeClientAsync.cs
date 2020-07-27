@@ -74,6 +74,13 @@ namespace OCISDK.Core.Core
         Task<GetAppCatalogListingResponse> GetAppCatalogListing(GetAppCatalogListingRequest request);
 
         /// <summary>
+        /// Gets the specified listing resource version.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetAppCatalogListingResourceVersionResponse> GetAppCatalogListingResourceVersion(GetAppCatalogListingResourceVersionRequest request);
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>

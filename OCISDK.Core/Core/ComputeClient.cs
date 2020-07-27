@@ -2,6 +2,7 @@
 using OCISDK.Core.Core.Model.Compute;
 using OCISDK.Core.Core.Request.Compute;
 using OCISDK.Core.Core.Response.Compute;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -250,6 +251,30 @@ namespace OCISDK.Core.Core
                 return new GetAppCatalogListingResponse()
                 {
                     AppCatalogListing = this.JsonSerializer.Deserialize<AppCatalogListing>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Gets the specified listing resource version.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetAppCatalogListingResourceVersionResponse GetAppCatalogListingResourceVersion(GetAppCatalogListingResourceVersionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogListings, this.Region)}/{request.ListingId}/resourceVersions/{request.ResourceVersion}");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetAppCatalogListingResourceVersionResponse()
+                {
+                    AppCatalogListingResourceVersion = this.JsonSerializer.Deserialize<AppCatalogListingResourceVersion>(response),
                     ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };

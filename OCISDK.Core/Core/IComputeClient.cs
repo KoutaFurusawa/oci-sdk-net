@@ -80,6 +80,13 @@ namespace OCISDK.Core.Core
         GetAppCatalogListingResponse GetAppCatalogListing(GetAppCatalogListingRequest request);
 
         /// <summary>
+        /// Gets the specified listing resource version.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetAppCatalogListingResourceVersionResponse GetAppCatalogListingResourceVersion(GetAppCatalogListingResourceVersionRequest request);
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>
