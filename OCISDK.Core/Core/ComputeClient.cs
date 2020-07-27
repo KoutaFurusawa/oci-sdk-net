@@ -233,6 +233,30 @@ namespace OCISDK.Core.Core
         }
 
         /// <summary>
+        /// Gets the specified listing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetAppCatalogListingResponse GetAppCatalogListing(GetAppCatalogListingRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogListings, this.Region)}/{request.ListingId}");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetAppCatalogListingResponse()
+                {
+                    AppCatalogListing = this.JsonSerializer.Deserialize<AppCatalogListing>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>

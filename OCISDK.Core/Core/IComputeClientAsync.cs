@@ -67,6 +67,13 @@ namespace OCISDK.Core.Core
         Task<ListConsoleHistoriesResponse> ListConsoleHistories(ListConsoleHistoriesRequest param);
 
         /// <summary>
+        /// Gets the specified listing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetAppCatalogListingResponse> GetAppCatalogListing(GetAppCatalogListingRequest request);
+
+        /// <summary>
         /// Gets information about the specified instance.
         /// </summary>
         /// <param name="getRequest"></param>

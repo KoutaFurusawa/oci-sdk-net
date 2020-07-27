@@ -15,6 +15,10 @@ namespace OCISDK.Core.Core
         public readonly static string CoreServiceName = "core";
 
         /// <summary>
+        /// appCatalogListings
+        /// </summary>
+        public readonly static string AppCatalogListings = "appCatalogListings";
+        /// <summary>
         /// VCN
         /// </summary>
         public readonly static string VCN = "vcns";
