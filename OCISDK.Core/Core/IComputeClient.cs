@@ -12,6 +12,27 @@ namespace OCISDK.Core.Core
     public interface IComputeClient : IClientSetting
     {
         /// <summary>
+        /// Gets all resource versions for a particular listing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListAppCatalogListingResourceVersionsResponse ListAppCatalogListingResourceVersions(ListAppCatalogListingResourceVersionsRequest request);
+
+        /// <summary>
+        /// Lists the published listings.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListAppCatalogListingsResponse ListAppCatalogListings(ListAppCatalogListingsRequest request);
+
+        /// <summary>
+        /// Lists subscriptions for a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ListAppCatalogSubscriptionsResponse ListAppCatalogSubscriptions(ListAppCatalogSubscriptionsRequest request);
+
+        /// <summary>
         /// Lists the instances in the specified compartment and the specified availability domain.
         /// You can filter the results by specifying an instance name (the list will include all the identically-named
         /// instances in the compartment).
@@ -85,6 +106,13 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         GetAppCatalogListingResourceVersionResponse GetAppCatalogListingResourceVersion(GetAppCatalogListingResourceVersionRequest request);
+
+        /// <summary>
+        /// Retrieves the agreements for a particular resource version of a listing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        GetAppCatalogListingAgreementsResponse GetAppCatalogListingAgreements(GetAppCatalogListingAgreementsRequest request);
 
         /// <summary>
         /// Gets information about the specified instance.
@@ -183,6 +211,13 @@ namespace OCISDK.Core.Core
         ChangeImageCompartmentResponse ChangeImageCompartment(ChangeImageCompartmentRequest param);
 
         /// <summary>
+        /// Create a subscription for listing resource version for a compartment. It will take some time to propagate to all regions.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateAppCatalogSubscriptionResponse CreateAppCatalogSubscription(CreateAppCatalogSubscriptionRequest request);
+
+        /// <summary>
         /// Creates a new instance in the specified compartment and the specified availability domain. 
         /// For general information about instances, see Overview of the Compute Service.
         /// For information about access control and compartments, see Overview of the IAM Service.
@@ -278,6 +313,13 @@ namespace OCISDK.Core.Core
         /// <param name="detachRequest"></param>
         /// <returns></returns>
         DetachVolumeResponse DetachVolume(DetachVolumeRequest detachRequest);
+
+        /// <summary>
+        /// Delete a subscription for a listing resource version for a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        DeleteAppCatalogSubscriptionResponse DeleteAppCatalogSubscription(DeleteAppCatalogSubscriptionRequest request);
 
         /// <summary>
         /// Deletes the specified console history metadata and the console history data.

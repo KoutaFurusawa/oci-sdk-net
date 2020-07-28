@@ -19,6 +19,10 @@ namespace OCISDK.Core.Core
         /// </summary>
         public readonly static string AppCatalogListings = "appCatalogListings";
         /// <summary>
+        /// appCatalogSubscriptions
+        /// </summary>
+        public readonly static string AppCatalogSubscriptions = "appCatalogSubscriptions";
+        /// <summary>
         /// VCN
         /// </summary>
         public readonly static string VCN = "vcns";

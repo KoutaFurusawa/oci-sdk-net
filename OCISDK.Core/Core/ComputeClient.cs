@@ -45,7 +45,80 @@ namespace OCISDK.Core.Core
         {
             ServiceName = CoreServices.CoreServiceName;
         }
-        
+
+        /// <summary>
+        /// Gets all resource versions for a particular listing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListAppCatalogListingResourceVersionsResponse ListAppCatalogListingResourceVersions(ListAppCatalogListingResourceVersionsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogListings, this.Region)}/{request.ListingId}/resourceVersions?{request.GetOptionQuery()}");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListAppCatalogListingResourceVersionsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<AppCatalogListingResourceVersionSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page"),
+                    ETag = webResponse.Headers.Get("etag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists the published listings.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListAppCatalogListingsResponse ListAppCatalogListings(ListAppCatalogListingsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogListings, this.Region)}?{request.GetOptionQuery()}");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListAppCatalogListingsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<AppCatalogListingSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Lists subscriptions for a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ListAppCatalogSubscriptionsResponse ListAppCatalogSubscriptions(ListAppCatalogSubscriptionsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogSubscriptions, this.Region)}?{request.GetOptionQuery()}");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ListAppCatalogSubscriptionsResponse()
+                {
+                    Items = this.JsonSerializer.Deserialize<List<AppCatalogSubscriptionSummary>>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    OpcNextPage = webResponse.Headers.Get("opc-next-page")
+                };
+            }
+        }
+
         /// <summary>
         /// Lists the instances in the specified compartment and the specified availability domain.
         /// You can filter the results by specifying an instance name (the list will include all the identically-named
@@ -275,6 +348,30 @@ namespace OCISDK.Core.Core
                 return new GetAppCatalogListingResourceVersionResponse()
                 {
                     AppCatalogListingResourceVersion = this.JsonSerializer.Deserialize<AppCatalogListingResourceVersion>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the agreements for a particular resource version of a listing.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public GetAppCatalogListingAgreementsResponse GetAppCatalogListingAgreements(GetAppCatalogListingAgreementsRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogListings, this.Region)}/{request.ListingId}/resourceVersions/{request.ResourceVersion}/agreements");
+
+            using (var webResponse = this.RestClient.Get(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new GetAppCatalogListingAgreementsResponse()
+                {
+                    AppCatalogListingResourceVersionAgreements = this.JsonSerializer.Deserialize<AppCatalogListingResourceVersionAgreements>(response),
                     ETag = webResponse.Headers.Get("etag"),
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
@@ -615,6 +712,30 @@ namespace OCISDK.Core.Core
         }
 
         /// <summary>
+        /// Create a subscription for listing resource version for a compartment. It will take some time to propagate to all regions.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateAppCatalogSubscriptionResponse CreateAppCatalogSubscription(CreateAppCatalogSubscriptionRequest request)
+        {
+            var uri = new Uri(GetEndPoint(CoreServices.AppCatalogSubscriptions, this.Region));
+
+            using (var webResponse = this.RestClient.Post(uri, request.CreateAppCatalogSubscriptionDetails, new HttpRequestHeaderParam { OpcRetryToken = request.OpcRetryToken }))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateAppCatalogSubscriptionResponse()
+                {
+                    AppCatalogSubscription = this.JsonSerializer.Deserialize<AppCatalogSubscription>(response),
+                    ETag = webResponse.Headers.Get("etag"),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
         /// Creates a new instance in the specified compartment and the specified availability domain. 
         /// For general information about instances, see Overview of the Compute Service.
         /// For information about access control and compartments, see Overview of the IAM Service.
@@ -846,6 +967,28 @@ namespace OCISDK.Core.Core
                 var response = reader.ReadToEnd();
 
                 return new DetachVolumeResponse()
+                {
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Delete a subscription for a listing resource version for a compartment.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public DeleteAppCatalogSubscriptionResponse DeleteAppCatalogSubscription(DeleteAppCatalogSubscriptionRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(CoreServices.AppCatalogSubscriptions, this.Region)}?{request.GetQuery()}");
+
+            using (var webResponse = this.RestClient.Delete(uri))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new DeleteAppCatalogSubscriptionResponse()
                 {
                     OpcRequestId = webResponse.Headers.Get("opc-request-id")
                 };
