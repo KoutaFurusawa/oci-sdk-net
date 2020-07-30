@@ -51,6 +51,10 @@ namespace OCISDK.Core.Core
         /// </summary>
         public readonly static string CPE = "cpes";
         /// <summary>
+        /// cpeDeviceShapes
+        /// </summary>
+        public readonly static string CpeDeviceShapes = "cpeDeviceShapes";
+        /// <summary>
         /// ClusterNetworks
         /// </summary>
         public readonly static string ClusterNetworks = "clusterNetworks";

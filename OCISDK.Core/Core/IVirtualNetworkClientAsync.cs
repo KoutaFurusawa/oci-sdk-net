@@ -17,6 +17,17 @@ namespace OCISDK.Core.Core
         Task<ListCpesResponse> ListCpes(ListCpesRequest request);
 
         /// <summary>
+        /// Lists the CPE device types that the Networking service provides CPE configuration content for (example: Cisco ASA). 
+        /// The content helps a network engineer configure the actual CPE device represented by a Cpe object.
+        /// 
+        /// If you want to generate CPE configuration content for one of the returned CPE device types, ensure that the Cpe 
+        /// object's cpeDeviceShapeId attribute is set to the CPE device type's OCID (returned by this operation).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListCpeDeviceShapesResponse> ListCpeDeviceShapes(ListCpeDeviceShapesRequest request);
+
+        /// <summary>
         /// Lists the sets of DHCP options in the specified VCN and specified compartment.
         /// The response includes the default set of options that automatically comes with each VCN,
         /// plus any other sets you've created.
@@ -111,6 +122,16 @@ namespace OCISDK.Core.Core
         /// <param name="request"></param>
         /// <returns></returns>
         Task<GetCpeResponse> GetCpe(GetCpeRequest request);
+
+        /// <summary>
+        /// Gets the detailed information about the specified CPE device type. This might include a set of questions that are 
+        /// specific to the particular CPE device type. The customer must supply answers to those questions (see 
+        /// UpdateTunnelCpeDeviceConfig). The service merges the answers with a template of other information for the CPE 
+        /// device type. 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<GetCpeDeviceShapeResponse> GetCpeDeviceShape(GetCpeDeviceShapeRequest request);
 
         /// <summary>
         /// Gets the specified set of DHCP options.
