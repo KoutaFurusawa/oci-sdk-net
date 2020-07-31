@@ -117,6 +117,7 @@ namespace Example
                 Console.WriteLine("[f]: Budgets Example");
                 Console.WriteLine("[g]: ObjectStorageDirectoryInfo Example");
                 Console.WriteLine("[h]: Usage Example");
+                Console.WriteLine("[i]: SupportManagement Example");
                 Console.WriteLine("[ESC]: Exit Example");
                 Console.WriteLine("");
 
@@ -203,13 +204,13 @@ namespace Example
                     IdentityUsersExample.ConsoleDisplay(config);
                 }
 
-                //users
+                // notification
                 if (mode == '1' || mode == 'e')
                 {
                     NotificationExample.ResourcesExample(config);
                 }
 
-                //budget
+                // budget
                 if (mode == '1' || mode == 'f')
                 {
                     BudgetsExample.ConsoleDisplay(config);
@@ -221,9 +222,16 @@ namespace Example
                     ObjectStorageDirectoryInfoExample.Example(config);
                 }
 
+                // usage
                 if (mode == '1' || mode == 'h')
                 {
                     UsageExample.Example(config);
+                }
+
+                // SupportManagement
+                if (mode == '1' || mode == 'i')
+                {
+                    SupportManagementExample.Example(config);
                 }
             }
         }

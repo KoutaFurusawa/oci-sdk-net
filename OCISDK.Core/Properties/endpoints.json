@@ -98,6 +98,10 @@
     "console-idcs": {
       "version": "20181127",
       "hosttag": "console-idcs"
+    },
+    "support-management": {
+      "version": "20181231",
+      "hosttag": "incidentmanagement"
     }
   }
 }

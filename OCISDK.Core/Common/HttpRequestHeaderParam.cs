@@ -98,7 +98,12 @@ namespace OCISDK.Core.Common
         /// <summary>
         /// opc-meta-*
         /// </summary>
-        public Dictionary<string, string> OpcMeta { get; set; }
+        public Dictionary<string, string> OpcMeta { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>
+        /// free keyword header
+        /// </summary>
+        public Dictionary<string, string> FreeHeader { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// HttpWebRequest setting header
@@ -192,11 +197,19 @@ namespace OCISDK.Core.Common
                 httpWebRequest.Headers["Cache-Control"] = CacheControl;
             }
 
-            if(OpcMeta != null)
+            if(OpcMeta.Count > 0)
             {
                 foreach (var key in OpcMeta.Keys)
                 {
                     httpWebRequest.Headers[$"opc-meta-{key}"] = OpcMeta[key];
+                }
+            }
+
+            if (FreeHeader.Count > 0)
+            {
+                foreach (var key in FreeHeader.Keys)
+                {
+                    httpWebRequest.Headers[key] = FreeHeader[key];
                 }
             }
 
