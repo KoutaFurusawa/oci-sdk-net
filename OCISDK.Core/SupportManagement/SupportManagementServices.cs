@@ -13,5 +13,7 @@ namespace OCISDK.Core.SupportManagement
         /// incidents
         /// </summary>
         public readonly static string Incidents = "v2/incidents";
+
+        public readonly static string Users = "v2/users";
     }
 }

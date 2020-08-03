@@ -87,6 +87,74 @@ namespace OCISDK.Core.SupportManagement
         }
 
         /// <summary>
+        /// Create user to request Customer Support Identifier(CSI) to Customer User Administrator(CUA).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateUserResponse CreateUser(CreateUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(SupportManagementServices.Users, this.Region)}");
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                OpcRetryToken = request.OpcRetryToken,
+                OpcRequestId = request.OpcRequestId
+            };
+            headers.FreeHeader.Add("ocid", request.Ocid);
+            if (!string.IsNullOrEmpty(request.Homeregion))
+            {
+                headers.FreeHeader.Add("homeregion", request.Homeregion);
+            }
+            using (var webResponse = this.RestClient.Post(uri, request.CreateUserDetails, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new CreateUserResponse()
+                {
+                    User = this.JsonSerializer.Deserialize<UserDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
+        /// Checks whether the requested user is valid.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ValidateUserResponse ValidateUser(ValidateUserRequest request)
+        {
+            var uri = new Uri($"{GetEndPoint(SupportManagementServices.Incidents, this.Region)}/user/validate?{request.ProblemType}");
+
+            var headers = new HttpRequestHeaderParam()
+            {
+                OpcRequestId = request.OpcRequestId
+            };
+            headers.FreeHeader.Add("csi", request.Csi);
+            headers.FreeHeader.Add("ocid", request.Ocid);
+            if (!string.IsNullOrEmpty(request.Homeregion))
+            {
+                headers.FreeHeader.Add("homeregion", request.Homeregion);
+            }
+            using (var webResponse = this.RestClient.Get(uri, headers))
+            using (var stream = webResponse.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                var response = reader.ReadToEnd();
+
+                return new ValidateUserResponse()
+                {
+                    ValidationResponse = this.JsonSerializer.Deserialize<ValidationResponseDetails>(response),
+                    OpcRequestId = webResponse.Headers.Get("opc-request-id"),
+                    ETag = webResponse.Headers.Get("ETag")
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the details of the support ticket.
         /// </summary>
         /// <param name="request"></param>

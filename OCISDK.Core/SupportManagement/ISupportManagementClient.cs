@@ -19,6 +19,20 @@ namespace OCISDK.Core.SupportManagement
         CreateIncidentResponse CreateIncident(CreateIncidentRequest request);
 
         /// <summary>
+        /// Create user to request Customer Support Identifier(CSI) to Customer User Administrator(CUA).
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        CreateUserResponse CreateUser(CreateUserRequest request);
+
+        /// <summary>
+        /// Checks whether the requested user is valid.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        ValidateUserResponse ValidateUser(ValidateUserRequest request);
+
+        /// <summary>
         /// Gets the details of the support ticket.
         /// </summary>
         /// <param name="request"></param>
