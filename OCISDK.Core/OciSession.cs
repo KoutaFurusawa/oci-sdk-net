@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using OCISDK.Core.Usage;
+using OCISDK.Core.SupportManagement;
 
 namespace OCISDK.Core
 {
@@ -439,6 +440,15 @@ namespace OCISDK.Core
         public IUsageCostsClient GetUsageCostsClient()
         {
             return new UsageCostsClient(ClientConfigStream, OciSigner);
+        }
+
+        /// <summary>
+        /// GetSupportManagementClient
+        /// </summary>
+        /// <returns></returns>
+        public ISupportManagementClient GetSupportManagementClient()
+        {
+            return new SupportManagementClient(ClientConfigStream, OciSigner);
         }
 
         /// <summary>

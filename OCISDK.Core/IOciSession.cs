@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using OCISDK.Core.UnpublishedService.ConsoleIdcs;
 using OCISDK.Core.Usage;
+using OCISDK.Core.SupportManagement;
 
 namespace OCISDK.Core
 {
@@ -251,6 +252,12 @@ namespace OCISDK.Core
         /// </summary>
         /// <returns></returns>
         IUsageCostsClient GetUsageCostsClient();
+
+        /// <summary>
+        /// GetSupportManagementClient
+        /// </summary>
+        /// <returns></returns>
+        ISupportManagementClient GetSupportManagementClient();
 
         /// <summary>
         /// GetConsoleIdcsClient
