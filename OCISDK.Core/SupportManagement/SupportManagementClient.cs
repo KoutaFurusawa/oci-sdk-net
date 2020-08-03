@@ -127,7 +127,13 @@ namespace OCISDK.Core.SupportManagement
         /// <returns></returns>
         public ValidateUserResponse ValidateUser(ValidateUserRequest request)
         {
-            var uri = new Uri($"{GetEndPoint(SupportManagementServices.Incidents, this.Region)}/user/validate?{request.ProblemType}");
+            string uriStr = $"{GetEndPoint(SupportManagementServices.Incidents, this.Region)}/user/validate";
+            if (!string.IsNullOrEmpty(request.ProblemType))
+            {
+                uriStr = $"{uriStr}?{request.ProblemType}";
+            }
+
+            var uri = new Uri(uriStr);
 
             var headers = new HttpRequestHeaderParam()
             {
