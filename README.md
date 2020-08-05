@@ -2,11 +2,21 @@
 
 ## About
 
+警告:
+オラクルから公式なSDKが公開されました。今後は公式なSDKの利用を推奨いたします。
+また、本SDKのメンテナンスも今後は低下させていきますので、ご了承ください。
+https://github.com/oracle/oci-dotnet-sdk
+
 .Net向け非公式Oracle Cloud SDK。
 一部のAPIにのみ対応。
 本SDKは非公式であり、すべてのOCIサービスをサポートするものではありません。また、個人的な研究と限られたプロジェクトでの利用のみを想定しています。
 本SDKを利用したことで発生したいかなる問題に関して作成者は責任を負いかねますのでご了承ください。
 本SDKに対するご意見・ご要望はGitHubまでお願いします。
+
+warning:
+The official SDK has been released by Oracle. We recommend using the official SDK in the future.
+Please be aware that the maintenance of this SDK will be reduced in the future.
+https://github.com/oracle/oci-dotnet-sdk
 
 Unofficial Oracle Cloud SDK for .NET.
 Supports several APIs.
