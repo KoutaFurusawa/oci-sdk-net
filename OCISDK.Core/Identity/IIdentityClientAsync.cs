@@ -23,6 +23,18 @@ namespace OCISDK.Core.Identity
         Task<ListApiKeysResponse> ListApiKeys(ListApiKeysRequest request);
 
         /// <summary>
+        /// Lists the resource-types supported by compartment bulk actions. Use this API to help you provide the correct 
+        /// resource-type information to the BulkDeleteResources and BulkMoveResources operations. The returned list of 
+        /// resource-types provides the appropriate resource-type names to use with the bulk action operations along with the 
+        /// type of identifying information you'll need to provide for each resource-type. Most resource-types just require an 
+        /// OCID to identify a specific resource, but some resource-types, such as buckets, require you to provide other 
+        /// identifying information.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ListBulkActionResourceTypesResponse> ListBulkActionResourceTypes(ListBulkActionResourceTypesRequest request);
+
+        /// <summary>
         /// Lists the Fault Domains in your tenancy. Specify the OCID of either the tenancy or another of your compartments as 
         /// the value for the compartment ID (remember that the tenancy is simply the root compartment). See Where to Get the 
         /// Tenancy's OCID and User's OCID.

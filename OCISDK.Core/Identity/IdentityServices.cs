@@ -10,6 +10,10 @@
         /// </summary>
         public readonly static string AuthenticationPolicies = "authenticationPolicies";
         /// <summary>
+        /// bulkActionResourceTypes
+        /// </summary>
+        public readonly static string BulkActionResourceTypes = "bulkActionResourceTypes";
+        /// <summary>
         /// Users
         /// </summary>
         public readonly static string Users = "users";
