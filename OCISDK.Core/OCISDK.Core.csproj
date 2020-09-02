@@ -23,7 +23,7 @@ Use the official version for important work.
 RCバージョンにはバグが含まれている場合があります。
 重要な作業には公式バージョンを使用してください。
 </Description>
-    <Version>0.6.6</Version>
+    <Version>0.6.7.1</Version>
     <PackageProjectUrl>https://github.com/KoutaFurusawa/oci-sdk-net</PackageProjectUrl>
     <PackageReleaseNotes>
 2019/06/11 version 0.5.0 release
@@ -45,6 +45,15 @@ RCバージョンにはバグが含まれている場合があります。
     * Update ObjectStorage APIs
     * new region ap-hyderabad-1
     * osaka region fix
+2020/08/03 version 0.6.7.1-rc release
+2020/08/05 version 0.6.7.1 release
+    * add VLans APIs
+    * add ApiKeys APIs
+    * add AuthenticationPolicy APIs
+    * add FaultDomain APIs
+    * add AppCatalog APIs
+    *  add CPEShape APIs
+    * add SupportManagement APIs(UpdateIncident has not been implemented due to a lack of documentation)
 </PackageReleaseNotes>
     <Copyright>Copyright (c) 2020, k.furusawa. Released under the MIT license</Copyright>
     <RepositoryUrl>https://github.com/KoutaFurusawa/oci-sdk-net</RepositoryUrl>
@@ -52,8 +61,8 @@ RCバージョンにはバグが含まれている場合があります。
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <SignAssembly>false</SignAssembly>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>0.6.6.0</AssemblyVersion>
-    <FileVersion>0.6.6.0</FileVersion>
+    <AssemblyVersion>0.6.7.1</AssemblyVersion>
+    <FileVersion>0.6.7.1</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
