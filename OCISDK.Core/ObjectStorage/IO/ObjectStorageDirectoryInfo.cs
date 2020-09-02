@@ -26,6 +26,7 @@ namespace OCISDK.Core.ObjectStorage.IO
     /// </summary>
     public class ObjectStorageDirectoryInfo : IObjectStorageFileSystemInfo
     {
+        private const int GET_OBJECT_LIMIT = 100;
         private const int MULTIPLE_OBJECT_DELETE_LIMIT = 1000;
 
         internal IObjectStorageClient Client { get; }
@@ -217,6 +218,10 @@ namespace OCISDK.Core.ObjectStorage.IO
                     else
                     {
                         int end = ObjectKey.LastIndexOf('\\');
+                        if (end == 0)
+                        {
+                            return ret;
+                        }
                         int start = ObjectKey.LastIndexOf('\\', end - 1);
                         return ObjectKey.Substring(start + 1, end - start - 1);
                     }
@@ -235,16 +240,16 @@ namespace OCISDK.Core.ObjectStorage.IO
                 ObjectStorageDirectoryInfo ret = null;
                 if (!String.IsNullOrEmpty(BucketName) && !String.IsNullOrEmpty(ObjectKey))
                 {
-                    int last = ObjectKey.LastIndexOf('\\');
-                    int secondlast = ObjectKey.LastIndexOf('\\', last - 1);
+                    int last = ObjectStorageHelper.DecodeKey(ObjectKey).LastIndexOf('\\');
+                    int secondlast = ObjectStorageHelper.DecodeKey(ObjectKey).LastIndexOf('\\', last - 1);
                     if (secondlast == -1)
                     {
                         ret = Bucket;
                     }
                     else
                     {
-                        var bucketName = ObjectKey.Substring(0, secondlast);
-                        ret = new ObjectStorageDirectoryInfo(Client, BucketName, bucketName);
+                        var dirName = ObjectKey.Substring(0, secondlast);
+                        ret = new ObjectStorageDirectoryInfo(Client, NamespaceName, BucketName, dirName);
                     }
                 }
                 if (ret == null)
@@ -316,6 +321,31 @@ namespace OCISDK.Core.ObjectStorage.IO
         /// <returns></returns>
         public IEnumerable<ObjectStorageFileInfo> EnumerateFiles(string searchPattern, SearchOption searchOption)
         {
+            return EnumerateFiles(searchPattern, searchOption, -1);
+        }
+
+        /// <summary>
+        /// returns files in a directory according to the specified search pattern
+        /// </summary>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchOption"></param>
+        /// <param name="maxCount"></param>
+        /// <returns></returns>
+        public IEnumerable<ObjectStorageFileInfo> EnumerateFiles(string searchPattern, SearchOption searchOption, int maxCount)
+        {
+            return EnumerateFiles(searchPattern, searchOption, maxCount, "");
+        }
+
+        /// <summary>
+        /// returns files in a directory according to the specified search pattern
+        /// </summary>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchOption"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="nextPageId"></param>
+        /// <returns></returns>
+        public IEnumerable<ObjectStorageFileInfo> EnumerateFiles(string searchPattern, SearchOption searchOption, int maxCount, string nextPageId)
+        {
             IEnumerable<ObjectStorageFileInfo> files = null;
             if (String.IsNullOrEmpty(BucketName))
             {
@@ -323,7 +353,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             }
             else
             {
-                var metaFiles = GetOciObjects(ObjectKey, searchOption);
+                var metaFiles = GetOciObjects(ObjectKey, searchOption, maxCount, nextPageId).Where(f => !f.Name.EndsWith("/")).ToList();
 
                 files = new EnumerableConverter<ObjectSummary, ObjectStorageFileInfo>
                     (metaFiles, o => new ObjectStorageFileInfo(Client, NamespaceName, BucketName, ObjectStorageHelper.DecodeKey(o.Name)));
@@ -332,6 +362,27 @@ namespace OCISDK.Core.ObjectStorage.IO
             var regEx = WildcardToRegex(searchPattern);
             files = files.Where(o => Regex.IsMatch(o.Name, regEx, RegexOptions.IgnoreCase));
             return files;
+        }
+
+        /// <summary>
+        /// Checked Next
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckNextPage()
+        {
+            return !string.IsNullOrEmpty(NextPageId);        
+        }
+
+        /// <summary>
+        /// Next file list get
+        /// </summary>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchOption"></param>
+        /// <param name="maxCount"></param>
+        /// <returns></returns>
+        public IEnumerable<ObjectStorageFileInfo> EnumerateNextFiles(string searchPattern, SearchOption searchOption, int maxCount)
+        {
+            return EnumerateFiles(searchPattern, searchOption, maxCount, NextPageId);
         }
 
         internal class EnumerableConverter<T, U> : IEnumerable<U>
@@ -448,7 +499,7 @@ namespace OCISDK.Core.ObjectStorage.IO
             {
                 var prefixs = GetOciPrefixs(ObjectKey, searchOption);
 
-                folders = prefixs
+                folders = prefixs.ToList()
                     .ConvertAll(f => new ObjectStorageDirectoryInfo(Client, NamespaceName, BucketName, ObjectStorageHelper.DecodeKey(f)));
             }
 
@@ -492,15 +543,24 @@ namespace OCISDK.Core.ObjectStorage.IO
         }
 
         /// <summary>
+        /// Next Page Id
+        /// </summary>
+        public string NextPageId = "";
+
+        /// <summary>
         /// Get the object in the bucket.
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="searchOption"></param>
+        /// <param name="maxCount"></param>
         /// <param name="nextStartWith"></param>
         /// <returns></returns>
-        private List<ObjectSummary> GetOciObjects(string prefix, SearchOption searchOption, string nextStartWith = "")
+        private List<ObjectSummary> GetOciObjects(string prefix, SearchOption searchOption, int maxCount, string nextStartWith = "")
         {
             var res = new List<ObjectSummary>();
+
+            if (maxCount == -1)
+                maxCount = GET_OBJECT_LIMIT;
 
             string delimiter = "";
             var prefixReg = ObjectStorageHelper.EncodeKey(prefix);
@@ -517,7 +577,7 @@ namespace OCISDK.Core.ObjectStorage.IO
                 Delimiter = delimiter,
                 Prefix = prefixReg,
                 Fields = new List<string> { "name", "size", "timeCreated", "md5" },
-                Limit = 1000
+                Limit = maxCount
             };
 
             var objects = Client.ListObjects(listObjectsRequest);
@@ -543,10 +603,12 @@ namespace OCISDK.Core.ObjectStorage.IO
                 }
             }
 
+            NextPageId = objects.ListObjects.NextStartWith;
             // next check
             if (!string.IsNullOrEmpty(objects.ListObjects.NextStartWith))
             {
-                res.AddRange(GetOciObjects(ObjectStorageHelper.DecodeKey(prefix), searchOption, objects.ListObjects.NextStartWith));
+                if (maxCount == -1)
+                    res.AddRange(GetOciObjects(ObjectStorageHelper.DecodeKey(prefix), searchOption, maxCount, objects.ListObjects.NextStartWith));
             }
 
             if (objects.ListObjects.Prefixes != null && objects.ListObjects.Prefixes.Count > 0)
@@ -556,7 +618,7 @@ namespace OCISDK.Core.ObjectStorage.IO
                 {
                     foreach (var pre in objects.ListObjects.Prefixes)
                     {
-                        res.AddRange(GetOciObjects(pre, searchOption));
+                        res.AddRange(GetOciObjects(pre, searchOption, maxCount));
                     }
                 }
                 else
@@ -566,7 +628,7 @@ namespace OCISDK.Core.ObjectStorage.IO
                     {
                         foreach (var pre in newPrefix)
                         {
-                            res.AddRange(GetOciObjects(pre, searchOption));
+                            res.AddRange(GetOciObjects(pre, searchOption, maxCount));
                         }
                     }
                 }
@@ -599,7 +661,8 @@ namespace OCISDK.Core.ObjectStorage.IO
                         {
                             return true;
                         }
-                    } else
+                    }
+                    else
                     {
                         if (length >= 0 && length <= 1)
                         {
