@@ -22,7 +22,7 @@ namespace OCISDK.Core.ObjectStorage.IO
     };
 
     /// <summary>
-    /// Common interface for both ObjectStorageFileInfo and S3DirectoryInfo.
+    /// Common interface for both ObjectStorageFileInfo and ObjectStorageDirectoryInfo.
     /// </summary>
     public interface IObjectStorageFileSystemInfo
     {
